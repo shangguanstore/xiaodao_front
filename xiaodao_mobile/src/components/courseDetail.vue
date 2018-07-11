@@ -49,7 +49,10 @@
     </div>
 
     <ul class="bottom">
-      <li class="cart"></li>
+      <li class="cart">
+        <i class="icon iconfont icon-gouwuchekong"></i>
+        选课单
+      </li>
       <li class="addCart">加入选课单</li>
       <li class="pay">立即报名</li>
     </ul>
@@ -85,6 +88,8 @@ export default {
           font-size: 18px;
           .tag {
             padding: 1px 2px;
+            position: relative;
+            bottom: 3px;
             font-size: 12px;
             background: #E6BC79;
             border-radius: 2px;
@@ -145,31 +150,43 @@ export default {
     }
 
     div.more {
-      margin-top: 30px;
+      margin-top: 18px;
 
     }
+  }
 
-    ul.bottom {
-      height: 60px;
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      font-weight: 700;
-      color: white;
-      font-size: 18px;
-      text-align: center;
-      line-height: 60px;
-      li.cart {
+  ul.bottom {
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    font-weight: 700;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    line-height: 60px;
+    overflow: hidden;
+    li {
+      float: left;
+      &.cart {
         width: 20%;
         height: 100%;
+        color: black;
+        font-size: 14px;
+        font-weight: 400;
+        background: white;
+        border-top: solid 1px rgba(228, 228, 228, 1);
       }
-      li.addCart {
+      &.addCart {
         width: 40%;
         height: 100%;
+        background: #FFB121;
       }
-      li.pay {
+      &.pay {
         width: 40%;
         height: 100%;
+        background: #FF7400;
       }
     }
   }

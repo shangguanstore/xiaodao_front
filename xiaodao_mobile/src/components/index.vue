@@ -3,14 +3,14 @@
     <div class="banner"></div>
     <div class="activeBar"></div>
     <ul class="content">
-      <li><img src="@/assets/img/icon/active-icon.png" alt=""></li>
-      <li><img src="@/assets/img/icon/select-course-icon.png" alt=""></li>
-      <li><img src="@/assets/img/icon/teacher-des-icon.png" alt=""></li>
-      <li><img src="@/assets/img/icon/feature-course-icon.png" alt=""></li>
-      <li><img src="@/assets/img/icon/contact-icon.png" alt=""></li>
+      <li @click="routeTo('activeList')"><img src="@/assets/img/icon/active-icon.png" alt=""></li>
+      <li @click="routeTo('courseList')"><img src="@/assets/img/icon/select-course-icon.png" alt=""></li>
+      <li @click="routeTo('teacherList')"><img src="@/assets/img/icon/teacher-des-icon.png" alt=""></li>
+      <li @click="message()"><img src="@/assets/img/icon/feature-course-icon.png" alt=""></li>
+      <li @click="message()"><img src="@/assets/img/icon/contact-icon.png" alt=""></li>
     </ul>
     <ul class="nav">
-      <li>
+      <li @click="routeTo('index')">
         <p style="color: green">
           <i class="icon iconfont icon-home"></i>
         </p>
@@ -18,7 +18,7 @@
           首页
         </p>
       </li>
-      <li>
+      <li @click="routeTo('courseList')">
         <p>
           <i class="icon iconfont icon-xinrenkecheng"></i>
         </p>
@@ -26,7 +26,7 @@
           选课
         </p>
       </li>
-      <li>
+      <li @click="routeTo('courseList')">
         <p>
           <i class="icon iconfont icon-course"></i>
         </p>
@@ -34,7 +34,7 @@
           我的课程
         </p>
       </li>
-      <li>
+      <li @click="message()">
         <p>
           <i class="icon iconfont icon-wode"></i>
         </p>
@@ -52,6 +52,16 @@ export default {
   name: 'index',
   data () {
     return {
+    }
+  },
+  methods: {
+    routeTo(component){
+      this.$router.push({
+        name: component,
+      })
+    },
+    message() {
+      alert('玩命编码中，敬请期待！')
     }
   }
 }

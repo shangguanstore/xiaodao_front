@@ -23,7 +23,7 @@
       </div>
     </div>
     <ul class="courseArea">
-      <li>
+      <li @click="routeTo('courseDetail')">
         <p class="title">新初二语文暑假系统班-正在报名</p>
         <p class="time">7月14-8月12日·八年级</p>
         <div class="bottom">
@@ -37,7 +37,7 @@
           </div>
         </div>
       </li>
-      <li>
+      <li @click="routeTo('courseDetail')">
         <p class="title">新初二语文暑假系统班-正在报名</p>
         <p class="time">7月14-8月12日·八年级</p>
         <div class="bottom">
@@ -51,7 +51,7 @@
           </div>
         </div>
       </li>
-      <li>
+      <li @click="routeTo('courseDetail')">
         <p class="title">新初二语文暑假系统班-正在报名</p>
         <p class="time">7月14-8月12日·八年级</p>
         <div class="bottom">
@@ -65,7 +65,7 @@
           </div>
         </div>
       </li>
-      <li>
+      <li @click="routeTo('courseDetail')">
         <p class="title">新初二语文暑假系统班-正在报名</p>
         <p class="time">7月14-8月12日·八年级</p>
         <div class="bottom">
@@ -79,7 +79,21 @@
           </div>
         </div>
       </li>
-      <li>
+      <li @click="routeTo('courseDetail')">
+        <p class="title">新初二语文暑假系统班-正在报名</p>
+        <p class="time">7月14-8月12日·八年级</p>
+        <div class="bottom">
+          <div class="teachers">
+            <img src="@/assets/img/teacher.jpg" alt="">
+            <img src="@/assets/img/teacher2.jpg" alt="">
+            <img src="@/assets/img/teacher3.jpg" alt="">
+          </div>
+          <div class="important">
+            <p class="price">¥ 499</p>
+          </div>
+        </div>
+      </li>
+      <li @click="routeTo('courseDetail')">
         <p class="title">新初二语文暑假系统班-正在报名</p>
         <p class="time">7月14-8月12日·八年级</p>
         <div class="bottom">
@@ -96,7 +110,7 @@
     </ul>
 
     <ul class="nav">
-      <li>
+      <li @click="routeTo('index')">
         <p style="color: green">
           <i class="icon iconfont icon-home"></i>
         </p>
@@ -104,7 +118,7 @@
           首页
         </p>
       </li>
-      <li>
+      <li @click="routeTo('courseList')">
         <p>
           <i class="icon iconfont icon-xinrenkecheng"></i>
         </p>
@@ -112,7 +126,7 @@
           选课
         </p>
       </li>
-      <li>
+      <li @click="routeTo('courseDetail')">
         <p>
           <i class="icon iconfont icon-course"></i>
         </p>
@@ -120,7 +134,7 @@
           我的课程
         </p>
       </li>
-      <li>
+      <li @click="message()">
         <p>
           <i class="icon iconfont icon-wode"></i>
         </p>
@@ -137,6 +151,16 @@ export default {
   name: 'index',
   data () {
     return {
+    }
+  },
+  methods: {
+    routeTo(component){
+      this.$router.push({
+        name: component,
+      })
+    },
+    message() {
+      alert('玩命编码中，敬请期待！')
     }
   }
 }
@@ -233,7 +257,7 @@ export default {
       width: 25%;
       height: 55px;
       float: left;
-      border: solid 1px rgba(228, 228, 228, 1);
+      /*border: solid 1px rgba(228, 228, 228, 1);*/
       text-align: center;
       p:nth-child(1) {
         margin-top: 6px;
