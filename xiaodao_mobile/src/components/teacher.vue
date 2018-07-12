@@ -68,33 +68,34 @@ export default {
     width: 100%;
     .banner {
       width: 100%;
-      height: 220px;
-      background: grey;
+      height: 4.4rem;
+      background: url("../assets/img/teacherBanner.jpg");
+      background-size: 100% 100%;
     }
     .content {
       ul.introduce {
         li {
-          margin: 20px 10px;
+          margin: 0.4rem 0.2rem;
           p.title {
             font-weight: 700;
-            font-size: 18px;
+            font-size: 0.36rem;
           }
           ul.des {
-            font-size: 14px;
+            font-size: 0.28rem;
             li.item {
               position: relative;
-              padding-left: 19px;
+              padding-left: 0.38rem;
               span {
                 position: absolute;
-                top: 0px;
-                left: -7px;
+                top: 0;
+                left: -0.14rem;
                 color: #55a532;
               }
             }
           }
           div.des {
-            font-size: 14px;
-            margin-top: 20px;
+            font-size: 0.28rem;
+            margin-top: 0.4rem;
           }
         }
       }

@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <div class="banner"></div>
-    <div class="activeBar"></div>
+    <div class="activeBar">
+      <img src="@/assets/img/laba.png" alt="">
+      <span>答题赢iPhone | 中学生诗词大赛来袭！</span>
+    </div>
     <ul class="content">
       <li @click="routeTo('activeList')"><img src="@/assets/img/icon/active-icon.png" alt=""></li>
       <li @click="routeTo('courseList')"><img src="@/assets/img/icon/select-course-icon.png" alt=""></li>
@@ -72,15 +75,29 @@ export default {
     width: 100%;
     .banner {
       width: 100%;
-      height: 320px;
-      background: grey;
+      height: 6rem;
+      background: url("../assets/img/indexBanner.jpg");
+      background-size: 100% 100%;
     }
     .activeBar {
       width: 100%;
-      height: 48px;
-      margin-top: 2px;
-      border: solid 1px rgba(228, 228, 228, 1);
+      height: 0.96rem;
+      margin-top: 0.04rem;
+      padding: 0 0.2rem;
+      border: solid 0.02rem rgba(228, 228, 228, 1);
       background: white;
+      font-size: 0.28rem;
+      line-height: 0.96rem;
+      img {
+        width: 0.6rem;
+        height: 0.6rem;
+        position: relative;
+        top: 0.2rem;
+        left: 0.2rem;
+      }
+      span {
+        padding-left: 0.2rem;
+      }
     }
     .content {
       width: 100%;
@@ -88,17 +105,17 @@ export default {
       justify-content: flex-start;
       flex-wrap: wrap;
       li {
-        width: 125px;
-        height: 125px;
-        border: solid 1px rgba(228, 228, 228, 1);
+        width: 2.5rem;
+        height:2.5rem;
+        border: solid 0.02rem rgba(228, 228, 228, 1);
         background: white;
         text-align: center;
-        line-height: 125px;
+        line-height: 2.5rem;
       }
     }
     .nav {
       width: 100%;
-      height: 55px;
+      height: 1.1rem;
       background: white;
       position: fixed;
       bottom: 0;
@@ -107,14 +124,14 @@ export default {
         width: 25%;
         height: 100%;
         float: left;
-        border-top: solid 1px rgba(228, 228, 228, 1);
+        border-top: solid 0.02rem rgba(228, 228, 228, 1);
         text-align: center;
         p:nth-child(1) {
-          margin-top: 6px;
-          font-size: 23px;
+          margin-top: 0.01rem;
+          font-size: 0.56rem;
         }
         p:nth-child(2) {
-          font-size: 12px;
+          font-size: 0.2rem;
         }
       }
     }

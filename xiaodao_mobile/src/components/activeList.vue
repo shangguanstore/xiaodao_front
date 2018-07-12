@@ -89,40 +89,40 @@ export default {
 <style lang="less" scoped>
 .container {
   ul {
-    margin-top: -2px;
+    margin-top: -0.04rem;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     li {
       width: 93%;
-      padding: 0 10px;
-      margin-top: 5px;
+      padding: 0 0.2rem;
+      margin-top: 0.1rem;
       display: flex;
       justify-content: flex-start;
-      border-bottom: solid 1px rgba(228, 228, 228, 1);
+      border-bottom: solid 0.02rem rgba(228, 228, 228, 1);
       &:nth-child(1) {
-        border-top: solid 1px rgba(228, 228, 228, 1);
+        border-top: solid 0.02rem rgba(228, 228, 228, 1);
       }
       div.img {
-        width: 120px;
-        height: 120px;
-        margin: 18px 6px;
+        width: 2.4rem;
+        height: 2.4rem;
+        margin: 0.36rem 0.12rem;
         background: grey;
       }
       div.content {
-        width: 240px;
-        height: 120px;
-        margin-left: 6px;
+        width: 4.8rem;
+        height: 2.4rem;
+        margin-left: 0.12rem;
         p.title {
-          margin-top: 16px;
-          font-size: 16px;
+          margin-top: 0.32rem;
+          font-size: 0.32rem;
           font-weight: 600;
 
         }
 
         p.des {
-          margin-top: 6px;
-          font-size: 14px;
+          margin-top: 0.12rem;
+          font-size: 0.28rem;
         }
       }
     }
