@@ -9,7 +9,7 @@
       <li @click="routeTo('activeList')"><img src="@/assets/img/icon/active-icon.png" alt=""></li>
       <li @click="routeTo('courseList')"><img src="@/assets/img/icon/select-course-icon.png" alt=""></li>
       <li @click="routeTo('teacherList')"><img src="@/assets/img/icon/teacher-des-icon.png" alt=""></li>
-      <li @click="message()"><img src="@/assets/img/icon/feature-course-icon.png" alt=""></li>
+      <li @click="routeTo('courseList')"><img src="@/assets/img/icon/feature-course-icon.png" alt=""></li>
       <li @click="message()"><img src="@/assets/img/icon/contact-icon.png" alt=""></li>
     </ul>
     <ul class="nav">
@@ -89,10 +89,10 @@ export default {
       font-size: 0.28rem;
       line-height: 0.96rem;
       img {
-        width: 0.6rem;
-        height: 0.6rem;
+        width: 0.4rem;
+        height: 0.4rem;
         position: relative;
-        top: 0.2rem;
+        top: 0.1rem;
         left: 0.2rem;
       }
       span {
