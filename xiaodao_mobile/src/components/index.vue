@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container homeContainer">
     <div class="banner"></div>
     <div class="activeBar">
       <img src="@/assets/img/laba.png" alt="">
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .container {
+  .homeContainer {
     width: 100%;
     .banner {
       width: 100%;

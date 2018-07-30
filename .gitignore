@@ -6,3 +6,6 @@ xiaodao_manage/.DS_Store
 xiaodao_manage/node_modules/
 xiaodao_manage/dist/
 xiaodao_manage/.idea/
+
+xiaodao_mp/
+xiaodao_wepy/
