@@ -2,12 +2,12 @@
   <Content :style="{padding: '0 27px 27px 27px'}">
     <div class="manage_title">
       <Breadcrumb>
-        <BreadcrumbItem>aaa</BreadcrumbItem>
-        <BreadcrumbItem>bbb</BreadcrumbItem>
+        <BreadcrumbItem>课程管理</BreadcrumbItem>
+        <BreadcrumbItem>课程列表</BreadcrumbItem>
       </Breadcrumb>
-      <p @click="console">ccc</p>
+      <!--<p>课程列表</p>-->
     </div>
-    <div class="container mt20">
+    <div class="container courseList_container mt20">
       <p class="content_title">基本信息</p>
     </div>
   </Content>
@@ -15,29 +15,20 @@
 
 <script>
   export default {
-    name: 'template',
+    name: 'studentList',
     data() {
-      return {}
-    },
-    created() {
+      return {
 
+      }
     },
-    mounted() {
+    mounted(){
 
     },
     methods: {
-      console() {
 
-      },
-    },
-    watch: {
-      // data: function (n, o) {
-      //
-      // },
     },
   }
 </script>
-
 <style>
 
 </style>

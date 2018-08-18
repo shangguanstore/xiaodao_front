@@ -2,10 +2,10 @@
   <Content :style="{padding: '0 27px 27px 27px'}">
     <div class="manage_title">
       <Breadcrumb>
-        <BreadcrumbItem>aaa</BreadcrumbItem>
-        <BreadcrumbItem>bbb</BreadcrumbItem>
+        <BreadcrumbItem>基础信息管理</BreadcrumbItem>
+        <BreadcrumbItem>老师列表</BreadcrumbItem>
       </Breadcrumb>
-      <p @click="console">ccc</p>
+      <p>老师管理</p>
     </div>
     <div class="container mt20">
       <p class="content_title">基本信息</p>
@@ -15,29 +15,20 @@
 
 <script>
   export default {
-    name: 'template',
+    name: 'teacherList',
     data() {
-      return {}
-    },
-    created() {
+      return {
 
+      }
     },
-    mounted() {
+    mounted(){
 
     },
     methods: {
-      console() {
 
-      },
-    },
-    watch: {
-      // data: function (n, o) {
-      //
-      // },
     },
   }
 </script>
-
 <style>
 
 </style>

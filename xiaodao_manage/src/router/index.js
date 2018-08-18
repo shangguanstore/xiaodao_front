@@ -6,16 +6,46 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/reg',
+      name: 'reg',
+      component: () => import('@/pages/reg')
+    },
+    {
       path: '/',
       name: 'main',
-      component: () => import('@/components/main'),
+      component: () => import('@/pages/main'),
       redirect: '/admin',
       children: [
         {
           path: '/',
           name: 'admin',
-          component: () => import('@/components/admin')
-        }
+          component: () => import('@/pages/admin')
+        },
+        {
+          path: '/studentList',
+          name: 'studentList',
+          component: () => import('@/pages/studentList')
+        },
+        {
+          path: '/teacherList',
+          name: 'teacherList',
+          component: () => import('@/pages/teacherList')
+        },
+        {
+          path: '/courseList',
+          name: 'courseList',
+          component: () => import('@/pages/courseList')
+        },
+        {
+          path: '/courseEdit',
+          name: 'courseEdit',
+          component: () => import('@/pages/courseEdit')
+        },
+        {
+          path: '/company',
+          name: 'company',
+          component: () => import('@/pages/company')
+        },
       ]
     }
   ]
