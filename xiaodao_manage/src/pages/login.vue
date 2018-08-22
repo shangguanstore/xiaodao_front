@@ -56,9 +56,10 @@
             let submitData = {
               uname: this.formValidate.phone,
               pwd: this.formValidate.pwd,
-              from: 1
+              from: 1,
             }
-            let url = lib.getRequestUrl(config.BASE_DOMAIN + '/u/api/login', submitData)
+            // let url = lib.getRequestUrl(config.BASE_DOMAIN + '/u/api/login', submitData)
+            let url = lib.getRequestUrl('/u/api/login', submitData)
             this.$http.get(url, {}).then(res => {
             if(res) {
                var UU7 = res.data.user.UU7
