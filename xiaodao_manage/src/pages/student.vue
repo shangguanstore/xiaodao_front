@@ -24,6 +24,8 @@
 			</div>
 		</div>
 
+		<img src="../assets/img/avatar-default.jpg" alt="">
+
 		<Modal v-model="exportDataShow">
         	<p slot="header">
 				<span>导出数据</span>
@@ -100,7 +102,7 @@
 							return h('div', [
 								h('img', {
 									attrs: {
-                    					src: params.row.Pic? 'http://pic.eqsfood.com.cn/'+params.row.Pic : 'http://pic.eqsfood.com.cn/0/userinfo/68FAF123A58C0A88CB221E39CED61133.jpg',
+                    					src: params.row.Pic? 'http://pic.eqsfood.com.cn/'+params.row.Pic : '../assets/img/avatar-default.jpg',
                 					},
 									style: {
 										width: '58px',
