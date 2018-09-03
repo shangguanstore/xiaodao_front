@@ -100,7 +100,7 @@
 							return h('div', [
 								h('img', {
 									attrs: {
-                    					src: params.row.Pic? 'http://pic.eqsfood.com.cn/'+params.row.Pic : 'http://pic.eqsfood.com.cn/0/userinfo/68FAF123A58C0A88CB221E39CED61133.jpg',
+                    					src: params.row.Pic? 'http://pic.eqsfood.com.cn/'+params.row.Pic : 'http://img.7hu.cn/avatar-teacher.jpg',
                 					},
 									style: {
 										width: '58px',

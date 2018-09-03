@@ -24,8 +24,6 @@
 			</div>
 		</div>
 
-		<img src="../assets/img/avatar-default.jpg" alt="">
-
 		<Modal v-model="exportDataShow">
         	<p slot="header">
 				<span>导出数据</span>
@@ -102,21 +100,21 @@
 							return h('div', [
 								h('img', {
 									attrs: {
-                    					src: params.row.Pic? 'http://pic.eqsfood.com.cn/'+params.row.Pic : '../assets/img/avatar-default.jpg',
+                    					src: params.row.Pic? 'http://pic.eqsfood.com.cn/'+params.row.Pic : 'http://img.7hu.cn/avatar-student.jpg',
                 					},
 									style: {
-										width: '58px',
-                    					height: '58px',
+										width: '40px',
+                    					height: '40px',
                     					backgroundColor:"#c6cfe1",
-                    					borderRadius:"29px",
-                    					margin:"10px 0",
+                    					borderRadius:"20px",
+                    					margin:"6px 0",
                     					float:"left"
 									}
 								}),
 								h('div', {
 									style: {
-                    					marginTop:"18px",
-                    					marginLeft:"70px",
+                    					marginTop:"12px",
+                    					marginLeft:"48px",
                     					fontSize:"16px",
                     					color:"rgba(0, 0, 0, 0.85)",
                     					position:"absolute"
@@ -125,18 +123,34 @@
 							])
 						}
 					},
+          {
+            title:'生日',
+            key:'birthday'
+          },
 					{
-						title: '角色',
-						key: 'role_id_format',
-					},
-					{
-						title:'手机',
+						title:'绑定手机',
 						key:'phone'
 					},
+          {
+            title:'母亲手机',
+            key:'mother_phone'
+          },
+          {
+            title:'父亲手机',
+            key:'father_phone'
+          },
+          {
+            title:'性别',
+            key:'sex_format',
+          },
 					{
 						title:'创建日期',
 						key:'create_time_format'
 					},
+          {
+            title: '角色',
+            key: 'role_id_format',
+          },
 					{
 						title: '操作',
 						key: 'operation',

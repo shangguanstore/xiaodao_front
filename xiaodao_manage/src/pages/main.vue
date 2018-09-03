@@ -12,8 +12,8 @@
             <img src="../assets/img/xdm_sliderbar_personal_portrait.png" width="45" height="42" style="border-radius: 50%;"/>
           </li>
           <li class="sliderbar_personal_information">
-            <span style="display: block">Administrator</span>
-            <span style="display: block">普通用户</span>
+            <span style="display: block">admin</span>
+            <span style="display: block">超级管理员</span>
           </li>
         </ul>
 

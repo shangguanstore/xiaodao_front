@@ -21,6 +21,12 @@
             <Option v-for="item in roleList" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
         </FormItem>
+        <FormItem label="是否允许登录系统" prop="canLogin">
+          <RadioGroup v-model="formValidate.canLogin">
+            <Radio label="是">是</Radio>
+            <Radio label="否">否</Radio>
+          </RadioGroup>
+        </FormItem>
         <FormItem>
           <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
           <Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
@@ -71,6 +77,7 @@
           name: '',
           phone: '',
           role: [],
+          canLogin: '是',
         },
         ruleValidate: {
           name: [
@@ -98,6 +105,7 @@
                    let member = res.data.member[0]
                    this.formValidate.phone = member.phone
                    this.formValidate.name = member.uname
+                   this.formValidate.canLogin = '是'
                    this.formValidate.role = lib.is_array(member.role_id) ? member.role_id : [member.role_id]
                    this.mid = member.mid
                 }

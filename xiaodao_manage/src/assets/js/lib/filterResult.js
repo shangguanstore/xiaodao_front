@@ -31,6 +31,10 @@ export default function filterResult (data) {
             item.role_id_format = role_id_format
         }
 
+      if(isset(item.sex)) {
+        item.sex_format = item.sex === 0 ? '男' : '女'
+      }
+
         return item
     })
 
