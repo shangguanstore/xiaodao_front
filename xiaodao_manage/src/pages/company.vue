@@ -1,5 +1,5 @@
 <template>
-  <Content :style="{padding: '0 27px 27px 27px'}">
+  <div>
     <div class="manage_title">
       <Breadcrumb>
         <BreadcrumbItem>机构设置</BreadcrumbItem>
@@ -25,7 +25,7 @@
         </FormItem>
       </Form>
     </div>
-  </Content>
+  </div>
 </template>
 
 <script>

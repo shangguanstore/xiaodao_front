@@ -1,25 +1,33 @@
 <template>
   <div class="loginContainer">
-    <Row>
-      <Col span="12"></Col>
-      <Col span="12">
-        <div class="loginBox mt20">
-          <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="120">
-            <FormItem label="登录手机号" prop="phone">
+    <div class="title">
+      <p>校事通</p>
+    </div>
+    <div class="slogan">
+      <p class="big">SAAS + 物联网 + 商业智能</p>
+      <p class="default">快捷互通的教育解决方案</p>
+    </div>
+    <div class="loginBox">
+      <h2>帐号密码登录</h2>
+      <Row>
+        <Col span="24">
+          <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="120" class="form mt10">
+            <FormItem prop="phone">
               <Input v-model="formValidate.phone" placeholder="请输入登录手机号"></Input>
             </FormItem>
-            <FormItem label="密码" prop="pwd">
+            <FormItem prop="pwd">
               <Input type="password" v-model="formValidate.pwd" placeholder="请输入密码"></Input>
             </FormItem>
             <FormItem>
-              <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
-              <Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
+              <Button type="primary" @click="handleSubmit('formValidate')" size="large" long>登录</Button>
+              <!--<Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>-->
             </FormItem>
           </Form>
-        </div>
-      </Col>
-      <Col span="12"></Col>
-    </Row>
+        </Col>
+        <!--<Col span="4">-->
+        <!--</Col>-->
+      </Row>
+    </div>
   </div>
 
 </template>
@@ -58,12 +66,12 @@
               pwd: this.formValidate.pwd,
               from: 1,
             }
-            // let url = lib.getRequestUrl(config.BASE_DOMAIN + '/u/api/login', submitData)
             let url = lib.getRequestUrl('/u/api/login', submitData)
             this.$http.get(url, {}).then(res => {
             if(res) {
                var UU7 = res.data.user.UU7
-               this.memberLogin(UU7)
+               //this.$store.dispatch('UserLogin', UU7)
+               this.memberLogin()
             }
             }).catch(error => {
               this.$Message.error('服务器错误!');
@@ -76,22 +84,81 @@
       handleReset (name) {
         this.$refs[name].resetFields();
       },
-      memberLogin(UU7) {
+      memberLogin() {
         let submitData = {
           uname: this.formValidate.phone,
-          UU7: UU7,
         }
-        this.$http.post(config.XDM_DOMAIN + '/api/member/login', submitData).then(res => {
+        this.$http.post('/api/member/login', submitData).then(res => {
           if(res) {
-              this.$Message.success('Success!');
+              let member = res.data.member
+              this.$store.dispatch('UserName', member.uname)
+              this.$Message.success('Success!')
+              var _this = this
+              setTimeout(function () {
+                  _this.$router.push({
+                      path: 'admin',
+                      query: {}
+                  })
+              },2000)
           }
         }).catch(error => {
-          this.$Message.error('服务器错误!');
+            console.log(error)
+          this.$Message.error('服务器错误!')
         })
       }
     },
   }
 </script>
-<style>
-
+<style lang="less">
+.loginContainer {
+  height: 100vh;
+  position: relative;
+  background-image: url("../assets/img/xst2.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  .title {
+    margin-top: 0;
+    p {
+      padding-top: 30px;
+      font-size: 34px;
+      color: #fff;
+      margin-left: 320px;
+      font-weight: 700;
+    }
+  }
+  .slogan {
+    position: fixed;
+    left: 320px;
+    top: 190px;
+    p.big {
+      font-size: 40px;
+      font-weight: 600;
+      color: white;
+    }
+    p.default {
+      font-size: 24px;
+      margin-top: 20px;
+      font-weight: 500;
+      color: white;
+    }
+  }
+  .loginBox {
+    position: absolute;
+    top: 140px;
+    right: 220px;
+    width: 380px;
+    border-radius: 4px;
+    background: #fff;
+    h2 {
+      font-size: 24px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: 400;
+    }
+    .form {
+      position: relative;
+      left: -50px;
+    }
+  }
+}
 </style>

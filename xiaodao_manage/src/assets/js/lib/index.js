@@ -8,6 +8,8 @@ import str_replace from './str_replace.js'
 import isset from './isset.js'
 import sprintf from './sprintf.js'
 import getRequestUrl from './getRequestUrl.js'
+import filterResult from './filterResult.js'
+import is_array from './is_array.js'
 
 var lib = {
 	date: date,
@@ -19,6 +21,8 @@ var lib = {
 	isset: isset,
   	sprintf: sprintf,
     getRequestUrl: getRequestUrl,
+    filterResult: filterResult,
+    is_array: is_array,
 	str_replace: str_replace
 }
 

@@ -17,20 +17,31 @@ export default new Router({
       component: () => import('@/pages/login')
     },
     {
-      path: '/',
+        path: '/',
+        name: 'index',
+        component: () => import('@/pages/index'),
+        redirect: '/login',
+    },
+    {
+      path: '/main',
       name: 'main',
       component: () => import('@/pages/main'),
       redirect: '/admin',
       children: [
         {
-          path: '/',
+          path: '/admin',
           name: 'admin',
           component: () => import('@/pages/admin')
         },
         {
-          path: '/studentList',
-          name: 'studentList',
-          component: () => import('@/pages/studentList')
+          path: '/student',
+          name: 'student',
+          component: () => import('@/pages/student')
+        },
+        {
+            path: '/studentEdit',
+            name: 'studentEdit',
+            component: () => import('@/pages/studentEdit')
         },
         {
           path: '/teacherList',
@@ -51,6 +62,16 @@ export default new Router({
           path: '/company',
           name: 'company',
           component: () => import('@/pages/company')
+        },
+        {
+            path: '/staff',
+            name: 'staff',
+            component: () => import('@/pages/staff')
+        },
+        {
+            path: '/staffEdit',
+            name: 'staffEdit',
+            component: () => import('@/pages/staffEdit')
         },
       ]
     }

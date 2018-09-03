@@ -1,5 +1,5 @@
 <template>
-  <Content :style="{padding: '0 27px 27px 27px'}">
+  <div>
     <div class="manage_title">
       <Breadcrumb>
         <BreadcrumbItem>基础信息管理</BreadcrumbItem>
@@ -10,7 +10,7 @@
     <div class="container mt20">
       <p class="content_title">基本信息</p>
     </div>
-  </Content>
+  </div>
 </template>
 
 <script>

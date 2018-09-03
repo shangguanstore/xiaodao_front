@@ -10,9 +10,12 @@ import qs from 'qs'
 import { Message } from 'iview'
 import App from './App'
 import router from './router'
+import store from './store'
+import lib from '@/assets/js/lib'
 
 
 Vue.use(iView)
+Vue.use(lib)
 
 
 Vue.use(VueAxios, axios)
@@ -49,6 +52,7 @@ axios.interceptors.response.use(
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

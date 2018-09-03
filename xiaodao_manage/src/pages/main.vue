@@ -22,20 +22,21 @@
           <span>首页</span>
         </MenuItem>
 
-        <Submenu name="1">
-          <template slot="title">
-            <Icon type="md-contacts" />
-            基础信息管理
-          </template>
-          <MenuItem name="studentList">学生管理</MenuItem>
-          <MenuItem name="teacherList">老师管理</MenuItem>
-        </Submenu>
+        <!--<Submenu name="1">-->
+          <!--<template slot="title">-->
+            <!--<Icon type="md-contacts" />-->
+            <!--基础信息管理-->
+          <!--</template>-->
+          <!--<MenuItem name="studentList">学生管理</MenuItem>-->
+          <!--<MenuItem name="teacherList">老师管理</MenuItem>-->
+        <!--</Submenu>-->
 
         <Submenu name="2">
           <template slot="title">
             <Icon type="md-book" />
-            课程管理
+            教务中心
           </template>
+          <MenuItem name="student">学员管理</MenuItem>
           <MenuItem name="courseList">课程管理</MenuItem>
           <MenuItem name="courseEdit">课程标签管理</MenuItem>
         </Submenu>
@@ -57,13 +58,21 @@
 
         <Submenu name="3">
           <template slot="title">
-            <Icon type="md-settings" />
+            <Icon type="ios-home" />
+            内部管理
+          </template>
+          <MenuItem name="staff">员工管理</MenuItem>
+        </Submenu>
+
+        <Submenu name="4">
+          <template slot="title">
+            <Icon type="logo-googleplus" />
             机构设置
           </template>
           <MenuItem name="company">机构编辑</MenuItem>
         </Submenu>
 
-        <Submenu name="3">
+        <Submenu name="5">
           <template slot="title">
             <Icon type="md-settings" />
             系统设置
@@ -93,11 +102,13 @@
         </Header>
       </Affix>
 
-      <router-view></router-view>
+      <Content :style="{padding: '0 27px 27px 27px'}">
+        <router-view></router-view>
+      </Content>
 
       <footer>
         <p>技术支持</p>
-        <p>copyright © 2018 小稻米技术部出品</p>
+        <p>copyright © 2016 - 2018 校事通</p>
       </footer>
     </Layout>
   </div>

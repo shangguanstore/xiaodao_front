@@ -1,5 +1,5 @@
 <template>
-  <Content :style="{padding: '0 27px 27px 27px'}">
+  <div>
     <div class="manage_title">
       <Breadcrumb>
         <BreadcrumbItem>课程管理</BreadcrumbItem>
@@ -8,9 +8,8 @@
     </div>
     <div class="container courseEditContainer mt20">
       <p class="content_title">课程详情</p>
-
     </div>
-  </Content>
+  </div>
 </template>
 
 <script>
