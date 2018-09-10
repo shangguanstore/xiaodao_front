@@ -40,6 +40,14 @@
   import lib from '@/assets/js/lib/index'
   import config from '@/assets/js/config/index'
 
+  const validatePhone = function(rule, value, callback) {
+      if(!(/^1[34578]\d{9}$/.test(value))) {
+          return callback(new Error('您输入的手机号码有误'))
+      } else {
+          callback()
+      }
+  }
+
   export default {
     name: 'staffEdit',
     data() {
@@ -84,7 +92,8 @@
             {required: true, message: '请输入员工名称', trigger: 'blur'}
           ],
           phone: [
-            {required: true, message: '请输入员工手机号', trigger: 'blur'}
+            {required: true, message: '请输入员工手机号', trigger: 'blur'},
+            {validator: validatePhone, trigger: 'blur' }
           ],
           role: [
             {required: true, type: 'array', message: '请选择员工角色', trigger: 'change'}

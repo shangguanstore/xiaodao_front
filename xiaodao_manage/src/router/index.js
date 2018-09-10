@@ -73,6 +73,16 @@ export default new Router({
             name: 'staffEdit',
             component: () => import('@/pages/staffEdit')
         },
+        {
+            path: '/activity',
+            name: 'activity',
+            component: () => import('@/pages/activity')
+        },
+        {
+            path: '/activityEdit',
+            name: 'activityEdit',
+            component: () => import('@/pages/activityEdit')
+        },
       ]
     }
   ]

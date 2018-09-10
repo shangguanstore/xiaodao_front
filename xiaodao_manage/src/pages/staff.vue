@@ -9,14 +9,14 @@
 		<div class="container staff_container mt20">
 			<div>
 				<span>搜索查询：</span>
-				<Input v-model="searchValue" placeholder="请输入需要查询的名称" style="width: 300px"  @on-change="changeName"></Input>
+				<Input v-model="searchValue" placeholder="输入员工姓名或手机号" style="width: 300px"  @on-change="changeSearch"></Input>
 				<Button class="ml20" type="info"  @click="search">查询</Button>
 			</div>
 			<div class="mt20">
-				<Button type="info" icon="ios-plus-empty" @click="addUser">新建用户</Button>
+				<Button type="info" icon="ios-plus-empty" @click="add">新建用户</Button>
 				<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>
 			</div>
-			<Table border ref="selection" :loading="loading"  @on-selection-change="checkNum" :columns="tableColumns" :data="tableData" class="mt20">></Table>
+			<Table border ref="selection" :loading="loading"  :columns="tableColumns" :data="tableData" class="mt20">></Table>
 			<div style="margin: 10px;overflow: hidden">
 				<div style="float: right;">
 					<Page :total="total" show-total show-sizer show-elevator :current="current" @on-change="changePage" @on-page-size-change="changepageSize"></Page>
@@ -44,31 +44,17 @@
 </template>
 
 <script>
-	import store from '../store'
 	import lib from '@/assets/js/lib/index'
 	import config from '@/assets/js/config/index'
 
-
-	// 检验手机号码
-	const validatePhone = function(rule, value, callback) {
-		if(!(/^1[34578]\d{9}$/.test(value))) {
-			return callback(new Error('您输入的手机号码有误'))
-		} else {
-			callback()
-		}
-	}
 	export default {
 		name: 'staff',
 		data() {
 			return {
 				searchValue:"",
-				editUser: "新建用户",
 				current: 1,
 				pageSize: 10,
 				sort:"",
-				Search:"",
-				checkNums: 0,
-				sels:[],
 				loading: true,
 				total: 0,
                 exportDataShow:false,
@@ -88,11 +74,6 @@
                 },
 				tableColumns:
 				[
-					{
-						type: 'selection',
-						width: 60,
-						align: 'center'
-					},
 					{
 						title: '姓名/编号',
 						key: 'uname',
@@ -176,24 +157,21 @@
 			}
 		},
 		mounted() {
-		  var uname = store.state.uname
+
 		},
 		created() {
 			this.getTableData(
 				{
-					page: this.current,
-					size: this.pageSize,
+                    pageIndex: this.current,
+                    pageSize: this.pageSize,
 				}
 			)
 		},
 		methods: {
-            addUser() {
+            add() {
                 this.$router.push({
                     path: 'staffEdit',
-					query: {
-                        // cid: params.row.cid,
-                        // mid: params.row.mid
-					}
+					query: {}
                 })
             },
 			exportDataDilog(){
@@ -202,14 +180,14 @@
 			exportCancle(){
 				this.exportDataShow = false
 				this.getTableData({
-					page: this.current,
-					size: this.pageSize,
+                    pageIndex: this.current,
+                    pageSize: this.pageSize,
 				})
 			},
-			getExportValue(value){
+			getExportValue(){
 				this.getTableData({
-					page: this.current,
-					size: this.exportData.exportNum,
+                    pageIndex: this.current,
+                    pageSize: this.exportData.exportNum,
 				})
 			},
 			// 导出数据
@@ -224,36 +202,24 @@
 					}
 				})
 			},
-			closeDialog(){
-		 		let timer = null;
-		 		clearTimeout(timer)
-		 		if(this.showMessage){
-		 			timer = setTimeout(() => {
-	                   	this.showMessage = false
-	                }, 2000)
-		 		}
-	 		},
-			checkNum(selection) {
-				this.checkNums = selection.length
-				this.sels = selection
-			},
 			getTableData(option) {
                 let submitData = {
-                    roles: [config.UserRole.ROLE_ADMIN,config.UserRole.ROLE_FRONT,config.UserRole.ROLE_TEACHER,config.UserRole.ROLE_SALE,config.UserRole.ROLE_ASSIST_TEACHER,config.UserRole.ROLE_MANAGER],
-                    pageIndex: option.page,
-                    pageSize: option.size,
+                    roles: option.roles ? option.roles : [config.UserRole.ROLE_ADMIN,config.UserRole.ROLE_FRONT,config.UserRole.ROLE_TEACHER,config.UserRole.ROLE_SALE,config.UserRole.ROLE_ASSIST_TEACHER,config.UserRole.ROLE_MANAGER],
+                    search: this.searchValue,
+					pageIndex: option.pageIndex,
+                    pageSize: option.pageSize,
                 }
                 let url = lib.getRequestUrl('/api/member/getlist', submitData)
                 this.$http.get(url, {}).then(res => {
                     if(res) {
                         this.loading = false
-                        this.current = option.page
+                        this.current = option.pageIndex
 
                         this.total = res.data.total
                         this.tableData = lib.filterResult(res.data.member)
-						console.log('tableData',this.tableData)
                     }
                 }).catch(error => {
+                    console.log('error',error)
                     this.loading = false
                     this.$Message.error('服务器错误!');
                 })
@@ -262,8 +228,8 @@
 				this.current = page
 				this.getTableData(
 	            	{
-						page: this.current,
-						size: this.pageSize,
+                        pageIndex: this.current,
+                        pageSize: this.pageSize,
 					}
             	)
 			},
@@ -271,8 +237,8 @@
 				this.pageSize = size
 				this.getTableData(
 	            	{
-						page: this.current,
-						size: this.pageSize,
+                        pageIndex: this.current,
+                        pageSize: this.pageSize,
 					}
             	)
 			},
@@ -304,8 +270,8 @@
                                 this.$Message.success('删除成功!')
                                 this.getTableData(
                                     {
-                                        page: this.current,
-                                        size: this.pageSize,
+                                        pageIndex: this.current,
+                                        pageSize: this.pageSize,
                                     }
                                 )
                             }
@@ -319,21 +285,19 @@
 			},
 			search() {
 				if(this.searchValue.length == 0) {
-					this.$Message.warning('请输入你要查询的店铺全称！');
+					this.$Message.warning('请输入您要查询的员工姓名或手机号！');
 				} else {
-					let searchName = "UserName=\"" + this.searchValue + "\" "
-					this.sort = "UserName asc, Id desc"
 					this.getTableData({
-						page: this.current,
-						size: this.pageSize,
+                        pageIndex: this.current,
+                        pageSize: this.pageSize,
 					})
 				}
 			},
-			changeName(changeValue) {
+			changeSearch() {
 				if(this.searchValue.length === 0) {
 					this.getTableData({
-						page: this.current,
-						size: this.pageSize,
+                        pageIndex: this.current,
+                        pageSize: this.pageSize,
 					})
 				}
 			},

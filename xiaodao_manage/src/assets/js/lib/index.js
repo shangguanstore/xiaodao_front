@@ -9,6 +9,7 @@ import isset from './isset.js'
 import sprintf from './sprintf.js'
 import getRequestUrl from './getRequestUrl.js'
 import filterResult from './filterResult.js'
+import getRandomString from './getRandomString.js'
 import is_array from './is_array.js'
 
 var lib = {
@@ -23,6 +24,7 @@ var lib = {
     getRequestUrl: getRequestUrl,
     filterResult: filterResult,
     is_array: is_array,
+    getRandomString: getRandomString,
 	str_replace: str_replace
 }
 

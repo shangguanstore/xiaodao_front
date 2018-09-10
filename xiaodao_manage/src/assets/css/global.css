@@ -272,3 +272,25 @@ footer{
   text-align: right;
 }
 /*待整理部分结束*/
+
+
+.articleDetailList {
+	padding-bottom: 30px;
+	position: relative;
+}
+
+.articleDetailList .delIcon {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	cursor: pointer;
+}
+
+/*底部提交按钮组*/
+.bottomBtn {
+	height: 60px;
+	line-height: 60px;
+	margin-bottom: 100px;
+	border-top: 1px solid #eeeeee;
+	text-align: center;
+}

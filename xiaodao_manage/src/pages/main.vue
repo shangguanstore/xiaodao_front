@@ -12,7 +12,7 @@
             <img src="../assets/img/xdm_sliderbar_personal_portrait.png" width="45" height="42" style="border-radius: 50%;"/>
           </li>
           <li class="sliderbar_personal_information">
-            <span style="display: block">admin</span>
+            <span style="display: block">{{this.uname}}</span>
             <span style="display: block">超级管理员</span>
           </li>
         </ul>
@@ -42,21 +42,22 @@
         </Submenu>
 
 
-        <MenuItem name="home">
-          <Icon type="ios-help-buoy" />
-          <span>活动管理</span>
-        </MenuItem>
-
-        <!--<Submenu name="3">-->
-          <!--<template slot="title">-->
-            <!--<Icon type="compass"></Icon>-->
-            <!--活动管理-->
-          <!--</template>-->
-          <!--<MenuItem name="warehouse">课程管理</MenuItem>-->
-          <!--<MenuItem name="warehouse">课程标签管理</MenuItem>-->
-        <!--</Submenu>-->
-
         <Submenu name="3">
+          <template slot="title">
+            <Icon type="ios-help-buoy" />
+            营销管理
+          </template>
+          <MenuItem name="activity">活动报名</MenuItem>
+        </Submenu>
+
+
+        <!--<MenuItem name="home">-->
+          <!--<Icon type="ios-help-buoy" />-->
+          <!--<span>营销管理</span>-->
+        <!--</MenuItem>-->
+
+
+        <Submenu name="4">
           <template slot="title">
             <Icon type="ios-home" />
             内部管理
@@ -64,7 +65,7 @@
           <MenuItem name="staff">员工管理</MenuItem>
         </Submenu>
 
-        <Submenu name="4">
+        <Submenu name="5">
           <template slot="title">
             <Icon type="logo-googleplus" />
             机构设置
@@ -72,7 +73,7 @@
           <MenuItem name="company">机构编辑</MenuItem>
         </Submenu>
 
-        <Submenu name="5">
+        <Submenu name="6">
           <template slot="title">
             <Icon type="md-settings" />
             系统设置
@@ -115,17 +116,20 @@
 </template>
 
 <script>
+  import store from '../store'
+
   export default {
     data() {
       return {
-        count: 3
+        count: 3,
+        uname: ""
       }
     },
     created() {
 
     },
     mounted() {
-
+        this.uname = store.state.uname
     },
     methods: {
       routeTo(e) {
