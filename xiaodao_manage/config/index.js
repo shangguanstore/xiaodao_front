@@ -25,6 +25,22 @@ module.exports = {
                 '^/u/api':'/u/api'
             }
         }
+
+      // '/api':{
+      //   target:'http://212.64.112.129:10925',
+      //   changeOrigin:true,
+      //   pathRewrite:{
+      //     '^/api':'/api'
+      //   }
+      // },
+      // '/u/api':{
+      //   target:'http://212.64.112.129:10926',
+      //   changeOrigin:true,
+      //   pathRewrite:{
+      //     '^/u/api':'/u/api'
+      //   }
+      // }
+
     },
 
     // Various Dev Server settings
@@ -35,7 +51,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
