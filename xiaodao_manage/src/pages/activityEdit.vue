@@ -34,7 +34,7 @@
           <Input v-model="item.title" placeholder="请输入正文标题（不是必填项）"></Input>
         </FormItem>
 
-        <FormItem label="正文" prop="detail" style="width: 60%">
+        <FormItem label="正文" prop="detail" style="width: 100%">
           <ckeditor :id="item.htmlId" v-model="item.detail" :config="config" @blur="onBlur($event)" @focus="onFocus($event)">
           </ckeditor>
         </FormItem>
@@ -66,6 +66,8 @@
 
         content: '',
         config: {
+            language: 'zh-cn',
+
             // toolbar: [
             //     ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']
             // ],
@@ -88,35 +90,46 @@
             //     ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink','-','About']
             // ],
 
-            language: 'zh-cn',
-            toolbar: 'Full',
-            toolbar_Full: [
-                ['Source','-','Save','NewPage','Preview','-','Templates'],
-                ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
-                ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-                ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
-                '/',
-                ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-                ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-                ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-                ['Link','Unlink','Anchor'],
-                ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
-                '/',
-                ['Styles','Format','Font','FontSize'],
-                ['TextColor','BGColor']
+
+            // toolbar: 'Full',
+            // toolbar_Full: [
+            //     ['Source','-','Save','NewPage','Preview','-','Templates'],
+            //     ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+            //     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+            //     ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+            //     '/',
+            //     ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+            //     ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+            //     ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+            //     ['Link','Unlink','Anchor'],
+            //     ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+            //     '/',
+            //     ['Styles','Format','Font','FontSize'],
+            //     ['TextColor','BGColor']
+            // ],
+
+
+
+
+            toolbar: [
+                { name: 'document', items: [ 'Print' ] },
+                { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting' ] },
+                { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+                { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+                { name: 'links', items: [ 'Link', 'Unlink' ] },
+                { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+                { name: 'insert', items: [ 'Image', 'Table' ] },
+                { name: 'tools', items: [ 'Maximize' ] },
+                { name: 'editing', items: [ 'Scayt' ] }
             ],
 
 
             height: 300
         },
 
-        detailListFormValidate: [
-            {
-                htmlId: "233",
-                title: "",
-                detail: ""
-            },
-        ],
+        detailListFormValidate: [],
         formValidate: {
           name: '',
         },
@@ -151,6 +164,7 @@
                        var len = i + 10
                        var detailList = {
                            htmlId: lib.getRandomString(len),
+                           id: data.activity_detail[i].id,
                            title: data.activity_detail[i].title,
                            detail: data.activity_detail[i].detail,
                        }
@@ -165,6 +179,15 @@
         }else{
             this.title = "新增活动"
             this.isAdd = true
+
+            var htmlId = lib.getRandomString()
+            this.detailListFormValidate = [
+                {
+                    htmlId: htmlId,
+                    title: "",
+                    detail: ""
+                },
+            ]
         }
     },
     mounted() {

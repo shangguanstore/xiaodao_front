@@ -223,15 +223,13 @@
 			remove(params) {
 				this.$Modal.confirm({
                     title: '删除',
-                    content: "确认删除"+ params.row.uname +"吗？",
+                    content: "确认删除"+ params.row.name +"吗？",
                     okText: '确认',
                     cancelText: '取消',
                     onOk: () => {
                         console.log('params',params)
                         let submitData = {
-                            mid: params.row.mid,
-                            cid: params.row.cid,
-                            roles: params.row.role_id,
+                            id: params.row.id
                         }
                         this.$http.post("/api/activity/del", submitData).then(res => {
                             if(res) {
