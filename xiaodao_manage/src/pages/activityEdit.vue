@@ -9,7 +9,7 @@
     </div>
 
     <div class="rightBtnList">
-      <Button @click="addDetail">添加图文</Button>
+      <Button @click="addDetail">点击添加图文</Button>
     </div>
 
     <div class="container article_edit_container mt20">
