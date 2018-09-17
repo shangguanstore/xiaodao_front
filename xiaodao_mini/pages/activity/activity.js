@@ -1,6 +1,7 @@
 // pages/activity/activity.js
+const lib = require('../../utils/lib/index.js')
+const request = require('../../utils/request.js')
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -12,6 +13,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let url = 'api/activity/getlist'
+    let data = {
+      id: 8,
+      queryDetail: true,
+    }
+    request(url, 'get', data, function (res) {
+      //res就是我们请求接口返回的数据
+      console.log('res123', res)
+      
+    }, function () {
+      wx.showToast({
+        title: '加载数据失败',
+        icon: 'none'
+      })
+    })
+  },
+
+  getData() {
 
   },
 

@@ -4,6 +4,7 @@ var app = getApp()
 
 var request = function(url, method, params, success, fail, message = '') {
   url = app.config.baseServerUrl + url
+  params.XDEBUG_SESSION_START = 'PHPSTORM'
   var addition
   for(var key in params) {
     if (key == 'addition') {
@@ -28,6 +29,7 @@ var request = function(url, method, params, success, fail, message = '') {
     },
     method: method,
     success: function (res) {
+      console.log('res',res);
       wx.hideNavigationBarLoading()
       if (message != "") {
         wx.hideLoading()

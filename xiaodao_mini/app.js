@@ -37,6 +37,7 @@ App({
     userInfo: null
   },
   config: {
-    baseServerUrl: 'https://www.photoelectric-displaycenter.com/',
+    // baseServerUrl: 'https://www.photoelectric-displaycenter.com/',
+    baseServerUrl: 'http://hxe.7hu.cn/',
   }
 })
