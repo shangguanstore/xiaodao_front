@@ -22,6 +22,12 @@
           <Input v-model="formValidate.desc" placeholder="请输入活动简介"></Input>
         </FormItem>
       </Form>
+
+      <form method="post" action="http://up.qiniu.com" enctype="multipart/form-data">
+        <input name="token" type="hidden" :value="QiniuToken">
+        <input name="file" type="file" />
+        <input type="submit" value="上传"/>
+      </form>
     </div>
 
     <div class="articleDetailList container article_edit_container mt20" v-for="(item,index) in detailListFormValidate">
@@ -63,6 +69,7 @@
         mid: 0,
         title: "",
         isAdd: true,
+        QiniuToken: '',
 
         content: '',
         config: {
@@ -189,6 +196,8 @@
                 },
             ]
         }
+
+        this.getQiniuToken()
     },
     mounted() {
 
@@ -243,6 +252,19 @@
                           query: {}
                       })
                   },200)
+              }
+          }).catch(error => {
+              this.$Message.error('服务器错误!')
+          })
+      },
+      getQiniuToken() {
+          let url = 'api/qiniu/token/get'
+          let submitData = {}
+          this.$http.post(url, submitData).then(res => {
+              if(res) {
+                  console.log('q',res)
+                  this.QiniuToken = res.data.token
+                  console.log(this.QiniuToken)
               }
           }).catch(error => {
               this.$Message.error('服务器错误!')
