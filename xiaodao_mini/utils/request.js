@@ -13,6 +13,9 @@ var request = function(url, method, params, success, fail, message = '') {
     }
   }
 
+  var UU7 = wx.getStorageSync('UU7')
+  params.UU7 = UU7
+
   wx.showNavigationBarLoading()
   if (message != "") {
     wx.showLoading({
@@ -29,7 +32,6 @@ var request = function(url, method, params, success, fail, message = '') {
     },
     method: method,
     success: function (res) {
-      console.log('res',res);
       wx.hideNavigationBarLoading()
       if (message != "") {
         wx.hideLoading()

@@ -1,1 +1,2 @@
 /* pages/activity/activity.wxss */
+@import "/wxParse/wxParse.wxss";
