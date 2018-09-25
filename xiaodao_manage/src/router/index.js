@@ -83,10 +83,15 @@ export default new Router({
             component: () => import('@/pages/activityEdit')
         },
         {
-          path: '/weOfficialWebsite',
-          name: 'weOfficialWebsite',
-          component: () => import('@/pages/weOfficialWebsite')
+          path: '/weWebsite',
+          name: 'weWebsite',
+          component: () => import('@/pages/weWebsite')
         },
+          {
+              path: '/weWebsiteBannerEdit',
+              name: 'weWebsiteBannerEdit',
+              component: () => import('@/pages/weWebsiteBannerEdit')
+          },
       ]
     }
   ]

@@ -48,7 +48,7 @@
             营销管理
           </template>
           <MenuItem name="activity">活动报名</MenuItem>
-          <MenuItem name="weOfficialWebsite">微官网（小程序）</MenuItem>
+          <MenuItem name="weWebsite">手机端设置</MenuItem>
         </Submenu>
 
 

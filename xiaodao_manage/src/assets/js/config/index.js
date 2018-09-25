@@ -3,6 +3,7 @@ var config = {
   BASE_DOMAIN: "http://7hu.cn",
   STATIC_DOMAIN: "http://static.7hu.cn",
   UserRole: UserRole,
+  Mbanner: Mbanner,
   Qiniu: Qiniu
 }
 
@@ -19,9 +20,13 @@ UserRole.ROLE_ASSIST_TEACHER = 6;
 
 function Qiniu() {
 }
-
 Qiniu.ACTION_URL = 'http://up.qiniu.com'
 Qiniu.EXTERNAL_LINK = 'http://pfcz9oabu.bkt.clouddn.com/'
+
+
+function Mbanner() {
+}
+Mbanner.TYPE_ACTIVITY = 1
 
 
 export default config
