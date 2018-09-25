@@ -82,6 +82,11 @@ export default new Router({
             name: 'activityEdit',
             component: () => import('@/pages/activityEdit')
         },
+        {
+          path: '/weOfficialWebsite',
+          name: 'weOfficialWebsite',
+          component: () => import('@/pages/weOfficialWebsite')
+        },
       ]
     }
   ]

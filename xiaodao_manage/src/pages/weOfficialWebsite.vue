@@ -3,26 +3,15 @@
     <div class="manage_title">
       <Breadcrumb>
         <BreadcrumbItem>营销管理</BreadcrumbItem>
-        <BreadcrumbItem>活动报名</BreadcrumbItem>
+        <BreadcrumbItem>小程序Banner设置</BreadcrumbItem>
         <BreadcrumbItem>{{title}}</BreadcrumbItem>
       </Breadcrumb>
     </div>
 
-    <div class="rightBtnList">
-      <Button @click="addDetail">点击添加图文</Button>
-    </div>
-
     <div class="container article_edit_container mt20">
-      <p class="content_title">基本信息</p>
+      <p class="content_title">小程序首页banner设置</p>
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" class="mt20">
-        <FormItem label="名称" prop="name" style="width: 60%">
-          <Input v-model="formValidate.name" placeholder="请输入活动名称（微信分享标题用此名称）"></Input>
-        </FormItem>
-        <FormItem label="简介" prop="desc" style="width: 60%">
-          <Input v-model="formValidate.desc" placeholder="请输入活动简介"></Input>
-        </FormItem>
-
-        <FormItem label="封面图片">
+        <FormItem label="Banner封面">
           <div class="demo-upload-list" v-for="item in uploadList">
             <template v-if="item.status === 'finished'">
               <img :src="item.url">
@@ -54,23 +43,10 @@
           </Upload>
           <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45)">支持：jpg/jpeg/png格式</div>
         </FormItem>
-      </Form>
-    </div>
-
-    <div class="articleDetailList container article_edit_container mt20" v-for="(item,index) in detailListFormValidate">
-      <p class="content_title">
-        详细信息
-      </p>
-      <Icon type="ios-trash" class="delIcon" size="24" @click="removeDetail(item.htmlId)"/>
-      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" class="mt20">
-        <FormItem label="标题" prop="title" style="width: 60%">
-          <Input v-model="item.title" placeholder="请输入正文标题（不是必填项）"></Input>
-        </FormItem>
-
-        <FormItem label="正文" prop="detail" style="width: 100%">
-          <ckeditor :id="item.htmlId" v-model="item.detail" :config="config" @blur="onBlur($event)"
-                    @focus="onFocus($event)">
-          </ckeditor>
+        <FormItem label="跳转活动" prop="name" style="width: 60%" >
+\          <Select v-model="model1">
+            <Option v-for="item in activityList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+          </Select>
         </FormItem>
       </Form>
     </div>
@@ -90,38 +66,18 @@
 <script>
   import lib from '@/assets/js/lib/index'
   import config from '@/assets/js/config/index'
-  import Ckeditor from '../components/Ckeditor'
-
 
   export default {
     name: 'staffEdit',
-    components: {Ckeditor},
     data() {
       return {
         mid: 0,
         title: "",
         isAdd: true,
         QiniuToken: '',
+        activityList: [],
 
         content: '',
-        config: {
-          language: 'zh-cn',
-          toolbar: [
-            {name: 'document', items: ['Print']},
-            {name: 'clipboard', items: ['Undo', 'Redo']},
-            {name: 'styles', items: ['Format', 'Font', 'FontSize']},
-            {name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting']},
-            {name: 'colors', items: ['TextColor', 'BGColor']},
-            {name: 'align', items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']},
-            {name: 'links', items: ['Link', 'Unlink']},
-            {name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
-            {name: 'insert', items: ['Image', 'Table']},
-            {name: 'tools', items: ['Maximize']},
-            {name: 'editing', items: ['Scayt']}
-          ],
-          height: 300
-        },
-
         detailListFormValidate: [],
         formValidate: {
           name: '',
@@ -144,8 +100,10 @@
       }
     },
     created() {
+      this.getActivityList()
+
       if (this.$route.query.id) {
-        this.title = "编辑活动"
+        this.title = "编辑Banner"
         this.isAdd = false
         let submitData = {
           id: this.$route.query.id,
@@ -155,7 +113,6 @@
         this.$http.get(url, {}).then(res => {
           if (res) {
             let data = res.data.activity
-            console.log('data', data)
             this.formValidate.id = data.id
             this.formValidate.name = data.name
             this.formValidate.desc = data.desc
@@ -168,16 +125,14 @@
                 title: data.activity_detail[i].title,
                 detail: data.activity_detail[i].detail,
               }
-              console.log(detailList)
               this.detailListFormValidate.push(detailList)
             }
           }
         }).catch(error => {
-          console.log(error)
           this.$Message.error('服务器错误!');
         })
       } else {
-        this.title = "新增活动"
+        this.title = "新添Banner"
         this.isAdd = true
 
         var htmlId = lib.getRandomString()
@@ -220,8 +175,19 @@
       },
     },
     methods: {
-      console() {
-        console.log(this.content);
+      getActivityList() {
+        let submitData = {
+          queryDetail: false
+        }
+        let url = lib.getRequestUrl('/api/activity/getlist', submitData)
+        this.$http.get(url, {}).then(res => {
+          if (res) {
+            this.activityList = lib.filterResult(res.data.activity)
+            console.log('this.activityList',this.activityList)
+          }
+        }).catch(error => {
+          this.$Message.error('服务器错误!');
+        })
       },
       addDetail() {
         let htmlId = lib.getRandomString()
@@ -241,7 +207,6 @@
       handleSubmit() {
         let submitData
         let url
-        console.log('isAdd', this.isAdd)
         if (this.isAdd) {
           submitData = {
             name: this.formValidate.name,
@@ -281,9 +246,7 @@
         let submitData = {}
         this.$http.post(url, submitData).then(res => {
           if (res) {
-            console.log('q', res)
             this.QiniuToken = res.data.token
-            console.log(this.QiniuToken)
           }
         }).catch(error => {
           this.$Message.error('服务器错误!')
@@ -300,7 +263,6 @@
       handleSuccess(res, file) {
         file.url = config.Qiniu.EXTERNAL_LINK + res.key;
         file.name = res.hash;
-        console.log(this.uploadList)
       },
       handleFormatError(file) {
         this.$Message.success('请上传jpg，jpeg，png，格式的图片')
@@ -317,9 +279,9 @@
         let filess = files[0]
         fileData = filess.split('.')
         // this.$refs.upload.action = config.Qiniu.ACTION_URL
-        const check = this.uploadList.length < 1;
+        const check = this.uploadList.length < 5;
         if (!check) {
-          this.$Message.success('封面图只允许上传一张图片')
+          this.$Message.success('Banner图片不超过5张')
         }
         return check;
       },
@@ -328,24 +290,10 @@
       handleReset(name) {
         this.$refs[name].resetFields();
       },
-      onBlur(editor) {
-        console.log(editor);
-      },
-      onFocus(editor) {
-        console.log(editor);
-      },
 
     },
   }
 </script>
 <style lang="less">
-  .rightBtnList {
-    position: fixed;
-    top: 200px;
-    right: 178px;
-  }
 
-  .article_edit_container {
-    width: 80%;
-  }
 </style>
