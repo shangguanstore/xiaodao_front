@@ -11,7 +11,9 @@ import getRequestUrl from './getRequestUrl.js'
 import filterResult from './filterResult.js'
 import getRandomString from './getRandomString.js'
 import getUploadPicStr from './getUploadPicStr.js'
+import getUpdateUploadPicStr from './getUpdateUploadPicStr.js'
 import is_array from './is_array.js'
+import getImglink from './getImglink.js'
 
 var lib = {
 	date: date,
@@ -27,6 +29,8 @@ var lib = {
     is_array: is_array,
     getRandomString: getRandomString,
     getUploadPicStr: getUploadPicStr,
+    getUpdateUploadPicStr: getUpdateUploadPicStr,
+    getImglink: getImglink,
 	str_replace: str_replace
 }
 

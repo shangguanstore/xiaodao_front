@@ -2,6 +2,7 @@ import date from './date'
 import isset from './isset'
 import is_array from './is_array'
 import config from '../config'
+import getImglink from './getImglink'
 
 
 export default function filterResult (data) {
@@ -29,6 +30,10 @@ export default function filterResult (data) {
             }
 
             item.role_id_format = role_id_format
+        }
+
+        if(isset(item.imglink)) {
+            item.imglink_format = getImglink(item.imglink)
         }
 
       if(isset(item.sex)) {

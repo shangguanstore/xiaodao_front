@@ -219,6 +219,7 @@
           path: 'activityEdit',
           query: {
             id: params.row.id,
+            imglink: params.row.imglink,
           }
         })
       },

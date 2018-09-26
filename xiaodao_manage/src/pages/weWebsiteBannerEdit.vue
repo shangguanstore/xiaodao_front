@@ -50,8 +50,8 @@
           </Select>
         </FormItem>
 
-        <FormItem label="排序" prop="order" style="width: 50%">
-          <Input v-model="formValidate.order" placeholder="banner顺序,数值越大越靠前"></Input>
+        <FormItem label="排序" prop="sort" style="width: 50%">
+          <Input v-model="formValidate.sort" placeholder="banner顺序,数值越大越靠前"></Input>
         </FormItem>
       </Form>
     </div>
@@ -82,9 +82,10 @@
                 isAdd: true,
                 QiniuToken: '',
                 activityList: [],
+                imglink_format: [],
                 formValidate: {
                     activity_id: 0,
-                    order: 0,
+                    sort: 0,
                 },
                 ruleValidate: {
                     name: [
@@ -108,29 +109,21 @@
                 this.title = "编辑banner"
                 this.isAdd = false
                 let submitData = {
-                    id: this.$route.query.id,
-                    queryDetail: true,
+                    id: this.$route.query.id
                 }
-                let url = lib.getRequestUrl('/api/activity/getlist', submitData)
+                let url = lib.getRequestUrl('/api/mbanner/getlist', submitData)
                 this.$http.get(url, {}).then(res => {
                     if (res) {
-                        let data = res.data.activity
+                        let data = res.data.Data
                         console.log('data', data)
-                        this.formValidate.id = data.id
-                        this.formValidate.name = data.name
-                        this.formValidate.desc = data.desc
-                        this.detailListFormValidate = []
-                        for (var i = 0; i < data.activity_detail.length; i++) {
-                            var len = i + 10
-                            var detailList = {
-                                htmlId: lib.getRandomString(len),
-                                id: data.activity_detail[i].id,
-                                title: data.activity_detail[i].title,
-                                detail: data.activity_detail[i].detail,
-                            }
-                            console.log(detailList)
-                            this.detailListFormValidate.push(detailList)
-                        }
+                        this.imglink_format = lib.getImglink(data.imglink,false)
+                        console.log('imglink_format',this.imglink_format)
+
+                        this.formValidate.activity_id = data.content_id
+                        this.formValidate.sort = data.sort
+
+
+                        console.log('formValidate',this.formValidate)
                     }
                 }).catch(error => {
                     console.log(error)
@@ -165,9 +158,8 @@
                 return 'all'
             },
             defaultList() {
-                if(this.$route.query.Id) {
-                    let pics = this.$route.query.Pic.split("|")
-                    pics = this.removeDuplicatedItem(pics)
+                if(this.$route.query.id) {
+                    var pics = lib.getImglink(this.$route.query.imglink,false)
                     let picData = []
                     for(let item in pics) {
                         picData.push({
@@ -175,6 +167,8 @@
                             'url': config.Qiniu.EXTERNAL_LINK + pics[item]
                         })
                     }
+                    console.log('picData',picData)
+
                     return picData
                 } else {
                     return []
@@ -204,19 +198,21 @@
                 let submitData
                 let url
                 if (this.isAdd) {
+                    console.log('this.uploadList',this.uploadList)
                     submitData = {
                         content_id: this.formValidate.activity_id,
                         type: config.Mbanner.TYPE_ACTIVITY,
-                        order: this.formValidate.order,
+                        sort: this.formValidate.sort,
                         imglink: lib.getUploadPicStr(this.uploadList)
                     }
                     url = "/api/mbanner/add"
                 } else {
                     submitData = {
-                        id: this.formValidate.id,
-                        name: this.formValidate.name,
-                        desc: this.formValidate.desc,
-                        activity_detail: this.detailListFormValidate
+                        id: this.$route.query.id,
+                        content_id: this.formValidate.activity_id,
+                        type: config.Mbanner.TYPE_ACTIVITY,
+                        sort: this.formValidate.sort,
+                        imglink: lib.getUpdateUploadPicStr(this.uploadList)
                     }
                     url = "/api/mbanner/update"
                 }
@@ -243,9 +239,7 @@
                 let submitData = {}
                 this.$http.post(url, submitData).then(res => {
                     if (res) {
-                        console.log('q', res)
                         this.QiniuToken = res.data.token
-                        console.log(this.QiniuToken)
                     }
                 }).catch(error => {
                     this.$Message.error('服务器错误!')
@@ -262,6 +256,7 @@
             handleSuccess(res, file) {
                 file.url = config.Qiniu.EXTERNAL_LINK + res.key;
                 file.name = res.hash;
+                console.log('file',file)
                 console.log(this.uploadList)
             },
             handleFormatError(file) {

@@ -72,7 +72,22 @@
                     [
                         {
                             title: '图片',
-                            key: 'name'
+                            key: 'imglink_format',
+                            render: (h, params) => {
+                                return h('div', [
+                                    h('img', {
+                                        attrs: {
+                                            src: params.row.imglink_format? params.row.imglink_format : 'http://img.7hu.cn/avatar-student.jpg',
+                                        },
+                                        style: {
+                                            width: '80px',
+                                            backgroundColor:"#c6cfe1",
+                                            margin:"6px 0",
+                                            float:"left"
+                                        }
+                                    }),
+                                ])
+                            }
                         },
                         {
                             title: 'banner类别',
@@ -81,6 +96,10 @@
                         {
                             title: '跳转',
                             key: 'name'
+                        },
+                        {
+                            title: '排序',
+                            key: 'sort'
                         },
                         {
                             title: '创建日期',
@@ -185,6 +204,7 @@
                         this.total = res.data.total
                         res.data.Data.map(function(item){
                             item.type_format = item.type == config.Mbanner.TYPE_ACTIVITY ? '活动' : ''
+                            item.imglink_format = lib.getImglink(item.imglink)[0]
                             return item
                         })
                         this.tableData = lib.filterResult(res.data.Data)
@@ -216,9 +236,10 @@
             // 编辑页面
             update(params) {
                 this.$router.push({
-                    path: 'activityEdit',
+                    path: 'weWebsiteBannerEdit',
                     query: {
                         id: params.row.id,
+                        imglink: params.row.imglink
                     }
                 })
             },
@@ -233,7 +254,7 @@
                         let submitData = {
                             id: params.row.id
                         }
-                        this.$http.post("/api/activity/del", submitData).then(res => {
+                        this.$http.post("/api/mbanner/del", submitData).then(res => {
                             if (res) {
                                 this.$Message.success('删除成功!')
                                 this.getTableData(
