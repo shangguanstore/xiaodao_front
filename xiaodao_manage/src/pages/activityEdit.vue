@@ -203,11 +203,10 @@
         return 'all'
       },
       defaultList() {
-        if(this.$route.query.Id) {
-          let pics = this.$route.query.Pic.split("|")
-          pics = this.removeDuplicatedItem(pics)
+        if (this.$route.query.Id) {
+          var pics = lib.getImglink(this.$route.query.imglink, false)
           let picData = []
-          for(let item in pics) {
+          for (let item in pics) {
             picData.push({
               "name": pics[item],
               'url': config.Qiniu.EXTERNAL_LINK + pics[item]
