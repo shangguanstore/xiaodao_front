@@ -178,7 +178,7 @@
           search: this.searchValue,
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,
-          queryDetail: false
+          queryDetail: true
         }
         let url = lib.getRequestUrl('/api/activity/getlist', submitData)
         this.$http.get(url, {}).then(res => {
@@ -220,6 +220,7 @@
           query: {
             id: params.row.id,
             imglink: params.row.imglink,
+            detail_imglink: params.row.detail_imglink,
           }
         })
       },
