@@ -307,12 +307,11 @@ footer{
   /*line-height: 60px;*/
   border: 1px solid transparent;
   border-radius: 4px;
-  overflow: hidden;
+  /*overflow: hidden;*/
   background: #fff;
   position: relative;
   box-shadow: 0 1px 1px rgba(0,0,0,.2);
   margin-right: 4px;
-	z-index: 199;
 }
 .demo-upload-list img{
   width: 200px;
@@ -335,18 +334,22 @@ footer{
   cursor: pointer;
   margin: auto auto;
 }
-.demo-upload-list .copyArea {
+.copyArea {
 	position: absolute;
-	bottom: -70px;
-	z-index: 200;
+	bottom: -68px;
 }
 
-.demo-upload-list .copyArea span {
+.copyArea span.url {
 	display: inline-block;
-	width: 70px;
+	width: 200px;
 	height: 30px;
 	line-height: 30px;
 	font-size: 14px;
-	border: solid 1px #cccccc;
+	/*border: solid 1px #cccccc;*/
 	text-overflow: ellipsis;white-space: nowrap;overflow: hidden;
+}
+
+.copyArea .copyBtn {
+	display: block;
+	text-align: center;
 }

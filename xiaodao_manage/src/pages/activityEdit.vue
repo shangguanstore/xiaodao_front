@@ -69,22 +69,26 @@
         </FormItem>
 
         <FormItem label="文本预传图片">
-          <div class="demo-upload-list" v-for="item in detailUploadList">
-            <template v-if="item.status === 'finished'">
-              <img :src="item.url">
-              <div class="demo-upload-list-cover">
-                <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
-                <Icon type="ios-trash-outline" @click.native="handleDetailRemove(item)"></Icon>
-              </div>
-            </template>
-            <template v-else>
-              <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
-            </template>
+          <input id="copyUrlContain" type="text" style="display:none">
+          <div v-for="item in detailUploadList" style="display: inline-block">
+            <div class="demo-upload-list" >
+              <template v-if="item.status === 'finished'">
+                <img :src="item.url">
+                <div class="demo-upload-list-cover">
+                  <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
+                  <Icon type="ios-trash-outline" @click.native="handleDetailRemove(item)"></Icon>
+                </div>
+              </template>
+              <template v-else>
+                <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+              </template>
+            </div>
             <div class="copyArea">
-              <span>{{item.url}}</span>
-              <Button type="info" size="small">复制</Button>
+              <span class="url">{{item.url}}</span>
+              <Button class="copyBtn" type="info" size="small" @click.native="copy(item.url)">复制链接</Button>
             </div>
           </div>
+
 
           <Upload ref="detailUpload"
                   :before-upload="handleDetailBeforeUpload"
@@ -103,7 +107,7 @@
               <Icon type="ios-camera" size="20"></Icon>
             </div>
           </Upload>
-          <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45);margin-top: 80px">支持：jpg/jpeg/png格式</div>
+          <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45);margin-top: 60px"></div>
         </FormItem>
 
         <FormItem label="正文" prop="detail" style="width: 100%">
@@ -130,7 +134,6 @@
   import lib from '@/assets/js/lib/index'
   import config from '@/assets/js/config/index'
   import Ckeditor from '../components/Ckeditor'
-
 
   export default {
     name: 'staffEdit',
@@ -161,7 +164,7 @@
             {name: 'tools', items: ['Maximize']},
             {name: 'editing', items: ['Scayt']}
           ],
-          height: 300
+          height: 800
         },
 
         detailListFormValidate: [],
@@ -300,8 +303,7 @@
     },
     methods: {
       console() {
-        console.log(this.content);
-          this.detail = this.detailListFormValidate[0].detail
+        console.log('detailUploadList',this.detailUploadList)
       },
       addDetail() {
         let htmlId = lib.getRandomString()
@@ -437,8 +439,17 @@
           return check;
       },
       /*上传结束*/
+        copy(url) {
+            var input = document.getElementById("copyUrlContain")
+            input.style.display = 'block'
+            input.value = url
+            input.select()
+            document.execCommand("copy")
+            input.style.display = 'none'
+            this.$Message.success('复制成功！')
+        },
 
-      handleReset(name) {
+        handleReset(name) {
         this.$refs[name].resetFields();
       },
       onBlur(editor) {
