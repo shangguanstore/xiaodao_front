@@ -164,7 +164,7 @@
             {name: 'tools', items: ['Maximize']},
             {name: 'editing', items: ['Scayt']}
           ],
-          height: 800
+          height: 400
         },
 
         detailListFormValidate: [],
