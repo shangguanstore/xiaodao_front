@@ -115,7 +115,7 @@
                       phone: this.formValidate.phone,
                       mother_phone: this.formValidate.mother_phone,
                       father_phone: this.formValidate.father_phone,
-                      sex: this.formValidate.sex === '男' ? 0 : 1,
+                      sex: this.formValidate.sex === '男' ? 1 : 0,
                       birthday: new Date(this.formValidate.birthday).getTime() / 1000,
                       roles: config.UserRole.ROLE_MEMBER,
                   }
@@ -127,7 +127,7 @@
                       phone: this.formValidate.phone,
                       mother_phone: this.formValidate.mother_phone,
                       father_phone: this.formValidate.father_phone,
-                      sex: this.formValidate.sex === '男' ? 0 : 1,
+                      sex: this.formValidate.sex === '男' ? 1 : 0,
                       birthday: new Date(this.formValidate.birthday).getTime() / 1000,
                       roles: config.UserRole.ROLE_MEMBE,
                   }

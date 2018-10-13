@@ -37,7 +37,7 @@ export default function filterResult (data) {
         }
 
       if(isset(item.sex)) {
-        item.sex_format = item.sex === 0 ? '男' : '女'
+        item.sex_format = item.sex === 1 ? '男' : '女'
       }
 
         return item
