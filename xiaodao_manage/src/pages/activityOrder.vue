@@ -3,7 +3,7 @@
     <div class="manage_title">
       <Breadcrumb>
         <BreadcrumbItem>营销管理</BreadcrumbItem>
-        <BreadcrumbItem>活动报名</BreadcrumbItem>
+        <BreadcrumbItem>报名列表</BreadcrumbItem>
       </Breadcrumb>
     </div>
     <div class="container activity_container mt20">
@@ -12,10 +12,10 @@
         <Input v-model="searchValue" placeholder="输入活动名称" style="width: 300px" @on-change="changeSearch"></Input>
         <Button class="ml20" type="info" @click="search">查询</Button>
       </div>
-      <div class="mt20">
-        <Button type="info" icon="ios-plus-empty" @click="add">新建活动</Button>
-        <Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>
-      </div>
+      <!--<div class="mt20">-->
+        <!--<Button type="info" icon="ios-plus-empty" @click="add">新建活动</Button>-->
+        <!--<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>-->
+      <!--</div>-->
       <Table border ref="selection" :loading="loading" :columns="tableColumns" :data="tableData" class="mt20">></Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
@@ -50,9 +50,10 @@
   import config from '@/assets/js/config/index'
 
   export default {
-    name: 'activity',
+    name: 'activityOrder',
     data() {
       return {
+        activity_id: 0,
         searchValue: "",
         current: 1,
         pageSize: 10,
@@ -81,8 +82,12 @@
               key: 'name'
             },
             {
-              title: '活动简介',
-              key: 'desc'
+                title: '昵称',
+                key: 'nickname'
+            },
+            {
+                title: '联系号码',
+                key: 'join_phone'
             },
             {
               title: '创建日期',
@@ -108,20 +113,6 @@
                     }
                   }, '编辑'),
                   h('Button', {
-                      props: {
-                          type: 'text',
-                          size: 'small',
-                      },
-                      style: {
-                          color: '#2db7f5'
-                      },
-                      on: {
-                          click: () => {
-                              this.orderList(params)
-                          }
-                      }
-                  }, '报名列表'),
-                  h('Button', {
                     props: {
                       type: 'text',
                       size: 'small',
@@ -145,12 +136,15 @@
 
     },
     created() {
-      this.getTableData(
-        {
-          pageIndex: this.current,
-          pageSize: this.pageSize,
-        }
-      )
+      if(this.$route.query.id) {
+          this.activity_detail = this.$route.query.id
+          this.getTableData(
+              {
+                  pageIndex: this.current,
+                  pageSize: this.pageSize,
+              }
+          )
+      }
     },
     methods: {
       add() {
@@ -190,18 +184,18 @@
       getTableData(option) {
         let submitData = {
           search: this.searchValue,
+          activity_id: this.activity_id,
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,
-          queryDetail: true
         }
-        let url = lib.getRequestUrl('/api/activity/getlist', submitData)
+        let url = lib.getRequestUrl('/api/activity/order/getlist', submitData)
         this.$http.get(url, {}).then(res => {
           if (res) {
             this.loading = false
             this.current = option.pageIndex
 
             this.total = res.data.total
-            this.tableData = lib.filterResult(res.data.activity)
+            this.tableData = lib.filterResult(res.data.data)
           }
         }).catch(error => {
           console.log('error', error)
@@ -237,14 +231,6 @@
             detail_imglink: params.row.detail_imglink,
           }
         })
-      },
-      orderList(params) {
-          this.$router.push({
-              path: 'activityOrder',
-              query: {
-                  id: params.row.id
-              }
-          })
       },
       remove(params) {
         this.$Modal.confirm({
