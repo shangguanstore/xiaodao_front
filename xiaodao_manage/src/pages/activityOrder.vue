@@ -145,7 +145,7 @@
     },
     created() {
       if(this.$route.query.id) {
-          this.activity_detail = this.$route.query.id
+          this.activity_id = this.$route.query.id
           this.getTableData(
               {
                   pageIndex: this.current,
