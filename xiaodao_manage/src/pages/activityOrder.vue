@@ -82,12 +82,20 @@
               key: 'name'
             },
             {
-                title: '昵称',
+                title: '客户昵称',
                 key: 'nickname'
             },
             {
-                title: '联系号码',
+                title: '客户联系号码',
                 key: 'join_phone'
+            },
+            {
+                title: '分享人',
+                key: 'produce_name'
+            },
+            {
+                title: '分享人联系号码',
+                key: 'produce_phone'
             },
             {
               title: '创建日期',
@@ -184,6 +192,7 @@
       getTableData(option) {
         let submitData = {
           search: this.searchValue,
+          getShare: true,
           activity_id: this.activity_id,
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,
