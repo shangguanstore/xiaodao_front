@@ -192,7 +192,7 @@
           search: this.searchValue,
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,
-          queryDetail: true
+          queryDetail: false
         }
         let url = lib.getRequestUrl('/api/activity/getlist', submitData)
         this.$http.get(url, {}).then(res => {

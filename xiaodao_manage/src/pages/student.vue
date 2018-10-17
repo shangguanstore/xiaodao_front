@@ -100,7 +100,7 @@
 							return h('div', [
 								h('img', {
 									attrs: {
-                    					src: params.row.Pic? 'http://pic.eqsfood.com.cn/'+params.row.Pic : 'http://img.7hu.cn/avatar-student.jpg',
+                    					src: params.row.avatar? params.row.avatar : config.Qiniu.EXTERNAL_LINK + 'Fnv8Hshkyhgmv_P6yVlL290xikd7',
                 					},
 									style: {
 										width: '40px',
