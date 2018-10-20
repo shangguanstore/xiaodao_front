@@ -85,7 +85,7 @@
                    this.formValidate.mother_phone = member.mother_phone
                    this.formValidate.father_phone = member.father_phone
                    this.formValidate.birthday = new Date(lib.strtotime(member.birthday) * 1000)
-                   this.formValidate.sex = member.sex === 0 ? '男' : '女'
+                   this.formValidate.sex = member.sex === 1 ? '男' : '女'
                    this.formValidate.name = member.uname
                    this.formValidate.role = lib.is_array(member.role_id) ? member.role_id : [member.role_id]
                    this.mid = member.mid
