@@ -12,6 +12,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import lib from '@/assets/js/lib'
+import 'babel-polyfill'
 
 
 Vue.use(iView)
