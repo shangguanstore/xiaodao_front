@@ -79,6 +79,7 @@
             <Icon type="md-settings" />
             系统设置
           </template>
+          <MenuItem name="pointEdit">积分设置</MenuItem>
         </Submenu>
       </Menu>
     </Sider>

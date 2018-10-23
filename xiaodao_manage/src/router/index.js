@@ -97,6 +97,11 @@ export default new Router({
               name: 'weWebsiteBannerEdit',
               component: () => import('@/pages/weWebsiteBannerEdit')
           },
+          {
+              path: '/pointEdit',
+              name: 'pointEdit',
+              component: () => import('@/pages/pointEdit')
+          },
       ]
     }
   ]
