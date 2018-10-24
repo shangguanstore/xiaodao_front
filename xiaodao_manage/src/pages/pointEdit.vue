@@ -12,15 +12,15 @@
         <Row>
           <Col span="2">&nbsp;</Col>
           <Col span="3">
-            <i-switch size="large" v-model="registerStatus" @on-change="registerChange">
+            <i-switch size="large" v-model="formValidate.KEY_POINT_REGISTER_STATUS" @on-change="registerChange">
               <span slot="open">开启</span>
               <span slot="close">关闭</span>
             </i-switch>
             注册得积分
           </Col>
           <Col span="3">
-            <FormItem prop="name">
-              <Input v-model="formValidate.registerNum"></Input>
+            <FormItem prop="KEY_POINT_REGISTER_VALUE">
+              <Input v-model="formValidate.KEY_POINT_REGISTER_VALUE" number></Input>
             </FormItem>
           </Col>
         </Row>
@@ -28,15 +28,15 @@
         <Row>
           <Col span="2">&nbsp;</Col>
           <Col span="3">
-            <i-switch size="large" v-model="shareStatus" @on-change="shareChange">
+            <i-switch size="large" v-model="formValidate.KEY_POINT_SHARE_STATUS" @on-change="shareChange">
               <span slot="open">开启</span>
               <span slot="close">关闭</span>
             </i-switch>
             分享得积分
           </Col>
           <Col span="3">
-            <FormItem prop="name">
-              <Input v-model="formValidate.shareNum"></Input>
+            <FormItem prop="KEY_POINT_SHARE_VALUE">
+              <Input v-model="formValidate.KEY_POINT_SHARE_VALUE" number></Input>
             </FormItem>
           </Col>
         </Row>
@@ -44,15 +44,15 @@
         <Row>
           <Col span="2">&nbsp;</Col>
           <Col span="3">
-            <i-switch size="large" v-model="shareApplyStatus" @on-change="shareApplyChange">
+            <i-switch size="large" v-model="formValidate.KEY_POINT_SHARE_APPLY_STATUS" @on-change="shareApplyChange">
               <span slot="open">开启</span>
               <span slot="close">关闭</span>
             </i-switch>
             分享并且报名得积分
           </Col>
           <Col span="3">
-            <FormItem prop="name">
-              <Input v-model="formValidate.shareApplyNum"></Input>
+            <FormItem prop="KEY_POINT_SHARE_APPLY_VALUE">
+              <Input v-model="formValidate.KEY_POINT_SHARE_APPLY_VALUE" number></Input>
             </FormItem>
           </Col>
         </Row>
@@ -60,19 +60,18 @@
         <Row>
           <Col span="2">&nbsp;</Col>
           <Col span="3">
-            <i-switch size="large" v-model="shareSuccessStatus" @on-change="shareSuccessChange">
+            <i-switch size="large" v-model="formValidate.KEY_POINT_SHARE_SUCCESS_STATUS" @on-change="shareSuccessChange">
               <span slot="open">开启</span>
               <span slot="close">关闭</span>
             </i-switch>
             最终转化得积分
           </Col>
           <Col span="3">
-            <FormItem prop="name">
-              <Input v-model="formValidate.shareSuccessNum"></Input>
+            <FormItem prop="KEY_POINT_SHARE_SUCCESS_VALUE">
+              <Input v-model="formValidate.KEY_POINT_SHARE_SUCCESS_VALUE" number></Input>
             </FormItem>
           </Col>
         </Row>
-
 
         <Row style="margin-top: 100px">
           <Col span="1">&nbsp;</Col>
@@ -97,21 +96,32 @@
     name: 'pointEdit',
     data() {
       return {
-        registerStatus: false,
-        shareStatus: false,
-        shareApplyStatus: false,
-        shareSuccessStatus: false,
         mid: 0,
         title: "",
         isAdd: true,
         formValidate: {
-          registerNum: 0,
-          shareNum: 0,
-          shareApplyNum: 0,
-          shareSuccessNum: 0
+          KEY_POINT_REGISTER_STATUS: 0,
+          KEY_POINT_REGISTER_VALUE: 0,
+          KEY_POINT_SHARE_STATUS: 0,
+          KEY_POINT_SHARE_VALUE: 0,
+          KEY_POINT_SHARE_APPLY_STATUS: 0,
+          KEY_POINT_SHARE_APPLY_VALUE: 0,
+          KEY_POINT_SHARE_SUCCESS_STATUS: 0,
+          KEY_POINT_SHARE_SUCCESS_VALUE: 0
         },
         ruleValidate: {
-
+            KEY_POINT_REGISTER_VALUE: [
+                {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+            ],
+            KEY_POINT_SHARE_VALUE: [
+                {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+            ],
+            KEY_POINT_SHARE_APPLY_VALUE: [
+                {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+            ],
+            KEY_POINT_SHARE_SUCCESS_VALUE: [
+                {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+            ],
         }
       }
     },
@@ -124,7 +134,7 @@
     methods: {
       getSettingData() {
           let submitData = {
-              key: [
+              cfkey: [
                   'KEY_POINT_REGISTER',
                   'KEY_POINT_SHARE',
                   'KEY_POINT_SHARE_APPLY',
@@ -134,7 +144,15 @@
           let url = '/api/company/setting/getlist'
           this.$http.post(url, submitData).then(res => {
               if(res) {
-                  console.log(res)
+                  var data = res.data.data
+                  this.formValidate.KEY_POINT_REGISTER_STATUS = data.KEY_POINT_REGISTER.status == 0 ? true : false
+                  this.formValidate.KEY_POINT_REGISTER_VALUE = data.KEY_POINT_REGISTER.value
+                  this.formValidate.KEY_POINT_SHARE_STATUS = data.KEY_POINT_SHARE.status == 0 ? true : false
+                  this.formValidate.KEY_POINT_SHARE_VALUE = data.KEY_POINT_SHARE.value
+                  this.formValidate.KEY_POINT_SHARE_APPLY_STATUS = data.KEY_POINT_SHARE_APPLY.status == 0 ? true : false
+                  this.formValidate.KEY_POINT_SHARE_APPLY_VALUE = data.KEY_POINT_SHARE_APPLY.value
+                  this.formValidate.KEY_POINT_SHARE_SUCCESS_STATUS = data.KEY_POINT_SHARE_SUCCESS.status == 0 ? true : false
+                  this.formValidate.KEY_POINT_SHARE_SUCCESS_VALUE = data.KEY_POINT_SHARE_SUCCESS.value
               }
           }).catch(error => {
               console.log(error)
@@ -157,44 +175,44 @@
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-              let submitData
-              let url
-              console.log('isAdd',this.isAdd)
-              if(this.isAdd) {
-                  submitData = {
-                      name: this.formValidate.name,
-                      phone: this.formValidate.phone,
-                      mother_phone: this.formValidate.mother_phone,
-                      father_phone: this.formValidate.father_phone,
-                      sex: this.formValidate.sex === '男' ? 1 : 0,
-                      birthday: new Date(this.formValidate.birthday).getTime() / 1000,
-                      roles: config.UserRole.ROLE_MEMBER,
-                  }
-                  url = "/api/member/add"
-              }else{
-                  submitData = {
-                      mid: this.mid,
-                      name: this.formValidate.name,
-                      phone: this.formValidate.phone,
-                      mother_phone: this.formValidate.mother_phone,
-                      father_phone: this.formValidate.father_phone,
-                      sex: this.formValidate.sex === '男' ? 1 : 0,
-                      birthday: new Date(this.formValidate.birthday).getTime() / 1000,
-                      roles: config.UserRole.ROLE_MEMBE,
-                  }
-                  url = "/api/member/update"
-              }
+              let setting = [
+                  {
+                    cfkey: 'KEY_POINT_REGISTER',
+                    value: this.formValidate.KEY_POINT_REGISTER_VALUE,
+                    status: this.formValidate.KEY_POINT_REGISTER_STATUS ? config.XstCompanySetting.STATUS_OK : config.XstCompanySetting.STATUS_INVALID,
+                  },
+                  {
+                      cfkey: 'KEY_POINT_SHARE',
+                      value: this.formValidate.KEY_POINT_SHARE_VALUE,
+                      status: this.formValidate.KEY_POINT_SHARE_STATUS ? config.XstCompanySetting.STATUS_OK : config.XstCompanySetting.STATUS_INVALID,
+                  },
+                  {
+                      cfkey: 'KEY_POINT_SHARE_APPLY',
+                      value: this.formValidate.KEY_POINT_SHARE_APPLY_VALUE,
+                      status: this.formValidate.KEY_POINT_SHARE_APPLY_STATUS ? config.XstCompanySetting.STATUS_OK : config.XstCompanySetting.STATUS_INVALID,
+                  },
+                  {
+                      cfkey: 'KEY_POINT_SHARE_SUCCESS',
+                      value: this.formValidate.KEY_POINT_SHARE_SUCCESS_VALUE,
+                      status: this.formValidate.KEY_POINT_SHARE_SUCCESS_STATUS ? config.XstCompanySetting.STATUS_OK : config.XstCompanySetting.STATUS_INVALID,
+                  },
+              ]
 
+              let submitData = {
+                setting: setting
+              }
+              let url = "/api/company/setting/update"
               this.$http.post(url, submitData).then(res => {
                   if(res) {
-                      this.$Message.success(this.title+'成功!')
-                      var _this = this
-                      setTimeout(function () {
-                          _this.$router.push({
-                              path: 'student',
-                              query: {}
-                          })
-                      },200)
+                      this.$Message.success('更新积分配置成功!')
+
+                      // var _this = this
+                      // setTimeout(function () {
+                      //     _this.$router.push({
+                      //         path: 'student',
+                      //         query: {}
+                      //     })
+                      // },200)
                   }
               }).catch(error => {
                   this.$Message.error('服务器错误!')
