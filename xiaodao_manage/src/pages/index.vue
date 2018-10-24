@@ -12,6 +12,9 @@
     data() {
       return {}
     },
+    created() {
+
+    },
     mounted(){
 
     },

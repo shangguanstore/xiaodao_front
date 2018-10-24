@@ -54,6 +54,13 @@
         }
       }
     },
+    created() {
+      var domain = document.domain
+      if(domain.indexOf('xiaost.net') > -1) {
+        window.location.href = 'http://abie.17zhaotu.org'
+      }
+      console.log(2222)
+    },
     mounted(){
 
     },
