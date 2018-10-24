@@ -3,7 +3,7 @@ var sprintf = function () {
     str = arg[0] || '',
     i, n;
   for (i = 1, n = arg.length; i < n; i++) {
-    str = str.replace(/%d/, arg[i]);
+    str = str.replace(/%s/, arg[i]);
   }
   return str;
 }

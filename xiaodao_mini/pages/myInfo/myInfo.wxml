@@ -1,0 +1,30 @@
+<!--pages/myInfo/myInfo.wxml-->
+<view class='container myinfo_container'>
+  <view class='gap'></view>
+  <view class='my-list-container'>
+    <view class='list'>
+      <text>昵称</text>
+      <text>{{name}}</text>
+    </view>
+    <view class='list'>
+      <text>性别</text>
+      <text>{{sex}}</text>
+    </view>
+  </view>
+
+  <view class='gap'></view>
+  <view class='my-list-container'>
+    <view class='list'>
+      <text>创建时间</text>
+      <text>{{create_time_format}}</text>
+    </view>
+    <view class='list'>
+      <text>电话号码</text>
+      <text>{{phone}}</text>
+    </view>
+    <view class='list'>
+      <text>状态</text>
+      <text>正常</text>
+    </view>
+  </view>
+</view>

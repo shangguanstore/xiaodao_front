@@ -1,0 +1,44 @@
+/* pages/wxAuth/wxAuth.wxss */
+.logoArea {
+  margin-top: 200rpx;
+}
+.logoArea image {
+  width: 160rpx;
+  height: 120rpx;
+}
+.logoArea .name {
+  margin-left: 25rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+form button {
+  margin-top: 10rpx;
+  background: gray;
+  color: white;
+}
+

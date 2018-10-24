@@ -1,0 +1,9 @@
+<!--pages/promote/promote.wxml-->
+<view class='container'>
+  <image src='../../images/promote/promote-bg.jpg'></image>
+  <!-- <view class='bg'></view> -->
+
+  <view class='btnArea'>
+       <button type="primary" bindtap='tapPromote'> 加入渠道推广 </button>
+  </view> 
+</view>

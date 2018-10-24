@@ -1,0 +1,67 @@
+/* pages/myPoint/myPoint.wxss */
+.topArea {
+  width: 700rpx;
+  padding-left: 50rpx;
+}
+.topArea .title {
+  margin-top: 50rpx;
+  font-size: 32rpx;
+  color: white;
+}
+
+.topArea .num {
+  margin: 0rpx 0;
+  font-size: 120rpx;
+  color: white;
+  text-align: left;
+  /* background: red; */
+  position: relative;
+  left: -10rpx;
+}
+
+.detailTitle {
+  width: 730rpx;
+  padding-left: 20rpx;
+  text-align: left;
+}
+
+
+.detailList .listItem {
+  width: 710rpx;
+  padding: 0 20rpx;
+  border-bottom: solid 1rpx #e8eaec;
+}
+
+.detailList .listItem:first-child {
+  border-top: solid 1rpx #e8eaec;
+}
+
+.detailList .listItem .itemSon {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detailList .listItem .title {
+  margin-top: 10rpx;
+}
+
+.detailList .listItem .itemSon .cause {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.detailList .listItem .itemSon .time {
+  font-size: 24rpx;
+  color: #808695;
+}
+
+.detailList .listItem .itemSon .des {
+  font-size: 28rpx;
+  color: #515a6e;
+}
+
+.detailList .listItem .itemSon .num {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #17233d;
+}

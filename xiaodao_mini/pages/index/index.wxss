@@ -19,3 +19,34 @@
 .usermotto {
   margin-top: 200px;
 }
+
+
+.swiper {
+  height: 400rpx;
+  width: 100%;
+}
+.swiper image {
+  height: 100%;
+  width: 100%;
+}
+
+.listTopLine {
+  margin-top: 20rpx;
+}
+
+.listTopLine .line {
+  display: inline-block;
+  width: 275rpx;
+  border-bottom: solid 4rpx #e8eaec;
+}
+
+.listTopLine  .title {
+  margin: 0 20rpx;
+  color: #FE480E;
+  font-size: 30rpx;
+  font-weight: 500;
+  position: relative;
+  top: 8rpx;
+}
+
+

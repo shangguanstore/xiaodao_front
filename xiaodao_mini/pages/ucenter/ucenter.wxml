@@ -1,0 +1,80 @@
+<!--pages/ucenter/ucenter.wxml-->
+<view class='container ucenter_container'>
+  <view class='topArea'>
+    <view class='user'>
+      <view class='image'>
+        <block wx:if="{{avatar}}">
+          <image src="{{avatar}}"></image>
+        </block>
+        <block wx:else>
+          <image src="../../images/ucenter/user.jpg"></image>
+        </block>
+      </view>
+      <block wx:if="{{hasUserInfo}}">
+        <view class='info'>
+          <view class='name'>{{name}}</view>
+          <view class='sit'>{{phone}}</view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class='reg' data-url='../wxAuth/wxAuth' bindtap='routeTo'>登录/注册</view>
+      </block>
+    </view>
+
+    <!-- <view class='content'>
+      <view class='item day'>
+        <view>5</view>
+        <view>本月已工作时间(天)</view>
+      </view>
+
+      <view class='item oprNum'>
+        <view>47</view>
+        <view>积分数量</view>
+      </view>
+
+      <view class='item fieldNum'>
+        <view>8</view>
+        <view>我管理的田块数量</view>
+      </view>
+    </view> -->
+  </view>
+
+  <view class='myItem'>
+    <view class='list' data-url='../myJoin/myJoin' bindtap='routeTo'>
+      <view class='image'>
+        <image src='../../images/ucenter/myField.png'></image>
+      </view>
+      <view class='title'>
+        我参加的
+      </view>
+    </view>
+
+    <view class='list' data-url='../myPoint/myPoint' bindtap='routeTo'>
+      <view class='image'>
+        <image src='../../images/ucenter/myOpe.png'></image>
+      </view>
+      <view class='title'>
+        我的积分
+      </view>
+    </view>
+
+    <view class='list' bindtap='toMyInfo'>
+      <view class='image'>
+        <image src='../../images/ucenter/myInfo.png'></image>
+      </view>
+      <view class='title'>
+        我的信息
+      </view>
+    </view>
+
+    <view class='list' bindtap='toPromote'>
+      <view class='image'>
+        <image src='../../images/ucenter/myData.png'></image>
+      </view>
+      <view class='title'>
+        我要推广
+      </view>
+    </view>
+
+  </view>
+</view>

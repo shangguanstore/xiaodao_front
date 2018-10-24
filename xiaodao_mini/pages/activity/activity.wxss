@@ -1,2 +1,25 @@
 /* pages/activity/activity.wxss */
 @import "/wxParse/wxParse.wxss";
+
+.baomingTitle {
+  width: 700rpx;
+  margin-top: 20rpx;
+  color: #31a89e;
+  text-align: center;
+}
+
+.intro {
+  font-size: 29rpx;
+  color: #808695;
+  margin-top: 10rpx;
+}
+
+form {
+  margin-bottom: 90rpx;
+}
+
+button {
+  margin: 20rpx 0;
+  color: white;
+  background: gray;
+}

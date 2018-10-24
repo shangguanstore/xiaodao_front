@@ -1,0 +1,22 @@
+<!--pages/myPoint/myPoint.wxml-->
+<view class='container'>
+  <view class='topArea mainBackgroundColor'>
+    <view class='title'>账户积分</view>
+    <view class='num'>88</view>
+  </view>
+
+  <view class='detailTitle'>历史明细</view>
+
+  <view class='detailList'>
+    <view class='listItem'>
+      <view class='itemSon title'>
+        <view class='cause'>注册</view>
+        <view class='time'>2018-10-11</view>
+      </view>
+      <view class='itemSon content'>
+        <view class='des'>账户积分：88</view>
+        <view class='num'>+88</view>
+      </view>
+    </view>
+  </view>
+</view>

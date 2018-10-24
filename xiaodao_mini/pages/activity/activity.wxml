@@ -1,7 +1,39 @@
 <!--pages/activity/activity.wxml-->
-<import src="../../wxParse/wxParse.wxml"/> 
+<import src="../../wxParse/wxParse.wxml" />
 <view class="container activity_container">
+
+  <i-grid-item wx:if="{{!Loaded}}">
+    <i-spin custom fix>
+      <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
+      <view>Loading</view>
+    </i-spin>
+  </i-grid-item>
+
   <view class='rich-text'>
-    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
   </view>
+
+  <view class='baomingTitle'>
+    【报名方式】
+  </view>
+
+  <view class='intro'>
+    输入您的手机号提交报名，我们将会很快与您取得联系
+  </view>
+
+  <form bindsubmit="formSubmit">
+    <view class="section name">
+      <input type='text' name='phone' placeholder="请输入您的手机号" />
+    </view>
+    <view class="btn-area">
+      <block wx:if="{{hasUserInfo}}">
+        <button formType="submit">确认</button>
+      </block>
+      <block wx:else>
+        <button formType="submit" open-type="getUserInfo">确认</button>
+      </block>
+    </view>
+  </form>
+
+  <button type='primary' open-type='share' style='margin-bottom: 100rpx'>分享</button>
 </view>

@@ -1,6 +1,7 @@
 //app.js
 App({
   onLaunch: function () {
+    console.log('onLaunch')
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -36,8 +37,21 @@ App({
   globalData: {
     userInfo: null
   },
+
+  //配置开始
   config: {
-    baseServerUrl: 'https://www.photoelectric-displaycenter.com/',
+    // baseServerUrl: 'https://www.photoelectric-displaycenter.com/',
+    baseServerUrl: 'https://api.photoelectric-displaycenter.com/',
     // baseServerUrl: 'http://hxe.7hu.cn/',
-  }
+    Qiniu: {
+      ACTION_URL: 'http://up.qiniu.com',
+      EXTERNAL_LINK: 'http://pfcz9oabu.bkt.clouddn.com/'
+    },
+    Share: {
+      TYPE_DEFAULT: 0,
+      TYPE_ACTIVITY: 1
+    }
+  },
+
+  //配置结束
 })

@@ -2,12 +2,44 @@
   "pages":[
     "pages/index/index",
     "pages/logs/logs",
-    "pages/activity/activity"
+    "pages/activity/activity",
+    "pages/myJoin/myJoin",
+    "pages/myPoint/myPoint",
+    "pages/myInfo/myInfo",
+    "pages/wxAuth/wxAuth",
+    "pages/promote/promote",
+    "pages/ucenter/ucenter"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#aaaaaa",
+    "selectedColor": "#31a89e",
+    "borderStyle": "white",
+    "backgroundColor": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/home-click.png",
+        "iconPath": "images/home-dis.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/suyuan-click.png",
+        "iconPath": "images/suyuan-dis.png",
+        "pagePath": "pages/myJoin/myJoin",
+        "text": "我参加的"
+      },
+      {
+        "selectedIconPath": "images/ucenter-click.png",
+        "iconPath": "images/ucenter-dis.png",
+        "pagePath": "pages/ucenter/ucenter",
+        "text": "我的"
+      }
+    ]
   }
 }

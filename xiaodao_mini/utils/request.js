@@ -6,7 +6,7 @@ var request = function(url, method, params, success, fail, message = '') {
   url = app.config.baseServerUrl + url
   params.XDEBUG_SESSION_START = 'PHPSTORM'
   var addition
-  for(var key in params) {
+  for (var key in params) {
     if (key == 'addition') {
       addition = params[key]
       delete params[key]
@@ -31,7 +31,7 @@ var request = function(url, method, params, success, fail, message = '') {
       'content-type': 'application/x-www-form-urlencoded',
     },
     method: method,
-    success: function (res) {
+    success: function(res) {
       wx.hideNavigationBarLoading()
       if (message != "") {
         wx.hideLoading()
@@ -39,11 +39,13 @@ var request = function(url, method, params, success, fail, message = '') {
       if (res.statusCode == 200) {
         if (res.data.StatusCode == 403) {
           login()
+        } else if (res.data.errNo != 100000) {
+          fail(res)
         } else {
           success(res, addition)
         }
       } else {
-        fail()
+        fail(res)
       }
     },
     fail: function(res) {
@@ -51,7 +53,7 @@ var request = function(url, method, params, success, fail, message = '') {
       if (message != "") {
         wx.hideLoading()
       }
-      fail()
+      fail(res)
     },
     complete: function(res) {
 
@@ -75,14 +77,14 @@ var login = function() {
           method: 'post',
           success: function(response) {
             var data = JSON.parse(response.data)
-            if(lib.isset(data.token)){//以前绑定过
+            if (lib.isset(data.token)) { //以前绑定过
               wx.setStorageSync('session_id', data.session_id)
               wx.setStorageSync('token', data.token)
               wx.setStorageSync('username', data.username)
               wx.redirectTo({
                 url: '../index/index'
               })
-            }else{//从未绑定过
+            } else { //从未绑定过
               wx.setStorageSync('session_id', data.session_id)
               //去往授权登录页
               wx.redirectTo({

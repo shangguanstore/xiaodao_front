@@ -1,0 +1,106 @@
+/* pages/ucenter/ucenter.wxss */
+.ucenter_container .topArea {
+  background: #31a89e;
+  width: 750rpx;
+}
+
+.topArea .user .image {
+  display: inline-block;
+  padding: 30rpx 34rpx;
+}
+
+.topArea .user .image image {
+  width: 121rpx;
+	height: 121rpx;
+  border-radius: 60rpx;
+}
+
+.topArea .user .reg {
+  display: inline-block;
+  position: relative;
+  top: -39rpx;
+}
+
+.topArea .user .info {
+  display: inline-block;
+  position: relative;
+  top: -23rpx;
+}
+
+.topArea .user .info .name {
+  font-size: 36rpx;
+  color: white;
+}
+
+.topArea .user .info .sit {
+  font-size: 32rpx;
+  color: white;
+}
+
+
+.topArea .content {
+  overflow: hidden;
+  margin-bottom: 40rpx;
+}
+
+.topArea .content .item {
+  float: left;
+  width: 249rpx;
+  text-align: center;
+}
+
+.topArea .content .item:nth-child(1) {
+  border-right: solid 1rpx rgba(99,192,204,0.4);
+}
+
+.topArea .content .item:nth-child(2) {
+  border-right: solid 1rpx rgba(99,192,204,0.4);
+}
+
+.topArea .content .item view:nth-child(1) {
+  font-size: 40rpx;
+  color: white;
+}
+
+.topArea .content .item view:nth-child(2) {
+  font-size: 24rpx;
+  color: white;
+	opacity: 0.7;
+}
+
+.myItem {
+  width: 702rpx;
+  margin-top: 20rpx;
+	background-color: #ffffff;
+	box-shadow: 0rpx 6rpx 24rpx 0rpx 
+		rgba(83, 93, 99, 0.05);
+	border-radius: 10rpx;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list .image {
+  padding: 0rpx 20rpx;
+  height: 119rpx;
+  display: flex;
+  align-items: center;
+  /* background: yellow; */
+}
+
+.list .image image {
+  width: 70rpx;
+  height: 70rpx;
+  align-items: center;
+}
+
+.list .title {
+  padding: 35rpx 3rpx;
+  width: 582rpx;
+  font-size: 32rpx;
+  color: #444444;
+  /* background: red; */
+  border-bottom: solid 1rpx rgba(238, 238, 238, 0.3);
+}

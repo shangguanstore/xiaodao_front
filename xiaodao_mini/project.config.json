@@ -8,7 +8,8 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"nodeModules": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.3.0",
@@ -36,12 +37,37 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 4,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "活动页面",
-					"pathName": "pages/activity/activity"
+					"pathName": "pages/activity/activity",
+					"query": "id=24"
+				},
+				{
+					"id": 1,
+					"name": "个人中心",
+					"pathName": "pages/ucenter/ucenter",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "我的积分",
+					"pathName": "pages/myPoint/myPoint",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "授权登录",
+					"pathName": "pages/wxAuth/wxAuth",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "推广",
+					"pathName": "pages/promote/promote",
+					"query": ""
 				}
 			]
 		}

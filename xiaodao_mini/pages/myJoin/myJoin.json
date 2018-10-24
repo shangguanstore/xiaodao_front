@@ -1,6 +1,6 @@
 {
   "window": {
-    "navigationBarTitleText": "活动详情"
+    "navigationBarTitleText": "我参加的"
   },
   "usingComponents": {
     "i-spin": "../../components/spin/index",

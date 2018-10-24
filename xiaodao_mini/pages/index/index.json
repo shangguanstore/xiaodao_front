@@ -1,1 +1,9 @@
-{}
+{
+  "window": {
+    "navigationBarTitleText": "首页"
+  },
+  "usingComponents": {
+    "i-spin": "../../components/spin/index",
+    "i-icon": "../../components/icon/index"
+  }
+}
