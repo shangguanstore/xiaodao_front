@@ -22,7 +22,7 @@ UserRole.ROLE_ASSIST_TEACHER = 6;
 function Qiniu() {
 }
 Qiniu.ACTION_URL = 'http://up.qiniu.com'
-Qiniu.EXTERNAL_LINK = 'http://pfcz9oabu.bkt.clouddn.com/'
+Qiniu.EXTERNAL_LINK = 'http://qiniu.17zhaotu.org/'
 
 
 function Mbanner() {

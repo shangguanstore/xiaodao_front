@@ -70,7 +70,7 @@
 
         <FormItem label="文本预传图片">
           <input id="copyUrlContain" type="text" style="display:none">
-          <div v-for="item in detailUploadList" style="display: inline-block">
+          <div v-if="detailUploadList.length > 0" v-for="item in detailUploadList" style="display: inline-block">
             <div class="demo-upload-list" >
               <template v-if="item.status === 'finished'">
                 <img :src="item.url">
@@ -248,7 +248,7 @@
     mounted() {
       /*图片上传*/
       this.uploadList = this.$refs.upload.fileList
-        this.detailUploadList = this.$refs.detailUpload.fileList
+      this.detailUploadList = this.$refs.detailUpload.fileList
 
         // console.log('this.$refs.upload',this.$refs.upload)
         //
