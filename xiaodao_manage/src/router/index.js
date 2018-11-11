@@ -102,6 +102,11 @@ export default new Router({
               name: 'pointEdit',
               component: () => import('@/pages/pointEdit')
           },
+          {
+              path: '/pointDetail',
+              name: 'pointDetail',
+              component: () => import('@/pages/pointDetail')
+          },
       ]
     }
   ]
