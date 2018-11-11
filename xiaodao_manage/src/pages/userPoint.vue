@@ -3,7 +3,7 @@
 		<div class="manage_title">
 			<Breadcrumb>
 				<BreadcrumbItem>用户资金管理</BreadcrumbItem>
-				<BreadcrumbItem>用户积分明细</BreadcrumbItem>
+				<BreadcrumbItem>用户积分</BreadcrumbItem>
 			</Breadcrumb>
 		</div>
 		<div class="container staff_container mt20">
@@ -23,6 +23,20 @@
 				</div>
 			</div>
 		</div>
+
+		<Modal
+				v-model="modal"
+				title="修改用户积分" @on-ok="changePointModalSubmit('formValidate')">
+			<Form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-position="left" :label-width="70">
+				<FormItem label="更改数量" prop="num">
+					<Input v-model="formValidate.num" placeholder="请输入变动积分，正数表示增加积分，负数表示减少积分"></Input>
+				</FormItem>
+
+				<FormItem label="备注" prop="comment">
+					<Input v-model="formValidate.comment" placeholder="备注说明"></Input>
+				</FormItem>
+			</Form>
+		</Modal>
 
 		<Modal v-model="exportDataShow">
         	<p slot="header">
@@ -48,9 +62,10 @@
 	import config from '@/assets/js/config/index'
 
 	export default {
-		name: 'staff',
+		name: 'userPoint',
 		data() {
 			return {
+			    modal: false,
 				searchValue:"",
 				current: 1,
 				pageSize: 10,
@@ -83,16 +98,8 @@
                         key:'phone'
                     },
                     {
-                        title:'类型',
-                        key:'comment'
-                    },
-                    {
-                        title:'变动数量',
+                        title:'当前积分',
                         key:'num'
-                    },
-                    {
-                        title:'剩余积分',
-                        key:'cur_point_num'
                     },
 					{
 						title:'创建日期',
@@ -113,28 +120,24 @@
 									},
 									on: {
 										click: () => {
-											this.update(params)
+											this.toChangePoint(params)
 										}
 									}
-								}, '编辑'),
-								h('Button', {
-									props: {
-										type: 'text',
-										size: 'small',
-									},
-									style: {
-										color: '#2db7f5'
-									},
-									on: {
-										click: () => {
-											this.remove(params)
-										}
-									}
-								}, '删除'),
+								}, '调整积分'),
 							])
 						}
 					}
 				],
+                formValidate: {
+			        mid: 0,
+					num: null,
+					comment: ''
+				},
+                ruleValidate: {
+				    // num: [
+                    //     {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+					// ]
+				}
 
 			}
 		},
@@ -190,7 +193,7 @@
 					pageIndex: option.pageIndex,
                     pageSize: option.pageSize
                 }
-                let url = lib.getRequestUrl('/api/point/detail/getlist', submitData)
+                let url = lib.getRequestUrl('/api/point/getlist', submitData)
                 this.$http.get(url, {}).then(res => {
                     if(res) {
                         this.loading = false
@@ -203,6 +206,38 @@
                     console.log('error',error)
                     this.loading = false
                     this.$Message.error('服务器错误!');
+                })
+			},
+            toChangePoint(params) {
+                this.formValidate.num = null
+				this.formValidate.mid = params.row.mid,
+				this.formValidate.comment = ''
+                this.modal = true
+			},
+            changePointModalSubmit(formValidate) {
+                this.$refs[formValidate].validate((valid) => {
+                    if(valid) {
+                        let submitData = {
+                            mid: this.formValidate.mid,
+							num: this.formValidate.num,
+							comment: this.formValidate.comment
+                        }
+                        let url = 'api/change/user/point'
+                        this.$http.post(url, submitData).then(res => {
+                            if(res) {
+                                this.$Message.success('调整积分成功!');
+
+                                this.getTableData({
+                                    pageIndex: this.current,
+                                    pageSize: this.pageSize
+								})
+                            }
+                        }).catch(error => {
+                            console.log('error',error)
+                            this.loading = false
+                            this.$Message.error('服务器错误!');
+                        })
+                    }
                 })
 			},
 			changePage(page) {

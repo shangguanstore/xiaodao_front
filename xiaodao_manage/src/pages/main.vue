@@ -57,8 +57,8 @@
             <i class="icon iconfont icon-jifen" style="margin-left: 12px;font-size: 14px;"></i>
             用户资金管理
           </template>
+          <MenuItem name="userPoint">用户积分</MenuItem>
           <MenuItem name="pointDetail">用户积分明细</MenuItem>
-          <MenuItem name="weWebsite">用户资金管理</MenuItem>
         </Submenu>
 
 

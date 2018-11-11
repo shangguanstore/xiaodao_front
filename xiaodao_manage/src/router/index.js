@@ -107,6 +107,11 @@ export default new Router({
               name: 'pointDetail',
               component: () => import('@/pages/pointDetail')
           },
+          {
+              path: '/userPoint',
+              name: 'userPoint',
+              component: () => import('@/pages/userPoint')
+          },
       ]
     }
   ]
