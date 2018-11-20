@@ -54,6 +54,10 @@
           </Upload>
           <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45)">支持：jpg/jpeg/png格式</div>
         </FormItem>
+
+        <FormItem label="活动时间" prop="timeRange" style="width: 60%">
+          <DatePicker v-model="formValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm" placeholder="选择日期和时间" style="width: 300px"></DatePicker>
+        </FormItem>
       </Form>
     </div>
 
@@ -170,6 +174,8 @@
         detailListFormValidate: [],
         formValidate: {
           name: '',
+            desc: '',
+            timeRange: ''
         },
         ruleValidate: {
           name: [
@@ -178,6 +184,9 @@
           desc: [
             {required: true, message: '请输入活动简介', trigger: 'blur'}
           ],
+          // timeRange: [
+          //     {required: true, type: 'date', message: '请选择活动时间', trigger: 'change'}
+          // ]
         },
         /*图片上传*/
         uploadList: [],
@@ -203,9 +212,15 @@
               console.log('res',res)
             let data = res.data.activity
             console.log('data', data)
+            var startTimeDate = new Date().setTime(data.start_time * 1000)
+            var endTimeDate = new Date().setTime(data.end_time * 1000)
+            var timeRange = [startTimeDate, endTimeDate];
+
             this.formValidate.id = data.id
             this.formValidate.name = data.name
             this.formValidate.desc = data.desc
+            this.formValidate.timeRange = timeRange
+
             this.detailListFormValidate = []
             for (var i = 0; i < data.activity_detail.length; i++) {
               var len = i + 10
@@ -321,6 +336,9 @@
         })
       },
       handleSubmit() {
+          var timeRange = this.formValidate.timeRange
+          var startTime = Math.ceil(timeRange[0].getTime() / 1000)
+          var endTime = Math.ceil(timeRange[1].getTime() / 1000)
         let submitData
         let url
           var htmlId = lib.getRandomString()
@@ -336,6 +354,8 @@
           submitData = {
             name: this.formValidate.name,
             desc: this.formValidate.desc,
+              start_time: startTime,
+              end_time: endTime,
             // activity_detail: this.detailListFormValidate,
             activity_detail: this.detailListFormValidate,
             imglink: lib.getUploadPicStr(this.uploadList)
