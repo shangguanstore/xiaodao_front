@@ -7,13 +7,13 @@
 
   <form bindsubmit="formSubmit">
     <view class="section name">
-        <input type='text' name='phone' focus placeholder="请输入您的手机号"/>
+        <input type='text' name='phone' bindinput='inputChange' focus placeholder="请输入您的手机号"/>
     </view>
 
     <text class='explain'>如果您还没有用这个手机号注册过，我们将为您创建账号</text>
 
     <view class="btn-area">
-      <button formType="submit" open-type="getUserInfo">下一步</button>
+      <button open-type="getUserInfo" bindgetuserinfo="tapRegister">下一步</button>
     </view>
   </form>
 </view>

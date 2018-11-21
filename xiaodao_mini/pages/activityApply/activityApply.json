@@ -1,0 +1,11 @@
+{
+  "window": {
+    "navigationBarTitleText": "活动报名"
+  },
+  "usingComponents": {
+    "van-cell-group": "../../components/dist/cell-group/index",
+    "van-field": "../../components/dist/field/index",
+    "van-button": "../../components/dist/button/index",
+    "demo-block": "../../components/dist/demo-block/index"
+  }
+}

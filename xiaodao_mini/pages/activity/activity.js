@@ -44,6 +44,22 @@ Page({
     })
   },
 
+  goHome() {
+    wx.switchTab({
+      url: '../index/index'
+    })
+  },
+
+  toApply() {
+    wx.navigateTo({
+      url: '../activityApply/activityApply?id=' + this.data.activityId
+    })
+  },
+
+  onClose() {
+    this.setData({ show: false });
+  },
+
   weixinAuth() {
     var _this = this
     wx.login({
@@ -155,7 +171,7 @@ Page({
         icon: 'success'
       })
       setTimeout(function () {
-        wx.reLaunch({
+        wx.navigateTo({
           url: '../myJoin/myJoin'
         })
       }, 3000)

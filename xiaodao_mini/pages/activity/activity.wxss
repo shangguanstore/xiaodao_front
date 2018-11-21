@@ -23,3 +23,62 @@ button {
   color: white;
   background: gray;
 }
+
+
+.rich-text {
+  margin-bottom: 100rpx;
+  background: white;
+}
+
+
+.fixBottom {
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  height: 100rpx;
+}
+
+.fixBottom .apply {
+  width: 450rpx;
+  height: 100%;
+  float: left;
+  background: #0099E9;
+  text-align: center;
+  color: white;
+  line-height: 100rpx;
+}
+
+.fixBottom .share {
+  width: 180rpx;
+  height: 100%;
+  float: left;
+  background: #ffffff;
+}
+.fixBottom .share text {
+  display: block;
+  text-align: center;
+  font-size: 24rpx;
+  color: #919AA3;
+}
+.fixBottom .share button {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  top: 0;
+  left: 148rpx;
+  z-index: 2;
+  opacity: 0;
+}
+
+.fixBottom .home {
+  width: 120rpx;
+  height: 100%;
+  float: left;
+  background: #ffffff;
+}
+.fixBottom .home text {
+  display: block;
+  text-align: center;
+  font-size: 24rpx;
+  color: #919AA3;
+}

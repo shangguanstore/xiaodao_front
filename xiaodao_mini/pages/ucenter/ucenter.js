@@ -37,7 +37,8 @@ Page({
 
   routeTo(event) {
     let url = event.currentTarget.dataset.url
-    if (url.indexOf('myJoin/myJoin') != -1 || url.indexOf('index/index') != -1 || url.indexOf('ucenter/ucenter') != -1) {
+    console.log(url)
+    if (url.indexOf('activityList/activityList') != -1 || url.indexOf('index/index') != -1 || url.indexOf('ucenter/ucenter') != -1) {
       wx.switchTab({
         url: url
       })

@@ -3,17 +3,28 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/activity/activity",
+    "pages/activityList/activityList",
     "pages/myJoin/myJoin",
     "pages/myPoint/myPoint",
     "pages/myInfo/myInfo",
     "pages/wxAuth/wxAuth",
     "pages/promote/promote",
-    "pages/ucenter/ucenter"
+    "pages/ucenter/ucenter",
+    "pages/article/article",
+    "pages/activityApply/activityApply",
+
+    "mall/mall/mall",
+    "mall/to-pay-order/to-pay-order",
+    "mall/order-details/order-details",
+    "mall/order-list/order-list",
+    "mall/select-address/select-address",
+    "mall/shop-cart/shop-cart",
+    "mall/goods-details/goods-details"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "爱贝少儿英语",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
@@ -31,8 +42,8 @@
       {
         "selectedIconPath": "images/suyuan-click.png",
         "iconPath": "images/suyuan-dis.png",
-        "pagePath": "pages/myJoin/myJoin",
-        "text": "我参加的"
+        "pagePath": "pages/activityList/activityList",
+        "text": "活动"
       },
       {
         "selectedIconPath": "images/ucenter-click.png",

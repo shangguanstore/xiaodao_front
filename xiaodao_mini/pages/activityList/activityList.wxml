@@ -1,0 +1,21 @@
+<!--pages/activityList/activityList.wxml-->
+<view class="container">
+  <i-grid-item wx:if="{{!Loaded}}">
+    <i-spin custom fix>
+      <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
+      <view>Loading</view>
+    </i-spin>
+  </i-grid-item>
+
+  <view wx:if="{{activityList.length && Loaded}}" class='listArea' style='margin-top: 10rpx'>
+    <view class='listItem' wx:for="{{activityList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id" data-url="../activity/activity?id={{item.id}}" bindtap="routeTo">
+      <!-- <image src='{{item.imglink_format}}'></image> -->
+      <view style='background: url({{item.imglink_format}}) center center no-repeat; height: 360rpx; width: 100%;'></view>
+      <view class='detail'>{{item.desc}}</view>
+    </view>
+  </view>
+
+  <view wx:else class='noData'>
+    <image src='../../images/noData.png'></image>
+  </view>
+</view>

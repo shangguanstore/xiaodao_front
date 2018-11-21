@@ -30,6 +30,44 @@
   width: 100%;
 }
 
+.topNav {
+  width: 100%;
+  margin-top: 13rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navItem {
+  width: 180rpx;
+  height: 180rpx;
+  /* background: yellow; */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.navItem .circle {
+  width: 120rpx;
+  height: 120rpx;
+  line-height: 120rpx;
+  border-radius: 60rpx;
+  margin-top: 20rpx;
+  background: blanchedalmond;
+  text-align: center;
+}
+
+.navItem .circle .iconfont {
+  color: white;
+  font-size: 71rpx;
+}
+
+.navItem text.des {
+  margin-top: 5rpx;
+  font-size: 28rpx;
+  color: #444444;
+}
+
+
 .listTopLine {
   margin-top: 20rpx;
 }

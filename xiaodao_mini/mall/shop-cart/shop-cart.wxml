@@ -1,0 +1,28 @@
+<!--index.wxml-->
+<import src="../template-cart/template-cart.wxml"/>
+
+<view class="container">
+     <template is="{{goodsList.list.length > 0 ? 'cart-goods-list' : 'no-goods'}}" data="{{...goodsList}}"></template>
+</view>
+
+  <view class='fixBottom'>
+    <view class='item' data-url='index' bindtap='routeTo'>
+      <image src='../../images/home-dis.png'></image>
+      <view class='title'>首页</view>
+    </view>
+
+    <view class='item' data-url='mall' bindtap='routeTo'>
+      <image src='../../images/shop-dis.png'></image>
+      <view class='title'>店铺</view>
+    </view>
+
+    <view class='item' data-url='cart' bindtap='routeTo'>
+      <image src='../../images/cart-click.png'></image>
+      <view class='title'>购物车</view>
+    </view>
+
+    <view class='item' data-url='ucenter' bindtap='routeTo'>
+      <image src='../../images/ucenter-dis.png'></image>
+      <view class='title'>我的</view>
+    </view>
+  </view>

@@ -1,0 +1,6 @@
+/* pages/article/article.wxss */
+@import "/wxParse/wxParse.wxss";
+.rich-text {
+  margin-bottom: 20rpx;
+  background: white;
+}

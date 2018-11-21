@@ -1,0 +1,5 @@
+/* pages/activityApply/activityApply.wxss */
+.demo-margin-bottom {
+  margin-top: 40rpx;
+}
+

@@ -13,11 +13,11 @@
     <template is="wxParse" data="{{wxParseData:article.nodes}}" />
   </view>
 
-  <view class='baomingTitle'>
+<!-- <view class='baomingTitle'>
     【报名方式】
-  </view>
+  </view> -->
 
-  <view class='intro'>
+  <!-- <view class='intro'>
     输入您的手机号提交报名，我们将会很快与您取得联系
   </view>
 
@@ -34,6 +34,20 @@
       </block>
     </view>
   </form>
+  <button type='primary' open-type='share' style='margin-bottom: 100rpx'>分享</button> -->
 
-  <button type='primary' open-type='share' style='margin-bottom: 100rpx'>分享</button>
+  <view class='fixBottom'>
+    <view class='home' bindtap='goHome'>
+      <text class='iconfont icon-shouye' style='font-size:42rpx;font-weight:500;margin-top:5rpx;'></text>
+      <text style='margin-top:-9rpx'>首页</text>
+    </view>
+    <view class='share'>
+      <text class='iconfont icon-fenxiang' style='font-size:32rpx;font-weight:500;margin-top:10rpx;'></text>
+      <button open-type="share">分享</button>
+      <text style='margin-top:-4rpx'>分享</text>
+    </view>
+    <view class='apply' bindtap="toApply">
+      <text>我要报名</text>
+    </view>
+  </view>
 </view>

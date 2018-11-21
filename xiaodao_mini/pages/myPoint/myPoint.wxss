@@ -2,9 +2,9 @@
 .topArea {
   width: 700rpx;
   padding-left: 50rpx;
+  padding-top: 50rpx;
 }
 .topArea .title {
-  margin-top: 50rpx;
   font-size: 32rpx;
   color: white;
 }

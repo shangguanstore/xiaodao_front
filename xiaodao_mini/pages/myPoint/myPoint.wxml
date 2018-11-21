@@ -1,22 +1,37 @@
 <!--pages/myPoint/myPoint.wxml-->
 <view class='container'>
-  <view class='topArea mainBackgroundColor'>
-    <view class='title'>账户积分</view>
-    <view class='num'>88</view>
-  </view>
+  <i-grid-item wx:if="{{!Loaded}}">
+    <i-spin custom fix>
+      <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
+      <view>Loading</view>
+    </i-spin>
+  </i-grid-item>
 
-  <view class='detailTitle'>历史明细</view>
+  <view wx:if="{{pointList.length && Loaded}}">
+    <view class='topArea mainBackgroundColor'>
+      <view class='title'>账户积分</view>
+      <view class='num'>{{curPoint}}</view>
+    </view>
 
-  <view class='detailList'>
-    <view class='listItem'>
-      <view class='itemSon title'>
-        <view class='cause'>注册</view>
-        <view class='time'>2018-10-11</view>
-      </view>
-      <view class='itemSon content'>
-        <view class='des'>账户积分：88</view>
-        <view class='num'>+88</view>
+    <view class='detailTitle'>历史明细</view>
+
+    <view class='detailList'>
+      <view class='listItem' wx:for="{{pointList}}" wx:for-item="item"  wx:for-index="index" wx:key="item.id">
+        <view class='itemSon title'>
+          <view class='cause'>{{item.comment}}</view>
+          <view class='time'>{{item.create_time_format}}</view>
+        </view>
+        <view class='itemSon content'>
+          <view class='des'>账户积分：{{item.cur_point_num}}</view>
+          <view class='num'>{{item.num}}</view>
+        </view>
       </view>
     </view>
+
+  </view>
+
+
+  <view wx:if="{{!pointList.length && Loaded}}" class='noData'>
+    <image src='../../images/noData.png'></image>
   </view>
 </view>

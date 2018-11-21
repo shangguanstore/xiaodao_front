@@ -24,6 +24,44 @@
     </i-spin>
   </i-grid-item>
 
+  <view class='gap'></view>
+  <view class='topNav'>
+    <view class='navItem' data-url='../article/article?id=9862' bindtap='routeTo'>
+      <view class='circle' style='background: #80CEFC;'>
+        <text class="iconfont icon-icon"></text>
+      </view>
+      <text class='des'>教学特色</text>
+    </view>
+
+    <view class='navItem' data-url='../article/article?id=9866' bindtap='routeTo'>
+      <view class='circle' style='background: #88FAFD;'>
+        <text class="iconfont icon-course"></text>
+      </view>
+      <text class='des'>学员风采</text>
+    </view>
+
+    <view class='navItem'  data-url='../article/article?id=9867' bindtap='routeTo'>
+      <view class='circle' style='background: #A7CCFE;'>
+        <text class="iconfont icon-shiziduiwu"></text>
+      </view>
+      <text class='des'>精英教师</text>
+    </view>
+
+    <!-- <view class='navItem'  data-id='9868' bindtap='goDetail'>
+      <view class='circle' style='background: A7CCFE;'>
+        <text class="iconfont icon-zan"></text>
+      </view>
+      <text class='des'>爱贝优势</text>
+    </view> -->
+
+    <view class='navItem'  data-url='../../mall/mall/mall' bindtap='routeTo'>
+      <view class='circle' style='background: #9AC79D;'>
+        <text class="iconfont icon-shop"></text>
+      </view>
+      <text class='des'>积分商城</text>
+    </view>
+  </view>
+
   <view class='listTopLine'>
     <text class='line'></text>
     <text class='title'>推荐课程</text>

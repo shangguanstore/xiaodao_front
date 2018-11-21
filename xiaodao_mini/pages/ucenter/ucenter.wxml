@@ -40,21 +40,21 @@
   </view>
 
   <view class='myItem'>
-    <view class='list' data-url='../myJoin/myJoin' bindtap='routeTo'>
-      <view class='image'>
-        <image src='../../images/ucenter/myField.png'></image>
-      </view>
-      <view class='title'>
-        我参加的
-      </view>
-    </view>
-
     <view class='list' data-url='../myPoint/myPoint' bindtap='routeTo'>
       <view class='image'>
         <image src='../../images/ucenter/myOpe.png'></image>
       </view>
       <view class='title'>
         我的积分
+      </view>
+    </view>
+
+    <view class='list' data-url='../myJoin/myJoin' bindtap='routeTo'>
+      <view class='image'>
+        <image src='../../images/ucenter/myField.png'></image>
+      </view>
+      <view class='title'>
+        我的活动
       </view>
     </view>
 

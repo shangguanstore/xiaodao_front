@@ -59,6 +59,13 @@ Page({
     }
   },
 
+  routeTo: function(e) {
+    let url = e.currentTarget.dataset.url
+    wx.navigateTo({
+      url: url
+    })
+  },
+
   weixinAuth() {
     var _this = this
     wx.login({
