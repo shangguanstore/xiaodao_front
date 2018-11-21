@@ -3,6 +3,7 @@ var config = {
   BASE_DOMAIN: "http://7hu.cn",
   STATIC_DOMAIN: "http://static.7hu.cn",
   UserRole: UserRole,
+    XstCompanySetting: XstCompanySetting,
   Mbanner: Mbanner,
   Qiniu: Qiniu
 }
@@ -21,12 +22,19 @@ UserRole.ROLE_ASSIST_TEACHER = 6;
 function Qiniu() {
 }
 Qiniu.ACTION_URL = 'http://up.qiniu.com'
-Qiniu.EXTERNAL_LINK = 'http://pfcz9oabu.bkt.clouddn.com/'
+Qiniu.EXTERNAL_LINK = 'http://qiniu.17zhaotu.org/'
 
 
 function Mbanner() {
 }
 Mbanner.TYPE_ACTIVITY = 1
+
+
+function XstCompanySetting() {
+}
+XstCompanySetting.STATUS_OK = 0
+XstCompanySetting.STATUS_DELETE = -1
+XstCompanySetting.STATUS_INVALID = -2
 
 
 export default config

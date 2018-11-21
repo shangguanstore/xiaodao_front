@@ -2,21 +2,21 @@
 	<div>
 		<div class="manage_title">
 			<Breadcrumb>
-				<BreadcrumbItem>教务中心</BreadcrumbItem>
-				<BreadcrumbItem>学员管理</BreadcrumbItem>
+				<BreadcrumbItem>用户资金管理</BreadcrumbItem>
+				<BreadcrumbItem>用户积分明细</BreadcrumbItem>
 			</Breadcrumb>
 		</div>
-		<div class="container student_container mt20">
+		<div class="container staff_container mt20">
 			<div>
 				<span>搜索查询：</span>
-				<Input v-model="searchValue" placeholder="请输入需要查询的名称" style="width: 300px"  @on-change="changeName"></Input>
+				<Input v-model="searchValue" placeholder="输入用户昵称或手机号" style="width: 300px"  @on-change="changeSearch"></Input>
 				<Button class="ml20" type="info"  @click="search">查询</Button>
 			</div>
 			<div class="mt20">
-				<Button type="info" icon="ios-plus-empty" @click="addUser">新建用户</Button>
-				<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>
+				<!--<Button type="info" icon="ios-plus-empty" @click="add">新建用户</Button>-->
+				<!--<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>-->
 			</div>
-			<Table border ref="selection" :loading="loading"  @on-selection-change="checkNum" :columns="tableColumns" :data="tableData" class="mt20">></Table>
+			<Table border ref="selection" :loading="loading"  :columns="tableColumns" :data="tableData" class="mt20">></Table>
 			<div style="margin: 10px;overflow: hidden">
 				<div style="float: right;">
 					<Page :total="total" show-total show-sizer show-elevator :current="current" @on-change="changePage" @on-page-size-change="changepageSize"></Page>
@@ -44,31 +44,17 @@
 </template>
 
 <script>
-	import store from '../store'
 	import lib from '@/assets/js/lib/index'
 	import config from '@/assets/js/config/index'
 
-
-	// 检验手机号码
-	const validatePhone = function(rule, value, callback) {
-		if(!(/^1[34578]\d{9}$/.test(value))) {
-			return callback(new Error('您输入的手机号码有误'))
-		} else {
-			callback()
-		}
-	}
 	export default {
-		name: 'student',
+		name: 'staff',
 		data() {
 			return {
 				searchValue:"",
-				editUser: "新建用户",
 				current: 1,
 				pageSize: 10,
 				sort:"",
-				Search:"",
-				checkNums: 0,
-				sels:[],
 				loading: true,
 				total: 0,
                 exportDataShow:false,
@@ -89,68 +75,29 @@
 				tableColumns:
 				[
 					{
-						type: 'selection',
-						width: 60,
-						align: 'center'
+						title: '姓名',
+						key: 'uname'
 					},
-					{
-						title: '姓名/编号',
-						key: 'uname',
-						render: (h, params) => {
-							return h('div', [
-								h('img', {
-									attrs: {
-                    					src: params.row.avatar? params.row.avatar : config.Qiniu.EXTERNAL_LINK + 'Fnv8Hshkyhgmv_P6yVlL290xikd7',
-                					},
-									style: {
-										width: '40px',
-                    					height: '40px',
-                    					backgroundColor:"#c6cfe1",
-                    					borderRadius:"20px",
-                    					margin:"6px 0",
-                    					float:"left"
-									}
-								}),
-								h('div', {
-									style: {
-                    					marginTop:"12px",
-                    					marginLeft:"48px",
-                    					fontSize:"16px",
-                    					color:"rgba(0, 0, 0, 0.85)",
-                    					position:"absolute"
-									}
-								}, (params.row.uname)),
-							])
-						}
-					},
-          {
-            title:'生日',
-            key:'birthday'
-          },
-					{
-						title:'绑定手机',
-						key:'phone'
-					},
-          {
-            title:'母亲手机',
-            key:'mother_phone'
-          },
-          {
-            title:'父亲手机',
-            key:'father_phone'
-          },
-          {
-            title:'性别',
-            key:'sex_format',
-          },
+                    {
+                        title:'手机',
+                        key:'phone'
+                    },
+                    {
+                        title:'类型',
+                        key:'comment'
+                    },
+                    {
+                        title:'变动数量',
+                        key:'num'
+                    },
+                    {
+                        title:'剩余积分',
+                        key:'cur_point_num'
+                    },
 					{
 						title:'创建日期',
 						key:'create_time_format'
 					},
-          {
-            title: '角色',
-            key: 'role_id_format',
-          },
 					{
 						title: '操作',
 						key: 'operation',
@@ -192,25 +139,21 @@
 			}
 		},
 		mounted() {
-		  var uname = store.state.uname
+
 		},
 		created() {
 			this.getTableData(
 				{
-					page: this.current,
-					size: this.pageSize,
+                    pageIndex: this.current,
+                    pageSize: this.pageSize,
 				}
 			)
-			// this.test()
 		},
 		methods: {
-            addUser() {
+            add() {
                 this.$router.push({
-                    path: 'studentEdit',
-					query: {
-                        // cid: params.row.cid,
-                        // mid: params.row.mid
-					}
+                    path: 'staffEdit',
+					query: {}
                 })
             },
 			exportDataDilog(){
@@ -219,14 +162,14 @@
 			exportCancle(){
 				this.exportDataShow = false
 				this.getTableData({
-					page: this.current,
-					size: this.pageSize,
+                    pageIndex: this.current,
+                    pageSize: this.pageSize,
 				})
 			},
-			getExportValue(value){
+			getExportValue(){
 				this.getTableData({
-					page: this.current,
-					size: this.exportData.exportNum,
+                    pageIndex: this.current,
+                    pageSize: this.exportData.exportNum,
 				})
 			},
 			// 导出数据
@@ -241,56 +184,33 @@
 					}
 				})
 			},
-			closeDialog(){
-		 		let timer = null;
-		 		clearTimeout(timer)
-		 		if(this.showMessage){
-		 			timer = setTimeout(() => {
-	                   	this.showMessage = false
-	                }, 2000)
-		 		}
-	 		},
-			checkNum(selection) {
-				this.checkNums = selection.length
-				this.sels = selection
-			},
 			getTableData(option) {
                 let submitData = {
-                    roles: [config.UserRole.ROLE_MEMBER],
-                    pageIndex: option.page,
-                    pageSize: option.size,
+                    search: this.searchValue,
+					pageIndex: option.pageIndex,
+                    pageSize: option.pageSize
                 }
-                let url = lib.getRequestUrl('/api/member/getlist', submitData)
+                let url = lib.getRequestUrl('/api/point/detail/getlist', submitData)
                 this.$http.get(url, {}).then(res => {
                     if(res) {
                         this.loading = false
-                        this.current = option.page
+                        this.current = option.pageIndex
 
                         this.total = res.data.total
-                        this.tableData = res.data.member ? lib.filterResult(res.data.member) : []
-						console.log('tableData',this.tableData)
+                        this.tableData = lib.filterResult(res.data.data)
                     }
                 }).catch(error => {
+                    console.log('error',error)
                     this.loading = false
                     this.$Message.error('服务器错误!');
-                })
-			},
-			test() {
-                let url = "/api/apigc/order/push"
-                this.$http.post(url, {}).then(res => {
-                    if(res) {
-
-                    }
-                }).catch(error => {
-                    this.$Message.error('服务器错误!')
                 })
 			},
 			changePage(page) {
 				this.current = page
 				this.getTableData(
 	            	{
-						page: this.current,
-						size: this.pageSize,
+                        pageIndex: this.current,
+                        pageSize: this.pageSize,
 					}
             	)
 			},
@@ -298,15 +218,15 @@
 				this.pageSize = size
 				this.getTableData(
 	            	{
-						page: this.current,
-						size: this.pageSize,
+                        pageIndex: this.current,
+                        pageSize: this.pageSize,
 					}
             	)
 			},
 			// 编辑页面
 			update(params) {
                 this.$router.push({
-                    path: 'studentEdit',
+                    path: 'staffEdit',
                     query: {
                         cid: params.row.cid,
                         mid: params.row.mid
@@ -331,8 +251,8 @@
                                 this.$Message.success('删除成功!')
                                 this.getTableData(
                                     {
-                                        page: this.current,
-                                        size: this.pageSize,
+                                        pageIndex: this.current,
+                                        pageSize: this.pageSize,
                                     }
                                 )
                             }
@@ -346,21 +266,19 @@
 			},
 			search() {
 				if(this.searchValue.length == 0) {
-					this.$Message.warning('请输入你要查询的店铺全称！');
+					this.$Message.warning('请输入您要查询的员工姓名或手机号！');
 				} else {
-					let searchName = "UserName=\"" + this.searchValue + "\" "
-					this.sort = "UserName asc, Id desc"
 					this.getTableData({
-						page: this.current,
-						size: this.pageSize,
+                        pageIndex: this.current,
+                        pageSize: this.pageSize,
 					})
 				}
 			},
-			changeName(changeValue) {
+			changeSearch() {
 				if(this.searchValue.length === 0) {
 					this.getTableData({
-						page: this.current,
-						size: this.pageSize,
+                        pageIndex: this.current,
+                        pageSize: this.pageSize,
 					})
 				}
 			},

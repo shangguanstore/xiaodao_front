@@ -52,13 +52,23 @@
         </Submenu>
 
 
+        <Submenu name="4">
+          <template slot="title">
+            <i class="icon iconfont icon-jifen" style="margin-left: 12px;font-size: 14px;"></i>
+            用户资金管理
+          </template>
+          <MenuItem name="userPoint">用户积分</MenuItem>
+          <MenuItem name="pointDetail">用户积分明细</MenuItem>
+        </Submenu>
+
+
         <!--<MenuItem name="home">-->
           <!--<Icon type="ios-help-buoy" />-->
           <!--<span>营销管理</span>-->
         <!--</MenuItem>-->
 
 
-        <Submenu name="4">
+        <Submenu name="5">
           <template slot="title">
             <Icon type="ios-home" />
             内部管理
@@ -66,7 +76,7 @@
           <MenuItem name="staff">员工管理</MenuItem>
         </Submenu>
 
-        <Submenu name="5">
+        <Submenu name="6">
           <template slot="title">
             <Icon type="logo-googleplus" />
             机构设置
@@ -74,7 +84,7 @@
           <MenuItem name="company">机构编辑</MenuItem>
         </Submenu>
 
-        <Submenu name="6">
+        <Submenu name="7">
           <template slot="title">
             <Icon type="md-settings" />
             系统设置
@@ -119,6 +129,7 @@
 
 <script>
   import store from '../store'
+  import '@/assets/css/iconfont/iconfont.css'
 
   export default {
     data() {
