@@ -114,6 +114,11 @@
           <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45);margin-top: 60px"></div>
         </FormItem>
 
+        <div class="imgListBtn">
+          <i class="icon iconfont icon-jifen" style="margin-left: 12px;font-size: 14px;"></i>
+          <span>图片</span>
+        </div>
+
         <FormItem label="正文" prop="detail" style="width: 100%">
           <ckeditor v-if="getDetail" id="aaabbbccc" v-model="detail" :config="config" @blur="onBlur($event)"
                     @focus="onFocus($event)">
@@ -121,6 +126,8 @@
         </FormItem>
       </Form>
     </div>
+
+
 
     <div class="bottomBtn">
       <Button size="large" type="primary" @click="handleSubmit()">提交</Button>
@@ -209,9 +216,7 @@
         let url = lib.getRequestUrl('/api/activity/getlist', submitData)
         this.$http.get(url, {}).then(res => {
           if (res) {
-              console.log('res',res)
             let data = res.data.activity
-            console.log('data', data)
             var startTimeDate = new Date().setTime(data.start_time * 1000)
             var endTimeDate = new Date().setTime(data.end_time * 1000)
             var timeRange = [startTimeDate, endTimeDate];
