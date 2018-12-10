@@ -115,7 +115,7 @@
         </FormItem>
 
         <div class="imgListBtn">
-          <i class="icon iconfont icon-jifen" style="margin-left: 12px;font-size: 14px;"></i>
+          <i class="icon iconfont icon-tupian" style="margin-left: 12px;font-size: 14px;"></i>
           <span>图片</span>
         </div>
 
@@ -138,6 +138,12 @@
       <img :src="EXTERNAL_LINK + imgName" v-if="viewImg" style="width: 100%">
     </Modal>
 
+    <div class="backgroundWrap" v-if="showPicModal">
+      <div class="dialog" v-if="showPicModal">
+        aaa
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -158,7 +164,6 @@
           getDetail: false,
         isAdd: true,
         QiniuToken: '',
-
         content: '',
         config: {
           language: 'zh-cn',
@@ -177,8 +182,8 @@
           ],
           height: 400
         },
-
         detailListFormValidate: [],
+        showPicModal: true,
         formValidate: {
           name: '',
             desc: '',
@@ -496,5 +501,19 @@
 
   .article_edit_container {
     width: 80%;
+  }
+
+  .imgListBtn {
+    width: 90px;
+    position: relative;
+    left: 99px;
+    margin-bottom: 10px;
+    border: solid 1px #eeeeee;
+    border-radius: 4px;
+    padding: 4px 10px;
+    span {
+      margin-left: 4px;
+      font-size: 15px;
+    }
   }
 </style>
