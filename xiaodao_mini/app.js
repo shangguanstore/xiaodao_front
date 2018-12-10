@@ -35,17 +35,19 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+      userInfo: null,
+      subDomain: "https://api.it120.cc/xiaost", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
+      version: "4.0.0",
+      shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术
   },
 
   //配置开始
   config: {
-    // baseServerUrl: 'https://www.photoelectric-displaycenter.com/',
     baseServerUrl: 'https://api.photoelectric-displaycenter.com/',
     // baseServerUrl: 'http://hxe.7hu.cn/',
     Qiniu: {
       ACTION_URL: 'http://up.qiniu.com',
-      EXTERNAL_LINK: 'http://pfcz9oabu.bkt.clouddn.com/'
+      EXTERNAL_LINK: 'http://qiniu.17zhaotu.org/'
     },
     Share: {
       TYPE_DEFAULT: 0,

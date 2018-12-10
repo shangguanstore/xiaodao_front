@@ -6,6 +6,8 @@ var str_replace = require('./str_replace.js')
 var isset = require('./isset.js')
 var sprintf = require('./sprintf.js')
 var getImglink = require('./getImglink.js')
+var isPhone = require('./isPhone.js')
+
 
 
 var lib = {
@@ -14,6 +16,7 @@ var lib = {
 	strtotime: strtotime,
 	empty: empty,
 	isset: isset,
+  isPhone: isPhone,
   sprintf: sprintf,
   getImglink: getImglink,
 	str_replace: str_replace

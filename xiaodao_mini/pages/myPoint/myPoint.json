@@ -1,4 +1,9 @@
 {
-  "navigationBarTitleText": "积分"
-  
+  "window": {
+    "navigationBarTitleText": "积分"
+  },
+  "usingComponents": {
+    "i-spin": "../../components/spin/index",
+    "i-icon": "../../components/icon/index"
+  }
 }

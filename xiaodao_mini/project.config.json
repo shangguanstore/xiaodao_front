@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 10,
 			"list": [
 				{
 					"id": 0,
@@ -67,6 +67,42 @@
 					"id": -1,
 					"name": "推广",
 					"pathName": "pages/promote/promote",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商城首页",
+					"pathName": "mall/mall/mall",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "购物车",
+					"pathName": "mall/shop-cart/shop-cart",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "文章",
+					"pathName": "pages/article/article",
+					"query": ""
+				},
+				{
+					"id": 8,
+					"name": "活动报名",
+					"pathName": "pages/activityApply/activityApply",
+					"query": "id=23"
+				},
+				{
+					"id": -1,
+					"name": "活动",
+					"pathName": "pages/activity/activity",
+					"query": "id=23"
+				},
+				{
+					"id": -1,
+					"name": "活动列表",
+					"pathName": "pages/activityList/activityList",
 					"query": ""
 				}
 			]
