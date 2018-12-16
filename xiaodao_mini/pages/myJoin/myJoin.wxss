@@ -1,4 +1,111 @@
 /* pages/myJoin/myJoin.wxss */
+
+.listArea {
+  width: 750rpx;
+  margin-top: 20rpx;
+}
+
+.listArea .listItem {
+  width: 100%;
+  margin-bottom: 20rpx;
+  border-top: solid 2rpx #dcdee2;
+  border-bottom: solid 2rpx #dcdee2;
+}
+
+.listItem .top {
+  width: 710rpx;
+  height: 60rpx;
+  padding: 0 20rpx;
+}
+
+.listItem .top .sn {
+  float: left;
+  line-height: 60rpx;
+  color: #808695;
+  font-size: 28rpx;
+}
+
+.listItem .top .status {
+  float: right;
+  line-height: 60rpx;
+  color: #aae1ff;
+  font-size: 28rpx;
+}
+
+.listItem .orderContent {
+  padding: 0 20rpx;
+  background: #f8f8f9;
+  overflow: hidden;
+}
+
+.listItem .orderContent .imgArea {
+  float: left;
+}
+
+.listItem .orderContent .imgArea image {
+  width: 160rpx;
+  height: 160rpx;
+  margin: 20rpx 0;
+}
+
+.listItem .orderContent .content {
+  float: left;
+  margin-left: 40rpx;
+  width: calc(100% - 240rpx);
+}
+
+.listItem .orderContent .content .name {
+  width: 100%;
+  font-size: 36rpx;
+  font-weight: 600;
+  text-align: left;
+  margin-top: 30rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.listItem .orderContent .content .time {
+  width: 100%;
+  font-size: 24rpx;
+  text-align: left;
+  margin-top: 40rpx;
+}
+
+.listItem .bottom {
+  padding: 0 20rpx;
+  background: white;
+}
+
+.listItem .bottom .des {
+  width: 100%;
+  text-align: right;
+  margin-top: 15rpx;
+}
+
+.listItem .bottom .des text:nth-child(1) {
+  color: #808695;
+  font-size: 28rpx;
+}
+
+.listItem .bottom .des text:nth-child(2) {
+  margin-left: 20rpx;
+  color: #17233d;
+  font-size: 30rpx;
+}
+
+.listItem .bottom .btn {
+  width: 100%;
+  overflow: hidden;
+  margin: 15rpx 0;
+}
+
+.listItem .bottom .btn .viewButton {
+  width: 200rpx;
+  font-size: 24rpx;
+  float: right;
+}
+
 .noData {
   margin-top: 60rpx;
 }

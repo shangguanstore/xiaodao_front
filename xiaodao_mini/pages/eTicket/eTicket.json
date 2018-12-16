@@ -1,0 +1,9 @@
+{
+  "window": {
+    "navigationBarTitleText": "电子票"
+  },
+  "usingComponents": {
+    "van-cell": "../../components/dist/cell/index",
+    "van-cell-group": "../../components/dist/cell-group/index"
+  }
+}

@@ -1,0 +1,30 @@
+<!--pages/eTicket/eTicket.wxml-->
+<view class='container'>
+  <view class='box'>
+    <view class='title'>
+      <view class='customer'>
+        {{nickname}}（{{join_phone}}）
+      </view>
+    </view>
+    <view class='code'>
+      <view class='sn'>
+        4332 3432 3432
+      </view>
+      <view class='qrcode'>
+        <image src='../../images/qrcode.png'></image>
+      </view>
+      <view class='status'>待参与</view>
+    </view>
+    <view class='middleLine'>
+      <view class='circle'></view>
+      <view class='circle'></view>
+    </view>
+  </view>
+
+  <view class='cellArea'>
+    <van-cell-group>
+      <van-cell custom-class="cellItem first" title="报名内容" value="{{name}}" is-link />
+      <van-cell custom-class="cellItem" title="时间" value="{{start_time_format}}" border="{{ false }}" />
+    </van-cell-group>
+  </view>
+</view>

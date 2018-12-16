@@ -11,7 +11,9 @@ Page({
     activityId: 0,
     username: '',
     phone: '',
-    age: ''
+    age: '',
+    relations: ['母亲','父亲','本人','其他'],
+    relationIndex: 0
   },
 
   /**
@@ -44,10 +46,35 @@ Page({
     this.data.phone = e.detail
   },
 
-  tapApply() {
+  bindRelationChange(e) {
+    let relationIndex = e.detail.value
+    this.setData({
+      relationIndex: relationIndex
+    })
+  },
+
+  tapApply(e) {
+    let _this = this
+    let userInfo = e.detail.userInfo
+    if (!e.detail.userInfo) {
+      return;
+    }
+    wx.setStorageSync('userInfo', e.detail.userInfo)
+
     let phone = this.data.phone
     let name = this.data.username
-    let _this = this
+    let relationName = this.data.relations[this.data.relationIndex]
+    let father_phone, mother_phone, other_phone
+    if (relationName == '母亲') {
+      mother_phone = phone
+    } else if (relationName == '父亲') {
+      father_phone = phone
+    } else if (relationName == '本人') {
+
+    } else if (relationName == '其他') {
+      other_phone = phone
+    }
+    let relationType = lib.getRelationType(relationName)
     if (lib.empty(name)) {
       wx.showToast({
         title: '请输入孩子姓名',
@@ -67,7 +94,12 @@ Page({
     let data = {
       mid: wx.getStorageSync('mid'),
       phone: phone,
+      other_phone: other_phone ? other_phone : '',
+      mother_phone: mother_phone ? mother_phone : '',
+      father_phone: father_phone ? father_phone : '',
       name: name,
+      relation: relationType,
+      avatar: userInfo.avatarUrl,
       enforce_change_phone: true
     }
     request(url, 'post', data, function (res, addition) {
@@ -100,13 +132,16 @@ Page({
     var _this = this
     request(url, 'post', data, function (res) {
       //res就是我们请求接口返回的数据
+      let id = res.data.id
       wx.showToast({
         title: '成功报名！',
         icon: 'success'
       })
+
+      var that = _this
       setTimeout(function () {
         wx.navigateTo({
-          url: '../myJoin/myJoin'
+          url: `../paySuccess/paySuccess?type=1&activityId=${that.data.activityId}&orderId=${id}`
         })
       }, 3000)
     }, function (res) {

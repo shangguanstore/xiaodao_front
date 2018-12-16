@@ -9,9 +9,12 @@ Page({
    */
   data: {
     activityId: 0,
+    activityApplyMemberList: [],
+    applyTotal: 0,
     Loaded: false,
     imglink: '',
     title: '',
+    activity: {},
     produce_mid: 0,
     hasUserInfo: false
   },
@@ -20,6 +23,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('options', options)
     if (options.from_mid) {
       this.setData({
         produce_mid: options.from_mid
@@ -47,6 +51,12 @@ Page({
   goHome() {
     wx.switchTab({
       url: '../index/index'
+    })
+  },
+
+  goApplyList() {
+    wx.navigateTo({
+      url: `../applyList/applyList?activityId=${this.data.activityId}`,
     })
   },
 
@@ -204,20 +214,22 @@ Page({
     this.setData({
       Loaded: false
     })
+    let _this = this
     let url = 'api/activity/getlist'
     let data = {
       id: this.data.activityId,
       queryDetail: true,
     }
-    var _this = this
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
       var activity = res.data.activity
-      var imglink = lib.getImglink(activity.imglink)[0]
+      activity = lib.filterResult([activity])[0]
+      var imglink = activity.imglink_format[0]
       var title = activity.name
       _this.setData({
         imglink: imglink,
-        title: title
+        title: title,
+        activity: activity
       })
 
       var activityDetail = res.data.activity.activity_detail || []
@@ -231,6 +243,38 @@ Page({
       if(_this.data.produce_mid) {
         _this.addShareRecord()
       }
+
+      _this.getActivityApplyMemberList()
+    }, function () {
+      wx.showToast({
+        title: '加载数据失败',
+        icon: 'none'
+      })
+    })
+  },
+
+  getActivityApplyMemberList() {
+    this.setData({
+      Loaded: false
+    })
+    let url = 'api/activity/apply/member/getlist'
+    let data = {
+      activity_id: this.data.activityId,
+      pageIndex: 1,
+      pageSize: 7
+    }
+    var _this = this
+    request(url, 'get', data, function (res) {
+      //res就是我们请求接口返回的数据
+      let activityApplyMemberList = lib.filterResult(res.data.data)
+      let applyTotal = res.data.total
+      console.log('activityApplyMemberList', activityApplyMemberList)
+
+      _this.setData({
+        Loaded: true,
+        activityApplyMemberList: activityApplyMemberList,
+        applyTotal: applyTotal
+      })
     }, function () {
       wx.showToast({
         title: '加载数据失败',
@@ -243,7 +287,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.getActivityApplyMemberList()
   },
 
   /**

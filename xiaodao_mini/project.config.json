@@ -12,8 +12,8 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
-	"appid": "wx78c588443f2c2f98",
+	"libVersion": "2.4.1",
+	"appid": "wx4c9a59a158e5142d",
 	"projectname": "xiaodao_mini",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 14,
 			"list": [
 				{
 					"id": 0,
@@ -104,6 +104,30 @@
 					"name": "活动列表",
 					"pathName": "pages/activityList/activityList",
 					"query": ""
+				},
+				{
+					"id": 11,
+					"name": "支付成功",
+					"pathName": "pages/paySuccess/paySuccess",
+					"query": "type=1&activityId=24&orderId=85"
+				},
+				{
+					"id": -1,
+					"name": "电子票",
+					"pathName": "pages/eTicket/eTicket",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我参加的",
+					"pathName": "pages/myJoin/myJoin",
+					"query": ""
+				},
+				{
+					"id": 14,
+					"name": "报名列表",
+					"pathName": "pages/applyList/applyList",
+					"query": "activityId=23"
 				}
 			]
 		}

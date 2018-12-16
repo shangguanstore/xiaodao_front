@@ -12,6 +12,9 @@
     "pages/ucenter/ucenter",
     "pages/article/article",
     "pages/activityApply/activityApply",
+    "pages/paySuccess/paySuccess",
+    "pages/eTicket/eTicket",
+    "pages/applyList/applyList",
 
     "mall/mall/mall",
     "mall/to-pay-order/to-pay-order",

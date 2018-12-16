@@ -1,0 +1,12 @@
+<!--pages/applyList/applyList.wxml-->
+<view class='container'>
+  <view class='listBlock'>
+    <view class='listItem' wx:for="{{activityApplyMemberList}}" wx:for-item="applyMember" wx:for-index="index" wx:key="applyMember.id">
+      <view class='user'>
+        <image src="{{applyMember.avatar}}"></image>
+        <text>{{applyMember.uname}}</text>
+      </view>
+      <view class='time'>{{applyMember.create_time_format}}</view>
+    </view>
+  </view>
+</view>

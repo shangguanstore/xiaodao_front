@@ -7,11 +7,15 @@ var isset = require('./isset.js')
 var sprintf = require('./sprintf.js')
 var getImglink = require('./getImglink.js')
 var isPhone = require('./isPhone.js')
-
+var filterResult = require('./filterResult.js')
+var getRelationType = require('./getRelationType.js')
+var getMsgTime = require('./getMsgTime.js')
 
 
 var lib = {
 	date: date,
+  getMsgTime: getMsgTime,
+  getRelationType: getRelationType,
 	count: count,
 	strtotime: strtotime,
 	empty: empty,
@@ -19,7 +23,8 @@ var lib = {
   isPhone: isPhone,
   sprintf: sprintf,
   getImglink: getImglink,
-	str_replace: str_replace
+  getImglink: getImglink,
+  filterResult: filterResult
 }
 
 module.exports = lib

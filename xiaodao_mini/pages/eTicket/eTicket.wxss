@@ -1,0 +1,94 @@
+/* pages/eTicket/eTicket.wxss */
+
+.box {
+  width: 650rpx;
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  border: solid 2rpx #dcdee2;
+  border-bottom: 0;
+  padding: 20rpx 20rpx;
+  box-shadow: 0rpx 6rpx 24rpx 0rpx rgba(83, 93, 99, 0.05);
+}
+
+.box .title {
+  border-bottom: solid 2rpx #dcdee2;
+  width: 100%;
+}
+
+.box .title .customer {
+  font-size: 30rpx;
+  margin-bottom: 10rpx;
+}
+
+.box .code .sn {
+  font-size: 36rpx;
+  font-weight: 400;
+  width: 100%;
+  text-align: center;
+  margin: 20rpx 0;
+}
+
+.box .code .qrcode {
+  width: 100%;
+  text-align: center;
+}
+
+.box .code .qrcode image {
+  width: 320rpx;
+  height: 320rpx;
+}
+
+.box .code .status {
+  width: 100%;
+  color: #aae1ff;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.box .middleLine {
+  position: relative;
+  width: 95%;
+  margin-top: 20rpx;
+  border-top: dashed 2rpx #dcdee2;
+}
+
+.box .middleLine .circle {
+  position: absolute;
+  top: -20rpx;
+  width: 24rpx;
+  height: 40rpx;
+  background: #f8f8f9;
+  border: solid 2rpx #dcdee2;
+}
+
+.box .middleLine .circle:nth-child(1) {
+  left: -36rpx;
+  border-left: 0;
+  border-top-right-radius: 20rpx;
+  border-bottom-right-radius: 20rpx;
+}
+
+.box .middleLine .circle:nth-child(2) {
+  right: -36rpx;
+  border-right: none;
+  border-top-left-radius: 20rpx;
+  border-bottom-left-radius: 20rpx;
+}
+
+.cellArea {
+  width: 687rpx;
+  border: solid 2rpx #dcdee2;
+  border-top: 0;
+  margin-top: 6rpx;
+}
+
+.cellArea .cellItem {
+  background: #f8f8f9;
+}
+
+.cellArea .cellItem.first {
+  border-top: 0;
+ 
+}

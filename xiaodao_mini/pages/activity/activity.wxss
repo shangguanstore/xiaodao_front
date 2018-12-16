@@ -1,5 +1,32 @@
 /* pages/activity/activity.wxss */
 @import "/wxParse/wxParse.wxss";
+.topArea image {
+  width: 750rpx;
+}
+
+.topArea .des {
+  width: 710rpx;
+  padding: 0 20rpx;
+  background: white;
+}
+
+.topArea .des .title {
+  width: 100%;
+  margin-top: 20rpx;
+  text-align: left;
+  color: black;
+  font-weight: 500;
+  font-size: 36rpx;
+}
+
+.topArea .des .time {
+  width: 100%;
+  margin: 10rpx 0;
+  text-align: left;
+  color: #515a6e;
+  font-size: 30rpx;
+}
+
 
 .baomingTitle {
   width: 700rpx;
@@ -82,3 +109,53 @@ button {
   font-size: 24rpx;
   color: #919AA3;
 }
+
+.applyArea {
+  width: 710rpx;
+  padding: 0 20rpx;
+  background: white;
+}
+
+.applyArea .top {
+  width: 100%;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-bottom: solid 1rpx #dcdee2;
+}
+
+.applyArea .top .count {
+  float: left;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.applyArea .top .seeMore {
+  float: right;
+  font-size: 28rpx;
+  color: #0099E9;
+}
+
+.activity_container .applyArea .applyList {
+  width: 100%;
+  padding: 20rpx 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.activity_container .applyArea .applyList .listItem {
+  margin-right: 30rpx;
+  text-align: center;
+}
+
+.activity_container .applyArea .applyList .listItem image {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 70rpx;
+}
+
+.activity_container .applyArea .applyList .listItem .name {
+  margin-top: -10rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+

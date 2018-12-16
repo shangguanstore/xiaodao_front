@@ -43,8 +43,8 @@ App({
 
   //配置开始
   config: {
-    baseServerUrl: 'https://api.photoelectric-displaycenter.com/',
-    // baseServerUrl: 'http://hxe.7hu.cn/',
+    // baseServerUrl: 'https://api.photoelectric-displaycenter.com/',
+    baseServerUrl: 'http://hxe.7hu.cn/',
     Qiniu: {
       ACTION_URL: 'http://up.qiniu.com',
       EXTERNAL_LINK: 'http://qiniu.17zhaotu.org/'

@@ -1,0 +1,31 @@
+<!--pages/paySuccess/paySuccess.wxml-->
+<view class='container'>
+  <view class='successTitle'>
+      <view>
+        <text class='iconfont icon-locationiconsuccess' style='color:#179B16;font-size: 160rpx;'></text>
+      </view>
+      <view>
+        <text class='des'>报名成功!</text>
+      </view>
+  </view>
+  <view class='box'>
+    <view class='img' wx:if="{{false}}">
+      <image src='{{activityOrder.imglink_format[0]}}'></image>
+    </view>
+    <view class='title'>{{activityOrder.name}}</view>
+    <view class='time'>
+      <text class='iconfont icon-clock'></text>
+      <text>{{activityOrder.start_time_format}}</text>
+    </view>
+  </view>
+
+  <view class='noticeView'>
+    <view>可在首页下方导航 【我的】- 【我参加的】中</view>
+    <view>查看报名凭据。</view>
+  </view>
+
+  <view class='btnWrap'>
+    <button type="primary" size="default" data-start_time_format="{{activityOrder.start_time_format}}" data-join_phone="{{activityOrder.join_phone}}" data-nickname="{{activityOrder.nickname}}" data-activity="{{activityOrder.activity_id}}" data-order="{{activityOrder.id}}" data-name="{{activityOrder.name}}" bindtap="viewTicket">查看电子票</button>
+    <button class='backBtn' type="default" size="default" bindtap="backActivity">返回</button>
+  </view>
+</view>

@@ -1,21 +1,39 @@
-// pages/myJoin/myJoin.js
+// pages/paySuccess/paySuccess.js
 const lib = require('../../utils/lib/index.js')
 const request = require('../../utils/request.js')
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     Loaded: false,
-    activityOrderList: []
+    type: 0,
+    activityId: 0,
+    orderId: 0,
+    activityOrder: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getActivityOrderList()
+    //type: 1: 普通活动
+    console.log('options',options)
+    let type = options.type || 0
+    let activityId = options.activityId || 0
+    let orderId = options.orderId || 0
+
+    this.setData({
+      type: type,
+      activityId: activityId,
+      orderId: orderId
+    })
+    
+    if(type == 1 && activityId) {
+      this.getActivity()
+    }
+    
+    
   },
 
   /**
@@ -25,35 +43,38 @@ Page({
 
   },
 
-  getActivityOrderList() {
+  getActivity: function() {
     this.setData({
       Loaded: false
     })
     let url = 'api/activity/order/getlist'
     let data = {
-      mid: wx.getStorageSync('mid'),
-      pageIndex: 1,
-      pageSize: 100
+      id: this.data.orderId
     }
     var _this = this
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
-      var activityOrderList = lib.filterResult(res.data.data)
-      activityOrderList.map(function (item) {
-        item.imglink_format = item.imglink_format[0]
-        return item
-      })
-
+      console.log('res',res)
+      var activityOrder = res.data.data
+      activityOrder = lib.filterResult(activityOrder)
+      activityOrder = activityOrder[0]
 
       _this.setData({
         Loaded: true,
-        activityOrderList: activityOrderList
+        activityOrder: activityOrder
       })
     }, function () {
       wx.showToast({
         title: '加载数据失败',
         icon: 'none'
       })
+    })
+  },
+
+  backActivity() {
+    console.log(222)
+    wx.navigateBack({
+      delta: 2
     })
   },
 
@@ -67,13 +88,6 @@ Page({
 
     wx.navigateTo({
       url: `../eTicket/eTicket?name=${name}&orderId=${orderId}&activityId=${activityId}&join_phone=${join_phone}&nickname=${nickname}&start_time_format=${start_time_format}`,
-    })
-  },
-
-  routeTo(event) {
-    console.log(event)
-    wx.navigateTo({
-      url: event.currentTarget.dataset.url
     })
   },
 

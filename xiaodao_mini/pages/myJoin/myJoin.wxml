@@ -8,10 +8,32 @@
   </i-grid-item>
 
   <view wx:if="{{activityOrderList.length && Loaded}}" class='listArea' style='margin-top: 10rpx'>
-    <view class='listItem' wx:for="{{activityOrderList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id" data-url="../activity/activity?id={{item.aid}}" bindtap="routeTo">
-      <!-- <image src='{{item.imglink_format}}'></image> -->
-      <view style='background: url({{item.imglink_format}}) center center no-repeat; height: 360rpx; width: 100%;'></view>
-      <view class='detail'>{{item.desc}}</view>
+    <view class='listItem' wx:for="{{activityOrderList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id">
+      <view class='top'>
+        <view class='sn'>15333223323</view>
+        <view class='status'>待参加</view>
+      </view>
+
+      <view class='orderContent' data-url="../activity/activity?id={{item.aid}}" bindtap="routeTo">
+        <view class='imgArea'>
+          <image src='{{item.imglink_format}}'></image>
+        </view>
+        <view class='content'>
+          <view class='name'>{{item.name}}</view>
+          <view class='time'>时间 {{item.start_time_format}} 开始</view>
+        </view>
+      </view>
+
+      <view class='bottom'>
+        <view class='des'>
+          <text>共1张票</text>
+          <text>合计：¥0.00</text>
+        </view>
+        <view class='btn'>
+          <button class='viewButton' type="primary" size="small" data-start_time_format="{{item.start_time_format}}" data-join_phone="{{item.join_phone}}" data-nickname="{{item.nickname}}" data-activity="{{item.activity_id}}" data-order="{{item.id}}" data-name="{{item.name}}" bindtap='viewTicket'> 查看电子票 </button>
+        </view>
+      </view>
+
     </view>
   </view>
 

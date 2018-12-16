@@ -1,21 +1,28 @@
-// pages/myJoin/myJoin.js
+// pages/applyList/applyList.js
 const lib = require('../../utils/lib/index.js')
 const request = require('../../utils/request.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    Loaded: false,
-    activityOrderList: []
+    activityId: 0,
+    activityApplyMemberList: [],
+    Loaded: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getActivityOrderList()
+    let activityId = options.activityId
+    this.setData({
+      activityId: activityId
+    })
+
+    this.getData()
   },
 
   /**
@@ -25,55 +32,36 @@ Page({
 
   },
 
-  getActivityOrderList() {
+  getData() {
     this.setData({
       Loaded: false
     })
-    let url = 'api/activity/order/getlist'
+    let url = 'api/activity/apply/member/getlist'
     let data = {
-      mid: wx.getStorageSync('mid'),
+      activity_id: this.data.activityId,
       pageIndex: 1,
-      pageSize: 100
+      pageSize: 1000
     }
     var _this = this
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
-      var activityOrderList = lib.filterResult(res.data.data)
-      activityOrderList.map(function (item) {
-        item.imglink_format = item.imglink_format[0]
+      let activityApplyMemberList = lib.filterResult(res.data.data)
+      let applyTotal = res.data.total
+
+      activityApplyMemberList.map(function(item) {
+        item.create_time_format = lib.getMsgTime(item.create_time * 1000)
         return item
       })
 
-
       _this.setData({
         Loaded: true,
-        activityOrderList: activityOrderList
+        activityApplyMemberList: activityApplyMemberList,
       })
     }, function () {
       wx.showToast({
         title: '加载数据失败',
         icon: 'none'
       })
-    })
-  },
-
-  viewTicket(e) {
-    let name = e.currentTarget.dataset.name
-    let orderId = e.currentTarget.dataset.order
-    let activityId = e.currentTarget.dataset.activity
-    let nickname = e.currentTarget.dataset.nickname
-    let join_phone = e.currentTarget.dataset.join_phone
-    let start_time_format = e.currentTarget.dataset.start_time_format
-
-    wx.navigateTo({
-      url: `../eTicket/eTicket?name=${name}&orderId=${orderId}&activityId=${activityId}&join_phone=${join_phone}&nickname=${nickname}&start_time_format=${start_time_format}`,
-    })
-  },
-
-  routeTo(event) {
-    console.log(event)
-    wx.navigateTo({
-      url: event.currentTarget.dataset.url
     })
   },
 

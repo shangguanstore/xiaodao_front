@@ -62,6 +62,14 @@
     </view>
   </view>
 
+   <view class='listTopLine'>
+    <text class='line'></text>
+    <text class='title'>爱贝精选</text>
+    <text class='line'></text>
+  </view>
+
+  <video id="myVideo" style="margin-top: 20rpx;" src="http://video.it120.cc/2adc94f7c844433b825e0c729d4915ef/f2314d27b91645bb8ba125c735f7dcfa-5287d2089db37e62345123a1be272f8b.mp4" binderror="videoErrorCallback" poster="http://www.abiechina.com/A_UpLoad/upload_pic/20180927/20180927155419_8440.jpg" controls></video>
+
   <view class='listTopLine'>
     <text class='line'></text>
     <text class='title'>推荐课程</text>

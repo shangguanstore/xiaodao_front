@@ -1,0 +1,36 @@
+/* pages/applyList/applyList.wxss */
+.listBlock {
+  width: 730rpx;
+  padding-left: 20rpx;
+  background: white;
+}
+
+.listBlock .listItem {
+  width: 710rpx;
+  height: 90rpx;
+  padding: 15rpx 0;
+  padding-right: 20rpx;
+  border-bottom: solid 1rpx #eeeeee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listBlock .listItem .user image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 80rpx;
+}
+
+.listBlock .listItem .user text {
+  position: relative;
+  top: -26rpx;
+  margin-left: 20rpx;
+}
+
+
+.listBlock .listItem .time {
+  color: #808695;
+  font-size: 26rpx;
+}
+

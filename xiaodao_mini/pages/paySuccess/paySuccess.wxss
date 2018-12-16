@@ -1,0 +1,64 @@
+/* pages/paySuccess/paySuccess.wxss */
+
+.successTitle {
+  margin-top: 60rpx;
+}
+
+.successTitle .des {
+  font-size: 32rpx;
+  position: relative;
+  top: -14rpx;
+}
+
+.box {
+  width: 650rpx;
+  margin-top: 30rpx;
+  padding: 20rpx 20rpx;
+  box-shadow:0rpx 6rpx 24rpx 0rpx rgba(83, 93, 99, 0.05);
+}
+
+.box .img {
+  width: 100%;
+  height: 460rpx;
+}
+
+.box .img image {
+  width: 100%;
+  height: 100%;
+}
+
+.box .title {
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.box .time text:nth-child(1) {
+  font-size: 35rpx;
+  color: #808695;
+}
+
+.box .time text:nth-child(2) {
+  font-size: 30rpx;
+  font-weight: 400;
+  margin-left: 10rpx;
+  color: #808695;
+}
+
+.btnWrap {
+  width: 650rpx;
+  margin-top: 30rpx;
+}
+
+.noticeView {
+  width: 650rpx;
+  margin-top: 30rpx;
+  font-size: 32rpx;
+  color: #515a6e;
+  text-align: center;
+}
+
+
+.backBtn {
+  margin-top: 32rpx;
+}
