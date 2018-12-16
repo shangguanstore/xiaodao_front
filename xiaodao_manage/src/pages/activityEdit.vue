@@ -94,27 +94,28 @@
           </div>
 
 
-          <Upload ref="detailUpload"
-                  :before-upload="handleDetailBeforeUpload"
-                  :show-upload-list="false"
-                  :default-file-list="detailDefaultList"
-                  :on-success="handleSuccess"
-                  :format="['jpg','jpeg','png']"
-                  :max-size="2048"
-                  :on-format-error="handleFormatError"
-                  :on-exceeded-size="handleMaxSize"
-                  type="drag"
-                  :data="{'token':QiniuToken}"
-                  :action="ACTION_URL"
-                  style="display: inline-block;width:58px;">
-            <div style="width: 58px;height:58px;line-height: 58px;">
-              <Icon type="ios-camera" size="20"></Icon>
-            </div>
-          </Upload>
+          <!--<Upload ref="detailUpload"-->
+                  <!--:before-upload="handleDetailBeforeUpload"-->
+                  <!--:show-upload-list="false"-->
+                  <!--:default-file-list="detailDefaultList"-->
+                  <!--:on-success="handleSuccess"-->
+                  <!--:format="['jpg','jpeg','png']"-->
+                  <!--:max-size="2048"-->
+                  <!--:on-format-error="handleFormatError"-->
+                  <!--:on-exceeded-size="handleMaxSize"-->
+                  <!--type="drag"-->
+                  <!--:data="{'token':QiniuToken}"-->
+                  <!--:action="ACTION_URL"-->
+                  <!--style="display: inline-block;width:58px;">-->
+            <!--<div style="width: 58px;height:58px;line-height: 58px;">-->
+              <!--<Icon type="ios-camera" size="20"></Icon>-->
+            <!--</div>-->
+          <!--</Upload>-->
+
           <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45);margin-top: 60px"></div>
         </FormItem>
 
-        <div class="imgListBtn">
+        <div class="imgListBtn" @click="showPicModal = !showPicModal">
           <i class="icon iconfont icon-tupian" style="margin-left: 12px;font-size: 14px;"></i>
           <span>图片</span>
         </div>
@@ -138,12 +139,81 @@
       <img :src="EXTERNAL_LINK + imgName" v-if="viewImg" style="width: 100%">
     </Modal>
 
-    <div class="backgroundWrap" v-if="showPicModal">
-      <div class="dialog" v-if="showPicModal">
-        aaa
+
+
+    <div class="backgroundWrap" v-show="showPicModal">
+      <div class="dialog" v-show="showPicModal">
+        <div class="title">
+          <div class="titleName fl">选择图片</div>
+          <div class="close fr" @click="showPicModal = !showPicModal">X</div>
+        </div>
+        <div class="imgContainer">
+          <div class="imgCategory fl">
+            <ul>
+              <li class="active">
+                <strong>全部图片</strong>
+                <em>(6)</em>
+              </li>
+
+              <li v-for="(item, index) in imgCategory">
+                <strong>{{item.name}}</strong>
+                <em>(1)</em>
+              </li>
+              <li @click="showAddImgCategory1 = true">
+                <strong>新建分组</strong>
+              </li>
+            </ul>
+          </div>
+          <div class="imgContent fr">
+            <div class="top">
+              <Upload ref="detailUpload"
+                      :before-upload="handleDetailBeforeUpload"
+                      :show-upload-list="false"
+                      :default-file-list="detailDefaultList"
+                      :on-success="handleSuccess"
+                      :format="['jpg','jpeg','png']"
+                      :max-size="2048"
+                      :on-format-error="handleFormatError"
+                      :on-exceeded-size="handleMaxSize"
+                      :data="{'token':QiniuToken}"
+                      :action="ACTION_URL"
+                      style="display: inline-block;width:58px;">
+                <Button type="primary">本地上传</Button>
+              </Upload>
+            </div>
+            <div class="content">
+              <div class="imgListArea mt20" v-if="detailUploadList.length > 0" v-for="item in detailUploadList">
+                <div class="uploadList">
+                  <template v-if="item.status === 'finished'">
+                    <div class="imgItem">
+                      <div class="picBox">
+                        <img :src="item.url">
+                      </div>
+                      <p class="picName">noData</p>
+                    </div>
+                  </template>
+                  <template v-else>
+                    <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
 
+
+    <Modal title="创建分组" v-model="showAddImgCategory1"
+      @on-ok="addImgCategory"
+    >
+      <Form :label-width="80" class="mt20">
+        <FormItem label="分组名称" prop="img_category_name" style="width: 60%">
+          <Input v-model="img_category_name" placeholder="请输入分组名称"></Input>
+        </FormItem>
+      </Form>
+    </Modal>
   </div>
 </template>
 
@@ -159,12 +229,13 @@
       return {
         mid: 0,
         title: "",
-          detailTitle: "",
+        detailTitle: "",
           detail: "",
           getDetail: false,
         isAdd: true,
         QiniuToken: '',
         content: '',
+          imgCategory: [],
         config: {
           language: 'zh-cn',
           toolbar: [
@@ -183,7 +254,7 @@
           height: 400
         },
         detailListFormValidate: [],
-        showPicModal: true,
+        showPicModal: false,
         formValidate: {
           name: '',
             desc: '',
@@ -205,6 +276,8 @@
         detailUploadList: [],
         imgName: '',
         viewImg: false,
+        showAddImgCategory1: false,
+          img_category_name: '',
         EXTERNAL_LINK: '',
         ACTION_URL: ''
         /*图片上传结束*/
@@ -269,6 +342,9 @@
           },
         ]
       }
+
+      //获取图片分类
+      this.getImgCategory()
     },
     mounted() {
       /*图片上传*/
@@ -344,6 +420,31 @@
             return item
           }
         })
+      },
+        addImgCategory() {
+            let _this = this
+            let url = 'api/img/category/add'
+            let submitData = {
+                name: this.img_category_name
+            }
+            this.$http.post(url, submitData).then(res => {
+                if(res.data.ErrNo == 100000) {
+                    this.$Message.success('添加分组成功！')
+                    _this.getImgCategory()
+                }
+            }).catch(error => {
+                this.$Message.error('服务器错误!')
+            })
+        },
+      getImgCategory() {
+          let _this = this
+          let url = 'api/img/category/getlist'
+          let submitData = {}
+          this.$http.get(url, submitData).then(res => {
+              _this.imgCategory = res.data.data || []
+          }).catch(error => {
+              this.$Message.error('服务器错误!')
+          })
       },
       handleSubmit() {
           var timeRange = this.formValidate.timeRange
@@ -429,6 +530,8 @@
       handleSuccess(res, file) {
         file.url = config.Qiniu.EXTERNAL_LINK + res.key;
         file.name = res.hash;
+        console.log('res',res)
+        console.log('file',file)
       },
       handleFormatError(file) {
         this.$Message.success('请上传jpg，jpeg，png，格式的图片')
@@ -511,9 +614,110 @@
     border: solid 1px #eeeeee;
     border-radius: 4px;
     padding: 4px 10px;
+    cursor: pointer;
     span {
       margin-left: 4px;
       font-size: 15px;
+    }
+  }
+
+  .backgroundWrap {
+    .dialog {
+      width: 846px;
+      height: 538px;
+      .title {
+        padding: 20px 30px;
+        color: #222;
+        font-size: 18px;
+        .titleName {
+
+        }
+        .close {
+          cursor: pointer;
+        }
+      }
+
+      .imgContainer {
+        width: 100%;
+        height: 479px;
+        overflow: hidden;
+        .imgCategory {
+          width: 16%;
+          height: 479px;
+          border-right: solid 1px #e7e7eb;
+          ul {
+            margin-top: 10px;
+            height: 200px;
+            overflow-y: scroll;
+            li {
+              padding: 5px 0;
+              text-align: center;
+              cursor: pointer;
+              &:hover {
+                background: #f4f5f9;
+              }
+              strong {
+                font-size: 14px;
+              }
+              em {
+                padding-left: 3px;
+                color: #8d8d8d;
+              }
+              &.active {
+                background: #f4f5f9;
+              }
+            }
+          }
+        }
+
+        .imgContent {
+          width: 80%;
+          height: 479px;
+          .top {
+            height: 53px;
+            line-height: 53px;
+            border-bottom: solid 1px #e7e7eb;
+          }
+          .content {
+            .imgListArea {
+              display: inline-block;
+              .uploadList {
+                .imgItem {
+                  position: relative;
+                  margin-right: 11px;
+                  margin-bottom: 10px;
+                  float: left;
+                  text-align: center;
+                  .picBox {
+                    width: 117px;
+                    height: 117px;
+                    position: relative;
+                    overflow: hidden;
+                    img {
+                      height: 117px;
+                      position: absolute;
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      border-bottom: solid 1px #e7e7eb;
+                    }
+                  }
+                  .picName {
+                    height: 32px;
+                    line-height: 32px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                  }
+                }
+              }
+            }
+
+          }
+        }
+      }
+
+
     }
   }
 </style>
