@@ -56,13 +56,14 @@
         </FormItem>
 
         <FormItem label="活动时间" prop="timeRange" style="width: 60%">
-          <DatePicker v-model="formValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm" placeholder="选择日期和时间" style="width: 300px"></DatePicker>
+          <DatePicker v-model="formValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm"
+                      placeholder="选择日期和时间" style="width: 300px"></DatePicker>
         </FormItem>
       </Form>
     </div>
 
     <!--v-for="(item,index) in detailListFormValidate"-->
-    <div class="articleDetailList container article_edit_container mt20" >
+    <div class="articleDetailList container article_edit_container mt20">
       <p class="content_title" @click="console">
         详细信息
       </p>
@@ -72,10 +73,10 @@
           <Input v-model="detailTitle" placeholder="请输入正文标题（不是必填项）"></Input>
         </FormItem>
 
-        <FormItem label="文本预传图片">
-          <input id="copyUrlContain" type="text" style="display:none">
+        <FormItem label="文本预传图片" style="display:none">
+          <input id="copyUrlContain" type="text">
           <div v-if="detailUploadList.length > 0" v-for="item in detailUploadList" style="display: inline-block">
-            <div class="demo-upload-list" >
+            <div class="demo-upload-list">
               <template v-if="item.status === 'finished'">
                 <img :src="item.url">
                 <div class="demo-upload-list-cover">
@@ -93,41 +94,23 @@
             </div>
           </div>
 
-
-          <!--<Upload ref="detailUpload"-->
-                  <!--:before-upload="handleDetailBeforeUpload"-->
-                  <!--:show-upload-list="false"-->
-                  <!--:default-file-list="detailDefaultList"-->
-                  <!--:on-success="handleSuccess"-->
-                  <!--:format="['jpg','jpeg','png']"-->
-                  <!--:max-size="2048"-->
-                  <!--:on-format-error="handleFormatError"-->
-                  <!--:on-exceeded-size="handleMaxSize"-->
-                  <!--type="drag"-->
-                  <!--:data="{'token':QiniuToken}"-->
-                  <!--:action="ACTION_URL"-->
-                  <!--style="display: inline-block;width:58px;">-->
-            <!--<div style="width: 58px;height:58px;line-height: 58px;">-->
-              <!--<Icon type="ios-camera" size="20"></Icon>-->
-            <!--</div>-->
-          <!--</Upload>-->
-
           <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45);margin-top: 60px"></div>
         </FormItem>
 
-        <div class="imgListBtn" @click="showPicModal = !showPicModal">
-          <i class="icon iconfont icon-tupian" style="margin-left: 12px;font-size: 14px;"></i>
-          <span>图片</span>
-        </div>
 
-        <FormItem label="正文" prop="detail" style="width: 100%">
+
+        <FormItem prop="detail" style="width: 100%;position: relative">
           <ckeditor v-if="getDetail" id="aaabbbccc" v-model="detail" :config="config" @blur="onBlur($event)"
                     @focus="onFocus($event)">
           </ckeditor>
+
+          <div class="imgListBtn" @click="showPicModal = !showPicModal">
+            <i class="icon iconfont icon-tupian" style="margin-left: 12px;font-size: 14px;"></i>
+            <span>图片</span>
+          </div>
         </FormItem>
       </Form>
     </div>
-
 
 
     <div class="bottomBtn">
@@ -139,74 +122,68 @@
       <img :src="EXTERNAL_LINK + imgName" v-if="viewImg" style="width: 100%">
     </Modal>
 
+    <Modal class="picDialog" v-model="showPicModal" width="800" :styles="{top: '30px'}" @on-ok="selectDetailImg">
+      <div slot="header" class="title">
+        <div class="titleName fl">选择图片</div>
+      </div>
 
+      <div class="imgContainer">
+        <div class="imgCategory fl">
+          <ul>
+            <li :class="curImgCategory == 0 ? 'active' : ''" @click="changeImgCategory(0)">
+              <strong>全部图片</strong>
+              <em>({{totalImgNum}})</em>
+            </li>
 
-    <div class="backgroundWrap" v-show="showPicModal">
-      <div class="dialog" v-show="showPicModal">
-        <div class="title">
-          <div class="titleName fl">选择图片</div>
-          <div class="close fr" @click="showPicModal = !showPicModal">X</div>
+            <li v-for="(item, index) in imgCategory" :class="curImgCategory == item.id ? 'active' : ''"
+                @click="changeImgCategory(item.id)">
+              <strong>{{item.name}}</strong>
+              <em>({{item.num}})</em>
+            </li>
+            <li @click="showAddImgCategory1 = true">
+              <strong>新建分组</strong>
+            </li>
+          </ul>
         </div>
-        <div class="imgContainer">
-          <div class="imgCategory fl">
-            <ul>
-              <li class="active">
-                <strong>全部图片</strong>
-                <em>(6)</em>
-              </li>
 
-              <li v-for="(item, index) in imgCategory">
-                <strong>{{item.name}}</strong>
-                <em>(1)</em>
-              </li>
-              <li @click="showAddImgCategory1 = true">
-                <strong>新建分组</strong>
-              </li>
-            </ul>
+        <div class="imgContent fr">
+          <div class="top">
+            <Upload ref="detailUpload"
+                    :before-upload="handleDetailBeforeUpload"
+                    :show-upload-list="false"
+                    :default-file-list="detailDefaultList"
+                    :on-success="handleDetailSuccess"
+                    :format="['jpg','jpeg','png']"
+                    :max-size="2048"
+                    :on-format-error="handleFormatError"
+                    :on-exceeded-size="handleMaxSize"
+                    :data="{'token':QiniuToken}"
+                    :action="ACTION_URL"
+                    style="display: inline-block;width:58px;">
+              <Button type="primary">本地上传</Button>
+            </Upload>
           </div>
-          <div class="imgContent fr">
-            <div class="top">
-              <Upload ref="detailUpload"
-                      :before-upload="handleDetailBeforeUpload"
-                      :show-upload-list="false"
-                      :default-file-list="detailDefaultList"
-                      :on-success="handleSuccess"
-                      :format="['jpg','jpeg','png']"
-                      :max-size="2048"
-                      :on-format-error="handleFormatError"
-                      :on-exceeded-size="handleMaxSize"
-                      :data="{'token':QiniuToken}"
-                      :action="ACTION_URL"
-                      style="display: inline-block;width:58px;">
-                <Button type="primary">本地上传</Button>
-              </Upload>
-            </div>
-            <div class="content">
-              <div class="imgListArea mt20" v-if="detailUploadList.length > 0" v-for="item in detailUploadList">
-                <div class="uploadList">
-                  <template v-if="item.status === 'finished'">
-                    <div class="imgItem">
-                      <div class="picBox">
-                        <img :src="item.url">
-                      </div>
-                      <p class="picName">noData</p>
+          <div class="content">
+            <div class="imgListArea mt20" v-for="item in uploadImgList">
+              <div class="uploadList">
+                <template>
+                  <div class="imgItem">
+                    <div class="picBox" @click="changeImgSelected(item)">
+                      <img :src="item.imglink_format">
+                      <div v-show="item.selected" class="selected"></div>
                     </div>
-                  </template>
-                  <template v-else>
-                    <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
-                  </template>
-                </div>
+                    <p class="picName">noData</p>
+                  </div>
+                </template>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-    </div>
-
+    </Modal>
 
     <Modal title="创建分组" v-model="showAddImgCategory1"
-      @on-ok="addImgCategory"
+           @on-ok="addImgCategory"
     >
       <Form :label-width="80" class="mt20">
         <FormItem label="分组名称" prop="img_category_name" style="width: 60%">
@@ -230,12 +207,16 @@
         mid: 0,
         title: "",
         detailTitle: "",
-          detail: "",
-          getDetail: false,
+        detail: "",
+        getDetail: false,
         isAdd: true,
         QiniuToken: '',
         content: '',
-          imgCategory: [],
+        imgCategory: [],
+        totalImgNum: 0,
+        curImgCategory: 0,
+        uploadImgList: [],
+        detailUploadFileName: '',
         config: {
           language: 'zh-cn',
           toolbar: [
@@ -251,14 +232,15 @@
             {name: 'tools', items: ['Maximize']},
             {name: 'editing', items: ['Scayt']}
           ],
-          height: 400
+          height: 400,
+          width: 700
         },
         detailListFormValidate: [],
         showPicModal: false,
         formValidate: {
           name: '',
-            desc: '',
-            timeRange: ''
+          desc: '',
+          timeRange: ''
         },
         ruleValidate: {
           name: [
@@ -277,7 +259,7 @@
         imgName: '',
         viewImg: false,
         showAddImgCategory1: false,
-          img_category_name: '',
+        img_category_name: '',
         EXTERNAL_LINK: '',
         ACTION_URL: ''
         /*图片上传结束*/
@@ -313,25 +295,21 @@
                 title: data.activity_detail[i].title,
                 detail: data.activity_detail[i].detail,
               }
-              console.log(detailList)
               this.detailListFormValidate.push(detailList)
 
               //暂时这么写
               this.detail = this.detailListFormValidate[0].detail
-                this.getDetail = true
-
-                console.log('this.detail',this.detail)
+              this.getDetail = true
             }
           }
         }).catch(error => {
-          console.log(error)
           this.$Message.error('服务器错误!');
         })
       } else {
         this.title = "新增活动"
         this.isAdd = true
-          this.detail = ""
-          this.getDetail = true
+        this.detail = ""
+        this.getDetail = true
 
         var htmlId = lib.getRandomString()
         this.detailListFormValidate = [
@@ -343,24 +321,22 @@
         ]
       }
 
-      //获取图片分类
       this.getImgCategory()
+      this.getImgStorage()
     },
     mounted() {
       /*图片上传*/
       this.uploadList = this.$refs.upload.fileList
       this.detailUploadList = this.$refs.detailUpload.fileList
 
-        // console.log('this.$refs.upload',this.$refs.upload)
-        //
-        // var _this = this
-        // var timer = setInterval(function () {
-        //     if(_this.$refs.detailUpload) {
-        //         console.log('this.$refs.detailUpload',_this.$refs.detailUpload)
-        //         _this.detailUploadList = _this.$refs.detailUpload.fileList
-        //         clearInterval(timer)
-        //     }
-        // },2000)
+      //
+      // var _this = this
+      // var timer = setInterval(function () {
+      //     if(_this.$refs.detailUpload) {
+      //         _this.detailUploadList = _this.$refs.detailUpload.fileList
+      //         clearInterval(timer)
+      //     }
+      // },2000)
 
       this.getQiniuToken()
       this.EXTERNAL_LINK = config.Qiniu.EXTERNAL_LINK
@@ -387,24 +363,24 @@
         }
       },
       detailDefaultList() {
-          if (this.$route.query.id) {
-              var pics = lib.getImglink(this.$route.query.detail_imglink, false)
-              let picData = []
-              for (let item in pics) {
-                  picData.push({
-                      "name": pics[item],
-                      'url': config.Qiniu.EXTERNAL_LINK + pics[item]
-                  })
-              }
-              return picData
-          } else {
-              return []
+        if (this.$route.query.id) {
+          var pics = lib.getImglink(this.$route.query.detail_imglink, false)
+          let picData = []
+          for (let item in pics) {
+            picData.push({
+              "name": pics[item],
+              'url': config.Qiniu.EXTERNAL_LINK + pics[item]
+            })
           }
+          return picData
+        } else {
+          return []
+        }
       },
     },
     methods: {
       console() {
-        console.log('detailUploadList',this.detailUploadList)
+        console.log('detailUploadList', this.detailUploadList)
       },
       addDetail() {
         let htmlId = lib.getRandomString()
@@ -421,59 +397,80 @@
           }
         })
       },
-        addImgCategory() {
-            let _this = this
-            let url = 'api/img/category/add'
-            let submitData = {
-                name: this.img_category_name
-            }
-            this.$http.post(url, submitData).then(res => {
-                if(res.data.ErrNo == 100000) {
-                    this.$Message.success('添加分组成功！')
-                    _this.getImgCategory()
-                }
-            }).catch(error => {
-                this.$Message.error('服务器错误!')
-            })
-        },
-      getImgCategory() {
-          let _this = this
-          let url = 'api/img/category/getlist'
-          let submitData = {}
-          this.$http.get(url, submitData).then(res => {
-              _this.imgCategory = res.data.data || []
-          }).catch(error => {
-              this.$Message.error('服务器错误!')
-          })
+      addImgCategory() {
+        let _this = this
+        let url = 'api/img/category/add'
+        let submitData = {
+          name: this.img_category_name
+        }
+        this.$http.post(url, submitData).then(res => {
+          if (res.data.errNo == 100000) {
+            this.$Message.success('添加分组成功！')
+            _this.getImgCategory()
+          }
+        }).catch(error => {
+          this.$Message.error('服务器错误!')
+        })
       },
+      getImgCategory() {
+        let _this = this
+        let url = 'api/img/category/getlist'
+        let submitData = {}
+        this.$http.get(url, submitData).then(res => {
+          if (res.data.errNo == 100000) {
+            let totalImgNum = 0
+            let data = res.data.data || []
+            data.map(function (item) {
+              totalImgNum += item.num
+            })
+
+            _this.imgCategory = data
+            _this.totalImgNum = totalImgNum
+          }
+        }).catch(error => {
+          console.log(error)
+          this.$Message.error('服务器错误!')
+        })
+      },
+      selectDetailImg() {
+        let insertImgStr = ''
+        this.uploadImgList.map(function (item) {
+          if(item.selected) {
+            insertImgStr += `<p style="text-align:center"><img alt="" src="${item.imglink_format}" style="width:458px" /></p>`
+          }
+        })
+
+        this.detail += insertImgStr
+      },
+
       handleSubmit() {
-          var timeRange = this.formValidate.timeRange
-          var startTime = Math.ceil(timeRange[0].getTime() / 1000)
-          var endTime = Math.ceil(timeRange[1].getTime() / 1000)
+        var timeRange = this.formValidate.timeRange
+        var startTime = Math.ceil(new Date(timeRange[0]).getTime() / 1000)
+        var endTime = Math.ceil(new Date(timeRange[1]).getTime() / 1000)
         let submitData
         let url
-          var htmlId = lib.getRandomString()
-          this.detailListFormValidate = [
-              {
-                  htmlId: htmlId,
-                  title: this.detailTitle,
-                  detail: this.detail,
-              },
-          ]
+        var htmlId = lib.getRandomString()
+        this.detailListFormValidate = [
+          {
+            htmlId: htmlId,
+            title: this.detailTitle,
+            detail: this.detail,
+          },
+        ]
         if (this.isAdd) {
-            this.detailListFormValidate[0].detail_imglink = lib.getUploadPicStr(this.detailUploadList)
+          this.detailListFormValidate[0].detail_imglink = lib.getUploadPicStr(this.detailUploadList)
           submitData = {
             name: this.formValidate.name,
             desc: this.formValidate.desc,
-              start_time: startTime,
-              end_time: endTime,
+            start_time: startTime,
+            end_time: endTime,
             // activity_detail: this.detailListFormValidate,
             activity_detail: this.detailListFormValidate,
             imglink: lib.getUploadPicStr(this.uploadList)
           }
           url = "/api/activity/add"
         } else {
-            this.detailListFormValidate[0].detail_imglink = lib.getUpdateUploadPicStr(this.detailUploadList)
+          this.detailListFormValidate[0].detail_imglink = lib.getUpdateUploadPicStr(this.detailUploadList)
           submitData = {
             id: this.formValidate.id,
             name: this.formValidate.name,
@@ -485,7 +482,7 @@
         }
 
         this.$http.post(url, submitData).then(res => {
-          if (res) {
+          if (res.data.errNo == 100000) {
             this.$Message.success(this.title + '成功!')
             var _this = this
             setTimeout(function () {
@@ -496,20 +493,75 @@
             }, 200)
           }
         }).catch(error => {
-            console.log(error)
+          console.log(error)
           this.$Message.error('服务器错误!')
         })
       },
 
+      getImgStorage() {
+        let _this = this
+        let submitData = {
+          pageIndex: 1,
+          pageSize: 1000,
+          img_category_id: this.curImgCategory
+        }
+        let url = lib.getRequestUrl('api/img/storage/getlist', submitData)
+        this.$http.get(url, submitData).then(res => {
+          if (res.data.errNo == 100000) {
+            let uploadImgList = lib.filterResult(res.data.data)
+            if(uploadImgList.length > 0) {
+              uploadImgList.map(function (item) {
+                item.imglink_format = item.imglink_format[0]
+                item.selected = false
+              })
+              uploadImgList[0].selected = true
+              this.uploadImgList = uploadImgList
+            }
+          }
+        }).catch(error => {
+          console.log(error)
+          this.$Message.error('服务器错误!')
+        })
+      },
+
+      addImgStorage(name) {
+        let _this = this
+        let url = 'api/img/storage/add'
+
+        let submitData = {
+          imglink: name,
+          imgname: this.detailUploadFileName
+        }
+        if (this.curImgCategory) {
+          submitData.img_category_id = this.curImgCategory
+        }
+
+        this.$http.post(url, submitData).then(res => {
+          if (res.data.errNo == 100000) {
+            this.$Message.success('上传成功！')
+            _this.getImgStorage()
+            _this.getImgCategory()
+          }
+        }).catch(error => {
+          this.$Message.error('服务器错误!')
+        })
+      },
+
+      changeImgSelected(item) {
+        item.selected = !item.selected
+      },
+
+      changeImgCategory(id) {
+        this.curImgCategory = id
+        this.getImgStorage()
+      },
       /*上传图片*/
       getQiniuToken() {
         let url = 'api/qiniu/token/get'
         let submitData = {}
         this.$http.post(url, submitData).then(res => {
           if (res) {
-            console.log('q', res)
             this.QiniuToken = res.data.token
-            console.log(this.QiniuToken)
           }
         }).catch(error => {
           this.$Message.error('服务器错误!')
@@ -524,14 +576,18 @@
         this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
       },
       handleDetailRemove(file) {
-          const fileList1 = this.$refs.detailUpload.fileList;
-          this.$refs.detailUpload.fileList.splice(fileList1.indexOf(file), 1);
+        const fileList1 = this.$refs.detailUpload.fileList;
+        this.$refs.detailUpload.fileList.splice(fileList1.indexOf(file), 1);
       },
       handleSuccess(res, file) {
-        file.url = config.Qiniu.EXTERNAL_LINK + res.key;
-        file.name = res.hash;
-        console.log('res',res)
-        console.log('file',file)
+        file.url = config.Qiniu.EXTERNAL_LINK + res.key
+        file.name = res.hash
+      },
+      handleDetailSuccess(res, file) {
+        file.url = config.Qiniu.EXTERNAL_LINK + res.key
+        file.name = res.hash
+
+        this.addImgStorage(res.hash)
       },
       handleFormatError(file) {
         this.$Message.success('请上传jpg，jpeg，png，格式的图片')
@@ -555,34 +611,36 @@
         return check;
       },
       handleDetailBeforeUpload(file) {
-          this.file = file
-          let files = [], fileData = [];
-          for (let item in this.file) {
-              files.push(this.file[item])
-          }
-          let filess = files[0]
-          fileData = filess.split('.')
-          // this.$refs.upload.action = config.Qiniu.ACTION_URL
+        this.detailUploadFileName = file.name.split('.')[0]
+        console.log('this.detailUploadFileName',this.detailUploadFileName)
 
-          console.log('this.detailUploadList',this.detailUploadList)
-          const check = this.detailUploadList.length < 5;
-          if (!check) {
-              this.$Message.success('封面图只允许上传五张图片')
-          }
-          return check;
+        this.file = file
+        let files = [], fileData = [];
+        for (let item in this.file) {
+          files.push(this.file[item])
+        }
+        let filess = files[0]
+        fileData = filess.split('.')
+        // this.$refs.upload.action = config.Qiniu.ACTION_URL
+
+        const check = this.detailUploadList.length < 5;
+        if (!check) {
+          this.$Message.success('封面图只允许上传五张图片')
+        }
+        return check;
       },
       /*上传结束*/
-        copy(url) {
-            var input = document.getElementById("copyUrlContain")
-            input.style.display = 'block'
-            input.value = url
-            input.select()
-            document.execCommand("copy")
-            input.style.display = 'none'
-            this.$Message.success('复制成功！')
-        },
+      copy(url) {
+        var input = document.getElementById("copyUrlContain")
+        input.style.display = 'block'
+        input.value = url
+        input.select()
+        document.execCommand("copy")
+        input.style.display = 'none'
+        this.$Message.success('复制成功！')
+      },
 
-        handleReset(name) {
+      handleReset(name) {
         this.$refs[name].resetFields();
       },
       onBlur(editor) {
@@ -608,8 +666,9 @@
 
   .imgListBtn {
     width: 90px;
-    position: relative;
-    left: 99px;
+    position: absolute;
+    right: 49px;
+    top: 79px;
     margin-bottom: 10px;
     border: solid 1px #eeeeee;
     border-radius: 4px;
@@ -621,103 +680,108 @@
     }
   }
 
-  .backgroundWrap {
-    .dialog {
-      width: 846px;
-      height: 538px;
-      .title {
-        padding: 20px 30px;
-        color: #222;
-        font-size: 18px;
-        .titleName {
+  .picDialog {
+    .title {
+      padding: 20px 30px;
+      color: #222;
+      font-size: 18px;
+      .titleName {
 
-        }
-        .close {
-          cursor: pointer;
-        }
       }
+      .close {
+        cursor: pointer;
+      }
+    }
 
-      .imgContainer {
-        width: 100%;
+    .imgContainer {
+      width: 100%;
+      height: 479px;
+      overflow: hidden;
+      .imgCategory {
+        width: 16%;
         height: 479px;
-        overflow: hidden;
-        .imgCategory {
-          width: 16%;
-          height: 479px;
-          border-right: solid 1px #e7e7eb;
-          ul {
-            margin-top: 10px;
-            height: 200px;
-            overflow-y: scroll;
-            li {
-              padding: 5px 0;
-              text-align: center;
-              cursor: pointer;
-              &:hover {
-                background: #f4f5f9;
-              }
-              strong {
-                font-size: 14px;
-              }
-              em {
-                padding-left: 3px;
-                color: #8d8d8d;
-              }
-              &.active {
-                background: #f4f5f9;
-              }
+        border-right: solid 1px #e7e7eb;
+        ul {
+          margin-top: 10px;
+          height: 400px;
+          overflow-y: scroll;
+          li {
+            padding: 5px 0;
+            text-align: center;
+            cursor: pointer;
+            &:hover {
+              background: #f4f5f9;
+            }
+            strong {
+              font-size: 14px;
+            }
+            em {
+              padding-left: 3px;
+              color: #8d8d8d;
+            }
+            &.active {
+              background: #f4f5f9;
             }
           }
         }
+      }
 
-        .imgContent {
-          width: 80%;
+      .imgContent {
+        width: 80%;
+        height: 479px;
+        .top {
+          height: 53px;
+          line-height: 53px;
+          border-bottom: solid 1px #e7e7eb;
+        }
+        .content {
+          overflow: scroll;
           height: 479px;
-          .top {
-            height: 53px;
-            line-height: 53px;
-            border-bottom: solid 1px #e7e7eb;
-          }
-          .content {
-            .imgListArea {
-              display: inline-block;
-              .uploadList {
-                .imgItem {
+          .imgListArea {
+            display: inline-block;
+            .uploadList {
+              .imgItem {
+                position: relative;
+                margin-right: 11px;
+                margin-bottom: 10px;
+                float: left;
+                text-align: center;
+                .picBox {
+                  width: 117px;
+                  height: 117px;
                   position: relative;
-                  margin-right: 11px;
-                  margin-bottom: 10px;
-                  float: left;
-                  text-align: center;
-                  .picBox {
-                    width: 117px;
+                  overflow: hidden;
+                  img {
                     height: 117px;
-                    position: relative;
-                    overflow: hidden;
-                    img {
-                      height: 117px;
-                      position: absolute;
-                      top: 50%;
-                      left: 50%;
-                      transform: translate(-50%, -50%);
-                      border-bottom: solid 1px #e7e7eb;
-                    }
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    border-bottom: solid 1px #e7e7eb;
                   }
-                  .picName {
-                    height: 32px;
-                    line-height: 32px;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
+                  .selected {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 118px;
+                    height: 118px;
+                    background: rgba(0, 0, 0, 0.6) url("../assets/img/selected.png") no-repeat center;
                   }
+                }
+                .picName {
+                  height: 32px;
+                  line-height: 32px;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
                 }
               }
             }
-
           }
+
         }
       }
-
-
     }
+
   }
 </style>

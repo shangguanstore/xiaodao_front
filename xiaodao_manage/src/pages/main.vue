@@ -93,7 +93,7 @@
         </Submenu>
       </Menu>
     </Sider>
-    <Layout :style="{marginLeft: '180px'}">
+    <Layout :style="{marginLeft: '180px',minHeight: '100%'}">
       <Affix :offset-top="0">
         <Header class="header" :style="{background: '#fff'}">
           <!--<AutoComplete class="xdm_input" v-model="value1" icon="ios-search" :data="data1" @on-search="handleSearch1" placeholder="input here" style="width:200px"></AutoComplete>-->

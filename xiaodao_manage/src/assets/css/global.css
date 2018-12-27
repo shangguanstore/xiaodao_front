@@ -1,3 +1,6 @@
+html,body {
+  height: 100%;
+}
 :focus{
 	outline: none;
 	box-shadow: none !important;
@@ -190,20 +193,16 @@ li.header_bar_last{
 
 /**页脚**/
 footer{
-  /*border: solid 1px red;*/
-  position: fixed;
-  bottom: 20px;
 	text-align: center;
 	font-size: 14px;
 	line-height: 21px;
 	color: rgba(0, 0, 0, 0.45);
-	width: 100%;
-	margin-top: 30px;
+	margin: 30px 0;
 }
 /**容器通用**/
 .manage_title {
 	background-color: #FFFFFF;
-	margin: 0 -48px 0 -27px;
+	margin: 0 -27px 0 -27px;
 	padding: 20px 0 20px 30px;
 	border-bottom: 1px solid rgb(233, 233, 233);
 }
@@ -370,7 +369,7 @@ footer{
 	margin: 0 auto;
 	width: 864px;
 	height: 396px;
-	top: 150px;
+	top: 100px;
 	z-index: 100;
 	background: white;
 	border-radius: 2% 2% 2% 2%;
