@@ -5,6 +5,7 @@ var config = {
   UserRole: UserRole,
     XstCompanySetting: XstCompanySetting,
   Mbanner: Mbanner,
+  Activity: Activity,
   Qiniu: Qiniu
 }
 
@@ -36,6 +37,12 @@ XstCompanySetting.STATUS_OK = 0
 XstCompanySetting.STATUS_DELETE = -1
 XstCompanySetting.STATUS_INVALID = -2
 
+
+function Activity() {
+}
+Activity.TYPE_NORMAL = 0
+Activity.TYPE_GROUPON = 1
+Activity.TYPE_GET_LIKES = 2
 
 export default config
 

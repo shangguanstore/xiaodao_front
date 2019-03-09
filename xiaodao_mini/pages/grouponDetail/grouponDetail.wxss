@@ -1,0 +1,69 @@
+/* pages/grouponDetail/grouponDetail.wxss */
+.grouponDetailContainer .content {
+  background: white;
+}
+
+.grouponDetailContainer .content .process {
+  width: 705rpx;
+  padding: 30rpx 20rpx;
+  padding-top: 10rpx;
+}
+
+.grouponDetailContainer .content .process .proItem {
+  display: inline-block;
+  color: #515a6e;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.grouponDetailContainer .content .process .proItem image {
+  width: 30px;
+  height: 30px;
+}
+
+.grouponDetailContainer .content .process .iconfont {
+  position: relative;
+  top: -30rpx;
+  display: inline-block;
+  color: #515a6e;
+  font-size: 24rpx;
+  margin: 0 20rpx;
+}
+
+
+.grouponDetailContainer .content .toGroupon {
+  width: 100%;
+}
+
+.grouponDetailContainer .content .toGroupon .toGrouponBlock {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.grouponDetailContainer .content .toGroupon .des {
+  width: 95%;
+  font-size: 28rpx;
+  color: #515a6e;
+  white-space: pre;
+  border-top: solid 1px #dcdee2;
+  text-align: center;
+  padding: 20rpx 0;
+}
+
+.grouponDetailContainer .content .toGroupon .des text {
+  color: #09bb07;
+}
+
+.grouponDetailContainer .content .toGroupon button {
+  width: 95%;
+}
+
+.grouponDetailContainer .notice {
+  background: white;
+  white-space: pre-wrap;
+  font-size: 30rpx;
+  color: #808695;
+  padding: 0rpx 20rpx;
+}

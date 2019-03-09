@@ -1,0 +1,47 @@
+/* pages/orderDetail/orderDetail.wxss */
+.topArea {
+  width: 630rpx;
+  display: flex;
+  padding: 14rpx 60rpx;
+  justify-content: space-between;
+	background-image: linear-gradient(60deg, 
+		#66bfff 0%, 
+		#3696da 100%), 
+	linear-gradient(
+		#009cf0, 
+		#009cf0);
+	background-blend-mode: normal, 
+		normal;
+}
+
+.topArea .left {
+  margin-top: 44rpx;
+}
+
+.topArea .left .label {
+  font-size: 27rpx;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+}
+
+.topArea .left .value {
+  font-size: 48rpx;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+}
+
+.topArea .clock {
+  margin-top: 5rpx;
+}
+
+.topArea .clock text {
+  font-size: 114rpx;
+  color: #f2d9d5;
+}
+
+.bottomBtn button {
+  width: 675rpx;
+  font-weight: 600;
+}

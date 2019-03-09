@@ -1,0 +1,61 @@
+<!--pages/grouponDetail/grouponDetail.wxml-->
+<view class='container grouponDetailContainer'>
+  <view class='content'>
+    <view class='process'>
+      <view class='proItem'>
+        <image src='/images/grouponDetail/tuan1.png'></image>
+        <view>选择商品开团/参团</view>
+      </view>
+      <text class='iconfont icon-arrow'></text>
+
+      <view class='proItem'>
+        <image src='/images/grouponDetail/tuan2.png'></image>
+        <view>邀请好友参团</view>
+      </view>
+      <text class='iconfont icon-arrow'></text>
+
+      <view class='proItem'>
+        <image src='/images/grouponDetail/tuan3.png'></image>
+        <view>人满成团，一起听课</view>
+      </view>
+    </view>
+    <view class='orderGoodsBlock'>
+      <view class='imgArea'>
+        <image src='/images/course.jpg'></image>
+      </view>
+      <view class='goodsContent'>
+        <view class='title'>精品小课团购会员</view>
+        <view class='price'>
+          <text class='label'>团购价</text>
+          <text class='realPrice'> ¥ {{activityData.group_price_format}}</text>
+          <text class='fullPrice'> ¥ {{activityData.price_format}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='toGroupon'>
+      <view class='toGrouponBlock'>
+        <view class='des'>
+          <block wx:if="{{orderType == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}">
+            <view>剩 <text>22:15:13</text> 自动结束</view>
+                       <view>1人参团/2人成团</view>
+          </block>
+          <block wx:else>
+            <view>开团后 <text>48小时</text> 自动结束</view>
+                       <view>2人团</view>
+          </block>
+        </view>
+        <button type="primary" bindtap='toApply'>{{orderType == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN ? '我要参团' : '我要开团'}}</button>
+      </view>
+    </view>
+  </view>
+  <view class='gap mt20'></view>
+  <view class='notice'>
+    1.拼团是指由多人一起拼单购买的促销活动，通过拼单买家可以享受低价听课优惠；
+    
+    2.在商家设置的拼团时限内（如果活动剩余时间少于拼团时限以活动剩余时间为准）找到满足人数的好友参加拼团，即可算拼团成功开始听课；
+
+    3.在商家设置的拼团时限内（如果活动剩余时间少于拼团时限以活动剩余时间为准）没有满足的拼团人数要求，即算作拼团失败，系统会自动在24小时内将您支付的钱款退回微信钱包；
+    
+    4.注意：一旦开始拼团，在倒计时结束前，不支持原价购买和退款操作。
+  </view>
+</view>

@@ -1,0 +1,127 @@
+:root{
+  --green-color: #009137;
+  --green-one-color: #19be6b;
+  --green-two-color: #1ed97b;
+  --red-color: #ed4014;
+  --red-one-color: #ed5c3d;
+  --red-five-color: #FA2C87;
+  --blue-color: #0051ff;
+  --blue-one-color: #009cf0;
+  --blue-two-color: #60c6f0;
+  --blue-three-color: #c4e6ff;
+  --font-color: #333333;
+  --font-one-color: #444444;
+  --font-two-color: #555555;
+  --font-three-color: #666666;
+  --font-four-color: #999999;
+  --font-five-color: #cccccc;
+  --font-six-color: #eeeeee;
+}
+
+.greenColor {
+  color: #009137;
+}
+.greenBack {
+  background: #009137;
+}
+.greenOneColor {
+  color: #19be6b;
+}
+.greenOneBack {
+  background: #19be6b;
+}
+.greenTwoColor {
+  color: #1ed97b;
+}
+.greenTwoBack {
+  background: #1ed97b;
+}
+.blueColor {
+  color: #0051ff;
+}
+.blueBack {
+  background: #0051ff;
+}
+.blueOneColor {
+  color: #009cf0;
+}
+.blueOneBack {
+  background: #009cf0;
+}
+.blueTwoColor {
+  color: #60c6f0;
+}
+.blueTwoBack {
+  background: #60c6f0;
+}
+.blueThreeColor {
+  color: #c4e6ff;
+}
+.blueThreeBack {
+  background: #c4e6ff;
+}
+
+.redColor {
+  color: #ed4014;
+}
+.redBack {
+  background: #ed4014;
+}
+.redOneColor {
+  color: #ed5c3d;
+}
+.redOneBack {
+  background: #ed5c3d;
+}
+
+.redFiveColor {
+  color: #FA2C87;
+}
+.redFiveBack {
+  background: #FA2C87;
+}
+
+
+
+.fontColor {
+  color: #333333;
+}
+.fontBack {
+  background: #333333;
+}
+.fontOneColor {
+  color: #444444;
+}
+.fontOneBack {
+  background: #444444;
+}
+.fontTwoColor {
+  color: #555555;
+}
+.fontTwoBack {
+  background: #555555;
+}
+.fontThreeColor {
+  color: #666666;
+}
+.fontThreeBack {
+  background: #666666;
+}
+.fontFourColor {
+  color: #999999;
+}
+.fontFourBack {
+  background: #999999;
+}
+.fontFiveColor {
+  color: #cccccc;
+}
+.fontFiveBack {
+  background: #cccccc;
+}
+.fontSixColor {
+  color: #eeeeee;
+}
+.fontSixBack {
+  background: #eeeeee;
+}

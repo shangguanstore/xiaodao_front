@@ -189,6 +189,7 @@
       },
       getTableData(option) {
         let submitData = {
+          type: [config.Activity.TYPE_NORMAL],
           search: this.searchValue,
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,
@@ -201,7 +202,7 @@
             this.current = option.pageIndex
 
             this.total = res.data.total
-            this.tableData = lib.filterResult(res.data.activity)
+            this.tableData = lib.filterResult(res.data.data)
           }
         }).catch(error => {
           console.log('error', error)

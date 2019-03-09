@@ -17,8 +17,9 @@
     </view>
   </view>
 
+  <!-- 报名列表 -->
   <view class='gap' wx:if="{{activityApplyMemberList.length > 0}}"></view>
-  <view class='applyArea' wx:if="{{activityApplyMemberList.length > 0}}">
+  <view class='applyArea' wx:if="{{activityApplyMemberList.length > 0 && !typeGroupon}}">
     <view class='top'>
       <view class='count'>已报名（{{applyTotal}}）</view>
       <view wx:if="{{applyTotal > 7}}" class='seeMore' bindtap="goApplyList">更多报名></view>
@@ -33,13 +34,50 @@
     </view>
   </view>
 
+  <!-- 当前团列表 -->
+  <view class='gap'></view>
+  <view class='curGroupListArea'>
+      <view class='title fontColor'>
+        离拼团活动结束还剩
+        <text class='redFiveColor'>4</text> 天
+        <text class='redFiveColor'>00</text> 时
+        <text class='redFiveColor'>47</text> 分
+      </view>
+      <view class='des fontOneColor'>
+        以下小伙伴正在发起拼团，您可以直接参与
+      </view>
+      <view class='listArea'>
+        <view class='listItem' wx:for="{{groupList}}" wx:for-item='item' wx:for-index='index' wx:key='item.groupid'>
+          <view class='left'>
+            <view class='pic'>
+              <image src='{{item.avatar}}'></image>
+            </view>
+            <view class='content'>
+              <view class='num fontOneColor'>
+                还差<text>{{item.group_num - item.groupApplyNum}}</text>人成团
+              </view>
+              <view class='time fontFourColor'>剩余时间21:55:51结束</view>
+            </view>
+          </view>
+          <view class='right'>
+            <text class='price redOneColor'>¥ {{activity.group_price_format}}</text>
+            <button type='primary' size='mini' data-order-type='{{config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}' data-groupid="{{item.groupid}}" bindtap='goToGroupDetail'>去拼团</button>
+          </view>
+        </view>
+      </view>
+  </view>
+
+  <!-- <view class='gap' wx:if="{{true}}"></view>
+  <view></view> -->
+
+
   <view class='gap'></view>
   <view class='rich-text'>
     <template is="wxParse" data="{{wxParseData:article.nodes}}" />
   </view>
 
 
-  <view class='fixBottom'>
+  <view class='fixBottom' wx:if="{{typeNormal}}">
     <view class='home' bindtap='goHome'>
       <text class='iconfont icon-shouye' style='font-size:42rpx;font-weight:500;margin-top:5rpx;'></text>
       <text style='margin-top:-9rpx'>首页</text>
@@ -49,8 +87,18 @@
       <button open-type="share">分享</button>
       <text style='margin-top:-4rpx'>分享</text>
     </view>
-    <view class='apply' bindtap="toApply">
+    <view class='apply' data-order-type="{{config.FrontOrderType.TYPE_DEFAULT}}" bindtap="toApply">
       <text>我要报名</text>
+    </view>
+  </view>
+
+  <view class='fixBottom' wx:if="{{typeGroupon}}">
+    <view class='aloneBuy' data-order-type="{{config.FrontOrderType.TYPE_GROUP_SINGLE}}" data-groupid="0" bindtap='toApply'>
+      单买 ¥ {{activity.price_format}}
+    </view>
+    <view class='grouponBuy' data-order-type='{{config.FrontOrderType.TYPE_GROUP_START_TUAN}}' bindtap='goToGroupDetail'>
+      <view>限时拼团</view>
+      <view>¥ {{activity.group_price_format}}</view>
     </view>
   </view>
 </view>

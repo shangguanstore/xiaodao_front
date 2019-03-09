@@ -1,0 +1,61 @@
+<!--pages/orderDetail/orderDetail.wxml-->
+<view class='container'>
+  <view class='topArea'>
+    <view class='left'>
+      <view class='label'>支付剩余时间</view>
+      <view class='value'>14:51</view>
+    </view>
+    <view class='clock'>
+        <text class='iconfont icon-tubiaozhizuomoban-'></text>
+    </view>
+  </view>
+
+  <view class='orderGoodsBlock'>
+    <view class='imgArea'>
+      <image src='/images/course.jpg'></image>
+    </view>
+    <view class='goodsContent'>
+      <view class='description'>
+        {{activity.name}}
+      </view>
+      <view class='price'>
+        <text class='realPrice'> ¥ {{order.payment_money_format}}</text>
+        <text class='fullPrice' wx:if="{{order.payment_money_format != order.order_money_format}}"> ¥ {{order.order_money_format}}</text>
+      </view>
+    </view>
+  </view>
+
+
+  <view class='gap'></view>
+  <view class='my-list-container'>
+    <view class='list' wx:if="{{order.type == config.FrontOrderType.TYPE_GROUP_START_TUAN || order.type == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}">
+      <text>全民拼团</text>
+      <text>¥ {{order.payment_money_format}}</text>
+    </view>
+    <view class='list'>
+      <text>实付款</text>
+      <text>¥ {{order.payment_money_format}}</text>
+    </view>
+    <view class='list'>
+      <text>支付方式</text>
+      <text>微信支付</text>
+    </view>
+  </view>
+
+  <view class='gap'></view>
+  <view class='my-list-container'>
+    <view class='list'>
+      <text>学员姓名</text>
+      <text>{{formValidate.uname}}</text>
+    </view>
+    <view class='list'>
+      <text>手机号码</text>
+      <text>{{formValidate.phone}}</text>
+    </view>
+  </view>
+
+  <view class='bottomBtn'>
+      <button type='primary' class='primary' bindtap='handlePay'>确认支付</button>
+  </view>
+  
+</view>

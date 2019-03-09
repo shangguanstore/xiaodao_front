@@ -1,0 +1,83 @@
+/* weui组件更改开始 */
+.weui-select {
+  text-align: right;
+  font-size: 16px;
+  color: #333;
+}
+
+.weui-label {
+  font-size: 34rpx;
+  color: #777777;
+  padding-left: 0;
+  padding-bottom: 30rpx;
+  padding-top: 30rpx;
+}
+
+.weui-cell_select::after {
+  content: ' ';
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  border-bottom: 2px solid #e5e5e5;
+}
+
+.weui-cell_input {
+  padding-left: 0;
+}
+
+.weui-cell_input::after {
+  content: ' ';
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  border-bottom: 2px solid #e5e5e5;
+}
+
+.weui-cell_select.noborder::after {
+  content: ' ';
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  border-bottom: 0;
+}
+
+.weui-cell_input.noborder::after {
+  content: ' ';
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  border-bottom: 0;
+}
+/* weui组件更改结束 */

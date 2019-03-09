@@ -37,13 +37,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 18,
 			"list": [
 				{
 					"id": 0,
 					"name": "活动页面",
 					"pathName": "pages/activity/activity",
-					"query": "id=24"
+					"query": "id=37"
 				},
 				{
 					"id": 1,
@@ -128,6 +128,42 @@
 					"name": "报名列表",
 					"pathName": "pages/applyList/applyList",
 					"query": "activityId=23"
+				},
+				{
+					"id": 15,
+					"name": "拼团详情页",
+					"pathName": "pages/grouponDetail/grouponDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "拼团详情",
+					"pathName": "pages/grouponDetail/grouponDetail",
+					"query": ""
+				},
+				{
+					"id": 17,
+					"name": "订单确认页",
+					"pathName": "pages/orderConfirm/orderConfirm",
+					"query": ""
+				},
+				{
+					"id": 18,
+					"name": "订单详情页",
+					"pathName": "pages/orderDetail/orderDetail",
+					"query": "activityId=37&orderId=114"
+				},
+				{
+					"id": -1,
+					"name": "集赞详情页",
+					"pathName": "pages/collectLikes/collectLikes",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "填写姓名",
+					"pathName": "pages/activityApply/activityApply",
+					"query": ""
 				}
 			]
 		}

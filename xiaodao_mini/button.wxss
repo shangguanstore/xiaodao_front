@@ -1,0 +1,19 @@
+button[type=primary] {
+  background: #009cf0;
+  font-size: 36rpx;
+}
+button.button-hover[type=primary] {
+  background: #009cf0;
+  font-size: 36rpx;
+}
+
+button[type=default] {
+  background-color: #cccccc;
+  font-size: 36rpx;
+  color: white;
+}
+button.button-hover[type=default] {
+  background-color: #cccccc;
+  font-size: 36rpx;
+  color: white;
+}

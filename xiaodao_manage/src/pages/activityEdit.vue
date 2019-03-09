@@ -12,93 +12,135 @@
       <Button @click="addDetail">点击添加图文</Button>
     </div>
 
-    <div class="container article_edit_container mt20">
+    <div class="container activity_edit_container mt20">
       <p class="content_title">基本信息</p>
-      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" class="mt20">
-        <FormItem label="名称" prop="name" style="width: 60%">
-          <Input v-model="formValidate.name" placeholder="请输入活动名称（微信分享标题用此名称）"></Input>
-        </FormItem>
-        <FormItem label="简介" prop="desc" style="width: 60%">
-          <Input v-model="formValidate.desc" placeholder="请输入活动简介"></Input>
-        </FormItem>
-
-        <FormItem label="封面图片">
-          <div class="demo-upload-list" v-for="item in uploadList">
-            <template v-if="item.status === 'finished'">
-              <img :src="item.url">
-              <div class="demo-upload-list-cover">
-                <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
-                <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-              </div>
-            </template>
-            <template v-else>
-              <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
-            </template>
-          </div>
-          <Upload ref="upload"
-                  :before-upload="handleBeforeUpload"
-                  :show-upload-list="false"
-                  :default-file-list="defaultList"
-                  :on-success="handleSuccess"
-                  :format="['jpg','jpeg','png']"
-                  :max-size="2048"
-                  :on-format-error="handleFormatError"
-                  :on-exceeded-size="handleMaxSize"
-                  type="drag"
-                  :data="{'token':QiniuToken}"
-                  :action="ACTION_URL"
-                  style="display: inline-block;width:58px;">
-            <div style="width: 58px;height:58px;line-height: 58px;">
-              <Icon type="ios-camera" size="20"></Icon>
-            </div>
-          </Upload>
-          <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45)">支持：jpg/jpeg/png格式</div>
-        </FormItem>
-
-        <FormItem label="活动时间" prop="timeRange" style="width: 60%">
-          <DatePicker v-model="formValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm"
-                      placeholder="选择日期和时间" style="width: 300px"></DatePicker>
-        </FormItem>
-      </Form>
-    </div>
-
-    <!--v-for="(item,index) in detailListFormValidate"-->
-    <div class="articleDetailList container article_edit_container mt20">
-      <p class="content_title" @click="console">
-        详细信息
-      </p>
-
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100" class="mt20">
-        <FormItem label="标题" prop="title" style="width: 60%" v-if="false">
-          <Input v-model="detailTitle" placeholder="请输入正文标题（不是必填项）"></Input>
-        </FormItem>
+        <Row>
+          <Col span="12">
+            <FormItem label="名称" prop="name">
+              <Input v-model="formValidate.name" placeholder="请输入活动名称（微信分享标题用此名称）"></Input>
+            </FormItem>
+          </Col>
+        </Row>
 
-        <FormItem label="文本预传图片" style="display:none">
-          <input id="copyUrlContain" type="text">
-          <div v-if="detailUploadList.length > 0" v-for="item in detailUploadList" style="display: inline-block">
-            <div class="demo-upload-list">
+        <Row>
+          <Col span="12">
+            <FormItem label="简介" prop="desc">
+              <Input v-model="formValidate.desc" placeholder="请输入活动简介"></Input>
+            </FormItem>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span="12">
+            <FormItem label="单价" prop="price" style="position: relative">
+              <Input number v-model="formValidate.price" placeholder="请输入报名活动价格，如果免费请不填"></Input>
+              <span class="fieldUnit">元</span>
+            </FormItem>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span="4">
+            <FormItem label="人数上限">
+              <RadioGroup v-model="formValidate.maxNumRadio">
+                <Radio label="have">有</Radio>
+                <Radio label="havnt">无</Radio>
+              </RadioGroup>
+            </FormItem>
+          </Col>
+          <Col span="8" style="position: relative" v-if="formValidate.maxNumRadio == 'have'">
+            <Input number v-model="formValidate.max_num" placeholder="请输入最大报名人数"></Input> <span class="fieldUnit">人</span>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span="12">
+            <FormItem label="活动时间" prop="timeRange">
+              <DatePicker v-model="formValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm"
+                          placeholder="选择日期和时间" style="width: 100%"></DatePicker>
+            </FormItem>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span="12">
+          <FormItem label="封面图片">
+            <div class="demo-upload-list" v-for="item in uploadList">
               <template v-if="item.status === 'finished'">
                 <img :src="item.url">
                 <div class="demo-upload-list-cover">
                   <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
-                  <Icon type="ios-trash-outline" @click.native="handleDetailRemove(item)"></Icon>
+                  <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
                 </div>
               </template>
               <template v-else>
                 <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
               </template>
             </div>
-            <div class="copyArea">
-              <span class="url">{{item.url}}</span>
-              <Button class="copyBtn" type="info" size="small" @click.native="copy(item.url)">复制链接</Button>
-            </div>
-          </div>
+            <Upload ref="upload"
+                    :before-upload="handleBeforeUpload"
+                    :show-upload-list="false"
+                    :default-file-list="defaultList"
+                    :on-success="handleSuccess"
+                    :format="['jpg','jpeg','png']"
+                    :max-size="2048"
+                    :on-format-error="handleFormatError"
+                    :on-exceeded-size="handleMaxSize"
+                    type="drag"
+                    :data="{'token':QiniuToken}"
+                    :action="ACTION_URL"
+                    style="display: inline-block;width:58px;">
+              <div style="width: 58px;height:58px;line-height: 58px;">
+                <Icon type="ios-camera" size="20"></Icon>
+              </div>
+            </Upload>
+            <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45)">支持：jpg/jpeg/png格式</div>
+          </FormItem>
+          </Col>
+        </Row>
+      </Form>
+    </div>
 
-          <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45);margin-top: 60px"></div>
-        </FormItem>
+    <div class="container activity_edit_container grouponSetting mt20" v-if="activityType == 1">
+      <p class="content_title">团购设置</p>
+      <Form ref="grouponFormValidate" :model="grouponFormValidate" :rules="grouponRuleValidate" :label-width="100"
+            class="mt20">
+        <Row>
+          <Col span="12">
+            <FormItem label="团购价格" prop="group_price" style="position: relative">
+              <Input number v-model="grouponFormValidate.group_price" placeholder="请输入团购价"></Input>
+              <span class="fieldUnit">元</span>
+            </FormItem>
+          </Col>
+        </Row>
 
+        <Row>
+          <Col span="12">
+            <FormItem label="成团人数" prop="group_num" style="position: relative">
+              <Input number v-model="grouponFormValidate.group_num" placeholder="请输入成团人数"></Input>
+              <span class="fieldUnit">人</span>
+            </FormItem>
+          </Col>
+        </Row>
 
+        <Row>
+          <Col span="12">
+            <FormItem label="开放团购时间" prop="timeRange">
+              <DatePicker v-model="grouponFormValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm"
+                          placeholder="选择日期和时间" style="width: 100%"></DatePicker>
+            </FormItem>
+          </Col>
+        </Row>
+      </Form>
+    </div>
 
+    <div class="container activity_edit_container articleDetailList mt20">
+      <p class="content_title" @click="console">
+        详细信息
+      </p>
+
+      <Form class="mt20">
         <FormItem prop="detail" style="width: 100%;position: relative">
           <ckeditor v-if="getDetail" id="aaabbbccc" v-model="detail" :config="config" @blur="onBlur($event)"
                     @focus="onFocus($event)">
@@ -205,6 +247,7 @@
     data() {
       return {
         mid: 0,
+        activityType: 0,
         title: "",
         detailTitle: "",
         detail: "",
@@ -235,11 +278,13 @@
           height: 400,
           width: 700
         },
-        detailListFormValidate: [],
         showPicModal: false,
         formValidate: {
           name: '',
           desc: '',
+          price: '',
+          maxNumRadio: 'havnt',
+          max_num: '',
           timeRange: ''
         },
         ruleValidate: {
@@ -249,10 +294,33 @@
           desc: [
             {required: true, message: '请输入活动简介', trigger: 'blur'}
           ],
-          // timeRange: [
-          //     {required: true, type: 'date', message: '请选择活动时间', trigger: 'change'}
-          // ]
+          max_num: [{
+            required: true,
+            type: 'number',
+            message: '您填写的格式错误，请输入数字',
+            trigger: 'blur'
+          }],
         },
+        grouponFormValidate: {
+          group_num: '',
+          group_price: '',
+          timeRange: ''
+        },
+        grouponRuleValidate: {
+          group_num: [{
+            required: true,
+            type: 'number',
+            message: '您填写的格式错误，请输入数字',
+            trigger: 'blur'
+          }],
+          group_price: [{
+            required: true,
+            type: 'number',
+            message: '您填写的格式错误，请输入数字',
+            trigger: 'blur'
+          }],
+        },
+
         /*图片上传*/
         uploadList: [],
         detailUploadList: [],
@@ -266,6 +334,7 @@
       }
     },
     created() {
+      this.activityType = this.$route.query.type ? this.$route.query.type : config.Activity.TYPE_NORMAL
       if (this.$route.query.id) {
         this.title = "编辑活动"
         this.isAdd = false
@@ -276,49 +345,44 @@
         let url = lib.getRequestUrl('/api/activity/getlist', submitData)
         this.$http.get(url, {}).then(res => {
           if (res) {
-            let data = res.data.activity
+            let data = res.data.data[0]
             var startTimeDate = new Date().setTime(data.start_time * 1000)
             var endTimeDate = new Date().setTime(data.end_time * 1000)
             var timeRange = [startTimeDate, endTimeDate];
+            console.log('timeRange', timeRange)
 
+            this.activityType = data.type
             this.formValidate.id = data.id
             this.formValidate.name = data.name
             this.formValidate.desc = data.desc
+            this.formValidate.price = data.price
+            this.formValidate.max_num = data.max_num
+            this.formValidate.maxNumRadio = data.max_num ? 'have' : 'havnt'
             this.formValidate.timeRange = timeRange
 
-            this.detailListFormValidate = []
-            for (var i = 0; i < data.activity_detail.length; i++) {
-              var len = i + 10
-              var detailList = {
-                htmlId: lib.getRandomString(len),
-                id: data.activity_detail[i].id,
-                title: data.activity_detail[i].title,
-                detail: data.activity_detail[i].detail,
-              }
-              this.detailListFormValidate.push(detailList)
-
-              //暂时这么写
-              this.detail = this.detailListFormValidate[0].detail
-              this.getDetail = true
+            if (this.activityType == config.Activity.TYPE_GROUPON) {
+              this.grouponFormValidate.group_num = data.group_num
+              this.grouponFormValidate.group_price = data.group_price
+              var groupStartTimeDate = new Date().setTime(data.group_start_time * 1000)
+              var groupEndTimeDate = new Date().setTime(data.group_end_time * 1000)
+              var groupTimeRange = [new Date(groupStartTimeDate), new Date(groupEndTimeDate)]
+              console.log('groupTimeRange', groupTimeRange)
+              this.grouponFormValidate.timeRange = groupTimeRange
             }
+
+            this.detail = data.detail
+            this.getDetail = true
           }
         }).catch(error => {
+          console.log('error', error)
           this.$Message.error('服务器错误!');
         })
       } else {
         this.title = "新增活动"
         this.isAdd = true
+
         this.detail = ""
         this.getDetail = true
-
-        var htmlId = lib.getRandomString()
-        this.detailListFormValidate = [
-          {
-            htmlId: htmlId,
-            title: "",
-            detail: ""
-          },
-        ]
       }
 
       this.getImgCategory()
@@ -383,19 +447,10 @@
         console.log('detailUploadList', this.detailUploadList)
       },
       addDetail() {
-        let htmlId = lib.getRandomString()
-        this.detailListFormValidate.push({
-          htmlId: htmlId,
-          title: "",
-          detail: ""
-        })
+
       },
-      removeDetail(htmlId) {
-        this.detailListFormValidate = this.detailListFormValidate.filter(function (item) {
-          if (item.htmlId != htmlId) {
-            return item
-          }
-        })
+      removeDetail() {
+
       },
       addImgCategory() {
         let _this = this
@@ -435,7 +490,7 @@
       selectDetailImg() {
         let insertImgStr = ''
         this.uploadImgList.map(function (item) {
-          if(item.selected) {
+          if (item.selected) {
             insertImgStr += `<p style="text-align:center"><img alt="" src="${item.imglink_format}" style="width:458px" /></p>`
           }
         })
@@ -445,49 +500,53 @@
 
       handleSubmit() {
         var timeRange = this.formValidate.timeRange
+        console.log('timeRange', timeRange)
+        var time1 = timeRange[0]
+        var time2 = timeRange[1]
+        console.log('time1', time1)
         var startTime = Math.ceil(new Date(timeRange[0]).getTime() / 1000)
         var endTime = Math.ceil(new Date(timeRange[1]).getTime() / 1000)
-        let submitData
+        let submitData = {
+          type: config.Activity.TYPE_NORMAL,
+          name: this.formValidate.name,
+          desc: this.formValidate.desc,
+          price: this.formValidate.price,
+          max_num: this.formValidate.max_num,
+          start_time: startTime,
+          end_time: endTime,
+          detail: this.detail,
+          imglink: lib.getUploadPicStr(this.uploadList)
+        }
         let url
-        var htmlId = lib.getRandomString()
-        this.detailListFormValidate = [
-          {
-            htmlId: htmlId,
-            title: this.detailTitle,
-            detail: this.detail,
-          },
-        ]
         if (this.isAdd) {
-          this.detailListFormValidate[0].detail_imglink = lib.getUploadPicStr(this.detailUploadList)
-          submitData = {
-            name: this.formValidate.name,
-            desc: this.formValidate.desc,
-            start_time: startTime,
-            end_time: endTime,
-            // activity_detail: this.detailListFormValidate,
-            activity_detail: this.detailListFormValidate,
-            imglink: lib.getUploadPicStr(this.uploadList)
-          }
           url = "/api/activity/add"
         } else {
-          this.detailListFormValidate[0].detail_imglink = lib.getUpdateUploadPicStr(this.detailUploadList)
-          submitData = {
-            id: this.formValidate.id,
-            name: this.formValidate.name,
-            desc: this.formValidate.desc,
-            activity_detail: this.detailListFormValidate,
-            imglink: lib.getUpdateUploadPicStr(this.uploadList)
-          }
+          submitData.id = this.formValidate.id
           url = "/api/activity/update"
+        }
+
+        if (this.activityType == config.Activity.TYPE_GROUPON) {
+          var timeRange = this.grouponFormValidate.timeRange
+          var startTime = Math.ceil(new Date(timeRange[0]).getTime() / 1000)
+          var endTime = Math.ceil(new Date(timeRange[1]).getTime() / 1000)
+          submitData.type = config.Activity.TYPE_GROUPON
+          submitData.group_num = this.grouponFormValidate.group_num
+          submitData.group_price = this.grouponFormValidate.group_price
+          submitData.group_start_time = startTime
+          submitData.group_end_time = endTime
         }
 
         this.$http.post(url, submitData).then(res => {
           if (res.data.errNo == 100000) {
             this.$Message.success(this.title + '成功!')
             var _this = this
+            var path = 'activity'
+            if (this.activityType == config.Activity.TYPE_GROUPON) {
+              path = 'groupon'
+            }
             setTimeout(function () {
               _this.$router.push({
-                path: 'activity',
+                path: path,
                 query: {}
               })
             }, 200)
@@ -509,7 +568,7 @@
         this.$http.get(url, submitData).then(res => {
           if (res.data.errNo == 100000) {
             let uploadImgList = lib.filterResult(res.data.data)
-            if(uploadImgList.length > 0) {
+            if (uploadImgList.length > 0) {
               uploadImgList.map(function (item) {
                 item.imglink_format = item.imglink_format[0]
                 item.selected = false
@@ -612,7 +671,7 @@
       },
       handleDetailBeforeUpload(file) {
         this.detailUploadFileName = file.name.split('.')[0]
-        console.log('this.detailUploadFileName',this.detailUploadFileName)
+        console.log('this.detailUploadFileName', this.detailUploadFileName)
 
         this.file = file
         let files = [], fileData = [];
@@ -660,7 +719,7 @@
     right: 178px;
   }
 
-  .article_edit_container {
+  .activity_edit_container {
     width: 80%;
   }
 

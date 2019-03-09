@@ -28,6 +28,30 @@ var filterResult = function(data) {
       item.sex_format = item.sex === 1 ? '男' : '女'
     }
 
+    if (item.price) {
+      item.price_format = (item.price / 100).toFixed(2)
+    }else{
+      item.price_format = 0
+    }
+
+    if (item.group_price) {
+      item.group_price_format = (item.group_price / 100).toFixed(2)
+    }else{
+      item.group_price_format = 0
+    }
+
+    if (item.payment_money) {
+      item.payment_money_format = (item.payment_money / 100).toFixed(2)
+    } else {
+      item.payment_money_format = 0
+    }
+
+    if (item.order_money) {
+      item.order_money_format = (item.order_money / 100).toFixed(2)
+    } else {
+      item.order_money_format = 0
+    }
+
     return item
   })
 

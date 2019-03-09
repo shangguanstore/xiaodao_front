@@ -1,0 +1,60 @@
+<!--pages/orderConfirm /orderConfirm.wxml-->
+<view class='container orderConfirmContainer'>
+  <view class='orderGoodsBlock'>
+    <view class='imgArea'>
+      <image src='/images/course.jpg'></image>
+    </view>
+    <view class='goodsContent'>
+      <view class='title'>{{activity.name}}</view>
+      <view class='price'>
+        <text class='realPrice'> ¥ {{activity.group_price_format}}</text>
+        <text class='fullPrice' wx:if="{{orderType == config.FrontOrderType.TYPE_GROUP_START_TUAN}}"> ¥ {{activity.group_price_format}}</text>
+        <text class='fullPrice' wx:if="{{orderType == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}"> ¥ {{activity.group_price_format}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class='fieldArea' style='margin-bottom: 0;'>
+    <van-cell-group>
+      <van-field value="{{ formValidate.uname }}" label="学员姓名" input-align="right" type="textarea" placeholder-style="color: #c5c8ce" placeholder="请填写" autosize border="{{ false }}" data-field='uname' bind:change="changeField" />
+    </van-cell-group>
+
+    <van-cell-group>
+      <van-field value="{{ formValidate.phone }}" label="手机号码" input-align="right" type="textarea" placeholder-style="color: #c5c8ce" placeholder="请输入手机号码" autosize border="{{ false }}" data-field='phone' bind:change="changeField" />
+    </van-cell-group>
+
+    <view class='page__bd'>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd">
+            <view class="weui-label">支付方式</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker data-field='IsPerson' bindchange="bindPickerChange" value="{{paymentIndex}}" range="{{paymentArr}}">
+              <!-- <view class="weui-select">{{batches[batchIndex]}}</view> -->
+              <view class="weui-select">
+                <text class='iconfont icon-weixinzhifu greenColor' style='margin-right: 10rpx;'></text>
+                <text>{{paymentArr[paymentIndex]}}</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <van-cell-group borderBottom="{{false}}">
+      <van-field value="{{ formValidate.comment }}" label="买家留言" input-align="right" type="textarea" placeholder-style="color: #c5c8ce" placeholder="请写额外给老师备注的课程信息" autosize border="{{ false }}" data-field='comment' bind:change="changeField" />
+    </van-cell-group>
+  </view>
+
+  <view class='bottomBtn'>
+    <view class='price'>
+       <text class='fontFourColor'>实付款</text>
+       <text class='redFiveColor' wx:if="{{orderType == config.FrontOrderType.TYPE_DEFAULT}}">¥ {{activity.price_format}}</text>
+       <text class='redFiveColor' wx:elif="{{orderType == config.FrontOrderType.TYPE_GROUP_SINGLE}}">¥ {{activity.price_format}}</text>
+       <text class='redFiveColor' wx:elif="{{orderType == config.FrontOrderType.TYPE_GROUP_START_TUAN}}">¥ {{activity.group_price_format}}</text>
+       <text class='redFiveColor' wx:elif="{{orderType == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}">¥ {{activity.group_price_format}}</text>
+    </view>
+    <button type='primary' class='primary' bindtap="joinActivity">确定</button>
+  </view>
+</view>

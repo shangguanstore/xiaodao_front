@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "确认订单",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "van-cell-group": "../../components/vant/cell-group/index",
+    "van-cell": "../../components/vant/cell/index",
+    "van-field": "../../components/vant/field/index"
+  }
+}

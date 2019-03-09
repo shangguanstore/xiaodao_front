@@ -1,4 +1,10 @@
 /* pages/activityApply/activityApply.wxss */
+.leaveMessageTitle {
+  background: white;
+  width: 100%;
+  color:#666666;
+  padding-left:56rpx;
+}
 .demo-margin-bottom {
   margin-top: 40rpx;
 }

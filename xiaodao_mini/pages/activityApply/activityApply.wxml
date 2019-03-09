@@ -1,22 +1,37 @@
 <!--pages/activityApply/activityApply.wxml-->
 <view class='container'>
-  <demo-block title="请留下您的信息，我们会与您联系！">
+  <view class='leaveMessageTitle'>请留下您的信息，我们会与您联系！</view>
+  <view class='gap'></view>
+  <view class='fieldArea' style='margin-bottom: 0;'>
     <van-cell-group>
-      <van-field value="{{ username }}" bind:input="inputName" label="孩子姓名" placeholder="请输入您孩子的姓名" clearable icon-class="icon" required />
-      <van-field value="{{ age }}" bind:input="inputAge" label="孩子年龄" placeholder="请输入您孩子的年龄" clearable icon-class="icon" />
-      <van-field value="{{ phone }}" bind:input="inputPhone" label="手机号" placeholder="请输入您的手机号" clearable icon-class="icon" required />
-
-      <view class='selectField'>
-        <view class='title'>与孩子关系</view>
-        <picker bindchange="bindRelationChange" value="{{relationIndex}}" range="{{relations}}">
-          <view class="weui-select">{{relations[relationIndex]}}</view>
-        </picker>
-      </view>
-
+      <van-field value="{{ formValidate.name }}" label="孩子姓名" input-align="right" type="textarea" placeholder-style="color: #c5c8ce" placeholder="请输入您孩子的姓名" autosize border="{{ false }}" data-field='name' bind:change="changeField" />
     </van-cell-group>
+    <van-cell-group>
+      <van-field value="{{ formValidate.age }}" label="孩子年龄" input-align="right" type="textarea" placeholder-style="color: #c5c8ce" placeholder="请输入孩子的年龄" autosize border="{{ false }}" data-field='age' bind:change="changeField" />
+    </van-cell-group>
+    <van-cell-group>
+      <van-field value="{{ formValidate.phone }}" label="手机号" input-align="right" type="textarea" placeholder-style="color: #c5c8ce" placeholder="请输入您的手机号" autosize border="{{ false }}" data-field='phone' bind:change="changeField" />
+    </van-cell-group>
+    <view class='page__bd'>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_select noborder">
+          <view class="weui-cell__hd">
+            <view class="weui-label">与孩子关系</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker data-field='relation' bindchange="bindPickerChange" value="{{relationIndex}}" range="{{relations}}">
+              <!-- <view class="weui-select">{{batches[batchIndex]}}</view> -->
+              <view class="weui-select">
+                <text>{{relations[relationIndex]}}</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 
-    <!-- <van-button type="primary" open-type="getUserInfo" size="large" block custom-class="demo-margin-bottom" bind:click="submit">提交</van-button> -->
+  <button open-type="getUserInfo" bindgetuserinfo="tapApply" type="primary" size="large" style='background:#44bb00;width:80%;margin-top:40rpx;'> 提交 </button>
 
-    <button open-type="getUserInfo" bindgetuserinfo="tapApply" type="primary" size="large" style='background:#44bb00;width:80%;margin-top:40rpx;'> 提交 </button>
-  </demo-block>
+  <!-- <button type='primary' bindtap='smsAuthCodeSend' style='height: 120rpx;'>发送短信</button> -->
 </view>

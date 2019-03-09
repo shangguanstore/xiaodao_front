@@ -1,5 +1,6 @@
 /* pages/activity/activity.wxss */
 @import "/wxParse/wxParse.wxss";
+
 .topArea image {
   width: 750rpx;
 }
@@ -27,7 +28,6 @@
   font-size: 30rpx;
 }
 
-
 .baomingTitle {
   width: 700rpx;
   margin-top: 20rpx;
@@ -51,12 +51,10 @@ button {
   background: gray;
 }
 
-
 .rich-text {
   margin-bottom: 100rpx;
   background: white;
 }
-
 
 .fixBottom {
   position: fixed;
@@ -69,7 +67,7 @@ button {
   width: 450rpx;
   height: 100%;
   float: left;
-  background: #0099E9;
+  background: #0099e9;
   text-align: center;
   color: white;
   line-height: 100rpx;
@@ -79,14 +77,16 @@ button {
   width: 180rpx;
   height: 100%;
   float: left;
-  background: #ffffff;
+  background: #fff;
 }
+
 .fixBottom .share text {
   display: block;
   text-align: center;
   font-size: 24rpx;
-  color: #919AA3;
+  color: #919aa3;
 }
+
 .fixBottom .share button {
   position: absolute;
   width: 50px;
@@ -101,13 +101,43 @@ button {
   width: 120rpx;
   height: 100%;
   float: left;
-  background: #ffffff;
+  background: #fff;
 }
+
 .fixBottom .home text {
   display: block;
   text-align: center;
   font-size: 24rpx;
-  color: #919AA3;
+  color: #919aa3;
+}
+
+/* 团购 */
+
+.fixBottom .aloneBuy {
+  background: #09ba07;
+  line-height: 100rpx;
+  font-size: 31rpx;
+  color: white;
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+
+.fixBottom .grouponBuy {
+  width: 50%;
+  float: left;
+  background: #ff9b2c;
+  color: white;
+  text-align: center;
+  font-size: 31rpx;
+}
+
+.fixBottom .grouponBuy view:first-child {
+  margin-top: 7rpx;
+}
+
+.fixBottom .grouponBuy view:last-child {
+  margin-top: -10rpx;
 }
 
 .applyArea {
@@ -132,7 +162,7 @@ button {
 .applyArea .top .seeMore {
   float: right;
   font-size: 28rpx;
-  color: #0099E9;
+  color: #0099e9;
 }
 
 .activity_container .applyArea .applyList {
@@ -159,3 +189,60 @@ button {
   color: #666;
 }
 
+.curGroupListArea {
+  width: 710rpx;
+  padding: 0 20rpx;
+  background: white;
+}
+
+.curGroupListArea .title {
+  margin-top: 10rpx;
+}
+
+.curGroupListArea .des {
+  margin-top: 20rpx;
+  font-size: 32rpx;
+}
+
+.curGroupListArea .listArea .listItem {
+  padding-top: 14rpx;
+  padding-bottom: 14rpx;
+  display: flex;
+  justify-content: space-between;
+  border-top: solid 1rpx #eeeeee;
+}
+
+.curGroupListArea .listArea .left {
+  display: flex;
+  justify-content: space-between;
+}
+
+.curGroupListArea .listArea .left .pic image {
+  width:80rpx;
+  height:80rpx;
+  border-radius:40rpx;
+  margin-right:20rpx;
+  margin-top:9rpx;
+}
+
+.curGroupListArea .listArea .left .content .num {
+  font-size: 32rpx;
+}
+.curGroupListArea .listArea .left .content .time {
+  font-size: 32rpx;
+}
+
+.curGroupListArea .listArea .right {
+  margin-top: 14rpx;
+}
+
+.curGroupListArea .listArea .right .price {
+  font-size: 26rpx;
+}
+
+.curGroupListArea .listArea .right button {
+    width: 140rpx;
+    padding:6rpx 18rpx;
+    display:inline;
+    margin-left:20rpx;
+}

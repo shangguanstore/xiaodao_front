@@ -33,7 +33,41 @@ App({
         }
       }
     })
+
+    //获取UU7
+    var UU7 = wx.getStorageSync('UU7')
+    if(!UU7) {
+      let url = this.config.baseServerUrl + 'api/code2session'
+      let cid = this.config.cid
+      wx.login({
+        success: function(res) {
+          if(res.code) {
+            wx.request({
+              url: url, // 仅为示例，并非真实的接口地址
+              data: {
+                cid: cid,
+                code: res.code
+              },
+              header: {
+                'content-type': 'application/json' // 默认值
+              },
+              success(res) {
+                var data = res.data
+                var member = data.member[0]    
+                wx.setStorageSync('UU7', data.UU7)
+                wx.setStorageSync('mid', member.mid)
+                wx.setStorageSync('member', member)
+                wx.setStorageSync('name', member.uname)
+                wx.setStorageSync('phone', member.phone)
+
+              }
+            })
+          }
+        }
+      })
+    }
   },
+
   globalData: {
       userInfo: null,
       subDomain: "https://api.it120.cc/xiaost", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
@@ -43,15 +77,32 @@ App({
 
   //配置开始
   config: {
+    cid: 100021,
     // baseServerUrl: 'https://api.photoelectric-displaycenter.com/',
     baseServerUrl: 'http://hxe.7hu.cn/',
     Qiniu: {
       ACTION_URL: 'http://up.qiniu.com',
       EXTERNAL_LINK: 'http://qiniu.17zhaotu.org/'
     },
+    FrontOrderType: {
+      TYPE_DEFAULT: 100,
+      TYPE_GROUP_SINGLE: 201,
+      TYPE_GROUP_START_TUAN: 202,
+      TYPE_GROUP_JOIN_TUAN: 203
+    },
     Share: {
       TYPE_DEFAULT: 0,
       TYPE_ACTIVITY: 1
+    },
+    Activity: {
+      TYPE_NORMAL: 0,
+      TYPE_GROUPON: 1,
+      TYPE_GET_LIKES: 2
+    },
+    Member: {
+      STATUS_OK: 0,
+      STATUS_DELETE: -1,
+      STATUS_INACTIVE: 1
     }
   },
 

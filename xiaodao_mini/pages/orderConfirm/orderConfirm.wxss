@@ -1,0 +1,23 @@
+/* pages/orderConfirm/orderConfirm.wxss */
+.orderGoodsBlock {
+  border: 0;
+  background: #f8f8f9;
+}
+
+
+.bottomBtn .price {
+  width: 496rpx;
+
+}
+
+.bottomBtn .price text:nth-child(1) {
+  margin-left: 40rpx;
+}
+
+.bottomBtn .price text:nth-child(2) {
+  margin-left: 20rpx;
+}
+
+.bottomBtn button {
+  padding: 0 60rpx;
+}

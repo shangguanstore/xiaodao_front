@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
         '/api':{
             target:'http://hxe.7hu.cn',
-            // target:'https://abie.xiaost.net',
+            // target:'https://abie.sgmarket.rocks',
             changeOrigin:true,
             pathRewrite:{
                 '^/api':'/api'
@@ -21,7 +21,7 @@ module.exports = {
         },
         '/u/api':{
             target:'http://7hu.cn',
-            // target:'https://xiaost.net',
+            // target:'https://sgmarket.rocks',
             changeOrigin:true,
             pathRewrite:{
                 '^/u/api':'/u/api'

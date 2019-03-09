@@ -15,6 +15,11 @@
     "pages/paySuccess/paySuccess",
     "pages/eTicket/eTicket",
     "pages/applyList/applyList",
+    "pages/grouponDetail/grouponDetail",
+    "pages/orderConfirm/orderConfirm",
+    "pages/orderDetail/orderDetail",
+    "pages/collectLikes/collectLikes",
+
 
     "mall/mall/mall",
     "mall/to-pay-order/to-pay-order",

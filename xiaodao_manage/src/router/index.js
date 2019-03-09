@@ -78,6 +78,11 @@ export default new Router({
             component: () => import('@/pages/activity')
         },
         {
+          path: '/groupon',
+          name: 'groupon',
+          component: () => import('@/pages/groupon')
+        },
+        {
             path: '/activityEdit',
             name: 'activityEdit',
             component: () => import('@/pages/activityEdit')

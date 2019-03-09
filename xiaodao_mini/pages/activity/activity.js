@@ -1,5 +1,6 @@
 // pages/activity/activity.js
 const lib = require('../../utils/lib/index.js')
+const common = require('../../utils/common.js')
 const request = require('../../utils/request.js')
 const app = getApp()
 var WxParse = require('../../wxParse/wxParse.js')
@@ -8,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    config: {},
     activityId: 0,
     activityApplyMemberList: [],
     applyTotal: 0,
@@ -16,36 +18,47 @@ Page({
     title: '',
     activity: {},
     produce_mid: 0,
-    hasUserInfo: false
+    hasUserInfo: false,
+    typeGroupon: false,
+    typeNormal: false,
+    groupList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('options', options)
+    let config = app.config
+    let _this = this
+    var timer = setInterval(function () {
+      var UU7 = wx.getStorageSync('UU7')
+      if (UU7) {
+        clearInterval(timer)
+        _this.getData()
+        var hasUserInfo = true
+        var phone = wx.getStorageSync('phone')
+        if (!phone) hasUserInfo = false
+        _this.setData({
+          hasUserInfo: hasUserInfo
+        })
+      }
+    }, 500)
+
     if (options.from_mid) {
       this.setData({
         produce_mid: options.from_mid
       })
     }
     this.setData({
-      activityId: options.id
+      activityId: options.id,
+      config: config
     })
+  },
 
-    var UU7 = wx.getStorageSync('UU7')
-    if (UU7) {
-      this.getData()
-    } else {
-      this.weixinAuth()
-    }
-
-    var hasUserInfo = true
-    var phone = wx.getStorageSync('phone')
-    if (!phone) hasUserInfo = false
-    this.setData({
-      hasUserInfo: hasUserInfo
-    })
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
   },
 
   goHome() {
@@ -60,109 +73,22 @@ Page({
     })
   },
 
-  toApply() {
+  toApply(e) {
+    let orderType = e.currentTarget.dataset.orderType
+    let groupid = e.currentTarget.dataset.groupid
+    common.toApplyActivity(orderType, this.data.activity, groupid)
+  },
+
+  goToGroupDetail(e) {
+    let orderType = e.currentTarget.dataset.orderType
+    let groupid = e.currentTarget.dataset.groupid ? e.currentTarget.dataset.groupid : 0
     wx.navigateTo({
-      url: '../activityApply/activityApply?id=' + this.data.activityId
+      url: `../grouponDetail/grouponDetail?activityData=${JSON.stringify(this.data.activity)}&orderType=${orderType}&groupid=${groupid}`,
     })
   },
 
   onClose() {
     this.setData({ show: false });
-  },
-
-  weixinAuth() {
-    var _this = this
-    wx.login({
-      success: function (res) {
-        if (res.code) {
-          let url = 'api/code2session'
-          let data = {
-            cid: 100021,
-            code: res.code,
-          }
-          request(url, 'get', data, function (res) {
-            //res就是我们请求接口返回的数据
-            var UU7 = res.data.UU7
-            var member = res.data.member[0]
-            wx.setStorageSync('UU7', UU7)
-            wx.setStorageSync('mid', member.mid)
-            wx.setStorageSync('name', member.uname)
-            wx.setStorageSync('phone', member.phone)
-
-            _this.getData()
-          }, function () {
-            wx.showToast({
-              title: '加载数据失败',
-              icon: 'none'
-            })
-          })
-        }
-      }
-    })
-  },
-
-  formSubmit: function (e) {
-    var userSubmitInfo = e.detail.value
-
-    // 提交后，设置定时任务监测授权完成
-    if (this.data.hasUserInfo) {
-      var name = wx.getStorageSync('name')
-      this.joinActivity(name, userSubmitInfo.phone)
-    } else {
-      var _this = this
-      var timerid = setInterval(function () {
-        wx.getSetting({
-          success: res => {
-            console.log('res.authSetting', res.authSetting)
-            if (res.authSetting['scope.userInfo']) {
-              // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-              clearInterval(timerid)
-              wx.getUserInfo({
-                success: res => {
-                  console.log('res', res)
-                  var userInfo = res.userInfo
-
-                  let url = 'api/member/update'
-                  let data = {
-                    mid: wx.getStorageSync('mid'),
-                    phone: userSubmitInfo.phone,
-                    // phone: '15335195967',
-                    name: userInfo.nickName,
-                    sex: userInfo.gender,
-                    imgurl: userInfo.avatarUrl,
-                    enforce_change_phone: true,
-                    addition: {
-                      nickname: userInfo.nickName,
-                      join_phone: userSubmitInfo.phone
-                    }
-                  }
-                  request(url, 'post', data, function (res, addition) {
-                    //res就是我们请求接口返回的数据
-                    console.log('update', res)
-                    var member = res.data.member
-                    var UU7 = res.data.UU7
-                    wx.setStorageSync('mid', member.mid)
-                    wx.setStorageSync('phone', member.phone)
-                    wx.setStorageSync('name', member.uname)
-                    wx.setStorageSync('avatar', member.avatar)
-                    wx.setStorageSync('UU7', UU7)
-
-                    _this.joinActivity(addition.nickname, addition.join_phone)
-                  }, function () {
-                    wx.showToast({
-                      title: '操作失败',
-                      icon: 'none'
-                    })
-                  })
-
-                }
-              })
-            }
-          }
-        })
-      }, 500)
-    }
-
   },
 
   joinActivity(nickname, join_phone) {
@@ -222,18 +148,25 @@ Page({
     }
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
-      var activity = res.data.activity
-      activity = lib.filterResult([activity])[0]
+      var activity = res.data.data
+      console.log('activity', activity)
+      activity = lib.filterResult(activity)[0]
       var imglink = activity.imglink_format[0]
       var title = activity.name
+      var typeGroupon = activity.type == app.config.Activity.TYPE_GROUPON ? true : false
+      var typeNormal = activity.type == app.config.Activity.TYPE_NORMAL ? true : false
+
+      if (typeGroupon) _this.getGroupList()
+
       _this.setData({
         imglink: imglink,
         title: title,
-        activity: activity
+        activity: activity,
+        typeNormal: typeNormal,
+        typeGroupon: typeGroupon
       })
 
-      var activityDetail = res.data.activity.activity_detail || []
-      var html = activityDetail[0].detail
+      var html = activity.detail
       WxParse.wxParse('article', 'html', html, _this, 5);
 
       _this.setData({
@@ -250,6 +183,36 @@ Page({
         title: '加载数据失败',
         icon: 'none'
       })
+    })
+  },
+
+  getGroupList() {
+    let _this = this
+    let url = 'api/activity/group/getlist'
+    let data = {
+      activity_id: this.data.activityId,
+      getCaptain: true
+    }
+    request(url, 'get', data, function (res) {
+      //res就是我们请求接口返回的数据
+      let groupList = res.data.data
+      _this.setData({
+        groupList: groupList
+      })
+    }, function () {
+      // console.log('error',error)
+      wx.showToast({
+        title: '加载数据失败111',
+        icon: 'none'
+      })
+    })
+  },
+
+  routeTo(e) {
+    console.log('e',e)
+    let url = e.currentTarget.dataset.url
+    wx.navigateTo({
+      url: url
     })
   },
 
@@ -281,13 +244,6 @@ Page({
         icon: 'none'
       })
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    this.getActivityApplyMemberList()
   },
 
   /**

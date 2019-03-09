@@ -1,0 +1,4 @@
+<!--pages/collectLikes/collectLikes.wxml-->
+<view class='container collectLikesContainer'>
+  集赞wqw
+</view>

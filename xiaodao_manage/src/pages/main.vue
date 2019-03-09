@@ -48,6 +48,7 @@
             营销管理
           </template>
           <MenuItem name="activity">活动报名</MenuItem>
+          <MenuItem name="groupon">多人拼团</MenuItem>
           <MenuItem name="weWebsite">手机端设置</MenuItem>
         </Submenu>
 

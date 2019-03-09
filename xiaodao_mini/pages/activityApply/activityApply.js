@@ -1,6 +1,7 @@
 // pages/activityApply/activityApply.js
 const lib = require('../../utils/lib/index.js')
 const request = require('../../utils/request.js')
+const common = require('../../utils/common.js')
 const app = getApp()
 import { UserAuth } from "../../utils/userAuth"
 Page({
@@ -9,6 +10,9 @@ Page({
    */
   data: {
     activityId: 0,
+    groupid: 0,
+    activityData: {},
+    formValidate: {},
     username: '',
     phone: '',
     age: '',
@@ -20,10 +24,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var activityId = options.id
-    console.log(activityId)
+    console.log('apply-options',options)
+    let groupid = options.groupid
+    let activityData = JSON.parse(options.activityData)
+    let activityId = activityData.id
+
     this.setData({
-      activityId: activityId
+      activityId: activityId,
+      activityData: activityData,
+      groupid: groupid
     })
   },
 
@@ -34,23 +43,24 @@ Page({
 
   },
 
-  inputName(e) {
-    this.data.username = e.detail
-  },
-
-  inputAge(e) {
-    this.data.age = e.detail
-  },
-
-  inputPhone(e) {
-    this.data.phone = e.detail
-  },
-
-  bindRelationChange(e) {
-    let relationIndex = e.detail.value
+  changeField(e) {
+    let formValidate = this.data.formValidate
+    let field = e.currentTarget.dataset.field
+    let type = e.currentTarget.dataset.type
+    formValidate[field] = e.detail
     this.setData({
-      relationIndex: relationIndex
+      formValidate: formValidate
     })
+  },
+
+  bindPickerChange(e) {
+    let field = e.currentTarget.dataset.field
+    let value = e.detail.value
+    if (field == 'relation') {
+      this.setData({
+        relationIndex: value
+      })
+    }
   },
 
   tapApply(e) {
@@ -61,8 +71,9 @@ Page({
     }
     wx.setStorageSync('userInfo', e.detail.userInfo)
 
-    let phone = this.data.phone
-    let name = this.data.username
+    let formValidate = this.data.formValidate
+    let phone = formValidate.phone
+    let name = formValidate.name
     let relationName = this.data.relations[this.data.relationIndex]
     let father_phone, mother_phone, other_phone
     if (relationName == '母亲') {
@@ -106,13 +117,15 @@ Page({
       //res就是我们请求接口返回的数据
       var member = res.data.member
       var UU7 = res.data.UU7
+      wx.setStorageSync('member', member)
       wx.setStorageSync('mid', member.mid)
       wx.setStorageSync('phone', member.phone)
       wx.setStorageSync('name', member.uname)
       wx.setStorageSync('avatar', member.avatar)
       wx.setStorageSync('UU7', UU7)
+      //_this.joinActivity(name, phone)
 
-      _this.joinActivity(name, phone)
+      common.toApplyActivity(_this.data.orderType, _this.data.activityData, _this.data.groupid)
     }, function () {
       wx.showToast({
         title: '操作失败',
@@ -144,6 +157,25 @@ Page({
           url: `../paySuccess/paySuccess?type=1&activityId=${that.data.activityId}&orderId=${id}`
         })
       }, 3000)
+    }, function (res) {
+      wx.showToast({
+        title: res.data.errMsg,
+        icon: 'none'
+      })
+    })
+  },
+
+  smsAuthCodeSend() {
+    let url = 'api/sms/send'
+    let data = {
+      phone: '15335195967',
+      type: 1,
+      sendType: 1
+    }
+    var _this = this
+    request(url, 'post', data, function (res) {
+      //res就是我们请求接口返回的数据
+      console.log('codeRes',res)
     }, function (res) {
       wx.showToast({
         title: res.data.errMsg,
