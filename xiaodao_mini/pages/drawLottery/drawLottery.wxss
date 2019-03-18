@@ -1,0 +1,46 @@
+/* pages/drawLottery/drawLottery.wxss */
+
+.drawLotteryContainer {
+  width: 750rpx;
+  background: #97cd4e;
+}
+
+.drawLotteryContainer .bg {
+  width: 750rpx;
+  height: 100vh;
+  position: relative;
+  margin-top: -126rpx;
+  background-image: url("https://cdn.xiaobaoxiu.cn/xbshow/XcxImages/2019springenrollment/bg2.png");
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+}
+
+.content .wheel-contain {
+  margin-top: 600rpx;
+}
+
+.drawLotteryContainer .detail {
+  width: 630rpx;
+}
+
+.drawLotteryContainer .detail .participateList {
+  /* width: 100%; */
+  background: #7db73f;
+  border-radius: 14rpx;
+  padding: 16rpx 40rpx 46rpx 34rpx;
+  margin-bottom: 30rpx;
+}
+
+.drawLotteryContainer .detail .participateList .title {
+  font-size:26rpx;
+  font-weight:500;
+  color:#fdeb41;
+  line-height:36rpx;
+  margin-bottom:24rpx;
+}
+
+
+

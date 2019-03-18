@@ -24,7 +24,7 @@
       <view class='count'>已报名（{{applyTotal}}）</view>
       <view wx:if="{{applyTotal > 7}}" class='seeMore' bindtap="goApplyList">更多报名></view>
     </view>
-    <view class='applyList'>
+    <view class='applyAvatarList'>
       <view class='listItem' wx:for="{{activityApplyMemberList}}" wx:for-item="applyMember" wx:for-index="index" wx:key="applyMember.id">
         <image src='{{applyMember.avatar}}'></image>
         <view class='name'>

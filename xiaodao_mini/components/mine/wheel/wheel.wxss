@@ -1,0 +1,109 @@
+/* components/mine/wheel/wheel.wxss */
+
+.container-out {
+  height: 600rpx;
+  width: 650rpx;
+  background-color: #b136b9;
+  margin: 100rpx auto;
+  border-radius: 40rpx;
+  box-shadow: 0 10px 0 #871a8e;
+  position: relative;
+}
+
+.container-in {
+  width: 580rpx;
+  height: 530rpx;
+  /* background-color: #871a8e; */
+  background-color: #ff9204;
+  border-radius: 40rpx;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+/**小圆球
+box-shadow: inset 3px 3px 3px #fff2af;*/
+
+.circle {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  height: 20rpx;
+  width: 20rpx;
+}
+
+.content-out {
+  position: absolute;
+  height: 150rpx;
+  width: 166.6666rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f0fc;
+  border-radius: 15rpx;
+  /* box-shadow: 0 5px 0 #d87fde; */
+  box-shadow: inset 0 -10rpx 0 #feae01;
+}
+
+/**居中 加粗*/
+
+.start-btn {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 15rpx;
+  height: 150rpx;
+  width: 166.6666rpx;
+  /* background-color: #ffe400;
+  box-shadow: 0 5px 0 #e7930a; */
+  font-size: 50rpx;
+  font-weight: bolder;
+  background-color: #e7930a;
+  border: 4rpx solid #ffee42;
+  box-shadow: inset 0 -12rpx 0 #fc6c02, 0 0 40rpx 2rpx #ffee42;
+  grid-area: 2/2;
+  color: white;
+  text-shadow: -2rpx -2rpx 0 #fc6c02,
+                 2rpx -2rpx 0 #fc6c02,
+                 -2rpx 2rpx 0 #fc6c02,
+                 2rpx 2rpx 0 #fc6c02;
+  text-align: center;
+}
+
+.start-btn .start {
+  margin-top: 18rpx;
+}
+
+.start-btn .leftNum {
+  margin-top: 6rpx;
+  color: #fef18e;
+  font-size: 22rpx;
+  background-color: #ea5800;
+  border-radius: 16rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  padding-bottom: 2rpx;
+  width: 70%;
+}
+
+.award-image {
+  height: 76rpx;
+  max-width: 148rpx;
+  margin-top: 20rpx;
+}
+
+.award-des {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #503512;
+  text-align: center;
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "幸运大抽奖",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "mine-wheel": "../../components/mine/wheel/wheel"
+  }
+}

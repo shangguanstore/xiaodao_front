@@ -1,0 +1,41 @@
+<!--pages/drawLottery/drawLottery.wxml-->
+<view class='container drawLotteryContainer'>
+  <view class='content bg'>
+    <view class='wheel-contain'>
+      <mine-wheel></mine-wheel>
+    </view>
+
+    <view class='detail'>
+      <view class='participateList'>
+        <view class='title'>正在参与的人：</view>
+        <view class='applyAvatarList'>
+          <view class='listItem'>
+            <image src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJecSGcKOoNvupXnrZ9YbmJslvzJ8d5kjLBlEO8mHG5kObZ7v4GRth23RictBsoFYrZbe0LuWz4Jng/132'></image>
+          </view>
+        </view>
+      </view>
+
+      <view class='participateList'>
+        <view class='title'>正在参与的人：</view>
+        <view class='applyAvatarList'>
+          <view class='listItem'>
+            <image src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJecSGcKOoNvupXnrZ9YbmJslvzJ8d5kjLBlEO8mHG5kObZ7v4GRth23RictBsoFYrZbe0LuWz4Jng/132'></image>
+          </view>
+        </view>
+      </view>
+
+      <view class='participateList'>
+        <view class='title'>正在参与的人：</view>
+        <view class='applyAvatarList'>
+          <view class='listItem'>
+            <image src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJecSGcKOoNvupXnrZ9YbmJslvzJ8d5kjLBlEO8mHG5kObZ7v4GRth23RictBsoFYrZbe0LuWz4Jng/132'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+
+
+</view>

@@ -19,6 +19,7 @@
     "pages/orderConfirm/orderConfirm",
     "pages/orderDetail/orderDetail",
     "pages/collectLikes/collectLikes",
+    "pages/drawLottery/drawLottery",
 
 
     "mall/mall/mall",
