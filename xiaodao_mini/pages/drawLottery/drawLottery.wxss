@@ -7,19 +7,40 @@
 
 .drawLotteryContainer .bg {
   width: 750rpx;
-  height: 100vh;
+  height: 1343rpx;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: -126rpx;
   background-image: url("https://cdn.xiaobaoxiu.cn/xbshow/XcxImages/2019springenrollment/bg2.png");
   background-size: 100% 100%;
   background-position: center center;
   background-repeat: no-repeat;
   overflow: hidden;
-
 }
 
-.content .wheel-contain {
-  margin-top: 600rpx;
+.bg .orgName {
+  margin-top: 528rpx;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: white;
+  text-align: center;
+  height: 46rpx;
+  width: 71%;
+  line-height: 46rpx;
+  background-image: url("https://cdn.xiaobaoxiu.cn/xbshow/XcxImages/2019springenrollment/bg3.png");
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg .wheel-contain {
+  margin-top: 6rpx;
+}
+
+.drawLotteryContainer .content {
+  margin-top: 50rpx;
 }
 
 .drawLotteryContainer .detail {
@@ -35,12 +56,9 @@
 }
 
 .drawLotteryContainer .detail .participateList .title {
-  font-size:26rpx;
-  font-weight:500;
-  color:#fdeb41;
-  line-height:36rpx;
-  margin-bottom:24rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #fdeb41;
+  line-height: 36rpx;
+  margin-bottom: 24rpx;
 }
-
-
-

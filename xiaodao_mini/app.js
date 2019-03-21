@@ -82,7 +82,7 @@ App({
     baseServerUrl: 'http://hxe.7hu.cn/',
     Qiniu: {
       ACTION_URL: 'http://up.qiniu.com',
-      EXTERNAL_LINK: 'http://qiniu.17zhaotu.org/'
+      EXTERNAL_LINK: 'http://qiniu.xiaost.net/'
     },
     FrontOrderType: {
       TYPE_DEFAULT: 100,

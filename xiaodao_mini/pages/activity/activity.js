@@ -202,7 +202,7 @@ Page({
     }, function () {
       // console.log('error',error)
       wx.showToast({
-        title: '加载数据失败111',
+        title: '加载数据失败',
         icon: 'none'
       })
     })
