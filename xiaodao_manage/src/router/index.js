@@ -82,6 +82,16 @@ export default new Router({
           name: 'groupon',
           component: () => import('@/pages/groupon')
         },
+          {
+              path: '/lottery',
+              name: 'lottery',
+              component: () => import('@/pages/lottery')
+          },
+          {
+              path: '/lotteryEdit',
+              name: 'lotteryEdit',
+              component: () => import('@/pages/lotteryEdit')
+          },
         {
             path: '/activityEdit',
             name: 'activityEdit',

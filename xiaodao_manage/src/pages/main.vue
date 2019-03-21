@@ -49,6 +49,7 @@
           </template>
           <MenuItem name="activity">活动报名</MenuItem>
           <MenuItem name="groupon">多人拼团</MenuItem>
+          <MenuItem name="lottery">抽奖游戏</MenuItem>
           <MenuItem name="weWebsite">手机端设置</MenuItem>
         </Submenu>
 

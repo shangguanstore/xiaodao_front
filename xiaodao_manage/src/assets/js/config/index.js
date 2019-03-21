@@ -23,7 +23,7 @@ UserRole.ROLE_ASSIST_TEACHER = 6;
 function Qiniu() {
 }
 Qiniu.ACTION_URL = 'http://up.qiniu.com'
-Qiniu.EXTERNAL_LINK = 'http://qiniu.17zhaotu.org/'
+Qiniu.EXTERNAL_LINK = 'http://qiniu.xiaost.net/'
 
 
 function Mbanner() {
@@ -43,6 +43,7 @@ function Activity() {
 Activity.TYPE_NORMAL = 0
 Activity.TYPE_GROUPON = 1
 Activity.TYPE_GET_LIKES = 2
+Activity.TYPE_LOTTERY = 3
 
 export default config
 
