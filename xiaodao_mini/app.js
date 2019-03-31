@@ -82,7 +82,8 @@ App({
     baseServerUrl: 'http://hxe.7hu.cn/',
     Qiniu: {
       ACTION_URL: 'http://up.qiniu.com',
-      EXTERNAL_LINK: 'http://qiniu.xiaost.net/'
+      EXTERNAL_LINK: 'http://qiniu.xiaost.net/',
+      STATIC_EXTERNAL_LINK: 'http://static.xiaost.net/',
     },
     FrontOrderType: {
       TYPE_DEFAULT: 100,
@@ -97,14 +98,21 @@ App({
     Activity: {
       TYPE_NORMAL: 0,
       TYPE_GROUPON: 1,
-      TYPE_GET_LIKES: 2
+      TYPE_GET_LIKES: 2,
+      TYPE_LOTTERY: 3
     },
     Member: {
       STATUS_OK: 0,
       STATUS_DELETE: -1,
       STATUS_INACTIVE: 1
+    },
+    LotteryGoods: {
+      TYPE_PHYSICAL: 0,
+      TYPE_COUPON: 1,
+      TYPE_EXPERIENCE: 2
     }
-  },
+
+  }
 
   //配置结束
 })

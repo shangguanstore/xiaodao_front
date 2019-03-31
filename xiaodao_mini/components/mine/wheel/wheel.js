@@ -1,25 +1,34 @@
 // components/mine/wheel/wheel.js
+const lib = require('../../../utils/lib/index.js')
+const common = require('../../../utils/common.js')
+const request = require('../../../utils/request.js')
+const app = getApp()
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-
+    lottery: {
+      type: Array
+    },
+    activityId: {
+      type: Number
+    }
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    circleList: [],//圆点数组
-    awardList: [],//奖品数组
-    colorCircleFirst: '#FFDF2F',//圆点颜色1
-    colorCircleSecond: '#FE4D32',//圆点颜色2
-    colorAwardDefault: '#fec901',//奖品默认颜色
-    colorAwardSelect: 'rgba(21,30,38,0.35)',//奖品选中颜色
+    circleList: [], //圆点数组
+    awardList: [], //奖品数组
+    colorCircleFirst: '#FFDF2F', //圆点颜色1
+    colorCircleSecond: '#FE4D32', //圆点颜色2
+    colorAwardDefault: '#fec901', //奖品默认颜色
+    colorAwardSelect: 'rgba(21,30,38,0.35)', //奖品选中颜色
 
-    indexSelect: 0,//被选中的奖品index
-    isRunning: false,//是否正在抽奖
+    indexSelect: 0, //被选中的奖品index
+    isRunning: false, //是否正在抽奖
     imageAward: [
       '../../images/physical.png',
       '../../images/2.jpg',
@@ -29,11 +38,12 @@ Component({
       '../../images/6.jpg',
       '../../images/7.jpg',
       '../../images/8.jpg',
-    ],//奖品图片数组
-    times: '80',//转盘转动的速度
+    ], //奖品图片数组
+    intime: 20, //值越大旋转时间越长
   },
 
   ready: function () {
+    console.log('id',this.data.activityId)
     var _this = this;
     //圆点设置
     var leftCircle = 7.5;
@@ -67,7 +77,10 @@ Component({
       } else {
         return
       }
-      circleList.push({ topCircle: topCircle, leftCircle: leftCircle });
+      circleList.push({
+        topCircle: topCircle,
+        leftCircle: leftCircle
+      });
     }
 
     this.setData({
@@ -111,9 +124,22 @@ Component({
         leftAward = leftAward;
         topAward = topAward - 150 - 15;
       }
-      var imageAward = this.data.imageAward[j];
-      awardList.push({ topAward: topAward, leftAward: leftAward, imageAward: imageAward });
+      awardList.push({
+        topAward: topAward,
+        leftAward: leftAward
+      });
     }
+
+    console.log('awardList', awardList)
+
+    let lottery = this.initLottery()
+
+    awardList.map(function (item, index) {
+      Object.assign(item, lottery[index]);
+    })
+
+    console.log('awardList', awardList)
+
     this.setData({
       awardList: awardList
     })
@@ -123,7 +149,22 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    startGame: function () {
+    initLottery() {
+      console.log('lottery', this.data.lottery)
+      let lottery = this.data.lottery
+      let newDisplay
+      if (lottery.length < 8) {
+        newDisplay = []
+        let len = lottery.length
+        for (var i = 0; i < 8; i++) {
+          var index = i % len
+          newDisplay.push(lottery[index])
+        }
+      }
+
+      return newDisplay
+    },
+    startGame1: function () {
       this.setData({
         isRunning: true
       })
@@ -137,8 +178,11 @@ Component({
         console.log('indexSelect', indexSelect)
         console.log(indexSelect % 8)
         //这里我只是简单粗暴用y=30*x+200函数做的处理.可根据自己的需求改变转盘速度
-        i += 400;
-        if (i > 10000) {
+        i += 1;
+        //用匀加速运动公式，计算转盘转动距离 s=V0*t + 1/2at^2
+        var s = 200 * i - 20 * i ^ 2
+        console.log('s', s)
+        if (s > 10000) {
           //去除循环
           clearInterval(timer)
           //获奖提示
@@ -146,7 +190,7 @@ Component({
           wx.showModal({
             title: '恭喜您',
             content: '获得了第' + indexSelect + "个优惠券",
-            showCancel: false,//去掉取消按钮
+            showCancel: false, //去掉取消按钮
             success: function (res) {
               if (res.confirm) {
                 _this.setData({
@@ -161,6 +205,111 @@ Component({
           indexSelect: indexSelect
         })
       }, (_this.data.times))
+    },
+
+    startGame: function () {
+      this.setData({
+        isRunning: true
+      })
+      let _this = this
+
+      let index = 0
+      let interval = setInterval(function(item) {
+        if (index > 7) {
+          index = 0;
+        }
+        _this.setData({
+          indexSelect: index,
+        })
+        index++
+      },500)
+      
+
+      let url = 'api/activity/lottery/draw'
+      let data = {
+        activity_id: this.data.activityId
+      }
+      request(url, 'post', data, function (res) {
+        //res就是我们请求接口返回的数据
+        let lottery = res.data.data
+
+        clearInterval(interval)
+
+        let which = 0
+        for(var i = 0, len = _this.data.awardList.length; i < len; i++) {
+          if (_this.data.awardList[i].lottery_id == lottery.lottery_id) {
+            which = i
+            console.log('1111')
+            break
+          }
+        }
+        console.log('which', which)
+
+        _this.stopLuck(which, index, _this.data.intime, 2);
+      }, function (res) {
+        console.log('res',res)
+        wx.showToast({
+          title: '加载数据失败',
+          icon: 'none'
+        })
+      })
+    },
+
+    /**
+     * which:中奖位置
+     * index:当前位置
+     * time：时间标记
+     * splittime：每次增加的时间 值越大减速越快
+     */
+    stopLuck: function (which, index, time, splittime) {
+      var _this = this;
+      //值越大出现中奖结果后减速时间越长
+      setTimeout(function () {
+        //重置前一个位置
+        if (index > 7) {
+          index = 0;
+        }
+        _this.setData({
+          indexSelect: index,
+        })
+
+        //如果旋转时间过短或者当前位置不等于中奖位置则递归执行
+        //直到旋转至中奖位置
+        if (time < 200 || index != which) {
+          //越来越慢
+          splittime++;
+          time += splittime;
+          //当前位置+1
+          index++;
+          _this.stopLuck(which, index, time, splittime);
+        } else {
+          //1秒后显示弹窗
+          setTimeout(function () {
+            if (index == which) {
+              //中奖
+              wx.showModal({
+                title: '提示',
+                content: '恭喜中奖:' + _this.data.awardList[index].name,
+                showCancel: false,
+                success: function (res) {
+                  
+                }
+              })
+            } else {
+              //未中奖
+              wx.showModal({
+                title: '提示',
+                content: '很遗憾未中奖',
+                showCancel: false,
+                success: function (res) {
+                  
+                }
+              })
+            }
+          }, 300);
+        }
+      }, time);
+      // console.log(time);
     }
   }
 })

@@ -191,7 +191,7 @@
       },
       getTableData(option) {
         let submitData = {
-          type: [config.Activity.TYPE_NORMAL],
+          type: [config.Activity.TYPE_LOTTERY],
           search: this.searchValue,
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,
@@ -233,7 +233,7 @@
       // 编辑页面
       update(params) {
         this.$router.push({
-          path: 'activityEdit',
+          path: 'lotteryEdit',
           query: {
             id: params.row.id,
             imglink: params.row.imglink,

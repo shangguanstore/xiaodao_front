@@ -2,22 +2,13 @@
 <view class='container drawLotteryContainer'>
   <view class='bg'>
     <view class='orgName'>满天星英语教育培训机构</view>
-    <view class='wheel-contain'>
-      <mine-wheel></mine-wheel>
+    <view class='wheel-contain' wx:if='{{lotteryGoodsDisplay.length}}'>
+      <mine-wheel lottery="{{lotteryGoodsDisplay}}" activity-id="{{activity_id}}"></mine-wheel>
     </view>
   </view>
   
   <view class='content'>
     <view class='detail'>
-      <view class='participateList'>
-        <view class='title'>正在参与的人：</view>
-        <view class='applyAvatarList'>
-          <view class='listItem'>
-            <image src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJecSGcKOoNvupXnrZ9YbmJslvzJ8d5kjLBlEO8mHG5kObZ7v4GRth23RictBsoFYrZbe0LuWz4Jng/132'></image>
-          </view>
-        </view>
-      </view>
-
       <view class='participateList'>
         <view class='title'>正在参与的人：</view>
         <view class='applyAvatarList'>

@@ -166,10 +166,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 21,
 					"name": "抽奖",
 					"pathName": "pages/drawLottery/drawLottery",
-					"query": ""
+					"query": "id=47"
 				}
 			]
 		}

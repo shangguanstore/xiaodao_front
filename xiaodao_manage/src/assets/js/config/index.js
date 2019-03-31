@@ -6,7 +6,8 @@ var config = {
     XstCompanySetting: XstCompanySetting,
   Mbanner: Mbanner,
   Activity: Activity,
-  Qiniu: Qiniu
+  Qiniu: Qiniu,
+  LotteryGoods: LotteryGoods
 }
 
 function UserRole() {
@@ -44,6 +45,12 @@ Activity.TYPE_NORMAL = 0
 Activity.TYPE_GROUPON = 1
 Activity.TYPE_GET_LIKES = 2
 Activity.TYPE_LOTTERY = 3
+
+function LotteryGoods() {
+}
+LotteryGoods.TYPE_PHYSICAL = 0
+LotteryGoods.TYPE_COUPON = 1
+LotteryGoods.TYPE_EXPERIENCE = 2
 
 export default config
 

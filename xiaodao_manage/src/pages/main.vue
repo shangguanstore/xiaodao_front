@@ -123,7 +123,7 @@
 
       <footer>
         <p>技术支持</p>
-        <p>copyright © 2016 - 2018 校事通</p>
+        <p>copyright © 2016 - 2019 校事通</p>
       </footer>
     </Layout>
   </div>

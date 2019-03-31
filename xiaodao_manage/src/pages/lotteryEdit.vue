@@ -17,45 +17,46 @@
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100" class="mt20">
         <Row>
           <Col span="12">
-            <FormItem label="名称" prop="name">
-              <Input v-model="formValidate.name" placeholder="请输入活动名称（微信分享标题用此名称）"></Input>
-            </FormItem>
+          <FormItem label="名称" prop="name">
+            <Input v-model="formValidate.name" placeholder="请输入活动名称（微信分享标题用此名称）"></Input>
+          </FormItem>
           </Col>
         </Row>
 
         <Row>
           <Col span="12">
-            <FormItem label="简介" prop="desc">
-              <Input v-model="formValidate.desc" placeholder="请输入活动简介"></Input>
-            </FormItem>
+          <FormItem label="简介" prop="desc">
+            <Input v-model="formValidate.desc" placeholder="请输入活动简介"></Input>
+          </FormItem>
+          </Col>
+        </Row>
+
+        <!--<Row>-->
+          <!--<Col span="12">-->
+          <!--<FormItem label="单价" prop="price" style="position: relative">-->
+            <!--<Input number v-model="formValidate.price" placeholder="请输入报名活动价格，如果免费请不填"></Input>-->
+            <!--<span class="fieldUnit">元</span>-->
+          <!--</FormItem>-->
+          <!--</Col>-->
+        <!--</Row>-->
+
+        <Row>
+          <Col span="12">
+          <FormItem label="抽奖次数上限" prop="lottery_limit_draw" style="position: relative;margin-bottom: 6px">
+            <Input number v-model="formValidate.lottery_limit_draw" placeholder="请输入每人抽奖次数上限"></Input>
+            <span class="fieldUnit">次</span>
+          </FormItem>
+          <p style="margin-bottom: 24px;margin-top: 8px;margin-left: 100px;color: #666666;">
+            *&nbsp;设定抽奖次数上限值，避免一个人重复多次抽奖</p>
           </Col>
         </Row>
 
         <Row>
           <Col span="12">
-            <FormItem label="单价" prop="price" style="position: relative">
-              <Input number v-model="formValidate.price" placeholder="请输入报名活动价格，如果免费请不填"></Input>
-              <span class="fieldUnit">元</span>
-            </FormItem>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col span="12">
-            <FormItem label="抽奖次数上限" prop="lottery_limit_draw" style="position: relative">
-              <Input number v-model="formValidate.lottery_limit_draw" placeholder="请输入每人抽奖次数上限"></Input>
-              <span class="fieldUnit">次</span>
-            </FormItem>
-            <p>设定抽奖次数上限值，避免一个人重复多次抽奖</p>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col span="12">
-            <FormItem label="活动时间" prop="timeRange">
-              <DatePicker v-model="formValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm"
-                          placeholder="选择日期和时间" style="width: 100%"></DatePicker>
-            </FormItem>
+          <FormItem label="活动时间" prop="timeRange">
+            <DatePicker v-model="formValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm"
+                        placeholder="选择日期和时间" style="width: 100%"></DatePicker>
+          </FormItem>
           </Col>
         </Row>
 
@@ -98,38 +99,99 @@
       </Form>
     </div>
 
-    <div class="container activity_edit_container grouponSetting mt20" v-if="activityType == 1">
-      <p class="content_title">团购设置</p>
-      <Form ref="grouponFormValidate" :model="grouponFormValidate" :rules="grouponRuleValidate" :label-width="100"
+    <!--奖品设置-->
+    <div class="container activity_edit_container grouponSetting mt20">
+      <p class="content_title">奖品设置</p>
+      <Form ref="lotteryFormValidate" :model="lotteryFormValidate" :rules="lotteryRuleValidate" :label-width="100"
             class="mt20">
         <Row>
-          <Col span="12">
-            <FormItem label="团购价格" prop="group_price" style="position: relative">
-              <Input number v-model="grouponFormValidate.group_price" placeholder="请输入团购价"></Input>
-              <span class="fieldUnit">元</span>
+          <Col span="24">
+          <div v-for="(lottery, index) in lotteryFormValidate.lotteryItems" v-if="!lottery.is_participant">
+            <Col span="5">
+            <FormItem label="奖品类型" :key="index" :prop="'lotteryItems.' + index + '.type'"
+                      :rules="[{required: true,message: '请选择奖品类型', trigger: 'blur'}]">
+              <Select v-model="lottery.type">
+                <Option v-for="item in lotteryTypeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+              </Select>
             </FormItem>
-          </Col>
-        </Row>
+            </Col>
+            <Col span="5">
+            <FormItem label="奖品名称" :key="index" :prop="'lotteryItems.' + index + '.name'"
+                      :rules="[{required: true,message: '请填写奖品名称', trigger: 'blur'}]">
+              <Input type="text" v-model="lottery.name" placeholder="请填写奖品名称"></Input>
+            </FormItem>
+            </Col>
+            <Col span="5">
+            <FormItem label="奖品数量" :key="index" :prop="'lotteryItems.' + index + '.num'"
+                      :rules="[{required: true,message: '请填写奖品数量', trigger: 'blur'}]">
+              <Input type="text" v-model="lottery.num" placeholder="请填写奖品数量"></Input>
+            </FormItem>
+            </Col>
+            <Col span="5">
+            <FormItem label="中奖概率" :key="index" :prop="'lotteryItems.' + index + '.probability'"
+                      :rules="[{required: true,message: '请填写中奖概率', trigger: 'blur'}]">
+              <Input type="text" v-model="lottery.probability" placeholder="请填写中奖概率"></Input>
+              <span class="fieldUnit">%</span>
+            </FormItem>
+            </Col>
 
-        <Row>
-          <Col span="12">
-            <FormItem label="成团人数" prop="group_num" style="position: relative">
-              <Input number v-model="grouponFormValidate.group_num" placeholder="请输入成团人数"></Input>
-              <span class="fieldUnit">人</span>
-            </FormItem>
+            <Col span="2">
+            &nbsp;&nbsp;<Button class="ml40" @click="removeLotteryItem(index)">删除</Button>
+            </Col>
+          </div>
+          <Col span="24">
+          <Button type="dashed" style="margin-left: 90px;" @click="addLotteryItem" icon="md-add">新增奖品</Button>
           </Col>
-        </Row>
-
-        <Row>
-          <Col span="12">
-            <FormItem label="开放团购时间" prop="timeRange">
-              <DatePicker v-model="grouponFormValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm"
-                          placeholder="选择日期和时间" style="width: 100%"></DatePicker>
-            </FormItem>
           </Col>
         </Row>
       </Form>
     </div>
+
+    <!--参与奖设置-->
+    <div class="container activity_edit_container grouponSetting mt20">
+      <p class="content_title">
+        参与奖<span style="font-size: 12px;color: #666;font-weight: 400;">（当家长没有抽到别的奖品的时候，将会获得参与奖）</span>
+      </p>
+      <Form ref="lotteryFormValidate" :model="lotteryFormValidate" :rules="lotteryRuleValidate" :label-width="100"
+            class="mt20">
+        <Row>
+          <Col span="24">
+          <div v-for="(lottery, index) in lotteryFormValidate.lotteryItems" v-if="lottery.is_participant">
+            <Col span="5">
+            <FormItem label="奖品类型" :key="index" :prop="'lotteryItems.' + index + '.type'"
+                      :rules="[{required: true,message: '请选择奖品类型', trigger: 'blur'}]">
+              <Select v-model="lottery.type">
+                <Option v-for="item in lotteryTypeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+              </Select>
+            </FormItem>
+            </Col>
+            <Col span="5">
+            <FormItem label="奖品名称" :key="index" :prop="'lotteryItems.' + index + '.name'"
+                      :rules="[{required: true,message: '请填写奖品名称', trigger: 'blur'}]">
+              <Input type="text" v-model="lottery.name" placeholder="请填写奖品名称"></Input>
+            </FormItem>
+            </Col>
+            <Col span="5">
+            <FormItem label="奖品数量" :key="index" :prop="'lotteryItems.' + index + '.num'"
+                      :rules="[{required: true,message: '请填写奖品数量', trigger: 'blur'}]">
+              <Input type="text" v-model="lottery.num" placeholder="请填写奖品数量"></Input>
+            </FormItem>
+            </Col>
+
+            <!--<Col span="5">-->
+            <!--<FormItem label="中奖概率" :key="index" :prop="'lotteryItems.' + index + '.probability'"-->
+                      <!--:rules="[{required: true,message: '请填写中奖概率', trigger: 'blur'}]">-->
+              <!--<Input type="text" v-model="lottery.probability" placeholder="请填写中奖概率"></Input>-->
+              <!--<span class="fieldUnit">%</span>-->
+            <!--</FormItem>-->
+            <!--</Col>-->
+          </div>
+
+          </Col>
+        </Row>
+      </Form>
+    </div>
+
 
     <div class="container activity_edit_container articleDetailList mt20">
       <p class="content_title" @click="console">
@@ -298,25 +360,27 @@
             trigger: 'blur'
           }],
         },
-        grouponFormValidate: {
-          group_num: '',
-          group_price: '',
-          timeRange: ''
+        lotteryFormValidate: {
+          lotteryItems: [
+            {
+              type: 0,
+              name: '',
+              num: '',
+              probability: '',
+              is_participant: 0
+            },
+            {
+              type: 0,
+              name: '',
+              num: '',
+              probability: '',
+              is_participant: 1
+            }
+          ],
+          participation: {}
         },
-        grouponRuleValidate: {
-          group_num: [{
-            required: true,
-            type: 'number',
-            message: '您填写的格式错误，请输入数字',
-            trigger: 'blur'
-          }],
-          group_price: [{
-            required: true,
-            type: 'number',
-            message: '您填写的格式错误，请输入数字',
-            trigger: 'blur'
-          }],
-        },
+        lotteryTypeList: [],
+        lotteryRuleValidate: {},
 
         /*图片上传*/
         uploadList: [],
@@ -332,9 +396,27 @@
     },
     created() {
       this.activityType = config.Activity.TYPE_LOTTERY
+
+      this.lotteryTypeList = [
+        {
+          value: config.LotteryGoods.TYPE_PHYSICAL,
+          label: '实体奖品'
+        },
+        {
+          value: config.LotteryGoods.TYPE_COUPON,
+          label: '优惠券'
+        },
+        {
+          value: config.LotteryGoods.TYPE_EXPERIENCE,
+          label: '体验课'
+        },
+      ]
+
       if (this.$route.query.id) {
         this.title = "编辑"
         this.isAdd = false
+
+        let _this = this
         let submitData = {
           id: this.$route.query.id,
           queryDetail: true,
@@ -346,26 +428,11 @@
             var startTimeDate = new Date().setTime(data.start_time * 1000)
             var endTimeDate = new Date().setTime(data.end_time * 1000)
             var timeRange = [startTimeDate, endTimeDate];
-            console.log('timeRange', timeRange)
 
+            this.formValidate = data
             this.activityType = data.type
-            this.formValidate.id = data.id
-            this.formValidate.name = data.name
-            this.formValidate.desc = data.desc
-            this.formValidate.price = data.price
-            this.formValidate.max_num = data.max_num
             this.formValidate.maxNumRadio = data.max_num ? 'have' : 'havnt'
             this.formValidate.timeRange = timeRange
-
-            if (this.activityType == config.Activity.TYPE_GROUPON) {
-              this.grouponFormValidate.group_num = data.group_num
-              this.grouponFormValidate.group_price = data.group_price
-              var groupStartTimeDate = new Date().setTime(data.group_start_time * 1000)
-              var groupEndTimeDate = new Date().setTime(data.group_end_time * 1000)
-              var groupTimeRange = [new Date(groupStartTimeDate), new Date(groupEndTimeDate)]
-              console.log('groupTimeRange', groupTimeRange)
-              this.grouponFormValidate.timeRange = groupTimeRange
-            }
 
             this.detail = data.detail
             this.getDetail = true
@@ -374,6 +441,8 @@
           console.log('error', error)
           this.$Message.error('服务器错误!');
         })
+
+        _this.getLotteryGoods(_this.$route.query.id)
       } else {
         this.title = "新增"
         this.isAdd = true
@@ -449,6 +518,19 @@
       removeDetail() {
 
       },
+      getLotteryGoods(activity_id) {
+        let _this = this
+        let submitData = {
+          activity_id: activity_id
+        }
+        let url = lib.getRequestUrl('/api/lottery/goods/getlist', submitData)
+        this.$http.get(url, {}).then(res => {
+          _this.lotteryFormValidate.lotteryItems = res.data.data
+        }).catch(error => {
+          console.log('error', error)
+          this.$Message.error('服务器错误!');
+        })
+      },
       addImgCategory() {
         let _this = this
         let url = 'api/img/category/add'
@@ -495,6 +577,18 @@
         this.detail += insertImgStr
       },
 
+      addLotteryItem() {
+        this.lotteryFormValidate.lotteryItems.push({
+          type: 0,
+          name: '',
+          num: '',
+          probability: '',
+          is_participant: 0
+        })
+      },
+      removeLotteryItem(index) {
+        this.lotteryFormValidate.lotteryItems.splice(index, 1)
+      },
       handleSubmit() {
         var timeRange = this.formValidate.timeRange
         console.log('timeRange', timeRange)
@@ -503,6 +597,27 @@
         console.log('time1', time1)
         var startTime = Math.ceil(new Date(timeRange[0]).getTime() / 1000)
         var endTime = Math.ceil(new Date(timeRange[1]).getTime() / 1000)
+
+        var normalLotteryProbabilitySum = 0
+        console.log('this.lotteryFormValidate.lotteryItems',this.lotteryFormValidate.lotteryItems)
+        this.lotteryFormValidate.lotteryItems.map(function (item) {
+          if(!item.is_participant) {
+            normalLotteryProbabilitySum += Number(item.probability)
+          }
+        })
+
+        console.log('normalLotteryProbabilitySum',normalLotteryProbabilitySum)
+        if(normalLotteryProbabilitySum > 100) {
+          this.$Message.error('奖品总的获奖概率不能超过100%')
+          return
+        }
+
+        this.lotteryFormValidate.lotteryItems.map(function (item) {
+          if(item.is_participant) {
+            item.probability = 100 - normalLotteryProbabilitySum
+          }
+        })
+
         let submitData = {
           type: config.Activity.TYPE_NORMAL,
           name: this.formValidate.name,
@@ -514,7 +629,8 @@
           end_time: endTime,
           detail: this.detail,
           type: config.Activity.TYPE_LOTTERY,
-          imglink: lib.getUploadPicStr(this.uploadList)
+          imglink: lib.getUploadPicStr(this.uploadList),
+          lotteryItems: this.lotteryFormValidate.lotteryItems
         }
         let url
         if (this.isAdd) {
@@ -524,15 +640,12 @@
           url = "/api/activity/update"
         }
 
-
         this.$http.post(url, submitData).then(res => {
           if (res.data.errNo == 100000) {
             this.$Message.success(this.title + '成功!')
             var _this = this
-            var path = 'activity'
-            if (this.activityType == config.Activity.TYPE_GROUPON) {
-              path = 'groupon'
-            }
+            var path = 'lottery'
+
             setTimeout(function () {
               _this.$router.push({
                 path: path,

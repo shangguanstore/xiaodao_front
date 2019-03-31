@@ -6,6 +6,7 @@ const request = require('../../utils/request.js')
 
 Page({
   data: {
+    config: {},
     userInfo: {},
     Loaded:false,
     hasUserInfo: false,
@@ -15,6 +16,11 @@ Page({
   },
 
   onLoad: function () {
+    let config = app.config
+    this.setData({
+      config: config
+    })
+
     let _this = this
     var timer = setInterval(function() {
       var UU7 = wx.getStorageSync('UU7')
@@ -27,7 +33,18 @@ Page({
   },
 
   routeTo: function(e) {
-    let url = e.currentTarget.dataset.url
+    let id = e.currentTarget.dataset.id
+    let type = e.currentTarget.dataset.type
+    let config = this.data.config
+    let url
+    if (type == config.Activity.TYPE_NORMAL || type == config.Activity.TYPE_GROUPON) {
+      url = '../activity/activity?id=' + id
+    }else if(type == config.Activity.TYPE_LOTTERY) {
+      url = '../drawLottery/drawLottery?id=' + id
+    }else{
+      url = '../activity/activity?id=' + id
+    }
+
     wx.navigateTo({
       url: url
     })
@@ -78,6 +95,7 @@ Page({
         return item
       })
 
+      console.log('activityList', activityList)
       _this.setData({
         activityList: activityList,
         Loaded: true
@@ -87,13 +105,6 @@ Page({
         title: '加载数据失败',
         icon: 'none'
       })
-    })
-  },
-
-  routeTo(event) {
-    console.log(event)
-    wx.navigateTo({
-      url: event.currentTarget.dataset.url
     })
   },
 
