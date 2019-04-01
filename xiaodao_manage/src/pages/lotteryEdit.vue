@@ -629,7 +629,7 @@
           end_time: endTime,
           detail: this.detail,
           type: config.Activity.TYPE_LOTTERY,
-          imglink: lib.getUploadPicStr(this.uploadList),
+          imglink: lib.getUpdateUploadPicStr(this.uploadList),
           lotteryItems: this.lotteryFormValidate.lotteryItems
         }
         let url

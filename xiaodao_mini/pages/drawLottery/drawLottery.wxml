@@ -1,4 +1,5 @@
 <!--pages/drawLottery/drawLottery.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
 <view class='container drawLotteryContainer'>
   <view class='bg'>
     <view class='orgName'>满天星英语教育培训机构</view>
@@ -16,6 +17,10 @@
             <image src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJecSGcKOoNvupXnrZ9YbmJslvzJ8d5kjLBlEO8mHG5kObZ7v4GRth23RictBsoFYrZbe0LuWz4Jng/132'></image>
           </view>
         </view>
+      </view>
+
+      <view class='richText'>
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
       </view>
 
     </view>

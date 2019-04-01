@@ -50,6 +50,20 @@ Page({
     })
   },
 
+  routeToArticle(e) {
+    let url = e.currentTarget.dataset.url
+    wx.navigateTo({
+      url: url
+    })
+  },
+
+  routeToShop(e) {
+    let url = e.currentTarget.dataset.url
+    wx.navigateTo({
+      url: url
+    })
+  },
+
   getBannerList() {
     let url = 'api/mbanner/getlist'
     let data = {

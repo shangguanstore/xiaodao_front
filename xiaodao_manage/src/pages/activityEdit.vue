@@ -499,6 +499,8 @@
       },
 
       handleSubmit() {
+        console.log('config',config)
+
         var timeRange = this.formValidate.timeRange
         console.log('timeRange', timeRange)
         var time1 = timeRange[0]
@@ -506,6 +508,7 @@
         console.log('time1', time1)
         var startTime = Math.ceil(new Date(timeRange[0]).getTime() / 1000)
         var endTime = Math.ceil(new Date(timeRange[1]).getTime() / 1000)
+
         let submitData = {
           type: config.Activity.TYPE_NORMAL,
           name: this.formValidate.name,
@@ -515,7 +518,7 @@
           start_time: startTime,
           end_time: endTime,
           detail: this.detail,
-          imglink: lib.getUploadPicStr(this.uploadList)
+          imglink: lib.getUpdateUploadPicStr(this.uploadList)
         }
         let url
         if (this.isAdd) {

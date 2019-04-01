@@ -217,12 +217,60 @@ button[class="primary"]::after {
   margin-top: 0;
 }
 
+.listArea .listItem .img {
+  width: 100%;
+}
+
+.listArea .listItem .img image {
+  height: 346rpx;
+  width: 100%;
+}
+
 .listArea .listItem .detail {
   margin: 20rpx 16rpx;
   padding-bottom: 20rpx;
   font-size: 30rpx;
   color: #444;
 }
+
+.listArea .listItem .bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  padding-bottom: 20rpx;
+}
+
+.listArea .listItem .bottom .titleArea .title {
+    font-size: 34rpx;
+    color: #444;
+    font-weight: 700;
+    margin-bottom: 10rpx;
+}
+
+.listArea .listItem .bottom .titleArea .des {
+    font-size: 26rpx;
+    color: #666;
+}
+
+.listArea .listItem .bottom .btn {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.listArea .listItem .bottom .btn button {
+  color: white;
+  height:56rpx;
+  box-sizing:content-box;
+  padding:6rpx 20rpx;
+  line-height:56rpx;
+  font-weight: 300;
+  font-size: 32rpx;
+}
+
 
 /* 活动列表结束 */
 

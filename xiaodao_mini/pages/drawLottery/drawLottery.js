@@ -66,8 +66,9 @@ Page({
 
       _this.getLotteryGoods()
 
-      // var html = activity.detail
-      // WxParse.wxParse('article', 'html', html, _this, 5);
+      var html = activity.detail
+      console.log('html',html)
+      WxParse.wxParse('article', 'html', html, _this, 25);
 
       // _this.setData({
       //   Loaded: true

@@ -44,7 +44,7 @@
 }
 
 .drawLotteryContainer .detail {
-  width: 630rpx;
+  width: 680rpx;
 }
 
 .drawLotteryContainer .detail .participateList {
@@ -61,4 +61,15 @@
   color: #fdeb41;
   line-height: 36rpx;
   margin-bottom: 24rpx;
+}
+
+.drawLotteryContainer .detail .richText {
+  /* width: 630rpx; */
+  background: #7db73f;
+  border-radius: 14rpx;
+  margin-bottom: 100rpx;
+  padding: 20rpx 32rpx;
+  box-sizing: border-box;
+  margin-top: 60rpx;
+  color: white;
 }
