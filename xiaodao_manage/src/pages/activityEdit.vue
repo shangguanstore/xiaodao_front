@@ -140,18 +140,20 @@
         详细信息
       </p>
 
-      <Form class="mt20">
-        <FormItem prop="detail" style="width: 100%;position: relative">
-          <ckeditor v-if="getDetail" id="aaabbbccc" v-model="detail" :config="config" @blur="onBlur($event)"
-                    @focus="onFocus($event)">
-          </ckeditor>
+      <!--<div class="mt20" style="width: 100%;display: flex;justify-content: flex-start;">-->
+        <!--<ckeditor v-if="getDetail" id="aaabbbccc" v-model="detail" :config="config" @blur="onBlur($event)"-->
+                  <!--@focus="onFocus($event)">-->
+        <!--</ckeditor>-->
 
-          <div class="imgListBtn" @click="showPicModal = !showPicModal">
-            <i class="icon iconfont icon-tupian" style="margin-left: 12px;font-size: 14px;"></i>
-            <span>图片</span>
-          </div>
-        </FormItem>
-      </Form>
+        <!--<div class="imgListBtn" @click="showPicModal = !showPicModal">-->
+          <!--<i class="icon iconfont icon-tupian" style="margin-left: 12px;font-size: 14px;"></i>-->
+          <!--<span>图片</span>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <ckeditor v-if="getDetail" id="aaabbbccc" v-model="detail" :config="config" :QiniuToken="QiniuToken" @blur="onBlur($event)"
+                @focus="onFocus($event)">
+      </ckeditor>
     </div>
 
 
@@ -239,11 +241,11 @@
 <script>
   import lib from '@/assets/js/lib/index'
   import config from '@/assets/js/config/index'
-  import Ckeditor from '../components/Ckeditor'
+  import ckeditor from '@/components/ckeditor'
 
   export default {
     name: 'staffEdit',
-    components: {Ckeditor},
+    components: {ckeditor},
     data() {
       return {
         mid: 0,
@@ -727,15 +729,6 @@
   }
 
   .imgListBtn {
-    width: 90px;
-    position: absolute;
-    right: 49px;
-    top: 79px;
-    margin-bottom: 10px;
-    border: solid 1px #eeeeee;
-    border-radius: 4px;
-    padding: 4px 10px;
-    cursor: pointer;
     span {
       margin-left: 4px;
       font-size: 15px;

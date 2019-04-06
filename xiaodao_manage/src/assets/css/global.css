@@ -384,3 +384,13 @@ footer{
   top: 0;
   right: -24px;
 }
+
+.imgListBtn {
+  width: 90px;
+  height: 40px;
+  margin-left: 20px;
+  border: solid 1px #eeeeee;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+}

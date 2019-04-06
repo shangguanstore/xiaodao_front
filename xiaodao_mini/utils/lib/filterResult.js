@@ -24,6 +24,10 @@ var filterResult = function(data) {
       item.imglink_format = getImglink(item.imglink)
     }
 
+    if (isset(item.lottery_intro_imglink)) {
+      item.lottery_intro_imglink_format = getImglink(item.lottery_intro_imglink)
+    }
+
     if (isset(item.sex)) {
       item.sex_format = item.sex === 1 ? '男' : '女'
     }

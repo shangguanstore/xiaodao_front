@@ -19,8 +19,18 @@
         </view>
       </view>
 
-      <view class='richText'>
-        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+      <view class='lotteryIntro'>
+        <view class='title'>奖品介绍</view>
+        <view class='content'>
+          <view class='intro'>
+            {{activity.lottery_intro}}
+          </view>
+          <view class='introPic'>
+            <block wx:for='{{activity.lottery_intro_imglink_format}}' wx:for-index='index' wx:key='index'>
+              <image src='{{item}}'></image>
+            </block>
+          </view>
+        </view>
       </view>
 
     </view>

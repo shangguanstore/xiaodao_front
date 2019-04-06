@@ -64,6 +64,8 @@ Page({
         activity: activity
       })
 
+      console.log('activity', activity)
+
       _this.getLotteryGoods()
 
       var html = activity.detail

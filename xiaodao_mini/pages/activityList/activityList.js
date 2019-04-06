@@ -26,6 +26,7 @@ Page({
   },
 
   getActivityList() {
+    console.log(111222333)
     this.setData({
       Loaded: false
     })
@@ -38,7 +39,7 @@ Page({
     var _this = this
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
-      var activityList = res.data.activity
+      var activityList = res.data.data
       activityList.map(function (item) {
         item.imglink_format = lib.getImglink(item.imglink)[0]
         return item

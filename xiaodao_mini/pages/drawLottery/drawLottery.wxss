@@ -73,3 +73,45 @@
   margin-top: 60rpx;
   color: white;
 }
+
+.drawLotteryContainer .detail .lotteryIntro {
+  background: #7db73f;
+  border-radius: 14rpx;
+  margin-bottom: 100rpx;
+  padding: 20rpx 32rpx;
+  box-sizing: border-box;
+  margin-top: 60rpx;
+  color: white;
+}
+
+.drawLotteryContainer .detail .lotteryIntro .title {
+  text-align: center;
+  margin: 0 auto;
+  width: 334rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #503512;
+  margin-bottom: 26rpx;
+  background-image: url("http://static.xiaost.net/title-bg.png");
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.drawLotteryContainer .detail .lotteryIntro .content {
+  color: white;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.drawLotteryContainer .detail .lotteryIntro .content .introPic {
+  margin-top: 10rpx;
+  width: 100%;
+}
+
+.drawLotteryContainer .detail .lotteryIntro .content .introPic image {
+  width: 100%;
+  margin-top: 10rpx;
+}

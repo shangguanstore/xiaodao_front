@@ -68,7 +68,7 @@
     <text class='line'></text>
   </view>
 
-  <video id="myVideo" style="margin-top: 20rpx;" src="http://video.it120.cc/2adc94f7c844433b825e0c729d4915ef/f2314d27b91645bb8ba125c735f7dcfa-5287d2089db37e62345123a1be272f8b.mp4" binderror="videoErrorCallback" poster="http://www.abiechina.com/A_UpLoad/upload_pic/20180927/20180927155419_8440.jpg" controls></video>
+  <video id="myVideo" style="margin-top: 20rpx;" src="http://video.it120.cc/2adc94f7c844433b825e0c729d4915ef/f2314d27b91645bb8ba125c735f7dcfa-5287d2089db37e62345123a1be272f8b.mp4" binderror="videoErrorCallback" poster="http://static.xiaost.net/video-back.jpg" controls></video>
 
   <view class='listTopLine'>
     <text class='line'></text>
@@ -79,11 +79,20 @@
   <view class='listArea'>
     <view class='listItem' wx:for="{{activityList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id" data-id="{{item.id}}" data-type="{{item.type}}" bindtap="routeTo">
       <!-- <image src='{{item.imglink_format}}'></image> -->
-      <view style='background: url({{item.imglink_format}}) no-repeat 50%; height: 360rpx; width: 100%;'>
-      </view>
+      <!-- <view style='background: url({{item.imglink_format}}) no-repeat 50%; height: 360rpx; width: 100%;'>
+      </view> -->
+
+      <!-- <view class='imgBackground' style='background: url({{item.imglink_format}}) no-repeat 50%'>
+      </view> -->
+
       <!-- <view class='img'>
         <image src='{{item.imglink_format}}'></image>
       </view> -->
+
+      <view class='centerPicBox'>
+          <image class='centerPic' src='{{item.imglink_format}}'></image>
+      </view>
+
       <view class='bottom'>
           <view class='titleArea'>
               <view class='title'>{{item.name}}</view>

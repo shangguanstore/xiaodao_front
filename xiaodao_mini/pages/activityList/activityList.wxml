@@ -9,8 +9,9 @@
 
   <view wx:if="{{activityList.length && Loaded}}" class='listArea' style='margin-top: 10rpx'>
     <view class='listItem' wx:for="{{activityList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id" data-url="../activity/activity?id={{item.id}}" bindtap="routeTo">
-      <!-- <image src='{{item.imglink_format}}'></image> -->
-      <view style='background: url({{item.imglink_format}}) center center no-repeat; height: 360rpx; width: 100%;'></view>
+      <view class='centerPicBox'>
+          <image class='centerPic' src='{{item.imglink_format}}'></image>
+      </view>
       <view class='detail'>{{item.desc}}</view>
     </view>
   </view>

@@ -193,22 +193,22 @@
     </div>
 
 
-    <div class="container activity_edit_container articleDetailList mt20">
-      <p class="content_title" @click="console">
-        详细信息
-      </p>
+    <div class="container activity_edit_container mt20">
+      <p class="content_title">奖品介绍</p>
+      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100" class="mt20">
+        <Row>
+          <Col span="12">
+          <FormItem label="介绍信息" prop="lotteryIntro">
+            <Input v-model="formValidate.lottery_intro" type="textarea" :autosize="{minRows: 5,maxRows: 10}" placeholder="请输入介绍信息"></Input>
+          </FormItem>
+          </Col>
+        </Row>
 
-      <Form class="mt20">
-        <FormItem prop="detail" style="width: 100%;position: relative">
-          <ckeditor v-if="getDetail" id="aaabbbccc" v-model="detail" :config="config" @blur="onBlur($event)"
-                    @focus="onFocus($event)">
-          </ckeditor>
-
-          <div class="imgListBtn" @click="showPicModal = !showPicModal">
-            <i class="icon iconfont icon-tupian" style="margin-left: 12px;font-size: 14px;"></i>
-            <span>图片</span>
-          </div>
-        </FormItem>
+        <Row>
+          <Col span="12">
+              <fileUpload v-if="formValidate.id" :imglink="formValidate.lottery_intro_imglink" label="介绍图片" :limit="2" :QiniuToken="QiniuToken" v-on:fileupload="lotteryIntroFileUpload"></fileUpload>
+          </Col>
+        </Row>
       </Form>
     </div>
 
@@ -297,11 +297,15 @@
 <script>
   import lib from '@/assets/js/lib/index'
   import config from '@/assets/js/config/index'
-  import Ckeditor from '../components/Ckeditor'
+  import ckeditor from '@/components/ckeditor'
+  import fileUpload from '@/components/fileUpload'
 
   export default {
     name: 'staffEdit',
-    components: {Ckeditor},
+    components: {
+      ckeditor,
+      fileUpload
+    },
     data() {
       return {
         mid: 0,
@@ -344,7 +348,8 @@
           maxNumRadio: 'havnt',
           max_num: '',
           lottery_limit_draw: '',
-          timeRange: ''
+          timeRange: '',
+          lottery_intro:''
         },
         ruleValidate: {
           name: [
@@ -619,7 +624,6 @@
         })
 
         let submitData = {
-          type: config.Activity.TYPE_NORMAL,
           name: this.formValidate.name,
           desc: this.formValidate.desc,
           price: this.formValidate.price,
@@ -630,6 +634,8 @@
           detail: this.detail,
           type: config.Activity.TYPE_LOTTERY,
           imglink: lib.getUpdateUploadPicStr(this.uploadList),
+          lottery_intro: this.formValidate.lottery_intro,
+          lottery_intro_imglink: this.formValidate.lottery_intro_imglink,
           lotteryItems: this.lotteryFormValidate.lotteryItems
         }
         let url
@@ -658,7 +664,9 @@
           this.$Message.error('服务器错误!')
         })
       },
-
+      lotteryIntroFileUpload(uploadfile) {
+        this.formValidate.lottery_intro_imglink =lib.getUpdateUploadPicStr(uploadfile)
+      },
       getImgStorage() {
         let _this = this
         let submitData = {
@@ -826,15 +834,6 @@
   }
 
   .imgListBtn {
-    width: 90px;
-    position: absolute;
-    right: 49px;
-    top: 79px;
-    margin-bottom: 10px;
-    border: solid 1px #eeeeee;
-    border-radius: 4px;
-    padding: 4px 10px;
-    cursor: pointer;
     span {
       margin-left: 4px;
       font-size: 15px;
