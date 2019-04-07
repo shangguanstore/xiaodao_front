@@ -8,10 +8,6 @@
       </Breadcrumb>
     </div>
 
-    <div class="rightBtnList" style="display: none">
-      <Button @click="addDetail">点击添加图文</Button>
-    </div>
-
     <div class="container activity_edit_container mt20">
       <p class="content_title">基本信息</p>
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100" class="mt20">
@@ -32,12 +28,12 @@
         </Row>
 
         <!--<Row>-->
-          <!--<Col span="12">-->
-          <!--<FormItem label="单价" prop="price" style="position: relative">-->
-            <!--<Input number v-model="formValidate.price" placeholder="请输入报名活动价格，如果免费请不填"></Input>-->
-            <!--<span class="fieldUnit">元</span>-->
-          <!--</FormItem>-->
-          <!--</Col>-->
+        <!--<Col span="12">-->
+        <!--<FormItem label="单价" prop="price" style="position: relative">-->
+        <!--<Input number v-model="formValidate.price" placeholder="请输入报名活动价格，如果免费请不填"></Input>-->
+        <!--<span class="fieldUnit">元</span>-->
+        <!--</FormItem>-->
+        <!--</Col>-->
         <!--</Row>-->
 
         <Row>
@@ -62,38 +58,9 @@
 
         <Row>
           <Col span="12">
-          <FormItem label="封面图片">
-            <div class="demo-upload-list" v-for="item in uploadList">
-              <template v-if="item.status === 'finished'">
-                <img :src="item.url">
-                <div class="demo-upload-list-cover">
-                  <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
-                  <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-                </div>
-              </template>
-              <template v-else>
-                <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
-              </template>
-            </div>
-            <Upload ref="upload"
-                    :before-upload="handleBeforeUpload"
-                    :show-upload-list="false"
-                    :default-file-list="defaultList"
-                    :on-success="handleSuccess"
-                    :format="['jpg','jpeg','png']"
-                    :max-size="2048"
-                    :on-format-error="handleFormatError"
-                    :on-exceeded-size="handleMaxSize"
-                    type="drag"
-                    :data="{'token':QiniuToken}"
-                    :action="ACTION_URL"
-                    style="display: inline-block;width:58px;">
-              <div style="width: 58px;height:58px;line-height: 58px;">
-                <Icon type="ios-camera" size="20"></Icon>
-              </div>
-            </Upload>
-            <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45)">支持：jpg/jpeg/png格式</div>
-          </FormItem>
+          <fileUpload v-if="getDataDown" :imglink="formValidate.imglink" label="封面图片" :limit="1"
+                      v-on:fileupload="imglinkFileUpload"></fileUpload>
+
           </Col>
         </Row>
       </Form>
@@ -180,9 +147,9 @@
 
             <!--<Col span="5">-->
             <!--<FormItem label="中奖概率" :key="index" :prop="'lotteryItems.' + index + '.probability'"-->
-                      <!--:rules="[{required: true,message: '请填写中奖概率', trigger: 'blur'}]">-->
-              <!--<Input type="text" v-model="lottery.probability" placeholder="请填写中奖概率"></Input>-->
-              <!--<span class="fieldUnit">%</span>-->
+            <!--:rules="[{required: true,message: '请填写中奖概率', trigger: 'blur'}]">-->
+            <!--<Input type="text" v-model="lottery.probability" placeholder="请填写中奖概率"></Input>-->
+            <!--<span class="fieldUnit">%</span>-->
             <!--</FormItem>-->
             <!--</Col>-->
           </div>
@@ -199,98 +166,25 @@
         <Row>
           <Col span="12">
           <FormItem label="介绍信息" prop="lotteryIntro">
-            <Input v-model="formValidate.lottery_intro" type="textarea" :autosize="{minRows: 5,maxRows: 10}" placeholder="请输入介绍信息"></Input>
+            <Input v-model="formValidate.lottery_intro" type="textarea" :autosize="{minRows: 5,maxRows: 10}"
+                   placeholder="请输入介绍信息"></Input>
           </FormItem>
           </Col>
         </Row>
 
         <Row>
           <Col span="12">
-              <fileUpload v-if="formValidate.id" :imglink="formValidate.lottery_intro_imglink" label="介绍图片" :limit="2" :QiniuToken="QiniuToken" v-on:fileupload="lotteryIntroFileUpload"></fileUpload>
+          <fileUpload v-if="getDataDown" :imglink="formValidate.lottery_intro_imglink" label="介绍图片" :limit="2"
+                      v-on:fileupload="lotteryIntroFileUpload"></fileUpload>
           </Col>
         </Row>
       </Form>
     </div>
 
-
     <div class="bottomBtn">
       <Button size="large" type="primary" @click="handleSubmit()">提交</Button>
       <Button size="large" @click="handleReset()" style="margin-left: 8px">取消</Button>
     </div>
-
-    <Modal title="图片预览" v-model="viewImg">
-      <img :src="EXTERNAL_LINK + imgName" v-if="viewImg" style="width: 100%">
-    </Modal>
-
-    <Modal class="picDialog" v-model="showPicModal" width="800" :styles="{top: '30px'}" @on-ok="selectDetailImg">
-      <div slot="header" class="title">
-        <div class="titleName fl">选择图片</div>
-      </div>
-
-      <div class="imgContainer">
-        <div class="imgCategory fl">
-          <ul>
-            <li :class="curImgCategory == 0 ? 'active' : ''" @click="changeImgCategory(0)">
-              <strong>全部图片</strong>
-              <em>({{totalImgNum}})</em>
-            </li>
-
-            <li v-for="(item, index) in imgCategory" :class="curImgCategory == item.id ? 'active' : ''"
-                @click="changeImgCategory(item.id)">
-              <strong>{{item.name}}</strong>
-              <em>({{item.num}})</em>
-            </li>
-            <li @click="showAddImgCategory1 = true">
-              <strong>新建分组</strong>
-            </li>
-          </ul>
-        </div>
-
-        <div class="imgContent fr">
-          <div class="top">
-            <Upload ref="detailUpload"
-                    :before-upload="handleDetailBeforeUpload"
-                    :show-upload-list="false"
-                    :default-file-list="detailDefaultList"
-                    :on-success="handleDetailSuccess"
-                    :format="['jpg','jpeg','png']"
-                    :max-size="2048"
-                    :on-format-error="handleFormatError"
-                    :on-exceeded-size="handleMaxSize"
-                    :data="{'token':QiniuToken}"
-                    :action="ACTION_URL"
-                    style="display: inline-block;width:58px;">
-              <Button type="primary">本地上传</Button>
-            </Upload>
-          </div>
-          <div class="content">
-            <div class="imgListArea mt20" v-for="item in uploadImgList">
-              <div class="uploadList">
-                <template>
-                  <div class="imgItem">
-                    <div class="picBox" @click="changeImgSelected(item)">
-                      <img :src="item.imglink_format">
-                      <div v-show="item.selected" class="selected"></div>
-                    </div>
-                    <p class="picName">noData</p>
-                  </div>
-                </template>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Modal>
-
-    <Modal title="创建分组" v-model="showAddImgCategory1"
-           @on-ok="addImgCategory"
-    >
-      <Form :label-width="80" class="mt20">
-        <FormItem label="分组名称" prop="img_category_name" style="width: 60%">
-          <Input v-model="img_category_name" placeholder="请输入分组名称"></Input>
-        </FormItem>
-      </Form>
-    </Modal>
   </div>
 </template>
 
@@ -313,9 +207,8 @@
         title: "",
         detailTitle: "",
         detail: "",
-        getDetail: false,
+        getDataDown: false,
         isAdd: true,
-        QiniuToken: '',
         content: '',
         imgCategory: [],
         totalImgNum: 0,
@@ -349,7 +242,7 @@
           max_num: '',
           lottery_limit_draw: '',
           timeRange: '',
-          lottery_intro:''
+          lottery_intro: ''
         },
         ruleValidate: {
           name: [
@@ -394,8 +287,6 @@
         viewImg: false,
         showAddImgCategory1: false,
         img_category_name: '',
-        EXTERNAL_LINK: '',
-        ACTION_URL: ''
         /*图片上传结束*/
       }
     },
@@ -435,12 +326,13 @@
             var timeRange = [startTimeDate, endTimeDate];
 
             this.formValidate = data
-            this.activityType = data.type
             this.formValidate.maxNumRadio = data.max_num ? 'have' : 'havnt'
             this.formValidate.timeRange = timeRange
 
+            this.activityType = data.type
+
             this.detail = data.detail
-            this.getDetail = true
+            this.getDataDown = true
           }
         }).catch(error => {
           console.log('error', error)
@@ -453,76 +345,15 @@
         this.isAdd = true
 
         this.detail = ""
-        this.getDetail = true
+        this.getDataDown = true
       }
-
-      this.getImgCategory()
-      this.getImgStorage()
     },
     mounted() {
-      /*图片上传*/
-      this.uploadList = this.$refs.upload.fileList
-      this.detailUploadList = this.$refs.detailUpload.fileList
-
-      //
-      // var _this = this
-      // var timer = setInterval(function () {
-      //     if(_this.$refs.detailUpload) {
-      //         _this.detailUploadList = _this.$refs.detailUpload.fileList
-      //         clearInterval(timer)
-      //     }
-      // },2000)
-
-      this.getQiniuToken()
-      this.EXTERNAL_LINK = config.Qiniu.EXTERNAL_LINK
       this.ACTION_URL = config.Qiniu.ACTION_URL
     },
     computed: {
-      /*图片上传*/
-      fileName() {
-        return 'all'
-      },
-      defaultList() {
-        if (this.$route.query.id) {
-          var pics = lib.getImglink(this.$route.query.imglink, false)
-          let picData = []
-          for (let item in pics) {
-            picData.push({
-              "name": pics[item],
-              'url': config.Qiniu.EXTERNAL_LINK + pics[item]
-            })
-          }
-          return picData
-        } else {
-          return []
-        }
-      },
-      detailDefaultList() {
-        if (this.$route.query.id) {
-          var pics = lib.getImglink(this.$route.query.detail_imglink, false)
-          let picData = []
-          for (let item in pics) {
-            picData.push({
-              "name": pics[item],
-              'url': config.Qiniu.EXTERNAL_LINK + pics[item]
-            })
-          }
-          return picData
-        } else {
-          return []
-        }
-      },
     },
     methods: {
-      console() {
-        console.log('detailUploadList', this.detailUploadList)
-      },
-      addDetail() {
-
-      },
-      removeDetail() {
-
-      },
       getLotteryGoods(activity_id) {
         let _this = this
         let submitData = {
@@ -536,52 +367,6 @@
           this.$Message.error('服务器错误!');
         })
       },
-      addImgCategory() {
-        let _this = this
-        let url = 'api/img/category/add'
-        let submitData = {
-          name: this.img_category_name
-        }
-        this.$http.post(url, submitData).then(res => {
-          if (res.data.errNo == 100000) {
-            this.$Message.success('添加分组成功！')
-            _this.getImgCategory()
-          }
-        }).catch(error => {
-          this.$Message.error('服务器错误!')
-        })
-      },
-      getImgCategory() {
-        let _this = this
-        let url = 'api/img/category/getlist'
-        let submitData = {}
-        this.$http.get(url, submitData).then(res => {
-          if (res.data.errNo == 100000) {
-            let totalImgNum = 0
-            let data = res.data.data || []
-            data.map(function (item) {
-              totalImgNum += item.num
-            })
-
-            _this.imgCategory = data
-            _this.totalImgNum = totalImgNum
-          }
-        }).catch(error => {
-          console.log(error)
-          this.$Message.error('服务器错误!')
-        })
-      },
-      selectDetailImg() {
-        let insertImgStr = ''
-        this.uploadImgList.map(function (item) {
-          if (item.selected) {
-            insertImgStr += `<p style="text-align:center"><img alt="" src="${item.imglink_format}" style="width:458px" /></p>`
-          }
-        })
-
-        this.detail += insertImgStr
-      },
-
       addLotteryItem() {
         this.lotteryFormValidate.lotteryItems.push({
           type: 0,
@@ -604,21 +389,21 @@
         var endTime = Math.ceil(new Date(timeRange[1]).getTime() / 1000)
 
         var normalLotteryProbabilitySum = 0
-        console.log('this.lotteryFormValidate.lotteryItems',this.lotteryFormValidate.lotteryItems)
+        console.log('this.lotteryFormValidate.lotteryItems', this.lotteryFormValidate.lotteryItems)
         this.lotteryFormValidate.lotteryItems.map(function (item) {
-          if(!item.is_participant) {
+          if (!item.is_participant) {
             normalLotteryProbabilitySum += Number(item.probability)
           }
         })
 
-        console.log('normalLotteryProbabilitySum',normalLotteryProbabilitySum)
-        if(normalLotteryProbabilitySum > 100) {
+        console.log('normalLotteryProbabilitySum', normalLotteryProbabilitySum)
+        if (normalLotteryProbabilitySum > 100) {
           this.$Message.error('奖品总的获奖概率不能超过100%')
           return
         }
 
         this.lotteryFormValidate.lotteryItems.map(function (item) {
-          if(item.is_participant) {
+          if (item.is_participant) {
             item.probability = 100 - normalLotteryProbabilitySum
           }
         })
@@ -633,7 +418,7 @@
           end_time: endTime,
           detail: this.detail,
           type: config.Activity.TYPE_LOTTERY,
-          imglink: lib.getUpdateUploadPicStr(this.uploadList),
+          imglink: this.formValidate.imglink,
           lottery_intro: this.formValidate.lottery_intro,
           lottery_intro_imglink: this.formValidate.lottery_intro_imglink,
           lotteryItems: this.lotteryFormValidate.lotteryItems
@@ -665,160 +450,11 @@
         })
       },
       lotteryIntroFileUpload(uploadfile) {
-        this.formValidate.lottery_intro_imglink =lib.getUpdateUploadPicStr(uploadfile)
+        this.formValidate.lottery_intro_imglink = lib.getUpdateUploadPicStr(uploadfile)
       },
-      getImgStorage() {
-        let _this = this
-        let submitData = {
-          pageIndex: 1,
-          pageSize: 1000,
-          img_category_id: this.curImgCategory
-        }
-        let url = lib.getRequestUrl('api/img/storage/getlist', submitData)
-        this.$http.get(url, submitData).then(res => {
-          if (res.data.errNo == 100000) {
-            let uploadImgList = lib.filterResult(res.data.data)
-            if (uploadImgList.length > 0) {
-              uploadImgList.map(function (item) {
-                item.imglink_format = item.imglink_format[0]
-                item.selected = false
-              })
-              uploadImgList[0].selected = true
-              this.uploadImgList = uploadImgList
-            }
-          }
-        }).catch(error => {
-          console.log(error)
-          this.$Message.error('服务器错误!')
-        })
+      imglinkFileUpload(uploadfile) {
+        this.formValidate.imglink = lib.getUpdateUploadPicStr(uploadfile)
       },
-
-      addImgStorage(name) {
-        let _this = this
-        let url = 'api/img/storage/add'
-
-        let submitData = {
-          imglink: name,
-          imgname: this.detailUploadFileName
-        }
-        if (this.curImgCategory) {
-          submitData.img_category_id = this.curImgCategory
-        }
-
-        this.$http.post(url, submitData).then(res => {
-          if (res.data.errNo == 100000) {
-            this.$Message.success('上传成功！')
-            _this.getImgStorage()
-            _this.getImgCategory()
-          }
-        }).catch(error => {
-          this.$Message.error('服务器错误!')
-        })
-      },
-
-      changeImgSelected(item) {
-        item.selected = !item.selected
-      },
-
-      changeImgCategory(id) {
-        this.curImgCategory = id
-        this.getImgStorage()
-      },
-      /*上传图片*/
-      getQiniuToken() {
-        let url = 'api/qiniu/token/get'
-        let submitData = {}
-        this.$http.post(url, submitData).then(res => {
-          if (res) {
-            this.QiniuToken = res.data.token
-          }
-        }).catch(error => {
-          this.$Message.error('服务器错误!')
-        })
-      },
-      handleView(name) {
-        this.imgName = name;
-        this.viewImg = true;
-      },
-      handleRemove(file) {
-        const fileList = this.$refs.upload.fileList;
-        this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
-      },
-      handleDetailRemove(file) {
-        const fileList1 = this.$refs.detailUpload.fileList;
-        this.$refs.detailUpload.fileList.splice(fileList1.indexOf(file), 1);
-      },
-      handleSuccess(res, file) {
-        file.url = config.Qiniu.EXTERNAL_LINK + res.key
-        file.name = res.hash
-      },
-      handleDetailSuccess(res, file) {
-        file.url = config.Qiniu.EXTERNAL_LINK + res.key
-        file.name = res.hash
-
-        this.addImgStorage(res.hash)
-      },
-      handleFormatError(file) {
-        this.$Message.success('请上传jpg，jpeg，png，格式的图片')
-      },
-      handleMaxSize(file) {
-        this.$Message.success('请上传不大于2M的图片')
-      },
-      handleBeforeUpload(file) {
-        this.file = file
-        let files = [], fileData = [];
-        for (let item in this.file) {
-          files.push(this.file[item])
-        }
-        let filess = files[0]
-        fileData = filess.split('.')
-        // this.$refs.upload.action = config.Qiniu.ACTION_URL
-        const check = this.uploadList.length < 1;
-        if (!check) {
-          this.$Message.success('封面图只允许上传一张图片')
-        }
-        return check;
-      },
-      handleDetailBeforeUpload(file) {
-        this.detailUploadFileName = file.name.split('.')[0]
-        console.log('this.detailUploadFileName', this.detailUploadFileName)
-
-        this.file = file
-        let files = [], fileData = [];
-        for (let item in this.file) {
-          files.push(this.file[item])
-        }
-        let filess = files[0]
-        fileData = filess.split('.')
-        // this.$refs.upload.action = config.Qiniu.ACTION_URL
-
-        const check = this.detailUploadList.length < 5;
-        if (!check) {
-          this.$Message.success('封面图只允许上传五张图片')
-        }
-        return check;
-      },
-      /*上传结束*/
-      copy(url) {
-        var input = document.getElementById("copyUrlContain")
-        input.style.display = 'block'
-        input.value = url
-        input.select()
-        document.execCommand("copy")
-        input.style.display = 'none'
-        this.$Message.success('复制成功！')
-      },
-
-      handleReset(name) {
-        this.$refs[name].resetFields();
-      },
-      onBlur(editor) {
-        console.log(editor);
-      },
-      onFocus(editor) {
-        console.log(editor);
-      },
-
     },
   }
 </script>

@@ -32,6 +32,10 @@
         </Upload>
         <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45)">支持：jpg/jpeg/png格式</div>
       </FormItem>
+
+      <Modal title="图片预览" v-model="viewImg">
+        <img :src="EXTERNAL_LINK + imgName" v-if="viewImg" style="width: 100%">
+      </Modal>
     </div>
 </template>
 
@@ -53,10 +57,6 @@
         type: Number,
         default: 0
       },
-      QiniuToken: {
-        type: String,
-        default: ''
-      }
     },
     data() {
       return {
@@ -66,7 +66,8 @@
         showAddImgCategory1: false,
         img_category_name: '',
         EXTERNAL_LINK: '',
-        ACTION_URL: ''
+        ACTION_URL: '',
+        QiniuToken: ''
       }
     },
     computed: {
@@ -94,38 +95,49 @@
     },
     mounted() {
       this.uploadList = this.$refs.upload.fileList
-      console.log('this.uploadList',this.uploadList)
 
       this.EXTERNAL_LINK = config.Qiniu.EXTERNAL_LINK
       this.ACTION_URL = config.Qiniu.ACTION_URL
+
+      this.getQiniuToken()
     },
     methods: {
+      getQiniuToken() {
+        let url = 'api/qiniu/token/get'
+        let submitData = {}
+        this.$http.post(url, submitData).then(res => {
+          if (res) {
+            this.QiniuToken = res.data.token
+          }
+        }).catch(error => {
+          this.$Message.error('服务器错误!')
+        })
+      },
       handleView(name) {
         this.imgName = name;
         this.viewImg = true;
       },
       handleRemove(file) {
-        // console.log('file',file)
-        // const fileList = this.$refs.upload.fileList;
-        // for(var i = 0,len = fileList.length; i < len; i++) {
-        //   if(fileList[i].name == file.name) {
-        //     console.log('okok')
-        //     break
-        //   }
-        // }
-        // this.$refs.upload.fileList.splice(i, 1);
-
         this.$refs.upload.fileList = this.$refs.upload.fileList.filter(function (item) {
           return item.name != file.name
         })
         this.uploadList = this.uploadList.filter(function (item) {
           return item.name != file.name
         })
+
+        this.$emit('fileupload',this.uploadList)
       },
       handleSuccess(res, file, fileList) {
         file.url = config.Qiniu.EXTERNAL_LINK + res.key
         file.name = res.hash
-        this.uploadList.push(file)
+
+        if(this.uploadList.length < fileList.length) {
+          this.uploadList.push(file)
+        }
+
+        console.log('fileList',fileList)
+        console.log('this.uploadList',this.uploadList)
+
         this.$emit('fileupload',this.uploadList)
       },
       handleFormatError(file) {

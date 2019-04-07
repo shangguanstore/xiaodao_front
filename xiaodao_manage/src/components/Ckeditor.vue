@@ -42,11 +42,11 @@
 
         <div class="imgContent fr">
           <div class="top">
-            <Upload ref="detailUpload"
-                    :before-upload="handleDetailBeforeUpload"
+            <Upload ref="upload"
+                    :before-upload="handleBeforeUpload"
                     :show-upload-list="false"
                     :default-file-list="defaultList"
-                    :on-success="handleDetailSuccess"
+                    :on-success="handleSuccess"
                     :format="['jpg','jpeg','png']"
                     :max-size="2048"
                     :on-format-error="handleFormatError"
@@ -74,6 +74,16 @@
           </div>
         </div>
       </div>
+    </Modal>
+
+    <Modal title="创建分组" v-model="showAddImgCategory1"
+           @on-ok="addImgCategory"
+    >
+      <Form :label-width="80" class="mt20">
+        <FormItem label="分组名称" prop="img_category_name" style="width: 60%">
+          <Input v-model="img_category_name" placeholder="请输入分组名称"></Input>
+        </FormItem>
+      </Form>
     </Modal>
   </div>
 </template>
@@ -105,10 +115,6 @@
         default: () => {
         }
       },
-      QiniuToken: {
-        type: String,
-        default: ''
-      }
     },
     data() {
       return {
@@ -117,10 +123,16 @@
         curImgCategory: 0,
         imgCategory: [],
         totalImgNum: 0,
+        showAddImgCategory1: false,
+        img_category_name: '',
+
         uploadImgList: [],
         defaultList: [],
         EXTERNAL_LINK: '',
         ACTION_URL: '',
+        QiniuToken: '',
+        detailUploadFileName: ''
+
       }
     },
     computed: {
@@ -143,21 +155,6 @@
       //   }
       // },
       //
-      // detailDefaultList() {
-      //   if (this.$route.query.id) {
-      //     var pics = lib.getImglink(this.$route.query.detail_imglink, false)
-      //     let picData = []
-      //     for (let item in pics) {
-      //       picData.push({
-      //         "name": pics[item],
-      //         'url': config.Qiniu.EXTERNAL_LINK + pics[item]
-      //       })
-      //     }
-      //     return picData
-      //   } else {
-      //     return []
-      //   }
-      // },
     },
     watch: {
       value(val) {
@@ -168,6 +165,7 @@
     },
     mounted() {
       this.create()
+      this.getQiniuToken()
       this.getImgCategory()
       this.getImgStorage()
 
@@ -214,13 +212,39 @@
         }
       },
       onBlur() {
-        this.$emit('blur', this.instance)
+        // this.$emit('blur', this.instance)
       },
       onFocus() {
-        this.$emit('focus', this.instance)
+        // this.$emit('focus', this.instance)
       },
 
-      // 图片上传开始
+      // 图片相关
+      getQiniuToken() {
+        let url = 'api/qiniu/token/get'
+        let submitData = {}
+        this.$http.post(url, submitData).then(res => {
+          if (res) {
+            this.QiniuToken = res.data.token
+          }
+        }).catch(error => {
+          this.$Message.error('服务器错误!')
+        })
+      },
+      addImgCategory() {
+        let _this = this
+        let url = 'api/img/category/add'
+        let submitData = {
+          name: this.img_category_name
+        }
+        this.$http.post(url, submitData).then(res => {
+          if (res.data.errNo == 100000) {
+            this.$Message.success('添加分组成功！')
+            _this.getImgCategory()
+          }
+        }).catch(error => {
+          this.$Message.error('服务器错误!')
+        })
+      },
       getImgCategory() {
         let _this = this
         let url = 'api/img/category/getlist'
@@ -238,6 +262,28 @@
           }
         }).catch(error => {
           console.log(error)
+          this.$Message.error('服务器错误!')
+        })
+      },
+      addImgStorage(name) {
+        let _this = this
+        let url = 'api/img/storage/add'
+
+        let submitData = {
+          imglink: name,
+          imgname: this.detailUploadFileName
+        }
+        if (this.curImgCategory) {
+          submitData.img_category_id = this.curImgCategory
+        }
+
+        this.$http.post(url, submitData).then(res => {
+          if (res.data.errNo == 100000) {
+            this.$Message.success('上传成功！')
+            _this.getImgStorage()
+            _this.getImgCategory()
+          }
+        }).catch(error => {
           this.$Message.error('服务器错误!')
         })
       },
@@ -274,7 +320,7 @@
           }
         })
 
-        this.detail += insertImgStr
+        this.$emit('insertPic',insertImgStr)
       },
       changeImgCategory(id) {
         this.curImgCategory = id
@@ -287,19 +333,18 @@
       handleRemove(file) {
         const fileList = this.$refs.upload.fileList;
         this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
-      },
-      handleDetailRemove(file) {
-        const fileList1 = this.$refs.detailUpload.fileList;
-        this.$refs.detailUpload.fileList.splice(fileList1.indexOf(file), 1);
+        // this.$refs.upload.fileList = this.$refs.upload.fileList.filter(function (item) {
+        //   return item.name != file.name
+        // })
+        // this.uploadList = this.uploadList.filter(function (item) {
+        //   return item.name != file.name
+        // })
+        // this.$emit('fileupload',this.uploadList)
       },
       handleSuccess(res, file) {
+        console.log(22222222)
         file.url = config.Qiniu.EXTERNAL_LINK + res.key
         file.name = res.hash
-      },
-      handleDetailSuccess(res, file) {
-        file.url = config.Qiniu.EXTERNAL_LINK + res.key
-        file.name = res.hash
-
         this.addImgStorage(res.hash)
       },
       handleFormatError(file) {
@@ -309,40 +354,20 @@
         this.$Message.success('请上传不大于2M的图片')
       },
       handleBeforeUpload(file) {
-        this.file = file
-        let files = [], fileData = [];
-        for (let item in this.file) {
-          files.push(this.file[item])
-        }
-        let filess = files[0]
-        fileData = filess.split('.')
-        // this.$refs.upload.action = config.Qiniu.ACTION_URL
-        const check = this.uploadList.length < 1;
-        if (!check) {
-          this.$Message.success('封面图只允许上传一张图片')
-        }
-        return check;
-      },
-      handleDetailBeforeUpload(file) {
         this.detailUploadFileName = file.name.split('.')[0]
-        console.log('this.detailUploadFileName', this.detailUploadFileName)
 
-        this.file = file
-        let files = [], fileData = [];
-        for (let item in this.file) {
-          files.push(this.file[item])
-        }
-        let filess = files[0]
-        fileData = filess.split('.')
-        // this.$refs.upload.action = config.Qiniu.ACTION_URL
-
-        const check = this.detailUploadList.length < 5;
-        if (!check) {
-          this.$Message.success('封面图只允许上传五张图片')
-        }
-        return check;
+        // this.file = file
+        // let files = [], fileData = [];
+        // for (let item in this.file) {
+        //   files.push(this.file[item])
+        // }
+        // let filess = files[0]
+        // fileData = filess.split('.')
       },
-      // 图片上传结束
+      changeImgSelected(item) {
+        item.selected = !item.selected
+      },
+      // 图片相关结束
     }
   }
 </script>
