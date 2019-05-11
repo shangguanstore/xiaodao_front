@@ -16,6 +16,16 @@ export default new Router({
       component: () => import('@/pages/login')
     },
     {
+      path: '/apply',
+      name: 'apply',
+      component: () => import('@/pages/apply')
+    },
+    {
+      path: '/applySuccess',
+      name: 'applySuccess',
+      component: () => import('@/pages/applySuccess')
+    },
+    {
         path: '/',
         name: 'index',
         component: () => import('@/pages/index'),

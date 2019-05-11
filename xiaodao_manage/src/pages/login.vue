@@ -2,6 +2,9 @@
   <div class="loginContainer">
     <div class="title">
       <p>校事通</p>
+      <div class="btn">
+        <Button type="primary" size="large" @click="toApply">申请试用</Button>
+      </div>
     </div>
     <div class="slogan">
       <p class="big">SAAS + 物联网 + 商业智能</p>
@@ -112,6 +115,15 @@
             console.log(error)
           this.$Message.error('服务器错误!')
         })
+      },
+      toApply() {
+        let newpage = this.$router.resolve({
+          name: 'apply',
+          query:{
+
+          }
+        })
+        window.open(newpage.href, '_blank')
       }
     },
   }
@@ -125,12 +137,17 @@
   background-size: 100% 100%;
   .title {
     margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 320px;
+    padding-right: 220px;
     p {
-      padding-top: 30px;
       font-size: 34px;
       color: #fff;
-      margin-left: 320px;
       font-weight: 700;
+    }
+    .btn {
+
     }
   }
   .slogan {
@@ -151,7 +168,7 @@
   }
   .loginBox {
     position: absolute;
-    top: 140px;
+    top: 200px;
     right: 220px;
     width: 380px;
     border-radius: 4px;
