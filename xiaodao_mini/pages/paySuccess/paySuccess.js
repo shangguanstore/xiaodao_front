@@ -7,7 +7,6 @@ Page({
    */
   data: {
     Loaded: false,
-    type: 0,
     activityId: 0,
     orderId: 0,
     activityOrder: {}
@@ -17,19 +16,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //type: 1: 普通活动
     console.log('options',options)
-    let type = options.type || 0
     let activityId = options.activityId || 0
     let orderId = options.orderId || 0
 
     this.setData({
-      type: type,
       activityId: activityId,
       orderId: orderId
     })
     
-    if(type == 1 && activityId) {
+    if(activityId) {
       this.getActivity()
     }
     
@@ -72,9 +68,11 @@ Page({
   },
 
   backActivity() {
-    console.log(222)
-    wx.navigateBack({
-      delta: 2
+    // wx.navigateBack({
+    //   delta: 2
+    // })
+    wx.switchTab({
+      url: '../index/index'
     })
   },
 
@@ -82,12 +80,12 @@ Page({
     let name = e.currentTarget.dataset.name
     let orderId = e.currentTarget.dataset.order
     let activityId = e.currentTarget.dataset.activity
-    let nickname = e.currentTarget.dataset.nickname
+    let uname = e.currentTarget.dataset.uname
     let join_phone = e.currentTarget.dataset.join_phone
     let start_time_format = e.currentTarget.dataset.start_time_format
 
     wx.navigateTo({
-      url: `../eTicket/eTicket?name=${name}&orderId=${orderId}&activityId=${activityId}&join_phone=${join_phone}&nickname=${nickname}&start_time_format=${start_time_format}`,
+      url: `../eTicket/eTicket?name=${name}&orderId=${orderId}&activityId=${activityId}&join_phone=${join_phone}&uname=${uname}&start_time_format=${start_time_format}`,
     })
   },
 

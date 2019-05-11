@@ -46,7 +46,8 @@ App({
               url: url, // 仅为示例，并非真实的接口地址
               data: {
                 cid: cid,
-                code: res.code
+                code: res.code,
+                XDEBUG_SESSION_START: 'PHPSTORM'
               },
               header: {
                 'content-type': 'application/json' // 默认值
@@ -57,7 +58,7 @@ App({
                 wx.setStorageSync('UU7', data.UU7)
                 wx.setStorageSync('mid', member.mid)
                 wx.setStorageSync('member', member)
-                wx.setStorageSync('name', member.uname)
+                wx.setStorageSync('uname', member.uname)
                 wx.setStorageSync('phone', member.phone)
 
               }

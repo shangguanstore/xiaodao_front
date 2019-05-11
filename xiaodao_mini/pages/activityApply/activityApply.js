@@ -11,6 +11,7 @@ Page({
   data: {
     activityId: 0,
     groupid: 0,
+    orderType: 0,
     activityData: {},
     formValidate: {},
     username: '',
@@ -28,11 +29,13 @@ Page({
     let groupid = options.groupid
     let activityData = JSON.parse(options.activityData)
     let activityId = activityData.id
+    let orderType = options.orderType ? options.orderType : app.config.FrontOrderType.TYPE_DEFAULT
 
     this.setData({
       activityId: activityId,
       activityData: activityData,
-      groupid: groupid
+      groupid: groupid,
+      orderType: orderType
     })
   },
 
@@ -88,20 +91,20 @@ Page({
     let relationType = lib.getRelationType(relationName)
     if (lib.empty(name)) {
       wx.showToast({
-        title: '请输入孩子姓名',
+        title: '请输入您孩子姓名',
         icon: 'none'
       })
       return
     }
     if(!lib.isPhone(phone)) {
       wx.showToast({
-        title: '手机号格式错误',
+        title: '手机号码格式错误',
         icon: 'none'
       })
       return
     }
 
-    let url = 'api/member/update'
+    // let url = 'api/member/update'
     let data = {
       mid: wx.getStorageSync('mid'),
       phone: phone,
@@ -110,28 +113,14 @@ Page({
       father_phone: father_phone ? father_phone : '',
       name: name,
       relation: relationType,
-      avatar: userInfo.avatarUrl,
-      enforce_change_phone: true
+      avatar: userInfo.avatarUrl
     }
-    request(url, 'post', data, function (res, addition) {
-      //res就是我们请求接口返回的数据
-      var member = res.data.member
-      var UU7 = res.data.UU7
-      wx.setStorageSync('member', member)
-      wx.setStorageSync('mid', member.mid)
-      wx.setStorageSync('phone', member.phone)
-      wx.setStorageSync('name', member.uname)
-      wx.setStorageSync('avatar', member.avatar)
-      wx.setStorageSync('UU7', UU7)
-      //_this.joinActivity(name, phone)
 
+    var userAuth = new UserAuth(userInfo, data);
+    userAuth.login(function (res) {
       common.toApplyActivity(_this.data.orderType, _this.data.activityData, _this.data.groupid)
-    }, function () {
-      wx.showToast({
-        title: '操作失败',
-        icon: 'none'
-      })
     })
+    
   },
 
   joinActivity(nickname, join_phone) {

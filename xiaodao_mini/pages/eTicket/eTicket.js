@@ -15,7 +15,7 @@ Page({
     let name = options.name
     let activityId = options.activityId
     let join_phone = options.join_phone
-    let nickname = options.nickname
+    let uname = options.uname
     let orderId = options.orderId
     let start_time_format = options.start_time_format
 
@@ -23,7 +23,7 @@ Page({
       name: name,
       activityId: activityId,
       join_phone: join_phone,
-      nickname: nickname,
+      uname: uname,
       orderId: orderId,
       start_time_format: start_time_format
     })
@@ -34,6 +34,12 @@ Page({
    */
   onReady: function () {
 
+  },
+
+  viewActivity() {
+      wx.navigateTo({
+        url: `../activity/activity?id=${this.data.activityId}`,
+      })
   },
 
   /**

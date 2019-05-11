@@ -18,7 +18,7 @@ Page({
    */
   onLoad: function (options) {
     var phone = wx.getStorageSync('phone')
-    var name = wx.getStorageSync('name')
+    var name = wx.getStorageSync('uname')
 
     this.setData({
       phone: phone,

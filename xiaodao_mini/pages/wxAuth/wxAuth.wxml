@@ -1,7 +1,7 @@
 <!--pages/wxAuth/wxAuth.wxml-->
 <view class='container'>
   <view class='logoArea'>
-    <image src='../../images/xst.jpg'></image>
+    <image src='../../images/logo.png'></image>
     <view class='name'>校事通</view>
   </view>
 
@@ -13,7 +13,7 @@
     <text class='explain'>如果您还没有用这个手机号注册过，我们将为您创建账号</text>
 
     <view class="btn-area">
-      <button open-type="getUserInfo" bindgetuserinfo="tapRegister">下一步</button>
+      <button type="{{phone ? 'primary' : 'default'}}" open-type="getUserInfo" bindgetuserinfo="tapRegister">下一步</button>
     </view>
   </form>
 </view>

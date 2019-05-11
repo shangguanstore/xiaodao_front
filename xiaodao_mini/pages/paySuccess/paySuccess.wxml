@@ -25,7 +25,7 @@
   </view>
 
   <view class='btnWrap'>
-    <button type="primary" size="default" data-start_time_format="{{activityOrder.start_time_format}}" data-join_phone="{{activityOrder.join_phone}}" data-nickname="{{activityOrder.nickname}}" data-activity="{{activityOrder.activity_id}}" data-order="{{activityOrder.id}}" data-name="{{activityOrder.name}}" bindtap="viewTicket">查看电子票</button>
+    <button type="primary" size="default" data-start_time_format="{{activityOrder.start_time_format}}" data-join_phone="{{activityOrder.join_phone}}" data-uname="{{activityOrder.uname}}" data-activity="{{activityOrder.activity_id}}" data-order="{{activityOrder.id}}" data-name="{{activityOrder.name}}" bindtap="viewTicket">查看电子票</button>
     <button class='backBtn' type="default" size="default" bindtap="backActivity">返回</button>
   </view>
 </view>

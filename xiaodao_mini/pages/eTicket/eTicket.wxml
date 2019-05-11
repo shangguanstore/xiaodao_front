@@ -3,7 +3,7 @@
   <view class='box'>
     <view class='title'>
       <view class='customer'>
-        {{nickname}}（{{join_phone}}）
+        {{uname}}（{{join_phone}}）
       </view>
     </view>
     <view class='code'>
@@ -19,12 +19,23 @@
       <view class='circle'></view>
       <view class='circle'></view>
     </view>
+
+    <view class='cellDetailArea' style='margin-top: 10rpx;border: 0;'>
+      <view style="width: 100%;border-bottom: 1rpx solid #e5e5e5;">
+        <van-cell title="报名内容" value="{{name}}" custom-class='cellArrow' is-link border="{{false}}" bindtap='viewActivity' />
+      </view>
+
+      <view class='detailItem'>
+        <text class='label'>时间</text>
+        <text class='value'>{{start_time_format}}</text>
+      </view>
+    </view>
   </view>
 
-  <view class='cellArea'>
+  <!-- <view class='cellArea'>
     <van-cell-group>
       <van-cell custom-class="cellItem first" title="报名内容" value="{{name}}" is-link />
       <van-cell custom-class="cellItem" title="时间" value="{{start_time_format}}" border="{{ false }}" />
     </van-cell-group>
-  </view>
+  </view> -->
 </view>

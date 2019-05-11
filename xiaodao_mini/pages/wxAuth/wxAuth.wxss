@@ -4,7 +4,7 @@
 }
 .logoArea image {
   width: 160rpx;
-  height: 120rpx;
+  height: 160rpx;
 }
 .logoArea .name {
   margin-left: 25rpx;

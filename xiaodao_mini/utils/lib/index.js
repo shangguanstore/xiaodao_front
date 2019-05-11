@@ -10,6 +10,8 @@ var isPhone = require('./isPhone.js')
 var filterResult = require('./filterResult.js')
 var getRelationType = require('./getRelationType.js')
 var getMsgTime = require('./getMsgTime.js')
+var numberLengthFormat = require('./numberLengthFormat.js')
+
 
 
 var lib = {
@@ -23,7 +25,7 @@ var lib = {
   isPhone: isPhone,
   sprintf: sprintf,
   getImglink: getImglink,
-  getImglink: getImglink,
+  numberLengthFormat: numberLengthFormat,
   filterResult: filterResult
 }
 

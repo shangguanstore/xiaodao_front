@@ -3,19 +3,23 @@
 const app = getApp()
 const lib = require('../../utils/lib/index.js')
 const request = require('../../utils/request.js')
+import {
+  UserAuth
+} from "../../utils/userAuth";
 
 Page({
   data: {
     config: {},
+    showAuthBox: false,
     userInfo: {},
-    Loaded:false,
+    Loaded: false,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     bannerList: [],
     activityList: []
   },
 
-  onLoad: function () {
+  onLoad: function() {
     let config = app.config
     this.setData({
       config: config
@@ -24,12 +28,18 @@ Page({
     let _this = this
     var timer = setInterval(function() {
       var UU7 = wx.getStorageSync('UU7')
-      if(UU7) {
+      var uname = wx.getStorageSync('uname')
+      if (UU7) {
         clearInterval(timer)
         _this.getBannerList()
         _this.getActivityList()
+        if(!uname) {
+          _this.setData({
+            showAuthBox: true
+          })
+        }
       }
-    },500)
+    }, 500)
   },
 
   routeTo: function(e) {
@@ -39,9 +49,9 @@ Page({
     let url
     if (type == config.Activity.TYPE_NORMAL || type == config.Activity.TYPE_GROUPON) {
       url = '../activity/activity?id=' + id
-    }else if(type == config.Activity.TYPE_LOTTERY) {
+    } else if (type == config.Activity.TYPE_LOTTERY) {
       url = '../drawLottery/drawLottery?id=' + id
-    }else{
+    } else {
       url = '../activity/activity?id=' + id
     }
 
@@ -71,18 +81,18 @@ Page({
       pageSize: 10
     }
     var _this = this
-    request(url, 'get', data, function (res) {
+    request(url, 'get', data, function(res) {
       //res就是我们请求接口返回的数据
       var bannerList = res.data.Data
-      bannerList.map(function(item){
+      bannerList.map(function(item) {
         item.imglink_format = lib.getImglink(item.imglink)[0]
         return item
       })
 
       _this.setData({
-         bannerList: bannerList
+        bannerList: bannerList
       })
-    }, function () {
+    }, function() {
       wx.showToast({
         title: '加载数据失败',
         icon: 'none'
@@ -101,10 +111,10 @@ Page({
       queryDetail: false
     }
     var _this = this
-    request(url, 'get', data, function (res) {
+    request(url, 'get', data, function(res) {
       //res就是我们请求接口返回的数据
       var activityList = res.data.data
-      activityList.map(function (item) {
+      activityList.map(function(item) {
         item.imglink_format = lib.getImglink(item.imglink)[0]
         return item
       })
@@ -114,7 +124,7 @@ Page({
         activityList: activityList,
         Loaded: true
       })
-    }, function () {
+    }, function() {
       wx.showToast({
         title: '加载数据失败',
         icon: 'none'
@@ -122,8 +132,14 @@ Page({
     })
   },
 
+  onClose() {
+    this.setData({
+      showAuthBox: false
+    })
+  },
+
   getUserInfo: function(e) {
-    console.log('aaabbbccc',e)
+    console.log('aaabbbccc', e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -131,11 +147,28 @@ Page({
     })
   },
 
+  toAuth: function(e) {
+    var _this = this
+    var userInfo = e.detail.userInfo
+    if (!e.detail.userInfo) {
+      return;
+    }
+    wx.setStorageSync('userInfo', userInfo)
+
+    var userAuth = new UserAuth(userInfo);
+    userAuth.login(function(res) {
+      console.log('res',res)
+      _this.setData({
+        showAuthBox: false
+      })
+    })
+  },
+
   print() {
     console.log(app.globalData.userInfo)
   },
 
-  onShareAppMessage: function () {
-    
+  onShareAppMessage: function() {
+
   }
 })

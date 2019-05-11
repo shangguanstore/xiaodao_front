@@ -281,8 +281,8 @@ button[class="primary"]::after {
 
 /* 活动列表结束 */
 
-
 /* 图片居中大小自适应 */
+
 .centerPicBox {
   width: 100%;
   height: 346rpx;
@@ -297,9 +297,8 @@ button[class="primary"]::after {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 /* 图片自适应居中结束 */
-
-
 
 /*自定义列表开始*/
 
@@ -461,6 +460,94 @@ button.no_border {
   color: #333;
   font-size: 33rpx;
 }
+
+/*授权弹出框开始*/
+
+.popupBox {
+  border-radius: 20rpx;
+}
+
+.weixinAuthBox {
+  border-radius: 6rpx;
+  padding: 20rpx 100rpx;
+  /* width: 300rpx; */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.weixinAuthBox .title {
+  width: 340rpx;
+  height: 100rpx;
+}
+
+.egg {
+  width: 300rpx;
+  height: 324rpx;
+}
+
+.weixinAuthBox .btn {
+  box-sizing: content-box;
+  border-radius: 40rpx;
+  padding: 8rpx 72rpx;
+  color: white;
+  font-size: 36rpx;
+  margin: 20rpx 0;
+  line-height: 74rpx;
+}
+
+/*授权弹出框结束*/
+
+
+/* cell区域开始 */
+.cellDetailArea {
+  width: 100%;
+  padding-left: 30rpx;
+  background: white;
+  border-top: solid 1rpx #e5e5e5;
+  border-bottom: solid 1rpx #e5e5e5;
+}
+
+.cellDetailArea .detailItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 27rpx 0;
+  padding-right: 30rpx;
+  border-bottom: solid 1px #e5e5e5;
+}
+
+.cellDetailArea .picItem {
+  padding: 27rpx 0;
+  padding-right: 30rpx;
+  border-bottom: solid 1px #e5e5e5;
+}
+
+.cellDetailArea .picItem .label {
+  font-size: 34rpx;
+  color: #777;
+}
+
+.cellDetailArea .picItem image {
+  width: 140rpx;
+  height: 140rpx;
+  margin-top: 20rpx;
+}
+
+.cellDetailArea .detailItem:last-child {
+  border: 0;
+}
+
+.cellDetailArea .detailItem .label {
+  font-size: 34rpx;
+  color: #777;
+}
+
+.cellDetailArea .detailItem .value {
+  font-size: 34rpx;
+  color: #444;
+}
+
+/* cell 区域结束 */
 
 /* icon - front-mobile 项目 */
 @import 'iconfont.wxss';

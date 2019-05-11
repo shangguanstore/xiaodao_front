@@ -95,9 +95,53 @@ Page({
     })
   },
 
+  // handlePay() {
+  //   wx.navigateTo({
+  //     url: `../paySuccess/paySuccess?type=1&activityId=${this.data.activityId}&orderId=${this.data.orderId}`
+  //   })
+  // },
+
   handlePay() {
-    wx.navigateTo({
-      url: `../paySuccess/paySuccess?type=1&activityId=${this.data.activityId}&orderId=${this.data.orderId}`
+    let url = 'api/weixin/pay'
+    let data = {
+        order_id: this.data.order.id,
+        order_sn: this.data.order.sn
+    }
+    var _this = this
+    request(url, 'post', data, function (res) {
+      //res就是我们请求接口返回的数据
+      console.log('res',res)
+      let unifiedorderData = res.data.data.unifiedorderData
+      let miniRequestData = res.data.data.miniRequestData
+
+      if (unifiedorderData.result_code == 'SUCCESS') {
+        wx.requestPayment({
+          timeStamp: miniRequestData.timeStamp,
+          nonceStr: miniRequestData.nonceStr,
+          package: miniRequestData.package,
+          signType: miniRequestData.signType,
+          paySign: miniRequestData.paySign,
+          success(res) {
+            console.log('pay-res', res)
+            wx.navigateTo({
+              url: `../paySuccess/paySuccess?activityId=${_this.data.activityId}&orderId=${_this.data.orderId}`
+            })
+          },
+          fail(res) {
+            console.log('pay-fail', res)
+          }
+        })
+      }else{
+        wx.showToast({
+          title: unifiedorderData.err_code_des,
+          icon: 'none'
+        })
+      }
+    }, function () {
+      wx.showToast({
+        title: '加载数据失败',
+        icon: 'none'
+      })
     })
   },
 

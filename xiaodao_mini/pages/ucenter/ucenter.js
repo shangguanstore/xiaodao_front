@@ -16,7 +16,7 @@ Page({
   onLoad: function (options) {
     var hasUserInfo = true
     var phone = wx.getStorageSync('phone')
-    var name = wx.getStorageSync('name')
+    var name = wx.getStorageSync('uname')
     var avatar = wx.getStorageSync('avatar')
 
     if(!phone) hasUserInfo = false

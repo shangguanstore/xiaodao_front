@@ -78,9 +78,9 @@
 }
 
 .listItem .bottom .des {
-  width: 100%;
   text-align: right;
   margin-top: 15rpx;
+  margin-left: 10rpx;
 }
 
 .listItem .bottom .des text:nth-child(1) {
@@ -95,9 +95,9 @@
 }
 
 .listItem .bottom .btn {
-  width: 100%;
   overflow: hidden;
   margin: 15rpx 0;
+  margin-right: 10rpx;
 }
 
 .listItem .bottom .btn .viewButton {

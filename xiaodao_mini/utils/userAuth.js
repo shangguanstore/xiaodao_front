@@ -13,14 +13,13 @@ class UserAuth {
         var _this = this
         let hasSubmitInfo = !lib.empty(this.userSubmitInfo) ? true : false
         let url = 'api/member/update'
-        let data = {} 
+        let data = this.userSubmitInfo || {}
         data.mid = wx.getStorageSync('mid')
         data.apigc_uid = wx.getStorageSync('apigc_uid')
         data.name = this.userInfo.nickName
         data.sex = this.userInfo.gender
         data.imgurl = this.userInfo.avatarUrl
         if (hasSubmitInfo) {
-            data.phone = this.userSubmitInfo.phone
             if (this.userSubmitInfo.phone) data.enforce_change_phone = true
         }
 
@@ -29,10 +28,9 @@ class UserAuth {
             console.log('update', res)
             var member = res.data.member
             var UU7 = res.data.UU7
-            wx.setStorageSync('mid', member.mid)
+            wx.setStorageSync('member', member)
             wx.setStorageSync('phone', member.phone)
-            wx.setStorageSync('name', member.uname)
-            wx.setStorageSync('avatar', member.avatar)
+            wx.setStorageSync('uname', member.uname)
             wx.setStorageSync('UU7', UU7)
 
             loginSuccess(res)

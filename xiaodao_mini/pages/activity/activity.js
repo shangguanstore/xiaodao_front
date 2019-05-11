@@ -4,6 +4,9 @@ const common = require('../../utils/common.js')
 const request = require('../../utils/request.js')
 const app = getApp()
 var WxParse = require('../../wxParse/wxParse.js')
+import {
+  UserAuth
+} from "../../utils/userAuth";
 Page({
   /**
    * 页面的初始数据
@@ -13,7 +16,13 @@ Page({
     activityId: 0,
     activityApplyMemberList: [],
     applyTotal: 0,
+    showAuthBox: false,
     Loaded: false,
+    groupIsFinished: false,//团购活动已经结束 group_end_time 已经超过当前时间
+    day: 0,
+    hour: 0,
+    minu: 0,
+    sec: 0,
     imglink: '',
     title: '',
     activity: {},
@@ -32,17 +41,26 @@ Page({
     let _this = this
     var timer = setInterval(function () {
       var UU7 = wx.getStorageSync('UU7')
+      var uname = wx.getStorageSync('uname')
       if (UU7) {
         clearInterval(timer)
         _this.getData()
-        var hasUserInfo = true
         var phone = wx.getStorageSync('phone')
-        if (!phone) hasUserInfo = false
+        var hasUserInfo = !!phone
+
+        var haveUname = !!uname
         _this.setData({
-          hasUserInfo: hasUserInfo
+          hasUserInfo: hasUserInfo,
+          showAuthBox: !haveUname
         })
       }
+      console.log(111111111111111)
     }, 500)
+
+    var timeRemainTimer = setInterval(function() {
+      _this.changeTimeRemaining(timeRemainTimer)
+      console.log(222222222222)
+    },1000)
 
     if (options.from_mid) {
       this.setData({
@@ -67,6 +85,57 @@ Page({
     })
   },
 
+  changeTimeRemaining(timeRemainTimer) {
+    if (this.data.activity.group_end_time) {
+      var nowMilliseconds = new Date().getTime()
+      var groupEndTimeMilliseconds = this.data.activity.group_end_time * 1000
+      var timeRemaining = 0
+      var day
+      var hour
+      var minu
+      var sec
+      var groupList = this.data.groupList
+      if (nowMilliseconds < groupEndTimeMilliseconds) {
+        timeRemaining = groupEndTimeMilliseconds - nowMilliseconds
+        day = parseInt(timeRemaining / (60 * 60 * 24 * 1000))
+        hour = parseInt(timeRemaining / (60 * 60 * 1000) % 24)
+        minu = parseInt(timeRemaining / (60 * 1000) % 60)
+        sec = parseInt(timeRemaining / 1000 % 60)
+
+        var groupItemTimeRemaining = 0
+        console.log('groupList', groupList)
+        groupList.map(function(item) {
+          //一天后截止
+          var limitTime = item.create_time * 1000 + 24*60*60*1*1000
+          groupItemTimeRemaining = limitTime - nowMilliseconds
+          if (groupItemTimeRemaining > 0) {
+            hour = parseInt(groupItemTimeRemaining / (60 * 60 * 1000) % 24)
+            minu = parseInt(groupItemTimeRemaining / (60 * 1000) % 60)
+            sec = parseInt(groupItemTimeRemaining / 1000 % 60)
+            item.timeRemain = `剩余时间${lib.numberLengthFormat(hour)}:${lib.numberLengthFormat(minu)}:${lib.numberLengthFormat(sec)}结束`
+          }else{//已经超过一天了
+            item.timeRemain = ''
+          }
+
+          return item
+        })
+
+        this.setData({
+          day: day,
+          hour: hour,
+          minu: minu,
+          sec: sec,
+          groupList: groupList
+        })
+      }else{//已经结束了
+        this.setData({
+          groupIsFinished: true
+        })
+        clearInterval(timeRemainTimer)
+      }
+    }
+  },
+
   goApplyList() {
     wx.navigateTo({
       url: `../applyList/applyList?activityId=${this.data.activityId}`,
@@ -82,8 +151,10 @@ Page({
   goToGroupDetail(e) {
     let orderType = e.currentTarget.dataset.orderType
     let groupid = e.currentTarget.dataset.groupid ? e.currentTarget.dataset.groupid : 0
+    let activity = this.data.activity
+    delete(activity.detail)
     wx.navigateTo({
-      url: `../grouponDetail/grouponDetail?activityData=${JSON.stringify(this.data.activity)}&orderType=${orderType}&groupid=${groupid}`,
+      url: `../grouponDetail/grouponDetail?activityData=${JSON.stringify(activity)}&orderType=${orderType}&groupid=${groupid}`,
     })
   },
 
@@ -196,6 +267,10 @@ Page({
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
       let groupList = res.data.data
+      groupList = groupList.filter(function(item){
+        return item.group_num - item.groupTotalPeople
+      })
+
       _this.setData({
         groupList: groupList
       })
@@ -242,6 +317,23 @@ Page({
       wx.showToast({
         title: '加载数据失败',
         icon: 'none'
+      })
+    })
+  },
+
+  toAuth: function (e) {
+    var _this = this
+    var userInfo = e.detail.userInfo
+    if (!e.detail.userInfo) {
+      return;
+    }
+    wx.setStorageSync('userInfo', userInfo)
+
+    var userAuth = new UserAuth(userInfo);
+    userAuth.login(function (res) {
+      console.log('res', res)
+      _this.setData({
+        showAuthBox: false
       })
     })
   },

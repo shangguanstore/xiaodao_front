@@ -35,13 +35,14 @@
   </view>
 
   <!-- 当前团列表 -->
-  <view class='gap'></view>
-  <view class='curGroupListArea'>
+  <view class='gap' wx:if="{{!groupIsFinished}}"></view>
+  <view class='curGroupListArea' wx:if="{{!groupIsFinished}}">
       <view class='title fontColor'>
-        离拼团活动结束还剩
-        <text class='redFiveColor'>4</text> 天
-        <text class='redFiveColor'>00</text> 时
-        <text class='redFiveColor'>47</text> 分
+        离拼团结束还剩
+        <text class='redFiveColor'>{{day}}</text> 天
+        <text class='redFiveColor'>{{hour}}</text> 时
+        <text class='redFiveColor'>{{minu}}</text> 分
+        <text class='redFiveColor'>{{sec}}</text> 秒
       </view>
       <view class='des fontOneColor'>
         以下小伙伴正在发起拼团，您可以直接参与
@@ -54,9 +55,9 @@
             </view>
             <view class='content'>
               <view class='num fontOneColor'>
-                还差<text>{{item.group_num - item.groupApplyNum}}</text>人成团
+                还差<text>{{item.group_num - item.groupTotalPeople}}</text>人成团
               </view>
-              <view class='time fontFourColor'>剩余时间21:55:51结束</view>
+              <view class='time fontFourColor'>{{item.timeRemain}}</view>
             </view>
           </view>
           <view class='right'>
@@ -92,7 +93,7 @@
     </view>
   </view>
 
-  <view class='fixBottom' wx:if="{{typeGroupon}}">
+  <view class='fixBottom' wx:if="{{typeGroupon && !groupIsFinished}}">
     <view class='aloneBuy' data-order-type="{{config.FrontOrderType.TYPE_GROUP_SINGLE}}" data-groupid="0" bindtap='toApply'>
       单买 ¥ {{activity.price_format}}
     </view>
@@ -101,4 +102,16 @@
       <view>¥ {{activity.group_price_format}}</view>
     </view>
   </view>
+
+  <view class='finishedBottom fixBottom' wx:if="{{groupIsFinished}}">
+    <button type='default' style="width: 70%;line-height: 68rpx;margin: 16rpx 0;">活动已结束</button>
+  </view>
+
+  <van-popup show="{{ showAuthBox }}" close-on-click-overlay="{{false}}" bind:close="onClose" custom-class="popupBox" overlay-style="background-color: rgba(0,0,0,0.5)">
+       <view class="weixinAuthBox">
+            <image class='title' src="{{config.Qiniu.STATIC_EXTERNAL_LINK + 'welcome.png'}}"></image>
+            <image class='egg' src="{{config.Qiniu.STATIC_EXTERNAL_LINK + 'egg.png'}}"></image>
+            <button class="btn blueOneBack" open-type="getUserInfo" bindgetuserinfo="toAuth">进入小程序</button>
+       </view>
+  </van-popup>
 </view>
