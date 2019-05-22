@@ -250,6 +250,10 @@ button[class="primary"]::after {
   padding-bottom: 20rpx;
 }
 
+.listArea .listItem .bottom .titleArea {
+  width: 500rpx;
+}
+
 .listArea .listItem .bottom .titleArea .title {
   font-size: 34rpx;
   color: #444;

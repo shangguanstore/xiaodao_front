@@ -11,13 +11,38 @@
   background: white;
 }
 
-.topArea .des .title {
+.topArea .des .titleArea {
   width: 100%;
   margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.topArea .des .titleArea .title {
+  width: 600rpx;
   text-align: left;
   color: black;
   font-weight: 500;
   font-size: 36rpx;
+}
+
+.topArea .des .titleArea .share {
+  margin-right: 20rpx;
+  position: relative;
+}
+
+.topArea .des .titleArea .share text {
+  color: #009cf0;
+}
+
+.topArea .des .titleArea .share button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 40rpx;
+  opacity: 0;
+  /* border: solid 1rpx red; */
 }
 
 .topArea .des .time {

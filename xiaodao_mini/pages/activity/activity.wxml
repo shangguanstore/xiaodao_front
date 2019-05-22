@@ -12,7 +12,13 @@
   <view class='topArea'>
     <image src='{{imglink}}'></image>
     <view class='des'>
-      <view class='title'>{{title}}</view>
+      <view class='titleArea'>
+        <view class='title'>{{title}}</view>
+        <view class='share'>
+          <text class='iconfont icon-share'></text>
+          <button open-type="share"></button>
+        </view>
+      </view>
       <view class='time'>活动开始时间：{{activity.start_time_format}}</view>
     </view>
   </view>
@@ -35,8 +41,8 @@
   </view>
 
   <!-- 当前团列表 -->
-  <view class='gap' wx:if="{{!groupIsFinished}}"></view>
-  <view class='curGroupListArea' wx:if="{{!groupIsFinished}}">
+  <view class='gap' wx:if="{{activity.type == 1 && !groupIsFinished}}"></view>
+  <view class='curGroupListArea' wx:if="{{activity.type == 1 && !groupIsFinished}}">
       <view class='title fontColor'>
         离拼团结束还剩
         <text class='redFiveColor'>{{day}}</text> 天

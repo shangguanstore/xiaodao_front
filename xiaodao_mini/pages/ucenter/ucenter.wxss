@@ -96,6 +96,23 @@
   align-items: center;
 }
 
+.list .iconArea {
+  width: 62rpx;
+  height: 62rpx;
+  margin-left: 20rpx;
+  margin-top: 25rpx;
+  border-radius: 62rpx;
+  background: #ff9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list .iconArea .iconfont {
+  color: white;
+  font-size: 35rpx;
+}
+
 .list .title {
   padding: 35rpx 3rpx;
   width: 582rpx;

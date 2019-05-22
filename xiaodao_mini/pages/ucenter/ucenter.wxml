@@ -58,6 +58,15 @@
       </view>
     </view>
 
+    <view class='list' data-url='../lotteryList/lotteryList' bindtap='routeTo'>
+      <view class='iconArea'>
+        <text class='iconfont icon-gift'></text>
+      </view>
+      <view class='title'>
+        我的抽奖
+      </view>
+    </view>
+
     <view class='list' bindtap='toMyInfo'>
       <view class='image'>
         <image src='../../images/ucenter/myInfo.png'></image>

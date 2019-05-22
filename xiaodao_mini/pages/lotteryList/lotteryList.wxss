@@ -1,0 +1,42 @@
+/* pages/lotteryList/lotteryList.wxss */
+.listItem {
+  margin-top: 30rpx;
+  width: 700rpx;
+}
+
+.listItem .content {
+  width: 100%;
+  height: 250rpx;
+  background-color:#fff;
+  box-shadow:0rpx 6rpx 24rpx 0rpx rgba(83, 93, 99, 0.05);
+  border-radius:10rpx;
+  /* background: #FF7979; */
+  /* background: linear-gradient(#FC7980 0%, #FF7A79 50%, #FF7073 100%); */
+  background: linear-gradient(180deg, #FC7980, #FF7073);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listItem .content .code {
+  position: absolute;
+  top: 30rpx;
+  left: 20rpx;
+  color: white;
+  font-size: 24rpx;
+}
+
+.listItem .content .name {
+  color: white;
+  font-size: 50rpx;
+}
+
+
+.listItem .date {
+  box-shadow:0rpx 6rpx 24rpx 0rpx rgba(83, 93, 99, 0.05);
+  border-radius:10rpx;
+  padding: 10rpx 20rpx;
+  font-size: 28rpx;
+  
+}

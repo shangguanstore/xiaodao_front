@@ -78,7 +78,7 @@
   border-bottom: solid 4rpx #e8eaec;
 }
 
-.listTopLine  .title {
+.listTopLine .title {
   margin: 0 20rpx;
   color: #FE480E;
   font-size: 30rpx;

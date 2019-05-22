@@ -1,9 +1,33 @@
 <!--pages/promote/promote.wxml-->
 <view class='container'>
-  <image src='../../images/promote/promote-bg.jpg'></image>
-  <!-- <view class='bg'></view> -->
+  <view class='product-parper'>
+  </view>
+
+  <view class='bg-man'></view>
+
+  <view class='content'>
+    <view class='title'>
+      <view class='title-left'></view>
+      <view class='title-main'>活动规则</view>
+      <view class='title-right'></view>
+    </view>
+    <view class='detail'>
+      <text>
+          1、在活动课程有效期内，点击『成为推广员』即可报名成为本课程专属推广员；
+          2、在活动课程有效期内，点击『开始推广』，即可邀请好友购买本课程； 
+          3、好友需通过你的专属邀请链接或海报，进入活动并付款成功才会计入你的个人成绩；
+          4、系统自动记录成功邀请的人数，可随时通过“我的推广”查看个人成绩。
+
+          Tips： 
+          1、活动结束后本校将有专属老师与您确认个人成绩；
+          2、请在活动课程结束后15个工作日内完成业绩兑换；
+          3、如有疑问，请致电我们咨询。
+      </text>
+      
+    </view>
+  </view>
 
   <view class='btnArea'>
-       <button type="primary" bindtap='tapPromote'> 加入渠道推广 </button>
-  </view> 
+       <button type="primary" bindtap='tapPromote'> 成为推广员 </button>
+  </view>
 </view>

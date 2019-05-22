@@ -6,13 +6,67 @@
   background: url('../../images/promote/sharer.jpg');
 } */
 
-image {
-  height: 95vh;
+page {
+  background: #0a277f;
+}
+
+.product-parper {
+  background-image: url(http://static.xiaost.net/distribution_bg_no_man.jpg);
+  height:860rpx;
+  background-size:cover;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  z-index:-1;
+}
+
+.bg-man {
+  background-image: url(http://static.xiaost.net/bg_man.png);
+  height:374rpx;
+  width:386rpx;
+  background-size:cover;
+  position:absolute;
+  top:154rpx;
+  right:0;
+  z-index:1;
+}
+
+.content {
+  margin-top: 550rpx;
+  color: white;
+  font-size: 32rpx;
+  width: 600rpx;
+  margin-bottom: 200rpx;
+}
+
+.content .title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content .title .title-left {
+  width: 30rpx;
+  height: 4rpx;
+  background: white;
+}
+
+.content .title .title-right {
+  width: 30rpx;
+  height: 4rpx;
+  background: white;
+}
+
+.content .title .title-main {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
 }
 
 .btnArea {
   position: fixed;
-  bottom: 160rpx;
+  bottom: 80rpx;
 }
 
 .btnArea button {

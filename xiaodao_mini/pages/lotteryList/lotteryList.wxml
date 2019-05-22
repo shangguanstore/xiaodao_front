@@ -1,0 +1,11 @@
+<!--pages/lotteryList/lotteryList.wxml-->
+<view class='container'>
+  <view class='listItem'>
+    <view class='content'>
+      <view class="code">礼品券码：26846</view>
+      <view class='name'>小书包</view>
+    </view>
+    <view class='date'>有效期至：2020-05-30</view>
+  </view>
+ 
+</view>
