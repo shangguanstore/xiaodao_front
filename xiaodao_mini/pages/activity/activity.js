@@ -30,7 +30,8 @@ Page({
     hasUserInfo: false,
     typeGroupon: false,
     typeNormal: false,
-    groupList: []
+    groupList: [],
+    timeRemainTimer: ''
   },
 
   /**
@@ -57,10 +58,12 @@ Page({
       console.log(111111111111111)
     }, 500)
 
-    var timeRemainTimer = setInterval(function() {
-      _this.changeTimeRemaining(timeRemainTimer)
-      console.log(222222222222)
-    },1000)
+    this.setData({
+      timeRemainTimer: setInterval(function () {
+        _this.changeTimeRemaining()
+        console.log(222222222222)
+      }, 1000)
+    })
 
     if (options.from_mid) {
       this.setData({
@@ -85,7 +88,7 @@ Page({
     })
   },
 
-  changeTimeRemaining(timeRemainTimer) {
+  changeTimeRemaining() {
     if (this.data.activity.group_end_time) {
       var nowMilliseconds = new Date().getTime()
       var groupEndTimeMilliseconds = this.data.activity.group_end_time * 1000
@@ -131,7 +134,7 @@ Page({
         this.setData({
           groupIsFinished: true
         })
-        clearInterval(timeRemainTimer)
+        clearInterval(this.data.timeRemainTimer)
       }
     }
   },
@@ -349,14 +352,18 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log('哈哈哈哈哈')
+    clearInterval(this.data.timeRemainTimer)
+    this.setData({
+      timeRemainTimer: ''
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    
   },
 
   /**
