@@ -30,8 +30,7 @@ Page({
     hasUserInfo: false,
     typeGroupon: false,
     typeNormal: false,
-    groupList: [],
-    timeRemainTimer: ''
+    groupList: []
   },
 
   /**
@@ -58,12 +57,7 @@ Page({
       console.log(111111111111111)
     }, 500)
 
-    this.setData({
-      timeRemainTimer: setInterval(function () {
-        _this.changeTimeRemaining()
-        console.log(222222222222)
-      }, 1000)
-    })
+    this.setChangeTimeRemainingTimer()
 
     if (options.from_mid) {
       this.setData({
@@ -88,6 +82,16 @@ Page({
     })
   },
 
+  setChangeTimeRemainingTimer() {
+    let _this = this
+    this.clearTimeRemainTimer()
+    var timer = setInterval(function () {
+      _this.changeTimeRemaining()
+      console.log(222222222222)
+    }, 1000)
+    wx.setStorageSync('timeRemainTimer', timer)
+  },
+
   changeTimeRemaining() {
     if (this.data.activity.group_end_time) {
       var nowMilliseconds = new Date().getTime()
@@ -106,7 +110,6 @@ Page({
         sec = parseInt(timeRemaining / 1000 % 60)
 
         var groupItemTimeRemaining = 0
-        console.log('groupList', groupList)
         groupList.map(function(item) {
           //一天后截止
           var limitTime = item.create_time * 1000 + 24*60*60*1*1000
@@ -134,9 +137,15 @@ Page({
         this.setData({
           groupIsFinished: true
         })
-        clearInterval(this.data.timeRemainTimer)
+        this.clearTimeRemainTimer()
       }
     }
+  },
+
+  clearTimeRemainTimer() {
+    let timeRemainTimer = wx.getStorageSync('timeRemainTimer')
+    clearInterval(timeRemainTimer)
+    wx.setStorageSync('timeRemainTimer', 0)
   },
 
   goApplyList() {
@@ -345,7 +354,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setChangeTimeRemainingTimer()
   },
 
   /**
@@ -353,10 +362,7 @@ Page({
    */
   onHide: function () {
     console.log('哈哈哈哈哈')
-    clearInterval(this.data.timeRemainTimer)
-    this.setData({
-      timeRemainTimer: ''
-    })
+    this.clearTimeRemainTimer()
   },
 
   /**
