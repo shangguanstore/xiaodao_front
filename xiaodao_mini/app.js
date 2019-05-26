@@ -87,6 +87,12 @@ App({
       EXTERNAL_LINK: 'http://qiniu.xiaost.net/',
       STATIC_EXTERNAL_LINK: 'http://static.xiaost.net/',
     },
+    ActivityOrder: {
+      STATUS_OK: 0,
+      STATUS_PAID: 1,
+      STATUS_DELETED: -1,
+      STATUS_TIMEOUT: 2
+    },
     FrontOrderType: {
       TYPE_DEFAULT: 100,
       TYPE_GROUP_SINGLE: 201,

@@ -132,15 +132,40 @@ Page({
   // },
 
   handlePay() {
+    if(this.data.order.payment_money > 0) {
+      this.requestWeixinPay()
+    }else{
+      let url = 'api/activity/order/zero/pay'
+      let data = {
+        order_id: this.data.order.id
+      }
+      let _this = this
+      
+      request(url, 'post', data, function (res) {
+        //res就是我们请求接口返回的数据
+        wx.navigateTo({
+          url: `../paySuccess/paySuccess?activityId=${_this.data.activityId}&orderId=${_this.data.orderId}`
+        })
+      }, function (res) {
+        console.log('fail-res', res)
+        wx.showToast({
+          title: res.data.errMsg,
+          icon: 'none'
+        })
+      })
+    }
+  },
+
+  requestWeixinPay() {
     let url = 'api/weixin/pay'
     let data = {
-        order_id: this.data.order.id,
-        order_sn: this.data.order.sn
+      order_id: this.data.order.id,
+      order_sn: this.data.order.sn
     }
     var _this = this
     request(url, 'post', data, function (res) {
       //res就是我们请求接口返回的数据
-      console.log('res',res)
+      console.log('res', res)
       let unifiedorderData = res.data.data.unifiedorderData
       let miniRequestData = res.data.data.miniRequestData
 
@@ -161,15 +186,16 @@ Page({
             console.log('pay-fail', res)
           }
         })
-      }else{
+      } else {
         wx.showToast({
           title: unifiedorderData.err_code_des,
           icon: 'none'
         })
       }
-    }, function () {
+    }, function (res) {
+      console.log('fail-res', res)
       wx.showToast({
-        title: '加载数据失败',
+        title: res.errMsg,
         icon: 'none'
       })
     })

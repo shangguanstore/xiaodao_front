@@ -11,7 +11,11 @@
     <view class='listItem' wx:for="{{activityOrderList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id">
       <view class='top'>
         <view class='sn'>{{item.join_phone}}</view>
-        <view class='status'>待参加</view>
+        <view wx:if="{{item.status == config.ActivityOrder.STATUS_PAID}}" class='status'>已支付</view>
+        <view wx:if="{{item.status == config.ActivityOrder.STATUS_OK}}" class='status'>待支付</view>
+        <view wx:if="{{item.status == config.ActivityOrder.STATUS_TIMEOUT}}" class='status'>未支付
+        </view>
+
       </view>
 
       <view class='orderContent' data-url="../activity/activity?id={{item.aid}}" bindtap="routeTo">
@@ -26,11 +30,15 @@
 
       <view class='bottom'>
         <view class='des'>
-          <text>共1张票</text>
-          <text>合计：¥{{item.order_money_format}}</text>
+          <text wx:if="{{item.status != config.ActivityOrder.STATUS_TIMEOUT}}">共1张票</text>
+          <text wx:if="{{item.status != config.ActivityOrder.STATUS_TIMEOUT}}">合计：¥{{item.order_money_format}}</text>
+
+          <text wx:if="{{item.status == config.ActivityOrder.STATUS_TIMEOUT}}">支付超时</text>
         </view>
         <view class='btn'>
-          <button class='viewButton' type="primary" size="small" data-start_time_format="{{item.start_time_format}}" data-join_phone="{{item.join_phone}}" data-nickname="{{item.nickname}}" data-activity="{{item.activity_id}}" data-order="{{item.id}}" data-name="{{item.name}}" bindtap='viewTicket'> 查看电子票 </button>
+          <button wx:if="{{item.status == config.ActivityOrder.STATUS_PAID}}" class='viewButton' type="primary" size="small" data-start_time_format="{{item.start_time_format}}" data-join_phone="{{item.join_phone}}" data-nickname="{{item.nickname}}" data-activity="{{item.activity_id}}" data-order="{{item.id}}" data-name="{{item.name}}" bindtap='viewTicket'> 查看电子票 </button>
+
+          <button wx:if="{{item.status == config.ActivityOrder.STATUS_OK}}" class='viewButton' type="primary" size="small" data-activity="{{item.activity_id}}" data-order="{{item.id}}" bindtap='goPay'> 去支付 </button>
         </view>
       </view>
 
