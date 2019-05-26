@@ -39,6 +39,7 @@ Page({
   onLoad: function (options) {
     let config = app.config
     let _this = this
+    
     var timer = setInterval(function () {
       var UU7 = wx.getStorageSync('UU7')
       var uname = wx.getStorageSync('uname')
@@ -56,8 +57,6 @@ Page({
       }
       console.log(111111111111111)
     }, 500)
-
-    this.setChangeTimeRemainingTimer()
 
     if (options.from_mid) {
       this.setData({
@@ -80,16 +79,6 @@ Page({
     wx.switchTab({
       url: '../index/index'
     })
-  },
-
-  setChangeTimeRemainingTimer() {
-    let _this = this
-    this.clearTimeRemainTimer()
-    var timer = setInterval(function () {
-      _this.changeTimeRemaining()
-      console.log(222222222222)
-    }, 1000)
-    wx.setStorageSync('timeRemainTimer', timer)
   },
 
   changeTimeRemaining() {
@@ -137,15 +126,9 @@ Page({
         this.setData({
           groupIsFinished: true
         })
-        this.clearTimeRemainTimer()
+        common.clearPageInterval('timeRemainTimer')
       }
     }
-  },
-
-  clearTimeRemainTimer() {
-    let timeRemainTimer = wx.getStorageSync('timeRemainTimer')
-    clearInterval(timeRemainTimer)
-    wx.setStorageSync('timeRemainTimer', 0)
   },
 
   goApplyList() {
@@ -354,7 +337,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setChangeTimeRemainingTimer()
+    let _this = this
+    common.clearPageInterval('timeRemainTimer')
+    common.setPageInterval('timeRemainTimer', function () {
+      _this.changeTimeRemaining()
+      console.log(222222222222)
+    }, 1000)
   },
 
   /**
@@ -362,7 +350,7 @@ Page({
    */
   onHide: function () {
     console.log('哈哈哈哈哈')
-    this.clearTimeRemainTimer()
+    common.clearPageInterval('timeRemainTimer')
   },
 
   /**

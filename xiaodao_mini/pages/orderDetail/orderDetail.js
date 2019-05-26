@@ -1,6 +1,7 @@
 // pages/orderDetail/orderDetail.js
 const lib = require('../../utils/lib/index.js')
 const request = require('../../utils/request.js')
+const common = require('../../utils/common.js')
 const app = getApp()
 Page({
 
@@ -11,7 +12,10 @@ Page({
     config: {},
     formValidate: {},
     activity: {},
-    order: {}
+    order: {},
+    orderIsTimeOut: false,
+    minu: 0,
+    sec: 0
   },
 
   /**
@@ -95,6 +99,32 @@ Page({
     })
   },
 
+  changeTimeRemaining() {
+    if (this.data.order.create_time) {
+      var nowMilliseconds = new Date().getTime()
+      var createTimeMilliseconds = this.data.order.create_time * 1000
+      var deadLineTimeMilliseconds = (parseInt(this.data.order.create_time) + 15*60) * 1000;
+      var timeRemaining = 0
+      var minu
+      var sec
+      if (nowMilliseconds < deadLineTimeMilliseconds) {
+        timeRemaining = deadLineTimeMilliseconds - nowMilliseconds
+        minu = parseInt(timeRemaining / (60 * 1000) % 60)
+        sec = parseInt(timeRemaining / 1000 % 60)
+
+        this.setData({
+          minu: lib.numberLengthFormat(minu),
+          sec: lib.numberLengthFormat(sec)
+        })
+      } else {//已经结束了
+        this.setData({
+          orderIsTimeOut: true
+        })
+        common.clearPageInterval('timeRemainTimer')
+      }
+    }
+  },
+
   // handlePay() {
   //   wx.navigateTo({
   //     url: `../paySuccess/paySuccess?type=1&activityId=${this.data.activityId}&orderId=${this.data.orderId}`
@@ -149,14 +179,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let _this = this
+    common.clearPageInterval('timeRemainTimer')
+    common.setPageInterval('timeRemainTimer', function () {
+      _this.changeTimeRemaining()
+      console.log(222222222222)
+    }, 1000)
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log('哈哈哈哈哈')
+    common.clearPageInterval('timeRemainTimer')
   },
 
   /**

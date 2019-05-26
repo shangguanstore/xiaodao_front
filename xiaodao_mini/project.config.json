@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 22,
+			"current": 18,
 			"list": [
 				{
 					"id": 0,
@@ -152,7 +152,8 @@
 					"id": 18,
 					"name": "订单详情页",
 					"pathName": "pages/orderDetail/orderDetail",
-					"query": "activityId=37&orderId=117"
+					"query": "activityId=37&orderId=149",
+					"scene": null
 				},
 				{
 					"id": -1,

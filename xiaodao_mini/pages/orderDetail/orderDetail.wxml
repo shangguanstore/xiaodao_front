@@ -3,7 +3,7 @@
   <view class='topArea'>
     <view class='left'>
       <view class='label'>支付剩余时间</view>
-      <view class='value'>14:51</view>
+      <view class='value'>{{minu}}:{{sec}}</view>
     </view>
     <view class='clock'>
         <text class='iconfont icon-tubiaozhizuomoban-'></text>
@@ -55,7 +55,8 @@
   </view>
 
   <view class='bottomBtn'>
-      <button type='primary' class='primary' bindtap='handlePay'>确认支付</button>
+      <button wx:if='{{!orderIsTimeOut}}' type='primary' class='primary' bindtap='handlePay'>确认支付</button>
+      <button wx:else type='default' class='default'>确认支付</button>
   </view>
   
 </view>

@@ -27,6 +27,29 @@ function toApplyActivity(type, activityData, groupid) {
   // }
 }
 
+function setPageInterval(key, fn, t) {
+  clearPageInterval(key)
+  let timer = setInterval(fn, t)
+  wx.setStorage({
+    key: key,
+    data: timer,
+  })
+}
+
+function clearPageInterval(key) {
+  console.log('timeK',key)
+  // wx.getStorage({
+  //   key: key,
+  //   success: function(res) {
+  //     console.log(res)
+  //   },
+  // })
+  clearInterval(wx.getStorageSync(key))
+  wx.removeStorageSync(key)
+}
+
 module.exports = {
-  toApplyActivity: toApplyActivity
+  toApplyActivity: toApplyActivity,
+  setPageInterval: setPageInterval,
+  clearPageInterval: clearPageInterval
 }
