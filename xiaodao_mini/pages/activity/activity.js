@@ -28,8 +28,6 @@ Page({
     activity: {},
     produce_mid: 0,
     hasUserInfo: false,
-    typeGroupon: false,
-    typeNormal: false,
     groupList: []
   },
 
@@ -219,17 +217,15 @@ Page({
       activity = lib.filterResult(activity)[0]
       var imglink = activity.imglink_format[0]
       var title = activity.name
-      var typeGroupon = activity.type == app.config.Activity.TYPE_GROUPON ? true : false
-      var typeNormal = activity.type == app.config.Activity.TYPE_NORMAL ? true : false
 
-      if (typeGroupon) _this.getGroupList()
+      if (activity.type == app.config.Activity.TYPE_GROUPON) {
+        _this.getGroupList()
+      }
 
       _this.setData({
         imglink: imglink,
         title: title,
-        activity: activity,
-        typeNormal: typeNormal,
-        typeGroupon: typeGroupon
+        activity: activity
       })
 
       var html = activity.detail

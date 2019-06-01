@@ -6,10 +6,13 @@
     </view>
     <view class='goodsContent'>
       <view class='title'>{{activity.name}}</view>
-      <view class='price'>
+      <view class='price' wx:if="{{activity.type == config.Activity.TYPE_GROUPON}}">
         <text class='realPrice'> ¥ {{activity.group_price_format}}</text>
         <text class='fullPrice' wx:if="{{orderType == config.FrontOrderType.TYPE_GROUP_START_TUAN}}"> ¥ {{activity.group_price_format}}</text>
         <text class='fullPrice' wx:if="{{orderType == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}"> ¥ {{activity.group_price_format}}</text>
+      </view>
+      <view class='price' wx:else>
+        <text class='realPrice'> ¥ {{activity.price_format}}</text>
       </view>
     </view>
   </view>

@@ -99,7 +99,7 @@
               <view class='des'>{{item.desc}}</view>
           </view>
           <view class='btn'>
-            <button wx:if="{{item.type != 0}}" type='primary'>{{item.type == 1 ? '参与拼团' : item.type == 3 ? '立即抽奖' : ''}}</button>
+            <button wx:if="{{item.btnText}}" type='primary'>{{item.btnText}}</button>
           </view>
       </view>
     </view>

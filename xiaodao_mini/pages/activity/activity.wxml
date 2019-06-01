@@ -84,7 +84,7 @@
   </view>
 
 
-  <view class='fixBottom' wx:if="{{typeNormal}}">
+  <view class='fixBottom' wx:if="{{activity.type == config.Activity.TYPE_NORMAL || activity.type == config.Activity.TYPE_COURSE}}">
     <view class='home' bindtap='goHome'>
       <text class='iconfont icon-shouye' style='font-size:42rpx;font-weight:500;margin-top:5rpx;'></text>
       <text style='margin-top:-9rpx'>首页</text>
@@ -95,11 +95,11 @@
       <text style='margin-top:-4rpx'>分享</text>
     </view>
     <view class='apply' data-order-type="{{config.FrontOrderType.TYPE_DEFAULT}}" bindtap="toApply">
-      <text>我要报名</text>
+      <text>{{activity.type == config.Activity.TYPE_NORMAL ? '我要报名' : '我要体验'}}</text>
     </view>
   </view>
 
-  <view class='fixBottom' wx:if="{{typeGroupon && !groupIsFinished}}">
+  <view class='fixBottom' wx:if="{{activity.type == config.Activity.TYPE_GROUPON && !groupIsFinished}}">
     <view class='aloneBuy' data-order-type="{{config.FrontOrderType.TYPE_GROUP_SINGLE}}" data-groupid="0" bindtap='toApply'>
       单买 ¥ {{activity.price_format}}
     </view>

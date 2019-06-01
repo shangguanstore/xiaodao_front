@@ -113,9 +113,19 @@ Page({
     var _this = this
     request(url, 'get', data, function(res) {
       //res就是我们请求接口返回的数据
-      var activityList = res.data.data
+      let activityList = res.data.data
+      let that = _this
+      console.log('that.config', that.config)
       activityList.map(function(item) {
         item.imglink_format = lib.getImglink(item.imglink)[0]
+        if(item.type == that.data.config.Activity.TYPE_GROUPON) {
+          item.btnText = '参与拼团'
+        }else if(item.type == that.data.config.Activity.TYPE_LOTTERY){
+          item.btnText = '立即抽奖'
+        }else if(item.type == that.data.config.Activity.TYPE_COURSE && item.course_experience) {
+          item.btnText = '立即体验'
+        }
+
         return item
       })
 

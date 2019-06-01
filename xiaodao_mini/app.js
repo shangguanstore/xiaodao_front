@@ -79,8 +79,8 @@ App({
   //配置开始
   config: {
     cid: 100021,
-    // baseServerUrl: 'https://api.photoelectric-displaycenter.com/',
-    baseServerUrl: 'http://hxe.7hu.cn/',
+    baseServerUrl: 'https://api.photoelectric-displaycenter.com/',
+    // baseServerUrl: 'http://hxe.7hu.cn/',
 
     Qiniu: {
       ACTION_URL: 'http://up.qiniu.com',
@@ -107,7 +107,8 @@ App({
       TYPE_NORMAL: 0,
       TYPE_GROUPON: 1,
       TYPE_GET_LIKES: 2,
-      TYPE_LOTTERY: 3
+      TYPE_LOTTERY: 3,
+      TYPE_COURSE: 4
     },
     Member: {
       STATUS_OK: 0,
