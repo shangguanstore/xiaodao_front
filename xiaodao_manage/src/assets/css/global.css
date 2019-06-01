@@ -232,6 +232,12 @@ footer{
   line-height: 24px;
 }
 
+.search_container::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
 
 
 

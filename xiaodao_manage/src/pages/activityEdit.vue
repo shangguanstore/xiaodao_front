@@ -3,7 +3,7 @@
     <div class="manage_title">
       <Breadcrumb>
         <BreadcrumbItem>营销管理</BreadcrumbItem>
-        <BreadcrumbItem>活动报名</BreadcrumbItem>
+        <BreadcrumbItem>{{activityTypeMenu}}</BreadcrumbItem>
         <BreadcrumbItem>{{title}}</BreadcrumbItem>
       </Breadcrumb>
     </div>
@@ -14,8 +14,8 @@
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100" class="mt20">
         <Row>
           <Col span="12">
-            <FormItem label="名称" prop="name">
-              <Input v-model="formValidate.name" placeholder="请输入活动名称（微信分享标题用此名称）"></Input>
+            <FormItem :label="activityTypeName + '名称'" prop="name">
+              <Input v-model="formValidate.name" :placeholder="`请输入`+activityTypeName+`名称（微信分享标题用此名称）`"></Input>
             </FormItem>
           </Col>
         </Row>
@@ -23,19 +23,52 @@
         <Row>
           <Col span="12">
             <FormItem label="简介" prop="desc">
-              <Input v-model="formValidate.desc" placeholder="请输入活动简介"></Input>
+              <Input v-model="formValidate.desc" :placeholder="`请输入`+activityTypeName+`简介`"></Input>
             </FormItem>
           </Col>
         </Row>
 
-        <Row>
+        <Row v-if="activityType == config.Activity.TYPE_NORMAL">
           <Col span="12">
-            <FormItem label="单价" prop="price" style="position: relative">
-              <Input number v-model="formValidate.price" placeholder="请输入报名活动价格，如果免费请不填"></Input>
+            <FormItem label="单价" prop="price" style="position: relative;margin-bottom: 6px;">
+              <Input number v-model="formValidate.price" placeholder="请输入活动价格"></Input>
               <span class="fieldUnit">元</span>
             </FormItem>
+          <p style="margin-bottom: 24px;margin-top: 8px;margin-left: 100px;color: #666666;">
+            *&nbsp;如果免费请不填</p>
           </Col>
         </Row>
+        <Row v-if="activityType == config.Activity.TYPE_GROUPON">
+          <Col span="12">
+          <FormItem label="原价" prop="price" style="position: relative;">
+            <Input number v-model="formValidate.price" placeholder="请输入团购原价"></Input>
+            <span class="fieldUnit">元</span>
+          </FormItem>
+          </Col>
+        </Row>
+        <Row v-if="activityType == config.Activity.TYPE_COURSE">
+          <Col span="12">
+          <FormItem label="课程价格" prop="price" style="position: relative;margin-bottom: 6px;">
+            <Input number v-model="formValidate.price" placeholder="请输入课程价格"></Input>
+            <span class="fieldUnit">元</span>
+          </FormItem>
+          <p style="margin-bottom: 24px;margin-top: 8px;margin-left: 100px;color: #666666;">
+            *&nbsp;如果免费请不填</p>
+          </Col>
+        </Row>
+
+
+        <Row v-if="activityType == config.Activity.TYPE_COURSE">
+          <Col span="4">
+          <FormItem label="是否体验课">
+            <RadioGroup v-model="formValidate.course_experience">
+              <Radio :label="1">是</Radio>
+              <Radio :label="0">否</Radio>
+            </RadioGroup>
+          </FormItem>
+          </Col>
+        </Row>
+
 
         <Row>
           <Col span="4">
@@ -51,7 +84,8 @@
           </Col>
         </Row>
 
-        <Row>
+        <!--时间-->
+        <Row v-show="activityType == config.Activity.TYPE_GROUPON || activityType == config.Activity.TYPE_NORMAL">
           <Col span="12">
             <FormItem label="活动时间" prop="timeRange">
               <DatePicker v-model="formValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm"
@@ -59,6 +93,15 @@
             </FormItem>
           </Col>
         </Row>
+        <Row v-show="activityType == config.Activity.TYPE_COURSE">
+          <Col span="12">
+          <FormItem label="开课时间" prop="timeRange">
+            <DatePicker v-model="formValidate.timeRange" type="datetimerange" format="yyyy-MM-dd HH:mm"
+                        placeholder="选择日期和时间" style="width: 100%"></DatePicker>
+          </FormItem>
+          </Col>
+        </Row>
+
 
         <Row>
           <Col span="12">
@@ -106,12 +149,11 @@
       <p class="content_title">
         详细信息
       </p>
-      <ckeditor v-if="getDataDown" id="aaabbbccc" v-model="detail" :config="config" @blur="onBlur($event)"
+      <ckeditor v-if="getDataDown" id="aaabbbccc" v-model="detail" :config="ckConfig" @blur="onBlur($event)"
                 @focus="onFocus($event)" @insertPic="detailInsertPic">
       </ckeditor>
     </div>
-
-
+    
     <div class="bottomBtn">
       <Button size="large" type="primary" @click="handleSubmit()">提交</Button>
       <Button size="large" @click="handleReset()" style="margin-left: 8px">取消</Button>
@@ -133,8 +175,11 @@
     },
     data() {
       return {
+        config: {},
         mid: 0,
         activityType: 0,
+        activityTypeName: '',
+        activityTypeMenu: '',
         title: "",
         detailTitle: "",
         detail: "",
@@ -144,7 +189,7 @@
 
         uploadImgList: [],
         detailUploadFileName: '',
-        config: {
+        ckConfig: {
           language: 'zh-cn',
           toolbar: [
             {name: 'document', items: ['Print']},
@@ -168,6 +213,7 @@
           desc: '',
           price: '',
           maxNumRadio: 'havnt',
+          course_experience: '0',
           max_num: '',
           timeRange: ''
         },
@@ -210,8 +256,20 @@
     },
     created() {
       this.activityType = this.$route.query.type ? this.$route.query.type : config.Activity.TYPE_NORMAL
+      this.config = config
+      if(this.activityType == config.Activity.TYPE_NORMAL) {
+        this.activityTypeName = '活动'
+        this.activityTypeMenu = '活动报名'
+      }else if(this.activityType == config.Activity.TYPE_GROUPON) {
+        this.activityTypeName = '拼团'
+        this.activityTypeMenu = '多人拼团'
+      }else if(this.activityType == config.Activity.TYPE_COURSE) {
+        this.activityTypeName = '课程'
+        this.activityTypeMenu = '课程介绍'
+      }
+
       if (this.$route.query.id) {
-        this.title = "编辑活动"
+        this.title = "编辑" + this.activityTypeName
         this.isAdd = false
         let submitData = {
           id: this.$route.query.id,
@@ -221,6 +279,8 @@
         this.$http.get(url, {}).then(res => {
           if (res) {
             let data = res.data.data[0]
+            console.log('result',data)
+
             var startTimeDate = new Date().setTime(data.start_time * 1000)
             var endTimeDate = new Date().setTime(data.end_time * 1000)
             var timeRange = [startTimeDate, endTimeDate];
@@ -249,7 +309,7 @@
           this.$Message.error('服务器错误!');
         })
       } else {
-        this.title = "新增活动"
+        this.title = "新增" + this.activityTypeName
         this.isAdd = true
 
         this.detail = ""
@@ -297,6 +357,10 @@
           submitData.group_start_time = startTime
           submitData.group_end_time = endTime
         }
+        if (this.activityType == config.Activity.TYPE_COURSE) {
+          submitData.type = config.Activity.TYPE_COURSE
+          submitData.course_experience = this.formValidate.course_experience
+        }
 
         this.$http.post(url, submitData).then(res => {
           if (res.data.errNo == 100000) {
@@ -305,6 +369,8 @@
             var path = 'activity'
             if (this.activityType == config.Activity.TYPE_GROUPON) {
               path = 'groupon'
+            }else if(this.activityType == config.Activity.TYPE_COURSE){
+              path = 'trialClass'
             }
             setTimeout(function () {
               _this.$router.push({

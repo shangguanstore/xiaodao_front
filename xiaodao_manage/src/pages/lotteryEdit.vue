@@ -215,7 +215,7 @@
         curImgCategory: 0,
         uploadImgList: [],
         detailUploadFileName: '',
-        config: {
+        ckConfig: {
           language: 'zh-cn',
           toolbar: [
             {name: 'document', items: ['Print']},

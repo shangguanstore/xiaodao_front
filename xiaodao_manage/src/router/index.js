@@ -92,6 +92,11 @@ export default new Router({
           name: 'groupon',
           component: () => import('@/pages/groupon')
         },
+        {
+          path: '/trialClass',
+          name: 'trialClass',
+          component: () => import('@/pages/trialClass')
+        },
           {
               path: '/lottery',
               name: 'lottery',
@@ -122,6 +127,11 @@ export default new Router({
               name: 'weWebsiteBannerEdit',
               component: () => import('@/pages/weWebsiteBannerEdit')
           },
+        {
+          path: '/homeActivity',
+          name: 'homeActivity',
+          component: () => import('@/pages/homeActivity')
+        },
           {
               path: '/pointEdit',
               name: 'pointEdit',

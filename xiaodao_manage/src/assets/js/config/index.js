@@ -45,6 +45,7 @@ Activity.TYPE_NORMAL = 0
 Activity.TYPE_GROUPON = 1
 Activity.TYPE_GET_LIKES = 2
 Activity.TYPE_LOTTERY = 3
+Activity.TYPE_COURSE = 4
 
 function LotteryGoods() {
 }

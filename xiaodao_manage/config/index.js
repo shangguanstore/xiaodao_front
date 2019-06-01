@@ -12,16 +12,16 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/api':{
-            //target:'http://hxe.7hu.cn',
-            target:'http://abie.xiaost.net',
+            target:'http://hxe.7hu.cn',
+            //target:'http://abie.xiaost.net',
             changeOrigin:true,
             pathRewrite:{
                 '^/api':'/api'
             }
         },
         '/u/api':{
-            //target:'http://7hu.cn',
-            target:'http://abie.xiaost.net',
+            target:'http://7hu.cn',
+            //target:'http://abie.xiaost.net',
             changeOrigin:true,
             pathRewrite:{
                 '^/u/api':'/u/api'

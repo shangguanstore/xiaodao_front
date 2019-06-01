@@ -2,26 +2,44 @@
 	<div>
 		<div class="manage_title">
 			<Breadcrumb>
-				<BreadcrumbItem>教务中心</BreadcrumbItem>
-				<BreadcrumbItem>学员管理</BreadcrumbItem>
+				<BreadcrumbItem>招生中心</BreadcrumbItem>
+				<BreadcrumbItem>用户管理</BreadcrumbItem>
 			</Breadcrumb>
 		</div>
 		<div class="container student_container mt20">
-			<div>
-				<span>搜索查询：</span>
-				<Input v-model="searchValue" placeholder="请输入需要查询的名称" style="width: 300px"  @on-change="changeName"></Input>
-				<Button class="ml20" type="info"  @click="search">查询</Button>
-			</div>
-			<div class="mt20">
-				<Button type="info" icon="ios-plus-empty" @click="addUser">新建用户</Button>
-				<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>
-			</div>
-			<Table border ref="selection" :loading="loading"  @on-selection-change="checkNum" :columns="tableColumns" :data="tableData" class="mt20">></Table>
-			<div style="margin: 10px;overflow: hidden">
-				<div style="float: right;">
-					<Page :total="total" show-total show-sizer show-elevator :current="current" @on-change="changePage" @on-page-size-change="changepageSize"></Page>
-				</div>
-			</div>
+      <Row>
+        <Col span="8">
+        <div class="search_container">
+          <div class="fl">
+            <span>搜索查询：</span>
+            <Input v-model="searchValue" placeholder="请输入手机号、用户名查询" style="width: 200px"  @on-change="changeName"></Input>
+            <Button class="ml20" type="info"  @click="search">查询</Button>
+          </div>
+          <div class="fr">
+            <Button type="info" icon="ios-plus-empty" @click="addUser">新建用户</Button>
+            <!--<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>-->
+          </div>
+        </div>
+        </Col>
+      </Row>
+
+      <div class="contentArea">
+        <Row>
+          <Col span="8">
+          <Table border ref="selection" :loading="loading"  @on-selection-change="checkNum" :columns="tableColumns" :data="tableData" class="mt20">></Table>
+          <div style="margin: 10px;overflow: hidden">
+            <div style="float: right;">
+              <Page :total="total" show-total show-sizer show-elevator :current="current" @on-change="changePage" @on-page-size-change="changepageSize"></Page>
+            </div>
+          </div>
+          </Col>
+
+          <Col span="14">
+
+          </Col>
+        </Row>
+      </div>
+
 		</div>
 
 		<Modal v-model="exportDataShow">
@@ -123,34 +141,34 @@
 							])
 						}
 					},
-          {
-            title:'生日',
-            key:'birthday'
-          },
+          // {
+          //   title:'生日',
+          //   key:'birthday'
+          // },
 					{
 						title:'绑定手机',
 						key:'phone'
 					},
-          {
-            title:'母亲手机',
-            key:'mother_phone'
-          },
-          {
-            title:'父亲手机',
-            key:'father_phone'
-          },
-          {
-            title:'性别',
-            key:'sex_format',
-          },
-					{
-						title:'创建日期',
-						key:'create_time_format'
-					},
-          {
-            title: '角色',
-            key: 'role_id_format',
-          },
+          // {
+          //   title:'母亲手机',
+          //   key:'mother_phone'
+          // },
+          // {
+          //   title:'父亲手机',
+          //   key:'father_phone'
+          // },
+          // {
+          //   title:'性别',
+          //   key:'sex_format',
+          // },
+			// 		{
+			// 			title:'创建日期',
+			// 			key:'create_time_format'
+			// 		},
+          // {
+          //   title: '角色',
+          //   key: 'role_id_format',
+          // },
 					{
 						title: '操作',
 						key: 'operation',

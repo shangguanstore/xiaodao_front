@@ -2,8 +2,8 @@
   <div>
     <div class="manage_title">
       <Breadcrumb>
-        <BreadcrumbItem>营销管理</BreadcrumbItem>
-        <BreadcrumbItem>banner设置</BreadcrumbItem>
+        <BreadcrumbItem>手机端设置</BreadcrumbItem>
+        <BreadcrumbItem>Banner设置</BreadcrumbItem>
         <BreadcrumbItem>{{title}}</BreadcrumbItem>
       </Breadcrumb>
     </div>
@@ -44,7 +44,7 @@
           <div style="font-size: 14px;color: rgba(0, 0, 0, 0.45)">支持：jpg/jpeg/png格式</div>
         </FormItem>
 
-        <FormItem label="跳转活动" prop="activity_id" style="width: 50%">
+        <FormItem label="跳转内容" prop="activity_id" style="width: 50%">
           <Select v-model="formValidate.activity_id">
             <Option v-for="item in activityList" :value="item.id" :key="item.id">{{ item.name }}</Option>
           </Select>
@@ -53,6 +53,9 @@
         <FormItem label="排序" prop="sort" style="width: 50%">
           <Input v-model="formValidate.sort" placeholder="banner顺序,数值越大越靠前"></Input>
         </FormItem>
+        <p style="margin-bottom: 24px;margin-top: -12px;margin-left: 86px;color: #666666;">
+          *&nbsp;数值越大，排序越靠前，值相等时按添加时间排序
+        </p>
       </Form>
     </div>
 
@@ -106,7 +109,7 @@
         },
         created() {
             if (this.$route.query.id) {
-                this.title = "编辑banner"
+                this.title = "编辑Banner"
                 this.isAdd = false
                 let submitData = {
                     id: this.$route.query.id
@@ -130,7 +133,7 @@
                     this.$Message.error('服务器错误!');
                 })
             } else {
-                this.title = "新增banner"
+                this.title = "新增Banner"
                 this.isAdd = true
 
                 var htmlId = lib.getRandomString()
@@ -186,7 +189,7 @@
                 let url = lib.getRequestUrl('/api/activity/getlist', submitData)
                 this.$http.get(url, {}).then(res => {
                     if (res) {
-                        let data = res.data.activity
+                        let data = res.data.data
                         this.activityList = data
                     }
                 }).catch(error => {

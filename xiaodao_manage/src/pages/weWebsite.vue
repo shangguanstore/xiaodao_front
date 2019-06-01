@@ -2,8 +2,8 @@
   <div>
     <div class="manage_title">
       <Breadcrumb>
-        <BreadcrumbItem>营销管理</BreadcrumbItem>
         <BreadcrumbItem>手机端设置</BreadcrumbItem>
+        <BreadcrumbItem>Banner设置</BreadcrumbItem>
       </Breadcrumb>
     </div>
     <div class="container activity_container mt20">

@@ -33,28 +33,37 @@
 
         <Submenu name="2">
           <template slot="title">
-            <Icon type="md-book" />
-            教务中心
+            <Icon type="md-contacts" />
+            招生中心
           </template>
-          <MenuItem name="student">学员管理</MenuItem>
-          <MenuItem name="courseList">课程管理</MenuItem>
-          <MenuItem name="courseEdit">课程标签管理</MenuItem>
+          <MenuItem name="student">用户管理</MenuItem>
         </Submenu>
 
 
-        <Submenu name="3">
+        <!--<Submenu name="3">-->
+          <!--<template slot="title">-->
+            <!--<Icon type="md-book" />-->
+            <!--教务中心-->
+          <!--</template>-->
+          <!--<MenuItem name="student">学员管理</MenuItem>-->
+          <!--<MenuItem name="courseList">课程管理</MenuItem>-->
+          <!--<MenuItem name="courseEdit">课程标签管理</MenuItem>-->
+        <!--</Submenu>-->
+
+
+        <Submenu name="4">
           <template slot="title">
             <Icon type="ios-help-buoy" />
             营销管理
           </template>
-          <MenuItem name="activity">活动报名</MenuItem>
           <MenuItem name="groupon">多人拼团</MenuItem>
+          <MenuItem name="activity">活动报名</MenuItem>
+          <MenuItem name="trialClass">课程介绍</MenuItem>
           <MenuItem name="lottery">抽奖游戏</MenuItem>
-          <MenuItem name="weWebsite">手机端设置</MenuItem>
         </Submenu>
 
 
-        <Submenu name="4">
+        <Submenu name="5">
           <template slot="title">
             <i class="icon iconfont icon-jifen" style="margin-left: 12px;font-size: 14px;"></i>
             用户资金管理
@@ -64,13 +73,23 @@
         </Submenu>
 
 
+        <Submenu name="6">
+          <template slot="title">
+            <Icon type="md-phone-portrait" style="font-size: 18px" />
+            手机端设置
+          </template>
+          <MenuItem name="weWebsite">首页Banner设置</MenuItem>
+          <MenuItem name="homeActivity">首页活动排序</MenuItem>
+        </Submenu>
+
+
         <!--<MenuItem name="home">-->
           <!--<Icon type="ios-help-buoy" />-->
           <!--<span>营销管理</span>-->
         <!--</MenuItem>-->
 
 
-        <Submenu name="5">
+        <Submenu name="7">
           <template slot="title">
             <Icon type="ios-home" />
             内部管理
@@ -78,7 +97,7 @@
           <MenuItem name="staff">员工管理</MenuItem>
         </Submenu>
 
-        <Submenu name="6">
+        <Submenu name="8">
           <template slot="title">
             <Icon type="logo-googleplus" />
             机构设置
@@ -86,7 +105,7 @@
           <MenuItem name="company">机构编辑</MenuItem>
         </Submenu>
 
-        <Submenu name="7">
+        <Submenu name="9">
           <template slot="title">
             <Icon type="md-settings" />
             系统设置
