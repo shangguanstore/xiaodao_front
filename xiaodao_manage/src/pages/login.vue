@@ -106,7 +106,7 @@
               var _this = this
               setTimeout(function () {
                   _this.$router.push({
-                      path: 'student',
+                      path: 'home',
                       query: {}
                   })
               },2000)

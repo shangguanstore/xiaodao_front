@@ -153,7 +153,7 @@
                 @focus="onFocus($event)" @insertPic="detailInsertPic">
       </ckeditor>
     </div>
-    
+
     <div class="bottomBtn">
       <Button size="large" type="primary" @click="handleSubmit()">提交</Button>
       <Button size="large" @click="handleReset()" style="margin-left: 8px">取消</Button>
@@ -287,13 +287,14 @@
             console.log('timeRange', timeRange)
 
             this.formValidate = data
+            this.formValidate.price = (this.formValidate.price / 100).toFixed(2)
             this.formValidate.maxNumRadio = data.max_num ? 'have' : 'havnt'
             this.formValidate.timeRange = timeRange
 
             this.activityType = data.type
             if (this.activityType == config.Activity.TYPE_GROUPON) {
               this.grouponFormValidate.group_num = data.group_num
-              this.grouponFormValidate.group_price = data.group_price
+              this.grouponFormValidate.group_price = (data.group_price / 100).toFixed(2)
               var groupStartTimeDate = new Date().setTime(data.group_start_time * 1000)
               var groupEndTimeDate = new Date().setTime(data.group_end_time * 1000)
               var groupTimeRange = [new Date(groupStartTimeDate), new Date(groupEndTimeDate)]
@@ -332,7 +333,7 @@
           type: config.Activity.TYPE_NORMAL,
           name: this.formValidate.name,
           desc: this.formValidate.desc,
-          price: this.formValidate.price,
+          price: this.formValidate.price * 100,//注意前台的单位是元，要转为分后提交到服务端
           max_num: this.formValidate.max_num,
           start_time: startTime,
           end_time: endTime,
@@ -353,7 +354,7 @@
           var endTime = Math.ceil(new Date(timeRange[1]).getTime() / 1000)
           submitData.type = config.Activity.TYPE_GROUPON
           submitData.group_num = this.grouponFormValidate.group_num
-          submitData.group_price = this.grouponFormValidate.group_price
+          submitData.group_price = this.grouponFormValidate.group_price * 100 //注意前台的单位是元，要转为分后提交到服务端
           submitData.group_start_time = startTime
           submitData.group_end_time = endTime
         }

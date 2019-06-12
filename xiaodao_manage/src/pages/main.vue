@@ -36,7 +36,7 @@
             <Icon type="md-contacts" />
             招生中心
           </template>
-          <MenuItem name="student">用户管理</MenuItem>
+          <MenuItem name="student">咨询本</MenuItem>
         </Submenu>
 
 

@@ -37,8 +37,9 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     if (response.data.errNo !== 100000) {
-      Message.error(response.data.errMsg)
-      return response
+      // Message.error(response.data.errMsg)
+      throw new Error(response.data.errMsg)
+      // return response
     } else {
       return response
     }

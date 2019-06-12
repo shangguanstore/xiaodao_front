@@ -7,6 +7,7 @@ var config = {
   Mbanner: Mbanner,
   Activity: Activity,
   Qiniu: Qiniu,
+  LineComment: LineComment,
   LotteryGoods: LotteryGoods
 }
 
@@ -52,6 +53,13 @@ function LotteryGoods() {
 LotteryGoods.TYPE_PHYSICAL = 0
 LotteryGoods.TYPE_COUPON = 1
 LotteryGoods.TYPE_EXPERIENCE = 2
+
+function LineComment() {
+
+}
+LineComment.TYPE_TRACK = 1,
+LineComment.TYPE_MARK = 2
+
 
 export default config
 

@@ -43,6 +43,11 @@ export default new Router({
           component: () => import('@/pages/admin')
         },
         {
+          path: '/home',
+          name: 'home',
+          component: () => import('@/pages/home')
+        },
+        {
           path: '/student',
           name: 'student',
           component: () => import('@/pages/student')
