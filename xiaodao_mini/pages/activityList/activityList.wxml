@@ -1,11 +1,13 @@
 <!--pages/activityList/activityList.wxml-->
 <view class="container">
-  <i-grid-item wx:if="{{!Loaded}}">
+  <!-- <i-grid-item wx:if="{{!Loaded}}">
     <i-spin custom fix>
       <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
       <view>Loading</view>
     </i-spin>
-  </i-grid-item>
+  </i-grid-item> -->
+
+  <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff" />
 
   <view wx:if="{{activityList.length && Loaded}}" class='listArea' style='margin-top: 10rpx'>
     <view class='listItem' wx:for="{{activityList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id" data-url="../activity/activity?id={{item.id}}" bindtap="routeTo">

@@ -31,6 +31,7 @@ class UserAuth {
             wx.setStorageSync('member', member)
             wx.setStorageSync('phone', member.phone)
             wx.setStorageSync('uname', member.uname)
+            wx.setStorageSync('avatar', member.avatar)
             wx.setStorageSync('UU7', UU7)
 
             loginSuccess(res)

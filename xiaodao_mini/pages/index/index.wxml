@@ -17,12 +17,14 @@
     </block>
   </swiper>
 
-  <i-grid-item wx:if="{{!Loaded}}">
+  <!-- <i-grid-item wx:if="{{!Loaded}}">
     <i-spin custom fix>
       <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
       <view>Loading</view>
     </i-spin>
-  </i-grid-item>
+  </i-grid-item> -->
+
+  <!-- <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff" /> -->
 
   <view class='gap'></view>
   <view class='topNav'>
