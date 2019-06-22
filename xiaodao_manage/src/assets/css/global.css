@@ -38,6 +38,9 @@ li{
 .fl{
 	float: left;
 }
+.ellipsis {
+  text-overflow: ellipsis;white-space: nowrap;overflow: hidden;
+}
 /**侧边栏logo**/
 .xdm_logo{
 	width: 180px;
