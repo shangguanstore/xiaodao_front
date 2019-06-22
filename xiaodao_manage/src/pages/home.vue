@@ -42,7 +42,7 @@
         </Row>
       </div>
 
-      
+
 
 
 
@@ -69,7 +69,7 @@
                       <Tag color="#FFA2D3" v-if="item.type == config.Activity.TYPE_LOTTERY">抽奖</Tag>
                     </div>
                     <div class="itemContent ml10 fr" style="cursor: pointer">
-                      <p class="ellipsis" style="max-width: 320px">{{item.name}}</p>
+                      <p class="ellipsis" style="max-width: 230px">{{item.name}}</p>
                       <p style="color: #999999">已参加：{{item.orderNum}}人</p>
                     </div>
                   </div>
@@ -95,7 +95,7 @@
               <li v-for="item in orderList" class="float-wrap">
                 <div class="fl float-wrap">
                   <div class="itemContent ml10 fr" style="cursor: pointer">
-                    <p class="ellipsis" style="max-width: 320px">{{item.name}}</p>
+                    <p class="ellipsis" style="max-width: 266px">{{item.name}}</p>
                     <p style="color: #999999">{{item.uname}}</p>
                   </div>
                 </div>
