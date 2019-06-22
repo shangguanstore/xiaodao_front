@@ -45,7 +45,7 @@
     </view>
   </view>
 
-  <view wx:else class='noData'>
+  <view wx:if="{{activityOrderList.length == 0 && Loaded}}" class='noData'>
     <image src='../../images/noData.png'></image>
   </view>
 </view>

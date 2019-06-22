@@ -75,7 +75,7 @@
     </view>
     <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
 
-    <view class='fixBottom'>
+    <view class='fixBottom' wx:if="{{false}}">
     <view class='item' data-url='index' bindtap='routeTo'>
       <image src='../../images/home-dis.png'></image>
       <view class='title'>首页</view>

@@ -1,4 +1,4 @@
-/* pages/activityApply/activityApply.wxss */
+/* pages/login/login.wxss */
 .leaveMessageTitle {
   background: white;
   width: 100%;

@@ -1,4 +1,4 @@
-<!--pages/activityApply/activityApply.wxml-->
+<!--pages/login/login.wxml-->
 <view class='container'>
   <view class='leaveMessageTitle'>请留下您的信息，我们会与您联系！</view>
   <view class='gap'></view>

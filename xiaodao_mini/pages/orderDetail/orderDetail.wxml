@@ -12,7 +12,7 @@
 
   <view class='orderGoodsBlock'>
     <view class='imgArea'>
-      <image src='/images/course.jpg'></image>
+      <image src='{{activity.imglink_format[0]}}'></image>
     </view>
     <view class='goodsContent'>
       <view class='description'>
@@ -28,7 +28,7 @@
 
   <view class='gap'></view>
   <view class='my-list-container'>
-    <view class='list' wx:if="{{order.type == config.FrontOrderType.TYPE_GROUP_START_TUAN || order.type == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}">
+    <view class='list' wx:if="{{order.type == config.ActivityOrder.TYPE_GROUP_START_TUAN || order.type == config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}">
       <text>全民拼团</text>
       <text>¥ {{order.payment_money_format}}</text>
     </view>

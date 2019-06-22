@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/logs/logs",
     "pages/activity/activity",
@@ -11,7 +11,7 @@
     "pages/promote/promote",
     "pages/ucenter/ucenter",
     "pages/article/article",
-    "pages/activityApply/activityApply",
+    "pages/login/login",
     "pages/paySuccess/paySuccess",
     "pages/eTicket/eTicket",
     "pages/applyList/applyList",
@@ -21,8 +21,7 @@
     "pages/collectLikes/collectLikes",
     "pages/drawLottery/drawLottery",
     "pages/lotteryList/lotteryList",
-
-
+    "pages/getPointIntro/getPointIntro",
     "mall/mall/mall",
     "mall/to-pay-order/to-pay-order",
     "mall/order-details/order-details",
@@ -31,36 +30,43 @@
     "mall/shop-cart/shop-cart",
     "mall/goods-details/goods-details"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "爱贝少儿英语",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#aaaaaa",
-    "selectedColor": "#31a89e",
+    "selectedColor": "#009cf0",
     "borderStyle": "white",
     "backgroundColor": "white",
     "list": [
       {
-        "selectedIconPath": "images/home-click.png",
-        "iconPath": "images/home-dis.png",
+        "selectedIconPath": "images/index-icon-active.png",
+        "iconPath": "images/index-icon.png",
         "pagePath": "pages/index/index",
         "text": "首页"
       },
       {
-        "selectedIconPath": "images/suyuan-click.png",
-        "iconPath": "images/suyuan-dis.png",
+        "selectedIconPath": "images/activity-icon-active.png",
+        "iconPath": "images/activity-icon.png",
         "pagePath": "pages/activityList/activityList",
         "text": "活动"
       },
       {
-        "selectedIconPath": "images/ucenter-click.png",
-        "iconPath": "images/ucenter-dis.png",
+        "selectedIconPath": "images/shop-icon-active.png",
+        "iconPath": "images/shop-icon.png",
+        "pagePath": "mall/mall/mall",
+        "text": "积分商城"
+      },
+      {
+        "selectedIconPath": "images/my-icon-active.png",
+        "iconPath": "images/my-icon.png",
         "pagePath": "pages/ucenter/ucenter",
         "text": "我的"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

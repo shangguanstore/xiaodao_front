@@ -16,9 +16,9 @@ class UserAuth {
         let data = this.userSubmitInfo || {}
         data.mid = wx.getStorageSync('mid')
         data.apigc_uid = wx.getStorageSync('apigc_uid')
-        data.name = this.userInfo.nickName
+        data.name = data.name ? data.name : this.userInfo.nickName
         data.sex = this.userInfo.gender
-        data.imgurl = this.userInfo.avatarUrl
+        data.avatar = this.userInfo.avatarUrl
         if (hasSubmitInfo) {
             if (this.userSubmitInfo.phone) data.enforce_change_phone = true
         }

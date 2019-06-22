@@ -50,7 +50,7 @@
         <text class='redFiveColor'>{{minu}}</text> 分
         <text class='redFiveColor'>{{sec}}</text> 秒
       </view>
-      <view class='des fontOneColor'>
+      <view class='des fontOneColor' wx:if="{{groupList.length}}">
         以下小伙伴正在发起拼团，您可以直接参与
       </view>
       <view class='listArea'>
@@ -68,7 +68,7 @@
           </view>
           <view class='right'>
             <text class='price redOneColor'>¥ {{activity.group_price_format}}</text>
-            <button type='primary' size='mini' data-order-type='{{config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}' data-groupid="{{item.groupid}}" bindtap='goToGroupDetail'>去拼团</button>
+            <button type='primary' size='mini' data-order-type='{{config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}' data-groupid="{{item.groupid}}" bindtap='goToGroupDetail'>去拼团</button>
           </view>
         </view>
       </view>
@@ -94,16 +94,16 @@
       <button open-type="share">分享</button>
       <text style='margin-top:-4rpx'>分享</text>
     </view>
-    <view class='apply' data-order-type="{{config.FrontOrderType.TYPE_DEFAULT}}" bindtap="toApply">
+    <view class='apply' data-order-type="{{config.ActivityOrder.TYPE_DEFAULT}}" bindtap="toApply">
       <text>{{activity.type == config.Activity.TYPE_NORMAL ? '我要报名' : '我要体验'}}</text>
     </view>
   </view>
 
   <view class='fixBottom' wx:if="{{activity.type == config.Activity.TYPE_GROUPON && !groupIsFinished}}">
-    <view class='aloneBuy' data-order-type="{{config.FrontOrderType.TYPE_GROUP_SINGLE}}" data-groupid="0" bindtap='toApply'>
+    <view class='aloneBuy' data-order-type="{{config.ActivityOrder.TYPE_GROUP_SINGLE}}" data-groupid="0" bindtap='toApply'>
       单买 ¥ {{activity.price_format}}
     </view>
-    <view class='grouponBuy' data-order-type='{{config.FrontOrderType.TYPE_GROUP_START_TUAN}}' bindtap='goToGroupDetail'>
+    <view class='grouponBuy' data-order-type='{{config.ActivityOrder.TYPE_GROUP_START_TUAN}}' bindtap='goToGroupDetail'>
       <view>限时拼团</view>
       <view>¥ {{activity.group_price_format}}</view>
     </view>

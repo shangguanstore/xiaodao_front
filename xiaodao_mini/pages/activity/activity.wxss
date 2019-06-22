@@ -16,10 +16,11 @@
   margin-top: 20rpx;
   display: flex;
   justify-content: space-between;
+  /* overflow: visible; */
 }
 
 .topArea .des .titleArea .title {
-  width: 600rpx;
+  width: 596rpx;
   text-align: left;
   color: black;
   font-weight: 500;
@@ -27,8 +28,11 @@
 }
 
 .topArea .des .titleArea .share {
+  width: 40rpx;
+  height: 40rpx;
   margin-right: 20rpx;
   position: relative;
+  overflow: visible;
 }
 
 .topArea .des .titleArea .share text {
@@ -36,13 +40,14 @@
 }
 
 .topArea .des .titleArea .share button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  height: 40rpx;
-  opacity: 0;
-  /* border: solid 1rpx red; */
+  position:absolute;
+top:-50rpx;
+left:-20rpx;
+z-index:2;
+height:120rpx;
+width:120rpx;
+opacity:0;
+/* background:red; */
 }
 
 .topArea .des .time {
@@ -73,7 +78,6 @@ form {
 button {
   margin: 20rpx 0;
   color: white;
-  background: gray;
 }
 
 .rich-text {

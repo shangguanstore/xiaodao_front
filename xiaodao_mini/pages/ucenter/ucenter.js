@@ -1,4 +1,5 @@
 // pages/ucenter/ucenter.js
+const app = getApp()
 Page({
 
   /**
@@ -13,26 +14,37 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  toLogin() {
+    let url = `../login/login?from=${app.config.FrontLoginFrom.FROM_LOGIN}`
+    wx.navigateTo({
+      url: url
+    })
+  },
+
+  initUserInfo() {
     var hasUserInfo = true
     var phone = wx.getStorageSync('phone')
     var name = wx.getStorageSync('uname')
     var avatar = wx.getStorageSync('avatar')
 
-    if(!phone) hasUserInfo = false
+    if (!phone) hasUserInfo = false
     this.setData({
       phone: phone,
       hasUserInfo: hasUserInfo,
       name: name,
       avatar: avatar
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
   },
 
   routeTo(event) {
@@ -51,14 +63,18 @@ Page({
 
   toPromote() {
     if (this.data.hasUserInfo) {
+      // wx.navigateTo({
+      //     url: '../promote/promote'
+      // })
       wx.navigateTo({
-        url: '../promote/promote'
+        url: '../getPointIntro/getPointIntro'
       })
-    }else{
-      wx.showToast({
-        title: '还没登录/注册呢',
-        icon: 'none'
-      })
+    } else {
+      this.toLogin()
+      // wx.showToast({
+      //   title: '还没登录/注册呢',
+      //   icon: 'none'
+      // })
     }
   },
 
@@ -68,52 +84,53 @@ Page({
         url: '../myInfo/myInfo'
       })
     } else {
-      wx.showToast({
-        title: '还没登录/注册呢',
-        icon: 'none'
-      })
+      this.toLogin()
+      // wx.showToast({
+      //   title: '还没登录/注册呢',
+      //   icon: 'none'
+      // })
     }
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function() {
+    this.initUserInfo()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

@@ -2,14 +2,14 @@
 <view class='container orderConfirmContainer'>
   <view class='orderGoodsBlock'>
     <view class='imgArea'>
-      <image src='/images/course.jpg'></image>
+      <image src='{{activity.imglink_format[0]}}'></image>
     </view>
     <view class='goodsContent'>
       <view class='title'>{{activity.name}}</view>
       <view class='price' wx:if="{{activity.type == config.Activity.TYPE_GROUPON}}">
         <text class='realPrice'> ¥ {{activity.group_price_format}}</text>
-        <text class='fullPrice' wx:if="{{orderType == config.FrontOrderType.TYPE_GROUP_START_TUAN}}"> ¥ {{activity.group_price_format}}</text>
-        <text class='fullPrice' wx:if="{{orderType == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}"> ¥ {{activity.group_price_format}}</text>
+        <text class='fullPrice' wx:if="{{orderType == config.ActivityOrder.TYPE_GROUP_START_TUAN}}"> ¥ {{activity.group_price_format}}</text>
+        <text class='fullPrice' wx:if="{{orderType == config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}"> ¥ {{activity.group_price_format}}</text>
       </view>
       <view class='price' wx:else>
         <text class='realPrice'> ¥ {{activity.price_format}}</text>
@@ -53,10 +53,10 @@
   <view class='bottomBtn'>
     <view class='price'>
        <text class='fontFourColor'>实付款</text>
-       <text class='redFiveColor' wx:if="{{orderType == config.FrontOrderType.TYPE_DEFAULT}}">¥ {{activity.price_format}}</text>
-       <text class='redFiveColor' wx:elif="{{orderType == config.FrontOrderType.TYPE_GROUP_SINGLE}}">¥ {{activity.price_format}}</text>
-       <text class='redFiveColor' wx:elif="{{orderType == config.FrontOrderType.TYPE_GROUP_START_TUAN}}">¥ {{activity.group_price_format}}</text>
-       <text class='redFiveColor' wx:elif="{{orderType == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}">¥ {{activity.group_price_format}}</text>
+       <text class='redFiveColor' wx:if="{{orderType == config.ActivityOrder.TYPE_DEFAULT}}">¥ {{activity.price_format}}</text>
+       <text class='redFiveColor' wx:elif="{{orderType == config.ActivityOrder.TYPE_GROUP_SINGLE}}">¥ {{activity.price_format}}</text>
+       <text class='redFiveColor' wx:elif="{{orderType == config.ActivityOrder.TYPE_GROUP_START_TUAN}}">¥ {{activity.group_price_format}}</text>
+       <text class='redFiveColor' wx:elif="{{orderType == config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}">¥ {{activity.group_price_format}}</text>
     </view>
     <button type='primary' class='primary' bindtap="joinActivity">确定</button>
   </view>

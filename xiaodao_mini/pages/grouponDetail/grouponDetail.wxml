@@ -21,7 +21,7 @@
     </view>
     <view class='orderGoodsBlock'>
       <view class='imgArea'>
-        <image src='/images/course.jpg'></image>
+        <image src='{{activityData.imglink_format[0]}}'></image>
       </view>
       <view class='goodsContent'>
         <view class='title'>精品小课团购会员</view>
@@ -35,7 +35,7 @@
     <view class='toGroupon'>
       <view class='toGrouponBlock'>
         <view class='des'>
-          <block wx:if="{{orderType == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN}}">
+          <block wx:if="{{orderType == config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}">
             <view>剩 <text>22:15:13</text> 自动结束</view>
                        <view>1人参团/2人成团</view>
           </block>
@@ -44,7 +44,7 @@
                        <view>2人团</view>
           </block>
         </view>
-        <button type="primary" bindtap='toApply'>{{orderType == config.FrontOrderType.TYPE_GROUP_JOIN_TUAN ? '我要参团' : '我要开团'}}</button>
+        <button type="primary" bindtap='toApply'>{{orderType == config.ActivityOrder.TYPE_GROUP_JOIN_TUAN ? '我要参团' : '我要开团'}}</button>
       </view>
     </view>
   </view>

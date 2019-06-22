@@ -1,6 +1,6 @@
 /* pages/ucenter/ucenter.wxss */
 .ucenter_container .topArea {
-  background: #31a89e;
+  background: #009cf0;
   width: 750rpx;
 }
 

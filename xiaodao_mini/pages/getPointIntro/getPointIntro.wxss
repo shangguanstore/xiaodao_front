@@ -1,0 +1,61 @@
+/* pages/getPointIntro/getPointIntro.wxss */
+.top {
+  margin-top: 20rpx;
+  width: 700rpx;
+  background: -webkit-linear-gradient(bottom, rgba(0,156,240,1), rgba(0,156,240,0.2));
+  border-radius: 3rpx;
+}
+
+.top .title {
+  margin-top: 30rpx;
+  color: white;
+  text-align: center;
+}
+
+.top .des {
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  color: white;
+  text-align: center;
+  font-size: 46rpx;
+}
+
+
+.intro {
+  width: 700rpx;
+  margin-top: 40rpx;
+  padding: 30rpx 40rpx;
+  padding-top: 0;
+  box-sizing: border-box;
+  box-shadow:0 8rpx 57rpx 0 rgba(35,62,116,0.12);
+}
+
+.intro .item {
+  /* background: yellow; */
+  margin-top: 20rpx;
+}
+
+.intro .item .imgArea{
+    float: left;
+    height: 92rpx;
+    /* background: red; */
+    display: flex;
+    align-items: center;
+}
+
+.intro .item .content{
+    float: left;
+    margin-left: 20rpx;
+    display: flex;
+    align-items: center;
+}
+
+.intro .item .content .title {
+  color: #444;
+  font-size: 32rpx;
+}
+
+.intro .item .content .des {
+  color: #666;
+  font-size: 22rpx;
+}

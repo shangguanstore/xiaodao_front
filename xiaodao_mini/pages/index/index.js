@@ -164,13 +164,14 @@ Page({
       return;
     }
     wx.setStorageSync('userInfo', userInfo)
+    this.setData({
+      showAuthBox: false
+    })
 
     var userAuth = new UserAuth(userInfo);
     userAuth.login(function(res) {
       console.log('res',res)
-      _this.setData({
-        showAuthBox: false
-      })
+      
     })
   },
 

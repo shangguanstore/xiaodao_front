@@ -35,6 +35,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('a-o',options)
     let config = app.config
     let _this = this
     
@@ -88,6 +89,9 @@ Page({
       var hour
       var minu
       var sec
+      var groupHour
+      var groupMinu
+      var groupSec
       var groupList = this.data.groupList
       if (nowMilliseconds < groupEndTimeMilliseconds) {
         timeRemaining = groupEndTimeMilliseconds - nowMilliseconds
@@ -102,10 +106,10 @@ Page({
           var limitTime = item.create_time * 1000 + 24*60*60*1*1000
           groupItemTimeRemaining = limitTime - nowMilliseconds
           if (groupItemTimeRemaining > 0) {
-            hour = parseInt(groupItemTimeRemaining / (60 * 60 * 1000) % 24)
-            minu = parseInt(groupItemTimeRemaining / (60 * 1000) % 60)
-            sec = parseInt(groupItemTimeRemaining / 1000 % 60)
-            item.timeRemain = `剩余时间${lib.numberLengthFormat(hour)}:${lib.numberLengthFormat(minu)}:${lib.numberLengthFormat(sec)}结束`
+            groupHour = parseInt(groupItemTimeRemaining / (60 * 60 * 1000) % 24)
+            groupMinu = parseInt(groupItemTimeRemaining / (60 * 1000) % 60)
+            groupSec = parseInt(groupItemTimeRemaining / 1000 % 60)
+            item.timeRemain = `剩余时间${lib.numberLengthFormat(groupHour)}:${lib.numberLengthFormat(groupMinu)}:${lib.numberLengthFormat(groupSec)}结束`
           }else{//已经超过一天了
             item.timeRemain = ''
           }

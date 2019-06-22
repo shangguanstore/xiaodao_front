@@ -178,6 +178,8 @@ Page({
           paySign: miniRequestData.paySign,
           success(res) {
             console.log('pay-res', res)
+            _this.afterFrontPay()
+            
             wx.navigateTo({
               url: `../paySuccess/paySuccess?activityId=${_this.data.activityId}&orderId=${_this.data.orderId}`
             })
@@ -196,6 +198,25 @@ Page({
       console.log('fail-res', res)
       wx.showToast({
         title: res.errMsg,
+        icon: 'none'
+      })
+    })
+  },
+
+  afterFrontPay() {
+    let url = 'api/after/front/order/pay'
+    let data = {
+      activity_order_id: this.data.order.id
+    }
+    let _this = this
+
+    request(url, 'post', data, function (res) {
+      //res就是我们请求接口返回的数据
+      
+    }, function (res) {
+      console.log('fail-res', res)
+      wx.showToast({
+        title: res.data.errMsg,
         icon: 'none'
       })
     })

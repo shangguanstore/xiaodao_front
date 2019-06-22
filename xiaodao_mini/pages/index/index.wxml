@@ -9,7 +9,7 @@
     </block>
   </view>
 
-  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="3000">
     <block wx:for="{{bannerList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id">
       <swiper-item>
         <image src="{{item.imglink_format}}" class="slide-image" mode="aspectFill" /> 
@@ -68,7 +68,7 @@
     <text class='line'></text>
   </view>
 
-  <video id="myVideo" style="margin-top: 20rpx;" src="http://video.it120.cc/2adc94f7c844433b825e0c729d4915ef/f2314d27b91645bb8ba125c735f7dcfa-5287d2089db37e62345123a1be272f8b.mp4" binderror="videoErrorCallback" poster="http://static.xiaost.net/video-back.jpg" controls></video>
+  <video id="myVideo" style="margin-top: 20rpx;width: 700rpx;" src="http://video.it120.cc/2adc94f7c844433b825e0c729d4915ef/f2314d27b91645bb8ba125c735f7dcfa-5287d2089db37e62345123a1be272f8b.mp4" binderror="videoErrorCallback" poster="http://static.xiaost.net/video-back.jpg" controls></video>
 
   <view class='listTopLine'>
     <text class='line'></text>

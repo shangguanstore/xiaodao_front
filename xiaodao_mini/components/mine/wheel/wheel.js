@@ -223,6 +223,8 @@ Component({
         })
         index++
       },500)
+
+      // clearInterval(interval)
       
 
       let url = 'api/activity/lottery/draw'
@@ -237,7 +239,7 @@ Component({
 
         let which = 0
         for(var i = 0, len = _this.data.awardList.length; i < len; i++) {
-          if (_this.data.awardList[i].lottery_id == lottery.lottery_id) {
+          if (_this.data.awardList[i].lottery_goods_id == lottery.lottery_goods_id) {
             which = i
             console.log('1111')
             break
@@ -273,7 +275,7 @@ Component({
           indexSelect: index,
         })
 
-        //如果旋转时间过短或者当前位置不等于中奖位置则递归执行
+        //如果索引变化 TimeOut时间过短(一般超过限定值，说明大概率上没中奖，这里也有不严谨的地方。这里如果超过200，是一定没中奖的) 或者当前位置不等于中奖位置则递归执行
         //直到旋转至中奖位置
         if (time < 200 || index != which) {
           //越来越慢

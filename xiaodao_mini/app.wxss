@@ -31,6 +31,12 @@ page {
   border: 0;
 }
 
+.floatWrap::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
 .mainBackgroundColor {
   background: #31a89e;
 }
@@ -257,7 +263,7 @@ button[class="primary"]::after {
 .listArea .listItem .bottom .titleArea .title {
   font-size: 34rpx;
   color: #444;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 10rpx;
 }
 
@@ -550,8 +556,14 @@ button.no_border {
   font-size: 34rpx;
   color: #444;
 }
-
 /* cell 区域结束 */
+
+
+
+
+
+
+
 
 /* icon - front-mobile 项目 */
 @import 'iconfont.wxss';

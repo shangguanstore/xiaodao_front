@@ -17,7 +17,7 @@
         </view>
       </block>
       <block wx:else>
-        <view class='reg' data-url='../wxAuth/wxAuth' bindtap='routeTo'>登录/注册</view>
+        <view class='reg' bindtap='toLogin'>登录/注册</view>
       </block>
     </view>
 
@@ -67,6 +67,15 @@
       </view>
     </view>
 
+    <view class='list' data-url='../../mall/order-list/order-list' bindtap='routeTo'>
+      <view class='iconArea' style='background: #009cf0'>
+        <text class='iconfont icon-dingdanyichenggong'></text>
+      </view>
+      <view class='title'>
+        商城订单
+      </view>
+    </view>
+
     <view class='list' bindtap='toMyInfo'>
       <view class='image'>
         <image src='../../images/ucenter/myInfo.png'></image>
@@ -81,7 +90,7 @@
         <image src='../../images/ucenter/myData.png'></image>
       </view>
       <view class='title'>
-        我要推广
+        推广送积分
       </view>
     </view>
 
