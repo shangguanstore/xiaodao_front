@@ -58,6 +58,15 @@
 
         <Row>
           <Col span="12">
+          <FormItem label="奖品有效期至" prop="giftLimitDate">
+            <DatePicker v-model="formValidate.giftLimitDate" type="date" format="yyyy-MM-dd"
+                        placeholder="奖品有效期限" style="width: 100%"></DatePicker>
+          </FormItem>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span="12">
           <fileUpload v-if="getDataDown" :imglink="formValidate.imglink" label="封面图片" :limit="1"
                       v-on:fileupload="imglinkFileUpload"></fileUpload>
 
@@ -242,6 +251,7 @@
           max_num: '',
           lottery_limit_draw: '',
           timeRange: '',
+          giftLimitDate: '',
           lottery_intro: ''
         },
         ruleValidate: {
@@ -324,10 +334,17 @@
             var startTimeDate = new Date().setTime(data.start_time * 1000)
             var endTimeDate = new Date().setTime(data.end_time * 1000)
             var timeRange = [startTimeDate, endTimeDate];
+            console.log('timeRange',timeRange)
+
+            var futureTime = new Date().getTime() + 24*60*60*1000*90
+            var giftLimitDate = new Date()
+            data.lottery_gift_limit_time ? giftLimitDate.setTime(data.lottery_gift_limit_time * 1000) : giftLimitDate.setTime(futureTime)
+            console.log('giftLimitDate',giftLimitDate)
 
             this.formValidate = data
             this.formValidate.maxNumRadio = data.max_num ? 'have' : 'havnt'
             this.formValidate.timeRange = timeRange
+            this.formValidate.giftLimitDate = giftLimitDate
 
             this.activityType = data.type
 
@@ -388,6 +405,9 @@
         var startTime = Math.ceil(new Date(timeRange[0]).getTime() / 1000)
         var endTime = Math.ceil(new Date(timeRange[1]).getTime() / 1000)
 
+        var giftLimitDateTime = this.formValidate.giftLimitDate.getTime() / 1000
+
+
         var normalLotteryProbabilitySum = 0
         console.log('this.lotteryFormValidate.lotteryItems', this.lotteryFormValidate.lotteryItems)
         this.lotteryFormValidate.lotteryItems.map(function (item) {
@@ -416,6 +436,7 @@
           lottery_limit_draw: this.formValidate.lottery_limit_draw,
           start_time: startTime,
           end_time: endTime,
+          lottery_gift_limit_time: giftLimitDateTime,
           detail: this.detail,
           type: config.Activity.TYPE_LOTTERY,
           imglink: this.formValidate.imglink,

@@ -42,11 +42,6 @@
         </Row>
       </div>
 
-
-
-
-
-
       <div class="middle mt20">
         <Row :gutter="24">
           <Col span="8">
