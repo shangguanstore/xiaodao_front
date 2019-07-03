@@ -1,11 +1,31 @@
 /* pages/login/login.wxss */
+
 .leaveMessageTitle {
   background: white;
   width: 100%;
-  color:#666666;
-  padding-left:56rpx;
+  color: #666;
+  padding-left: 56rpx;
 }
+
 .demo-margin-bottom {
   margin-top: 40rpx;
 }
 
+.lotteryNotice {
+  width: 80%;
+  margin-top: 20rpx;
+  padding: 16rpx;
+  color: #999;
+  background: #eee;
+  font-size: 26rpx;
+  line-height: 37rpx;
+}
+
+.get-phone-btn {
+  position: absolute;
+  width: 550rpx;
+  top: 0;
+  right: 0;
+  z-index: 9999999;
+  opacity: 0;
+}

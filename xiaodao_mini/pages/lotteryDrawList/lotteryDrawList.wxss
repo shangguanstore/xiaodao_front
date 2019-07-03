@@ -1,0 +1,51 @@
+/* pages/lotteryDrawList/lotteryDrawList.wxss */
+.listBlock {
+  width: 750rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  background: white;
+  box-sizing: border-box;
+}
+
+.listBlock .listItem {
+  width: 100%;
+  height: 90rpx;
+  padding: 15rpx 0;
+  border-bottom: solid 1rpx #eeeeee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listBlock .listItem .user {
+  width: 560rpx;
+}
+
+.listBlock .listItem .user image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 80rpx;
+}
+
+.listBlock .listItem .user text {
+  position: relative;
+  top: -26rpx;
+  margin-left: 20rpx;
+  color: #666;
+  font-size: 32rpx;
+}
+
+
+.listBlock .listItem .time {
+  color: #808695;
+  font-size: 24rpx;
+  position: relative;
+  height: 100%;
+  width: 145rpx;
+}
+
+.listBlock .listItem .time text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

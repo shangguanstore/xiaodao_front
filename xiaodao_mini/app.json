@@ -21,6 +21,7 @@
     "pages/collectLikes/collectLikes",
     "pages/drawLottery/drawLottery",
     "pages/lotteryList/lotteryList",
+    "pages/lotteryDrawList/lotteryDrawList",
     "pages/getPointIntro/getPointIntro",
     "mall/mall/mall",
     "mall/to-pay-order/to-pay-order",

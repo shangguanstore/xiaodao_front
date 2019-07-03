@@ -1,4 +1,4 @@
-// pages/lotteryList/lotteryList.js
+// pages/lotteryDrawList/lotteryDrawList.js
 const lib = require('../../utils/lib/index.js')
 const request = require('../../utils/request.js')
 const app = getApp()
@@ -8,13 +8,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: []
+    activity_id: 0,
+    list: [],
+    Loaded: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let activity_id = options.activity_id
+    this.setData({
+      activity_id: activity_id
+    })
+
     this.getData()
   },
 
@@ -29,21 +36,21 @@ Page({
     this.setData({
       Loaded: false
     })
-    let _this = this
     let url = 'api/lottery/draw/getlist'
     let data = {
-      getActivityInfo: true,
-      self: true
+      activity_id: this.data.activity_id,
+      pageIndex: 1,
+      pageSize: 1000
     }
+    var _this = this
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
       let list = res.data.data || []
-      list.map(item=>{
-        item.lottery_gift_limit_time_format = lib.date('Y-m-d', item.lottery_gift_limit_time)
+      list = lib.filterResult(list)
+      list.map(item => {
+        item.des = `${item.uname}抽中${item.lottery_goods_name}`
       })
-
       _this.setData({
-        Loaded: true,
         list
       })
     }, function () {

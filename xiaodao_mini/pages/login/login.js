@@ -3,13 +3,16 @@ const lib = require('../../utils/lib/index.js')
 const request = require('../../utils/request.js')
 const common = require('../../utils/common.js')
 const app = getApp()
-import {UserAuth} from "../../utils/userAuth"
+import {
+    UserAuth
+} from "../../utils/userAuth"
 
 Page({
     /**
      * 页面的初始数据
      */
     data: {
+        config: {},
         activityId: 0,
         groupid: 0,
         orderType: 0,
@@ -20,15 +23,23 @@ Page({
         age: '',
         relations: ['母亲', '父亲', '本人', '其他'],
         relationIndex: 0,
-        from: 0
+        from: 0,
+
+        //验证码
+        showCodePhoneBox: false,
+        codeDisabled: false,
+        codeTime: 60,
+        getPhoneCode: '发送验证码',
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log('apply-options', options)
-        if(options.from == app.config.FrontLoginFrom.FROM_ACTIVITY_APPLY) {
+        //common.checkWxSession()
+        common.updateUserInfo()
+        let config = app.config
+        if (options.from == app.config.FrontLoginFrom.FROM_ACTIVITY_APPLY) {
             let groupid = options.groupid
             let activityData = JSON.parse(options.activityData)
             let activityId = activityData.id
@@ -40,12 +51,15 @@ Page({
                 groupid: groupid,
                 orderType: orderType
             })
-        }else if(options.from == app.config.FrontLoginFrom.FROM_LOGIN) {
+        } else if (options.from == app.config.FrontLoginFrom.FROM_LOGIN) {
+
+        } else if (options.from == app.config.FrontLoginFrom.FROM_LOTTERY_DRAW) {
 
         }
 
         this.setData({
-            from: options.from
+            from: options.from,
+            config
         })
     },
 
@@ -54,6 +68,101 @@ Page({
      */
     onReady: function () {
 
+    },
+
+    confirmCodePhone() {
+        let url = 'api/vcode/check'
+        let formValidate = this.data.formValidate
+        let data = {
+            phone: formValidate.boxPhone,
+            vcode: formValidate.vcode,
+        }
+        var _this = this
+        request(url, 'post', data, function (res) {
+            //res就是我们请求接口返回的数据
+            // wx.showToast({
+            //     title: '验证成功！',
+            //     icon: 'success'
+            // })
+            formValidate.phone = formValidate.boxPhone
+            _this.setData({
+                showCodePhoneBox: false,
+                formValidate
+            })
+        }, function (res) {
+            wx.showToast({
+                title: res.data.errMsg,
+                icon: 'none'
+            })
+        })
+    },
+
+    cancelCodePhone() {
+        this.setData({
+            showCodePhoneBox: false
+        })
+    },
+
+    afterSendCode() {
+        let _this = this
+        this.setData({
+            codeDisabled: true
+        })
+
+        let codeTime = this.data.codeTime
+
+        let interval = setInterval(function () {
+            if ((codeTime--) <= 0) {
+                _this.setData({
+                    codeTime: 60,
+                    getPhoneCode: '发送验证码',
+                    codeDisabled: false
+                })
+                clearInterval(interval)
+            } else {
+                _this.setData({
+                    getPhoneCode: codeTime + 's'
+                })
+            }
+        }, 1000);
+    },
+
+    getPhoneNumber(e) {
+        console.log('phone-e', e)
+        console.log(e.detail.errMsg)
+        console.log(e.detail.iv)
+        console.log(e.detail.encryptedData)
+
+        if (e.detail.iv && e.detail.encryptedData) {
+            this.getPhone(e.detail.iv, e.detail.encryptedData)
+        } else {
+            this.setData({
+                showCodePhoneBox: true
+            })
+        }
+    },
+
+    getPhone(iv, encryptedData) {
+        let _this = this
+        let url = 'api/weixin/decode'
+        let data = {
+            iv,
+            encryptedData
+        }
+        request(url, 'get', data, function (res) {
+            //res就是我们请求接口返回的数据
+            console.log('phone-res', res)
+            let formValidate = _this.data.formValidate
+            formValidate.phone = res.data.data.phoneNumber
+            _this.setData({
+                formValidate
+            })
+        }, function () {
+            wx.showToast({
+                title: '加载数据失败',
+                icon: 'none'
+            })
+        })
     },
 
     changeField(e) {
@@ -127,35 +236,39 @@ Page({
         }
 
         var userAuth = new UserAuth(userInfo, data);
-        userAuth.login(res=>{
-            if(this.data.from == app.config.FrontLoginFrom.FROM_ACTIVITY_APPLY) {
+        userAuth.login(res => {
+            if (this.data.from == app.config.FrontLoginFrom.FROM_ACTIVITY_APPLY) {
                 common.toApplyActivity(this.data.orderType, this.data.activityData, this.data.groupid)
-            }else if(this.data.from == app.config.FrontLoginFrom.FROM_LOGIN) {
+            } else if (this.data.from == app.config.FrontLoginFrom.FROM_LOGIN || this.data.from == app.config.FrontLoginFrom.FROM_LOTTERY_DRAW) {
                 wx.showToast({
-                    title: '您已成功注册哦~',
+                    title: '注册成功~',
                     icon: 'success'
                 })
-                setTimeout(()=>{
+                setTimeout(() => {
                     wx.navigateBack({
                         delta: 1
                     })
-                },2000)
+                }, 2000)
             }
         })
-
     },
 
-    smsAuthCodeSend() {
+    smsCodeSend() {
+        if(this.data.codeDisabled) return
         let url = 'api/sms/send'
         let data = {
-            phone: '15335195967',
+            phone: this.data.formValidate.boxPhone,
             type: 1,
             sendType: 1
         }
         var _this = this
+        this.afterSendCode()
         request(url, 'post', data, function (res) {
             //res就是我们请求接口返回的数据
-            console.log('codeRes', res)
+            // wx.showToast({
+            //     title: '请求发送验证码成功！',
+            //     icon: 'success'
+            // })
         }, function (res) {
             wx.showToast({
                 title: res.data.errMsg,

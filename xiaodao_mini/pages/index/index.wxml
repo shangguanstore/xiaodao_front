@@ -96,7 +96,7 @@
       </view>
 
       <view class='bottom'>
-          <view class='titleArea'>
+          <view class='titleArea' style="width: {{item.btnText ? '500rpx' : '100%'}}">
               <view class='title'>{{item.name}}</view>
               <view class='des'>{{item.desc}}</view>
           </view>

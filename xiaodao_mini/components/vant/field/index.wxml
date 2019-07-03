@@ -7,13 +7,19 @@
   required="{{ required }}"
   custom-style="{{ customStyle }}"
   title-width="{{ titleWidth }}"
+  title-padding="{{ titlePadding }}"
   custom-class="van-field"
 >
   <slot name="left-icon" slot="icon" />
   <slot name="label" slot="title" />
   <view class="van-field__body {{ type === 'textarea' ? 'van-field__body--textarea' : '' }}">
+    <!-- △原代码 -->
+    <!-- wx:if="{{ type === 'textarea' }}" -->
+    <!-- 修改后 -->
+    <!-- {{ type === 'textarea' && !isBlured}} -->
+    <!-- placeholder 移到text里面 -->
     <textarea
-      wx:if="{{ type === 'textarea' }}"
+      wx:if="{{ type === 'textarea' && !isBlured }}"
       class="{{ inputClass }}"
       fixed="{{ fixed }}"
       focus="{{ focus }}"
@@ -21,7 +27,7 @@
       disabled="{{ disabled || readonly }}"
       maxlength="{{ maxlength }}"
       auto-height="{{ autosize }}"
-      placeholder="{{ placeholder }}"
+      placeholder=""
       placeholder-style="{{ placeholderStyle }}"
       placeholder-class="{{ error ? 'van-field--error' : '' }}"
       cursor-spacing="{{ cursorSpacing }}"
@@ -31,15 +37,17 @@
       bind:focus="onFocus"
       bind:confirm="onConfirm"
     />
+    <!-- △原代码 -->
+    <!-- wx:else -->
     <input
-      wx:else
+      wx:elif="{{ !isBlured }}"
       class="{{ inputClass }}"
       type="{{ type }}"
       focus="{{ focus }}"
       value="{{ value }}"
       disabled="{{ disabled || readonly }}"
       maxlength="{{ maxlength }}"
-      placeholder="{{ placeholder }}"
+      placeholder="{{}}"
       placeholder-style="{{ placeholderStyle }}"
       placeholder-class="{{ error ? 'van-field--error' : '' }}"
       confirm-type="{{ confirmType }}"
@@ -51,6 +59,10 @@
       bind:focus="onFocus"
       bind:confirm="onConfirm"
     />
+
+    <!-- △增加 失去焦点时替换成普通 text -->
+    <text wx:if="{{isBlured && value}}" style='width: 100%;color: #444444;text-align: {{inputAlign ? inputAlign : right}}' bind:tap="onClickField" decode='{{true}}'>&nbsp;{{value}}</text>
+    <text wx:if="{{isBlured && !value}}" style='width: 100%;text-align: {{inputAlign ? inputAlign : right}};{{placeholderStyle}}' bind:tap="onClickField" decode='{{true}}'>&nbsp;{{placeholder}}</text>
     <van-icon
       wx:if="{{ showClear }}"
       size="16px"
@@ -71,6 +83,8 @@
     <view wx:if="{{ useButtonSlot }}" class="van-field__button">
       <slot name="button" />
     </view>
+    <!-- 自己加的，计时秒数显示 -->
+    <!-- <slot name="countSeconds"></slot> -->
   </view>
   <view wx:if="{{ errorMessage }}" class="van-field__error-message">
     {{ errorMessage }}

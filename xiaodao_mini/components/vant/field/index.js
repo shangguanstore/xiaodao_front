@@ -27,6 +27,7 @@ VantComponent({
     useIconSlot: Boolean,
     useButtonSlot: Boolean,
     placeholderStyle: String,
+    titlePadding: String,
     adjustPosition: {
       type: Boolean,
       value: true
@@ -53,7 +54,9 @@ VantComponent({
     }
   },
   data: {
-    showClear: false
+    showClear: false,
+    // △ 增加 isBlured 失去焦点布尔值
+    isBlured: true
   },
   computed: {
     inputClass: function inputClass() {
@@ -71,8 +74,8 @@ VantComponent({
   },
   methods: {
     onInput: function onInput(event) {
+      console.log('value-event', event)
       var _this = this;
-
       var _ref = event.detail || {},
           _ref$value = _ref.value,
           value = _ref$value === void 0 ? '' : _ref$value;
@@ -87,6 +90,8 @@ VantComponent({
       });
     },
     onFocus: function onFocus(event) {
+      console.log(this)
+      console.log('focus666')
       var _ref2 = event.detail || {},
           _ref2$value = _ref2.value,
           value = _ref2$value === void 0 ? '' : _ref2$value,
@@ -115,8 +120,17 @@ VantComponent({
       });
       this.focused = false;
       this.set({
-        showClear: this.getShowClear()
+        showClear: this.getShowClear(),
+        // △ 失去焦点时，更新isBlured
+        isBlured: true
       });
+    },
+    // △新加函数 onClickField
+    onClickField: function(event) {
+      this.set({
+        isBlured: false,
+        focus: true
+      })
     },
     onClickIcon: function onClickIcon() {
       this.$emit('click-icon');

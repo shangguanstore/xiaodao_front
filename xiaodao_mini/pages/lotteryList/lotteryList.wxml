@@ -1,11 +1,15 @@
 <!--pages/lotteryList/lotteryList.wxml-->
 <view class='container'>
-  <view class='listItem'>
+  <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff" />
+  <view class='listItem' wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item.ldd_id">
     <view class='content'>
-      <view class="code">礼品券码：26846</view>
-      <view class='name'>小书包</view>
+      <view class="code">礼品券码：{{item.code}}</view>
+      <view class='name'>{{item.lottery_goods_name}}</view>
     </view>
-    <view class='date'>有效期至：2020-05-30</view>
+    <view class='date'>有效期至：{{item.lottery_gift_limit_time_format}}</view>
   </view>
  
+  <view wx:if="{{list.length == 0 && Loaded}}" class='noData'>
+    <image src='../../images/noData.png'></image>
+  </view>
 </view>

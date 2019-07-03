@@ -29,10 +29,10 @@
 
 .topArea .des .titleArea .share {
   width: 40rpx;
-  height: 40rpx;
+  height: 80rpx;
   margin-right: 20rpx;
   position: relative;
-  overflow: visible;
+  /* overflow: visible; */
 }
 
 .topArea .des .titleArea .share text {

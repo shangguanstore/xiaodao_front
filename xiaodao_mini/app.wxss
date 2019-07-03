@@ -578,12 +578,11 @@ button.no_border {
 }
 /* cell 区域结束 */
 
-
-
-
-
-
-
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 /* icon - front-mobile 项目 */
 @import 'iconfont.wxss';

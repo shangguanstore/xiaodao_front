@@ -26,7 +26,7 @@ Page({
     imglink: '',
     title: '',
     activity: {},
-    produce_mid: 0,
+    from_mid: 0,
     hasUserInfo: false,
     groupList: []
   },
@@ -59,7 +59,7 @@ Page({
 
     if (options.from_mid) {
       this.setData({
-        produce_mid: options.from_mid
+        from_mid: options.from_mid
       })
     }
     this.setData({
@@ -191,7 +191,7 @@ Page({
     let url = 'api/share/add'
     let data = {
       content_id: this.data.activityId,
-      produce_mid: this.data.produce_mid,
+      produce_mid: this.data.from_mid,
       receive_mid: wx.getStorageSync('mid'),
       type: app.config.Share.TYPE_ACTIVITY
     }
@@ -239,7 +239,7 @@ Page({
         Loaded: true
       })
 
-      if(_this.data.produce_mid) {
+      if(_this.data.from_mid) {
         _this.addShareRecord()
       }
 

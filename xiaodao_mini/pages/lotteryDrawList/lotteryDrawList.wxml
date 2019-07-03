@@ -1,0 +1,14 @@
+<!--pages/lotteryDrawList/lotteryDrawList.wxml-->
+<view class='container'>
+  <view class='listBlock'>
+    <view class='listItem' wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item.ldd_id">
+      <view class='user ellipsis'>
+        <image src="{{item.avatar}}"></image>
+        <text>{{item.des}}</text>
+      </view>
+      <view class='time'>
+        <text>{{item.create_time_format}}</text>
+      </view>
+    </view>
+  </view>
+</view>

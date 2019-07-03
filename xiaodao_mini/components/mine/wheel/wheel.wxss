@@ -3,18 +3,20 @@
 .container-out {
   height: 600rpx;
   width: 650rpx;
-  background-color: #b136b9;
+  background-color: #FFD905;
   margin: 100rpx auto;
-  border-radius: 40rpx;
-  box-shadow: 0 10px 0 #871a8e;
+  /* border-radius: 40rpx; */
+  /* box-shadow: 0 10px 0 #FFD905; */
   position: relative;
+  box-shadow:0px 7px 5px 0px rgba(49,100,221,0.64);
+  border-radius:25px;
 }
 
 .container-in {
   width: 580rpx;
   height: 530rpx;
   /* background-color: #871a8e; */
-  background-color: #ff9204;
+  background-color: #F49804;
   border-radius: 40rpx;
   position: absolute;
   left: 0;
@@ -104,6 +106,6 @@ box-shadow: inset 3px 3px 3px #fff2af;*/
 .award-des {
   margin-top: 10rpx;
   font-size: 24rpx;
-  color: #503512;
+  color: #7F3E3E;
   text-align: center;
 }

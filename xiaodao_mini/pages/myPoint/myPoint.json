@@ -4,6 +4,7 @@
   },
   "usingComponents": {
     "i-spin": "../../components/spin/index",
-    "i-icon": "../../components/icon/index"
+    "i-icon": "../../components/icon/index",
+    "van-loading": "../../components/vant/loading/index"
   }
 }

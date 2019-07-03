@@ -4,11 +4,11 @@
   <view class="container-in">
     <view class="content-out" wx:for="{{awardList}}" wx:for-index="awardIndex" wx:key="awardIndex"  style="top:{{item.topAward}}rpx;left:{{item.leftAward}}rpx;background-color: {{(awardIndex==indexSelect)?colorAwardSelect:colorAwardDefault}};">
       <image class="award-image" src="{{item.img}}" style="{{item.long ? '' : 'width:76rpx'}}"></image>
-      <text class='award-des'>{{item.name}}</text>
+      <text class='award-des' style="color: {{(awardIndex==indexSelect)?colorAwardDesSelect:colorAwardDesDefault}};">{{item.name}}</text>
     </view>
     <view class="start-btn" bindtap="startGame" style="{{isRunning?'background-color:#fe8504':''}}">
       <view class='start'>抽奖</view>
-      <view class='leftNum'>还有99次</view>
+      <view class='leftNum'>还有{{remain}}次</view>
     </view>
   </view>
 </view>
