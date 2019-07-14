@@ -191,7 +191,6 @@ Page({
         if (!e.detail.userInfo) {
             return;
         }
-        wx.setStorageSync('userInfo', e.detail.userInfo)
 
         let formValidate = this.data.formValidate
         let phone = formValidate.phone
@@ -235,7 +234,7 @@ Page({
             avatar: userInfo.avatarUrl
         }
 
-        var userAuth = new UserAuth(userInfo, data);
+        var userAuth = new UserAuth(userInfo, data, false);
         userAuth.login(res => {
             if (this.data.from == app.config.FrontLoginFrom.FROM_ACTIVITY_APPLY) {
                 common.toApplyActivity(this.data.orderType, this.data.activityData, this.data.groupid)

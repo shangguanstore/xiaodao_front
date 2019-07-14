@@ -1,4 +1,6 @@
 // pages/drawLottery/drawLottery.js
+import {UserAuth} from "../../utils/userAuth";
+
 const lib = require('../../utils/lib/index.js')
 const common = require('../../utils/common.js')
 const request = require('../../utils/request.js')
@@ -11,6 +13,7 @@ Page({
      */
     data: {
         config: {},
+        showAuthBox: false,
         activity_id: 0,
         title: '',
         activity: {},
@@ -47,8 +50,20 @@ Page({
             })
         }
 
-        this.getActivity()
-        this.getLotteryDrawList()
+        var timer = setInterval(()=>{
+            var UU7 = wx.getStorageSync('UU7')
+            var uname = wx.getStorageSync('uname')
+            if (UU7) {
+                clearInterval(timer)
+                this.getActivity()
+                this.getLotteryDrawList()
+                if(!uname) {
+                    this.setData({
+                        showAuthBox: true
+                    })
+                }
+            }
+        }, 500)
     },
 
     /**
@@ -56,6 +71,22 @@ Page({
      */
     onReady: function () {
 
+    },
+
+    toAuth: function(e) {
+        var _this = this
+        var userInfo = e.detail.userInfo
+        if (!e.detail.userInfo) {
+            return;
+        }
+        this.setData({
+            showAuthBox: false
+        })
+
+        var userAuth = new UserAuth(userInfo, null, false);
+        userAuth.login(function(res) {
+            console.log('res',res)
+        })
     },
 
     addShareRecord() {

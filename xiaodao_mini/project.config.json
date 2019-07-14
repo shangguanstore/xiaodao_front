@@ -55,7 +55,7 @@
 				},
 				{
 					"id": 2,
-					"name": "我的积分",
+					"name": "我的学币",
 					"pathName": "pages/myPoint/myPoint",
 					"query": ""
 				},
@@ -179,7 +179,7 @@
 				},
 				{
 					"id": -1,
-					"name": "积分说明",
+					"name": "学币说明",
 					"pathName": "pages/getPointIntro/getPointIntro",
 					"query": "",
 					"scene": null

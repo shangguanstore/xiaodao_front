@@ -322,9 +322,8 @@ Page({
     if (!e.detail.userInfo) {
       return;
     }
-    wx.setStorageSync('userInfo', userInfo)
 
-    var userAuth = new UserAuth(userInfo);
+    var userAuth = new UserAuth(userInfo, null, false);
     userAuth.login(function (res) {
       console.log('res', res)
       _this.setData({

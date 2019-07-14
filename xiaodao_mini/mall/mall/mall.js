@@ -131,18 +131,18 @@ Page({
         //   }
         // })
     },
-    reLogin: function() {
+    checkApiGcLogin: function() {
       let token = wx.getStorageSync('token')
       let userInfo = wx.getStorageSync('userInfo')
-      if(!lib.empty(userInfo) && !lib.empty('userInfo')) {
+      if(!lib.empty(userInfo) && !lib.empty(token)) {
         var userAuth = new UserAuth(userInfo);
         userAuth.login(function (res) {
-          console.log('res', res)
+          console.log('res-我成功啦！', res)
         })
       }
     },
     onLoad: function () {
-        this.reLogin()
+        this.checkApiGcLogin()
         this.mallInit()
         var that = this
         wx.setNavigationBarTitle({
@@ -279,7 +279,7 @@ Page({
                 if (res.data.code == 30001) {
                     wx.showModal({
                         title: '错误',
-                        content: '您的积分不足',
+                        content: '您的学币不足',
                         showCancel: false
                     })
                     return;

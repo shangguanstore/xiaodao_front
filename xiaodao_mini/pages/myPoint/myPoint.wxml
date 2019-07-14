@@ -11,7 +11,7 @@
 
   <view wx:if="{{pointList.length && Loaded}}">
     <view class='topArea mainBackgroundColor'>
-      <view class='title'>账户积分</view>
+      <view class='title'>账户学币</view>
       <view class='num'>{{curPoint}}</view>
     </view>
 
@@ -24,7 +24,7 @@
           <view class='time'>{{item.create_time_format}}</view>
         </view>
         <view class='itemSon content'>
-          <view class='des'>账户积分：{{item.cur_point_num}}</view>
+          <view class='des'>账户学币：{{item.cur_point_num}}</view>
           <view class='num'>{{item.num}}</view>
         </view>
       </view>

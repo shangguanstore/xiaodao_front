@@ -81,6 +81,22 @@
               key: 'name'
             },
             {
+              title: '发布状态',
+              key: 'publish',
+              render: (h, params) => {
+                const row = params.row;
+                const color = row.publish === 0 ? 'primary' : row.publish === 1 ? 'success' : 'error';
+                const text = row.publish === 0 ? '待发布' : row.publish === 1 ? '已发布' : '已下架';
+
+                return h('Tag', {
+                  props: {
+                    type: 'dot',
+                    color: color
+                  }
+                }, text);
+              }
+            },
+            {
               title: '活动简介',
               key: 'desc'
             },

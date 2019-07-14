@@ -3,7 +3,7 @@
     <div class="manage_title">
       <Breadcrumb>
         <BreadcrumbItem>系统设置</BreadcrumbItem>
-        <BreadcrumbItem>积分设置</BreadcrumbItem>
+        <BreadcrumbItem>学币设置</BreadcrumbItem>
       </Breadcrumb>
     </div>
     <div class="container staff_edit_container mt20">
@@ -16,7 +16,7 @@
               <span slot="open">开启</span>
               <span slot="close">关闭</span>
             </i-switch>
-            注册得积分
+            注册得学币
           </Col>
           <Col span="3">
             <FormItem prop="KEY_POINT_REGISTER_VALUE">
@@ -32,7 +32,7 @@
               <span slot="open">开启</span>
               <span slot="close">关闭</span>
             </i-switch>
-            分享得积分
+            分享得学币
           </Col>
           <Col span="3">
             <FormItem prop="KEY_POINT_SHARE_VALUE">
@@ -48,7 +48,7 @@
               <span slot="open">开启</span>
               <span slot="close">关闭</span>
             </i-switch>
-            分享并且报名得积分
+            分享并且报名得学币
           </Col>
           <Col span="3">
             <FormItem prop="KEY_POINT_SHARE_APPLY_VALUE">
@@ -64,7 +64,7 @@
               <span slot="open">开启</span>
               <span slot="close">关闭</span>
             </i-switch>
-            最终转化得积分
+            最终转化得学币
           </Col>
           <Col span="3">
             <FormItem prop="KEY_POINT_SHARE_SUCCESS_VALUE">
@@ -111,16 +111,16 @@
         },
         ruleValidate: {
             KEY_POINT_REGISTER_VALUE: [
-                {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+                {required: true, type: 'number',message: '请输入学币', trigger: 'blur'}
             ],
             KEY_POINT_SHARE_VALUE: [
-                {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+                {required: true, type: 'number',message: '请输入学币', trigger: 'blur'}
             ],
             KEY_POINT_SHARE_APPLY_VALUE: [
-                {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+                {required: true, type: 'number',message: '请输入学币', trigger: 'blur'}
             ],
             KEY_POINT_SHARE_SUCCESS_VALUE: [
-                {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+                {required: true, type: 'number',message: '请输入学币', trigger: 'blur'}
             ],
         }
       }
@@ -204,7 +204,7 @@
               let url = "/api/company/setting/update"
               this.$http.post(url, submitData).then(res => {
                   if(res) {
-                      this.$Message.success('更新积分配置成功!')
+                      this.$Message.success('更新学币配置成功!')
 
                       // var _this = this
                       // setTimeout(function () {

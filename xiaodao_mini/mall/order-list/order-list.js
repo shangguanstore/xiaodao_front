@@ -63,7 +63,7 @@ Page({
           if (res.data.data.score < needScore) {
             wx.showModal({
               title: '错误',
-              content: '您的积分不足，无法支付',
+              content: '您的学币不足，无法支付',
               showCancel: false
             })
             return;

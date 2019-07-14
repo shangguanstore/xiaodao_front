@@ -84,6 +84,18 @@
           </Col>
         </Row>
 
+
+        <Row v-if="!isAdd">
+          <Col span="12">
+          <FormItem label="状态" prop="publish">
+            <Select v-model="formValidate.publish" style="width:200px">
+              <Option v-for="item in publishList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+          </Col>
+        </Row>
+
+
         <!--时间-->
         <Row v-show="activityType == config.Activity.TYPE_GROUPON || activityType == config.Activity.TYPE_NORMAL">
           <Col span="12">
@@ -154,10 +166,15 @@
       </ckeditor>
     </div>
 
-    <div class="bottomBtn">
-      <Button size="large" type="primary" @click="handleSubmit()">提交</Button>
-      <Button size="large" @click="handleReset()" style="margin-left: 8px">取消</Button>
+    <div class="bottomBtn" v-if="isAdd">
+      <Button size="large" @click="handleSubmit(config.Activity.PUBLISH_HOLD)" type="primary">保存</Button>
+      <Button size="large" @click="handleSubmit(config.Activity.PUBLISH_ON)" style="margin-left: 8px">保存并发布</Button>
     </div>
+    <div class="bottomBtn" v-else>
+      <Button size="large" @click="handleSubmit()" type="primary">提交</Button>
+      <Button size="large" style="margin-left: 8px" @click="back">返回</Button>
+    </div>
+
   </div>
 </template>
 
@@ -187,6 +204,8 @@
         isAdd: true,
         content: '',
 
+        publishList: [],
+
         uploadImgList: [],
         detailUploadFileName: '',
         ckConfig: {
@@ -212,6 +231,7 @@
           name: '',
           desc: '',
           price: '',
+          publish: 0,
           maxNumRadio: 'havnt',
           course_experience: '0',
           max_num: '',
@@ -257,6 +277,22 @@
     created() {
       this.activityType = this.$route.query.type ? this.$route.query.type : config.Activity.TYPE_NORMAL
       this.config = config
+
+      this.publishList = [
+        {
+          label: '待发布',
+          value: config.Activity.PUBLISH_HOLD
+        },
+        {
+          label: '已发布',
+          value: config.Activity.PUBLISH_ON
+        },
+        {
+          label: '已下架',
+          value: config.Activity.PUBLISH_OUT
+        }
+      ]
+
       if(this.activityType == config.Activity.TYPE_NORMAL) {
         this.activityTypeName = '活动'
         this.activityTypeMenu = '活动报名'
@@ -322,7 +358,7 @@
     computed: {
     },
     methods: {
-      handleSubmit() {
+      handleSubmit(publish) {
         var timeRange = this.formValidate.timeRange
         var time1 = timeRange[0]
         var time2 = timeRange[1]
@@ -330,6 +366,7 @@
         var endTime = Math.ceil(new Date(timeRange[1]).getTime() / 1000)
 
         let submitData = {
+          publish: lib.isset(publish) ? publish : this.formValidate.publish,
           type: config.Activity.TYPE_NORMAL,
           name: this.formValidate.name,
           desc: this.formValidate.desc,
@@ -366,24 +403,28 @@
         this.$http.post(url, submitData).then(res => {
           if (res.data.errNo == 100000) {
             this.$Message.success(this.title + '成功!')
-            var _this = this
-            var path = 'activity'
-            if (this.activityType == config.Activity.TYPE_GROUPON) {
-              path = 'groupon'
-            }else if(this.activityType == config.Activity.TYPE_COURSE){
-              path = 'trialClass'
-            }
-            setTimeout(function () {
-              _this.$router.push({
-                path: path,
-                query: {}
-              })
-            }, 200)
+            this.back(200)
           }
         }).catch(error => {
           console.log(error)
           this.$Message.error('服务器错误!')
         })
+      },
+      back(afterTimes) {
+        afterTimes = afterTimes && (typeof afterTimes === 'number' && !isNaN(afterTimes)) ? afterTimes : 0
+        console.log('afterTimes',afterTimes)
+        var path = 'activity'
+        if (this.activityType == config.Activity.TYPE_GROUPON) {
+          path = 'groupon'
+        }else if(this.activityType == config.Activity.TYPE_COURSE){
+          path = 'trialClass'
+        }
+        setTimeout(()=>{
+          this.$router.push({
+            path: path,
+            query: {}
+          })
+        }, afterTimes)
       },
       imglinkFileUpload(uploadfile) {
         this.formValidate.imglink = lib.getUpdateUploadPicStr(uploadfile)

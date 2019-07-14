@@ -4,182 +4,182 @@ const app = getApp()
 const lib = require('../../utils/lib/index.js')
 const request = require('../../utils/request.js')
 import {
-  UserAuth
+    UserAuth
 } from "../../utils/userAuth";
 
 Page({
-  data: {
-    config: {},
-    showAuthBox: false,
-    userInfo: {},
-    Loaded: false,
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    bannerList: [],
-    activityList: []
-  },
+    data: {
+        config: {},
+        showAuthBox: false,
+        userInfo: {},
+        Loaded: false,
+        hasUserInfo: false,
+        canIUse: wx.canIUse('button.open-type.getUserInfo'),
+        bannerList: [],
+        activityList: []
+    },
 
-  onLoad: function() {
-    let config = app.config
-    this.setData({
-      config: config
-    })
+    onLoad: function () {
+        let config = app.config
+        this.setData({
+            config: config
+        })
 
-    let _this = this
-    var timer = setInterval(function() {
-      var UU7 = wx.getStorageSync('UU7')
-      var uname = wx.getStorageSync('uname')
-      if (UU7) {
-        clearInterval(timer)
-        _this.getBannerList()
-        _this.getActivityList()
-        if(!uname) {
-          _this.setData({
-            showAuthBox: true
-          })
-        }
-      }
-    }, 500)
-  },
+        let _this = this
+        var timer = setInterval(function () {
+            var UU7 = wx.getStorageSync('UU7')
+            var uname = wx.getStorageSync('uname')
+            if (UU7) {
+                clearInterval(timer)
+                _this.getBannerList()
+                _this.getActivityList()
+                if (!uname) {
+                    _this.setData({
+                        showAuthBox: true
+                    })
+                }
+            }
+        }, 500)
+    },
 
-  routeTo: function(e) {
-    let id = e.currentTarget.dataset.id
-    let type = e.currentTarget.dataset.type
-    let config = this.data.config
-    let url
-    if (type == config.Activity.TYPE_NORMAL || type == config.Activity.TYPE_GROUPON) {
-      url = '../activity/activity?id=' + id
-    } else if (type == config.Activity.TYPE_LOTTERY) {
-      url = '../drawLottery/drawLottery?id=' + id
-    } else {
-      url = '../activity/activity?id=' + id
-    }
-
-    wx.navigateTo({
-      url: url
-    })
-  },
-
-  routeToArticle(e) {
-    let url = e.currentTarget.dataset.url
-    wx.navigateTo({
-      url: url
-    })
-  },
-
-  routeToShop(e) {
-    let url = e.currentTarget.dataset.url
-    wx.navigateTo({
-      url: url
-    })
-  },
-
-  getBannerList() {
-    let url = 'api/mbanner/getlist'
-    let data = {
-      pageIndex: 1,
-      pageSize: 10
-    }
-    var _this = this
-    request(url, 'get', data, function(res) {
-      //res就是我们请求接口返回的数据
-      var bannerList = res.data.Data
-      bannerList.map(function(item) {
-        item.imglink_format = lib.getImglink(item.imglink)[0]
-        return item
-      })
-
-      _this.setData({
-        bannerList: bannerList
-      })
-    }, function() {
-      wx.showToast({
-        title: '加载数据失败',
-        icon: 'none'
-      })
-    })
-  },
-
-  getActivityList() {
-    this.setData({
-      Loaded: false
-    })
-    let url = 'api/activity/getlist'
-    let data = {
-      pageIndex: 1,
-      pageSize: 100,
-      queryDetail: false
-    }
-    var _this = this
-    request(url, 'get', data, function(res) {
-      //res就是我们请求接口返回的数据
-      let activityList = res.data.data
-      let that = _this
-      console.log('that.config', that.config)
-      activityList.map(function(item) {
-        item.imglink_format = lib.getImglink(item.imglink)[0]
-        if(item.type == that.data.config.Activity.TYPE_GROUPON) {
-          item.btnText = '参与拼团'
-        }else if(item.type == that.data.config.Activity.TYPE_LOTTERY){
-          item.btnText = '立即抽奖'
-        }else if(item.type == that.data.config.Activity.TYPE_COURSE && item.course_experience) {
-          item.btnText = '立即体验'
+    routeTo: function (e) {
+        let id = e.currentTarget.dataset.id
+        let type = e.currentTarget.dataset.type
+        let config = this.data.config
+        let url
+        if (type == config.Activity.TYPE_NORMAL || type == config.Activity.TYPE_GROUPON) {
+            url = '../activity/activity?id=' + id
+        } else if (type == config.Activity.TYPE_LOTTERY) {
+            url = '../drawLottery/drawLottery?id=' + id
+        } else {
+            url = '../activity/activity?id=' + id
         }
 
-        return item
-      })
+        wx.navigateTo({
+            url: url
+        })
+    },
 
-      console.log('activityList', activityList)
-      _this.setData({
-        activityList: activityList,
-        Loaded: true
-      })
-    }, function() {
-      wx.showToast({
-        title: '加载数据失败',
-        icon: 'none'
-      })
-    })
-  },
+    routeToArticle(e) {
+        let url = e.currentTarget.dataset.url
+        wx.navigateTo({
+            url: url
+        })
+    },
 
-  onClose() {
-    this.setData({
-      showAuthBox: false
-    })
-  },
+    routeToShop(e) {
+        let url = e.currentTarget.dataset.url
+        wx.navigateTo({
+            url: url
+        })
+    },
 
-  getUserInfo: function(e) {
-    console.log('aaabbbccc', e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
+    getBannerList() {
+        let url = 'api/mbanner/getlist'
+        let data = {
+            pageIndex: 1,
+            pageSize: 10
+        }
+        var _this = this
+        request(url, 'get', data, function (res) {
+            //res就是我们请求接口返回的数据
+            var bannerList = res.data.Data
+            bannerList.map(function (item) {
+                item.imglink_format = lib.getImglink(item.imglink)[0]
+                return item
+            })
 
-  toAuth: function(e) {
-    var _this = this
-    var userInfo = e.detail.userInfo
-    if (!e.detail.userInfo) {
-      return;
+            _this.setData({
+                bannerList: bannerList
+            })
+        }, function () {
+            wx.showToast({
+                title: '加载数据失败',
+                icon: 'none'
+            })
+        })
+    },
+
+    getActivityList() {
+        this.setData({
+            Loaded: false
+        })
+        let url = 'api/activity/getlist'
+        let data = {
+            pageIndex: 1,
+            pageSize: 100,
+            type: `${this.data.config.Activity.TYPE_COURSE},${this.data.config.Activity.TYPE_GROUPON}`,
+            publish: `${this.data.config.Activity.PUBLISH_ON}`,
+            queryDetail: false
+        }
+        var _this = this
+        request(url, 'get', data, function (res) {
+            //res就是我们请求接口返回的数据
+            let activityList = res.data.data
+            let that = _this
+            console.log('that.config', that.config)
+            activityList.map(function (item) {
+                item.imglink_format = lib.getImglink(item.imglink)[0]
+                if (item.type == that.data.config.Activity.TYPE_GROUPON) {
+                    item.btnText = '参与拼团'
+                } else if (item.type == that.data.config.Activity.TYPE_LOTTERY) {
+                    item.btnText = '立即抽奖'
+                } else if (item.type == that.data.config.Activity.TYPE_COURSE && item.course_experience) {
+                    item.btnText = '立即体验'
+                }
+
+                return item
+            })
+
+            console.log('activityList', activityList)
+            _this.setData({
+                activityList: activityList,
+                Loaded: true
+            })
+        }, function () {
+            wx.showToast({
+                title: '加载数据失败',
+                icon: 'none'
+            })
+        })
+    },
+
+    onClose() {
+        this.setData({
+            showAuthBox: false
+        })
+    },
+
+    getUserInfo: function (e) {
+        console.log('aaabbbccc', e)
+        app.globalData.userInfo = e.detail.userInfo
+        this.setData({
+            userInfo: e.detail.userInfo,
+            hasUserInfo: true
+        })
+    },
+
+    toAuth: function (e) {
+        var _this = this
+        var userInfo = e.detail.userInfo
+        if (!e.detail.userInfo) {
+            return;
+        }
+        this.setData({
+            showAuthBox: false
+        })
+
+        var userAuth = new UserAuth(userInfo, null, false);
+        userAuth.login(function (res) {
+            console.log('res', res)
+        })
+    },
+
+    print() {
+        console.log(app.globalData.userInfo)
+    },
+
+    onShareAppMessage: function () {
+
     }
-    wx.setStorageSync('userInfo', userInfo)
-    this.setData({
-      showAuthBox: false
-    })
-
-    var userAuth = new UserAuth(userInfo);
-    userAuth.login(function(res) {
-      console.log('res',res)
-      
-    })
-  },
-
-  print() {
-    console.log(app.globalData.userInfo)
-  },
-
-  onShareAppMessage: function() {
-
-  }
 })

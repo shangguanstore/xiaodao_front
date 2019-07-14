@@ -79,7 +79,6 @@ App({
     //配置开始
     config: {
         cid: 100021,
-        // baseServerUrl: 'https://api.photoelectric-displaycenter.com/',
         baseServerUrl: 'https://api.xiaost.net/',
         // baseServerUrl: 'http://hxe.7hu.cn/',
 
@@ -109,7 +108,10 @@ App({
             TYPE_GROUPON: 1,
             TYPE_GET_LIKES: 2,
             TYPE_LOTTERY: 3,
-            TYPE_COURSE: 4
+            TYPE_COURSE: 4,
+            PUBLISH_OUT: -2,
+            PUBLISH_HOLD: 0,
+            PUBLISH_ON: 1
         },
         Member: {
             STATUS_OK: 0,

@@ -68,8 +68,8 @@
             <i class="icon iconfont icon-jifen" style="margin-left: 12px;font-size: 14px;"></i>
             用户资金管理
           </template>
-          <MenuItem name="userPoint">用户积分</MenuItem>
-          <MenuItem name="pointDetail">用户积分明细</MenuItem>
+          <MenuItem name="userPoint">用户学币</MenuItem>
+          <MenuItem name="pointDetail">用户学币明细</MenuItem>
         </Submenu>
 
 
@@ -110,7 +110,7 @@
             <Icon type="md-settings" />
             系统设置
           </template>
-          <MenuItem name="pointEdit">积分设置</MenuItem>
+          <MenuItem name="pointEdit">学币设置</MenuItem>
         </Submenu>
       </Menu>
     </Sider>

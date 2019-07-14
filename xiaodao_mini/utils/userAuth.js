@@ -4,9 +4,17 @@ var app = getApp()
 
 class UserAuth {
     //构造函数
-    constructor(userInfo, userSubmitInfo) {
+    constructor(userInfo, userSubmitInfo, onlyCheckApigc = true) {
         this.userInfo = userInfo;
         this.userSubmitInfo = userSubmitInfo;
+        this.onlyCheckApigc = onlyCheckApigc
+
+        if(!lib.empty(userInfo)) {
+          wx.setStorage({
+            key: 'userInfo',
+            data: userInfo,
+          })
+        }
     }
 
     xstLogin(loginSuccess) {
@@ -55,46 +63,45 @@ class UserAuth {
                 success: function (res) {
                     if (res.data.code != 0) {
                         wx.removeStorageSync('token')
-                        _this.login();
-                    } else {
-                        // 回到原来的地方放
-                        //wx.navigateBack();
+                        _this.login(loginSuccess)
+                    } else if(!_this.onlyCheckApigc) {
+                        console.log('_this.onlyCheckApigc',_this.onlyCheckApigc)
                         _this.xstLogin(loginSuccess)
                     }
                 }
             })
-            return;
+        }else{
+            wx.login({
+                success: function (res) {
+                    wx.request({
+                        url: app.globalData.subDomain + '/user/wxapp/login',
+                        data: {
+                            code: res.code
+                        },
+                        success: function (res) {
+                            if (res.data.code == 10000) {
+                                // 去注册
+                                _this.registerUser(loginSuccess);
+                                return;
+                            }
+                            if (res.data.code != 0) {
+                                // 登录错误
+                                wx.hideLoading();
+                                wx.showModal({
+                                    title: '提示',
+                                    content: '无法登录，请重试',
+                                    showCancel: false
+                                })
+                                return;
+                            }
+                            wx.setStorageSync('token', res.data.data.token)
+                            wx.setStorageSync('apigc_uid', res.data.data.uid)
+                            if(!_this.onlyCheckApigc) _this.xstLogin(loginSuccess)
+                        }
+                    })
+                }
+            })
         }
-        wx.login({
-            success: function (res) {
-                wx.request({
-                    url: app.globalData.subDomain + '/user/wxapp/login',
-                    data: {
-                        code: res.code
-                    },
-                    success: function (res) {
-                        if (res.data.code == 10000) {
-                            // 去注册
-                            _this.registerUser(loginSuccess);
-                            return;
-                        }
-                        if (res.data.code != 0) {
-                            // 登录错误
-                            wx.hideLoading();
-                            wx.showModal({
-                                title: '提示',
-                                content: '无法登录，请重试',
-                                showCancel: false
-                            })
-                            return;
-                        }
-                        wx.setStorageSync('token', res.data.data.token)
-                        wx.setStorageSync('apigc_uid', res.data.data.uid)
-                        _this.xstLogin(loginSuccess)
-                    }
-                })
-            }
-        })
     }
 
     registerUser(loginSuccess) {

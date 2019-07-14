@@ -47,6 +47,16 @@
           </Col>
         </Row>
 
+        <Row v-if="!isAdd">
+          <Col span="12">
+          <FormItem label="状态" prop="publish">
+            <Select v-model="formValidate.publish" style="width:200px">
+              <Option v-for="item in publishList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+          </Col>
+        </Row>
+
         <Row>
           <Col span="12">
           <FormItem label="活动时间" prop="timeRange">
@@ -190,9 +200,18 @@
       </Form>
     </div>
 
-    <div class="bottomBtn">
-      <Button size="large" type="primary" @click="handleSubmit()">提交</Button>
-      <Button size="large" @click="handleReset()" style="margin-left: 8px">取消</Button>
+    <!--<div class="bottomBtn">-->
+      <!--<Button size="large" type="primary" @click="handleSubmit()">提交</Button>-->
+      <!--<Button size="large" @click="handleReset()" style="margin-left: 8px">取消</Button>-->
+    <!--</div>-->
+
+    <div class="bottomBtn" v-if="isAdd">
+      <Button size="large" @click="handleSubmit(config.Activity.PUBLISH_HOLD)" type="primary">保存</Button>
+      <Button size="large" @click="handleSubmit(config.Activity.PUBLISH_ON)" style="margin-left: 8px">保存并发布</Button>
+    </div>
+    <div class="bottomBtn" v-else>
+      <Button size="large" @click="handleSubmit()" type="primary">提交</Button>
+      <Button size="large" style="margin-left: 8px" @click="back">返回</Button>
     </div>
   </div>
 </template>
@@ -211,6 +230,7 @@
     },
     data() {
       return {
+        config: {},
         mid: 0,
         activityType: 0,
         title: "",
@@ -218,6 +238,7 @@
         detail: "",
         getDataDown: false,
         isAdd: true,
+        publishList: [],
         content: '',
         imgCategory: [],
         totalImgNum: 0,
@@ -245,6 +266,7 @@
         showPicModal: false,
         formValidate: {
           name: '',
+          publish: 0,
           desc: '',
           price: '',
           maxNumRadio: 'havnt',
@@ -302,6 +324,21 @@
     },
     created() {
       this.activityType = config.Activity.TYPE_LOTTERY
+      this.config = config
+      this.publishList = [
+        {
+          label: '待发布',
+          value: config.Activity.PUBLISH_HOLD
+        },
+        {
+          label: '已发布',
+          value: config.Activity.PUBLISH_ON
+        },
+        {
+          label: '已下架',
+          value: config.Activity.PUBLISH_OUT
+        }
+      ]
 
       this.lotteryTypeList = [
         {
@@ -396,7 +433,9 @@
       removeLotteryItem(index) {
         this.lotteryFormValidate.lotteryItems.splice(index, 1)
       },
-      handleSubmit() {
+      handleSubmit(publish) {
+        console.log('publish1',publish)
+
         var timeRange = this.formValidate.timeRange
         console.log('timeRange', timeRange)
         var time1 = timeRange[0]
@@ -430,6 +469,7 @@
 
         let submitData = {
           name: this.formValidate.name,
+          publish: lib.isset(publish) ? publish : this.formValidate.publish,
           desc: this.formValidate.desc,
           price: this.formValidate.price,
           max_num: this.formValidate.max_num,
@@ -455,20 +495,22 @@
         this.$http.post(url, submitData).then(res => {
           if (res.data.errNo == 100000) {
             this.$Message.success(this.title + '成功!')
-            var _this = this
-            var path = 'lottery'
-
-            setTimeout(function () {
-              _this.$router.push({
-                path: path,
-                query: {}
-              })
-            }, 200)
+            this.back(200)
           }
         }).catch(error => {
           console.log(error)
           this.$Message.error('服务器错误!')
         })
+      },
+      back(afterTimes) {
+        afterTimes = afterTimes && (typeof afterTimes === 'number' && !isNaN(afterTimes)) ? afterTimes : 0
+        var path = 'lottery'
+        setTimeout(()=>{
+          this.$router.push({
+            path: path,
+            query: {}
+          })
+        }, afterTimes)
       },
       lotteryIntroFileUpload(uploadfile) {
         this.formValidate.lottery_intro_imglink = lib.getUpdateUploadPicStr(uploadfile)

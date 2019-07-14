@@ -48,6 +48,10 @@ Activity.TYPE_GET_LIKES = 2
 Activity.TYPE_LOTTERY = 3
 Activity.TYPE_COURSE = 4
 
+Activity.PUBLISH_OUT = -2
+Activity.PUBLISH_HOLD = 0
+Activity.PUBLISH_ON = 1
+
 function LotteryGoods() {
 }
 LotteryGoods.TYPE_PHYSICAL = 0

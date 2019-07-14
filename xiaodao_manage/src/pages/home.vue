@@ -168,7 +168,7 @@
                     <i class="iconfont icon icon-ziyuan" style="font-size: 40px;color: #999;"></i>
                   </div>
                   <div class="des">
-                    积分设置
+                    学币设置
                   </div>
                 </li>
                 </Col>
@@ -180,7 +180,7 @@
                     <i class="iconfont icon icon-jifen" style="font-size: 40px;color: #999;"></i>
                   </div>
                   <div class="des">
-                    用户积分
+                    用户学币
                   </div>
                 </li>
                 </Col>

@@ -47,7 +47,7 @@ Page({
     var userSubmitInfo = {
       phone: this.data.phone
     }
-    var userAuth = new UserAuth(userInfo, userSubmitInfo);
+    var userAuth = new UserAuth(userInfo, userSubmitInfo, false);
     userAuth.login(function(res) {
         wx.showToast({
             title: '操作成功',

@@ -3,7 +3,7 @@
 		<div class="manage_title">
 			<Breadcrumb>
 				<BreadcrumbItem>用户资金管理</BreadcrumbItem>
-				<BreadcrumbItem>用户积分</BreadcrumbItem>
+				<BreadcrumbItem>用户学币</BreadcrumbItem>
 			</Breadcrumb>
 		</div>
 		<div class="container staff_container mt20">
@@ -26,10 +26,10 @@
 
 		<Modal
 				v-model="modal"
-				title="修改用户积分" @on-ok="changePointModalSubmit('formValidate')">
+				title="修改用户学币" @on-ok="changePointModalSubmit('formValidate')">
 			<Form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-position="left" :label-width="70">
 				<FormItem label="更改数量" prop="num">
-					<Input v-model="formValidate.num" placeholder="请输入变动积分，正数表示增加积分，负数表示减少积分"></Input>
+					<Input v-model="formValidate.num" placeholder="请输入变动学币，正数表示增加学币，负数表示减少学币"></Input>
 				</FormItem>
 
 				<FormItem label="备注" prop="comment">
@@ -98,7 +98,7 @@
                         key:'phone'
                     },
                     {
-                        title:'当前积分',
+                        title:'当前学币',
                         key:'num'
                     },
 					{
@@ -123,7 +123,7 @@
 											this.toChangePoint(params)
 										}
 									}
-								}, '调整积分'),
+								}, '调整学币'),
 							])
 						}
 					}
@@ -135,7 +135,7 @@
 				},
                 ruleValidate: {
 				    // num: [
-                    //     {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
+                    //     {required: true, type: 'number',message: '请输入学币', trigger: 'blur'}
 					// ]
 				}
 
@@ -225,7 +225,7 @@
                         let url = 'api/change/user/point'
                         this.$http.post(url, submitData).then(res => {
                             if(res) {
-                                this.$Message.success('调整积分成功!');
+                                this.$Message.success('调整学币成功!');
 
                                 this.getTableData({
                                     pageIndex: this.current,

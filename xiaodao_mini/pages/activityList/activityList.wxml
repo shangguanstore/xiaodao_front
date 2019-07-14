@@ -9,14 +9,35 @@
 
   <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff" />
 
-  <view wx:if="{{activityList.length && Loaded}}" class='listArea' style='margin-top: 10rpx'>
-    <view class='listItem' wx:for="{{activityList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id" data-url="../activity/activity?id={{item.id}}" bindtap="routeTo">
+  <!--<view wx:if="{{activityList.length && Loaded}}" class='listArea' style='margin-top: 10rpx'>-->
+    <!--<view class='listItem' wx:for="{{activityList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id" data-url="../activity/activity?id={{item.id}}" bindtap="routeTo">-->
+      <!--<view class='centerPicBox'>-->
+          <!--<image class='centerPic' src='{{item.imglink_format}}'></image>-->
+      <!--</view>-->
+      <!--<view class='detail'>{{item.desc}}</view>-->
+    <!--</view>-->
+  <!--</view>-->
+
+
+  <view class='listArea'>
+    <view class='listItem' wx:for="{{activityList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id" data-id="{{item.id}}" data-type="{{item.type}}" bindtap="routeTo">
       <view class='centerPicBox'>
-          <image class='centerPic' src='{{item.imglink_format}}'></image>
+        <image class='centerPic' src='{{item.imglink_format}}'></image>
       </view>
-      <view class='detail'>{{item.desc}}</view>
+
+      <view class='bottom'>
+        <view class='titleArea' style="width: {{item.btnText ? '500rpx' : '100%'}}">
+          <view class='title'>{{item.name}}</view>
+          <view class='des'>{{item.desc}}</view>
+        </view>
+        <view class='btn'>
+          <button wx:if="{{item.btnText}}" type='primary'>{{item.btnText}}</button>
+        </view>
+      </view>
     </view>
   </view>
+
+
 
   <view  wx:if="{{activityList.length == 0 && Loaded}}" class='noData'>
     <image src='../../images/noData.png'></image>

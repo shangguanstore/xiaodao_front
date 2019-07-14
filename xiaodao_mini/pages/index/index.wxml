@@ -1,118 +1,113 @@
 <!--index.wxml-->
 <view class="container">
-  <!-- 原来的示例代码 -->
-  <view class="userinfo" wx:if="{{false}}">
-    <button class='hideWxBtn' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-
-  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="3000">
-    <block wx:for="{{bannerList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id">
-      <swiper-item>
-        <image src="{{item.imglink_format}}" class="slide-image" mode="aspectFill" /> 
-      </swiper-item>
-    </block>
-  </swiper>
-
-  <!-- <i-grid-item wx:if="{{!Loaded}}">
-    <i-spin custom fix>
-      <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
-      <view>Loading</view>
-    </i-spin>
-  </i-grid-item> -->
-
-  <!-- <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff" /> -->
-
-  <view class='gap'></view>
-  <view class='topNav'>
-    <view class='navItem' data-url='../article/article?id=9862' bindtap='routeToArticle'>
-      <view class='circle' style='background: #80CEFC;'>
-        <text class="iconfont icon-icon"></text>
-      </view>
-      <text class='des'>教学特色</text>
+    <!-- 原来的示例代码 -->
+    <view class="userinfo" wx:if="{{false}}">
+        <button class='hideWxBtn' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo"
+                bindgetuserinfo="getUserInfo"> 获取头像昵称
+        </button>
+        <block wx:else>
+            <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
     </view>
 
-    <view class='navItem' data-url='../article/article?id=9866' bindtap='routeToArticle'>
-      <view class='circle' style='background: #88FAFD;'>
-        <text class="iconfont icon-course"></text>
-      </view>
-      <text class='des'>学员风采</text>
-    </view>
+    <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="3000">
+        <block wx:for="{{bannerList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id">
+            <swiper-item>
+                <image src="{{item.imglink_format}}" class="slide-image" mode="aspectFill"/>
+            </swiper-item>
+        </block>
+    </swiper>
 
-    <view class='navItem'  data-url='../article/article?id=9867' bindtap='routeToArticle'>
-      <view class='circle' style='background: #A7CCFE;'>
-        <text class="iconfont icon-shiziduiwu"></text>
-      </view>
-      <text class='des'>精英教师</text>
-    </view>
+    <!-- <i-grid-item wx:if="{{!Loaded}}">
+      <i-spin custom fix>
+        <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
+        <view>Loading</view>
+      </i-spin>
+    </i-grid-item> -->
 
-    <view class='navItem' data-url='../article/article?id=9868' bindtap='routeToArticle'>
-      <view class='circle' style='background: A7CCFE;'>
-        <text class="iconfont icon-zan"></text>
-      </view>
-      <text class='des'>爱贝优势</text>
-    </view>
+    <!-- <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff" /> -->
 
-    <!-- <view class='navItem'  data-url='../../mall/mall/mall' bindtap='routeToShop'>
-      <view class='circle' style='background: #9AC79D;'>
-        <text class="iconfont icon-shop"></text>
-      </view>
-      <text class='des'>积分商城</text>
-    </view> -->
-  </view>
+    <view class='gap'></view>
+    <view class='topNav'>
+        <view class='navItem' data-url='../article/article?id=9862' bindtap='routeToArticle'>
+            <view class='circle' style='background: #80CEFC;'>
+                <text class="iconfont icon-icon"></text>
+            </view>
+            <text class='des'>教学特色</text>
+        </view>
 
-   <view class='listTopLine'>
-    <text class='line'></text>
-    <text class='title'>爱贝精选</text>
-    <text class='line'></text>
-  </view>
+        <view class='navItem' data-url='../article/article?id=9866' bindtap='routeToArticle'>
+            <view class='circle' style='background: #88FAFD;'>
+                <text class="iconfont icon-course"></text>
+            </view>
+            <text class='des'>学员风采</text>
+        </view>
 
-  <video id="myVideo" style="margin-top: 20rpx;width: 700rpx;" src="http://video.it120.cc/2adc94f7c844433b825e0c729d4915ef/f2314d27b91645bb8ba125c735f7dcfa-5287d2089db37e62345123a1be272f8b.mp4" binderror="videoErrorCallback" poster="http://static.xiaost.net/video-back.jpg" controls></video>
+        <view class='navItem' data-url='../article/article?id=9867' bindtap='routeToArticle'>
+            <view class='circle' style='background: #A7CCFE;'>
+                <text class="iconfont icon-shiziduiwu"></text>
+            </view>
+            <text class='des'>精英教师</text>
+        </view>
 
-  <view class='listTopLine'>
-    <text class='line'></text>
-    <text class='title'>推荐课程</text>
-    <text class='line'></text>
-  </view>
+        <view class='navItem' data-url='../article/article?id=9868' bindtap='routeToArticle'>
+            <view class='circle' style='background: A7CCFE;'>
+                <text class="iconfont icon-zan"></text>
+            </view>
+            <text class='des'>机构优势</text>
+        </view>
 
-  <view class='listArea'>
-    <view class='listItem' wx:for="{{activityList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id" data-id="{{item.id}}" data-type="{{item.type}}" bindtap="routeTo">
-      <!-- <image src='{{item.imglink_format}}'></image> -->
-      <!-- <view style='background: url({{item.imglink_format}}) no-repeat 50%; height: 360rpx; width: 100%;'>
-      </view> -->
-
-      <!-- <view class='imgBackground' style='background: url({{item.imglink_format}}) no-repeat 50%'>
-      </view> -->
-
-      <!-- <view class='img'>
-        <image src='{{item.imglink_format}}'></image>
-      </view> -->
-
-      <view class='centerPicBox'>
-          <image class='centerPic' src='{{item.imglink_format}}'></image>
-      </view>
-
-      <view class='bottom'>
-          <view class='titleArea' style="width: {{item.btnText ? '500rpx' : '100%'}}">
-              <view class='title'>{{item.name}}</view>
-              <view class='des'>{{item.desc}}</view>
+        <!-- <view class='navItem'  data-url='../../mall/mall/mall' bindtap='routeToShop'>
+          <view class='circle' style='background: #9AC79D;'>
+            <text class="iconfont icon-shop"></text>
           </view>
-          <view class='btn'>
-            <button wx:if="{{item.btnText}}" type='primary'>{{item.btnText}}</button>
-          </view>
-      </view>
+          <text class='des'>学币商城</text>
+        </view> -->
     </view>
-  </view>
 
-  <van-popup show="{{ showAuthBox }}" close-on-click-overlay="{{false}}" bind:close="onClose" custom-class="popupBox" overlay-style="background-color: rgba(0,0,0,0.5)">
-       <view class="weixinAuthBox">
+    <view class='listTopLine'>
+        <text class='line'></text>
+        <text class='title'>品牌介绍</text>
+        <text class='line'></text>
+    </view>
+
+    <video id="myVideo" style="margin-top: 20rpx;width: 700rpx;"
+           src="http://video.it120.cc/2adc94f7c844433b825e0c729d4915ef/f2314d27b91645bb8ba125c735f7dcfa-5287d2089db37e62345123a1be272f8b.mp4"
+           binderror="videoErrorCallback" poster="http://static.xiaost.net/video-back.jpg" controls></video>
+
+    <view class='listTopLine'>
+        <text class='line'></text>
+        <text class='title'>推荐课程</text>
+        <text class='line'></text>
+    </view>
+
+    <view class='listArea'>
+        <view class='listItem' wx:for="{{activityList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id"
+              data-id="{{item.id}}" data-type="{{item.type}}" bindtap="routeTo">
+            <view class='centerPicBox'>
+                <image class='centerPic' src='{{item.imglink_format}}'></image>
+            </view>
+
+            <view class='bottom'>
+                <view class='titleArea' style="width: {{item.btnText ? '500rpx' : '100%'}}">
+                    <view class='title'>{{item.name}}</view>
+                    <view class='des'>{{item.desc}}</view>
+                </view>
+                <view class='btn'>
+                    <button wx:if="{{item.btnText}}" type='primary'>{{item.btnText}}</button>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <van-popup show="{{ showAuthBox }}" close-on-click-overlay="{{false}}" bind:close="onClose" custom-class="popupBox"
+               overlay-style="background-color: rgba(0,0,0,0.5)">
+        <view class="weixinAuthBox">
             <image class='title' src="{{config.Qiniu.STATIC_EXTERNAL_LINK + 'welcome.png'}}"></image>
             <image class='egg' src="{{config.Qiniu.STATIC_EXTERNAL_LINK + 'egg.png'}}"></image>
             <button class="btn blueOneBack" open-type="getUserInfo" bindgetuserinfo="toAuth">进入小程序</button>
-       </view>
-  </van-popup>
+        </view>
+    </van-popup>
 
 </view>

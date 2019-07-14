@@ -98,17 +98,24 @@ Page({
         icon: 'success'
       })
 
-      var that = _this
-      setTimeout(function () {
+      setTimeout(()=>{
         wx.navigateTo({
-          url: `../orderDetail/orderDetail?activityId=${that.data.activityId}&orderId=${id}`
+          url: `../orderDetail/orderDetail?activityId=${_this.data.activityId}&orderId=${id}`
         })
       }, 3000)
     }, function (res) {
-      wx.showToast({
-        title: res.data.errMsg,
-        icon: 'none'
-      })
+      if(res.data.errNo === 101201) {
+        setTimeout(() => {
+          wx.navigateTo({
+            url: `../orderDetail/orderDetail?activityId=${_this.data.activityId}&orderId=${res.data.id}`
+          })
+        }, 3000)
+      }else{
+        wx.showToast({
+          title: res.data.errMsg,
+          icon: 'none'
+        })
+      }
     })
   },
 

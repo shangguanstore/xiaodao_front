@@ -110,4 +110,13 @@
     <image class="close" src="http://static.xiaost.net/close" bindtap="closeNoticeBox"></image>
   </view>
 
+
+  <van-popup show="{{ showAuthBox }}" close-on-click-overlay="{{false}}" bind:close="onClose" custom-class="popupBox" overlay-style="background-color: rgba(0,0,0,0.5)">
+    <view class="weixinAuthBox">
+      <image class='title' src="{{config.Qiniu.STATIC_EXTERNAL_LINK + 'welcome.png'}}"></image>
+      <image class='egg' src="{{config.Qiniu.STATIC_EXTERNAL_LINK + 'egg.png'}}"></image>
+      <button class="btn blueOneBack" open-type="getUserInfo" bindgetuserinfo="toAuth">进入小程序</button>
+    </view>
+  </van-popup>
+
 </view>
