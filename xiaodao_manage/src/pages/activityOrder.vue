@@ -82,8 +82,8 @@
               key: 'name'
             },
             {
-                title: '客户昵称',
-                key: 'nickname'
+                title: '客户姓名',
+                key: 'uname'
             },
             {
                 title: '客户联系号码',
@@ -101,42 +101,42 @@
               title: '创建日期',
               key: 'create_time_format'
             },
-            {
-              title: '操作',
-              key: 'operation',
-              render: (h, params) => {
-                return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'text',
-                      size: 'small',
-                    },
-                    style: {
-                      color: '#2db7f5'
-                    },
-                    on: {
-                      click: () => {
-                        this.update(params)
-                      }
-                    }
-                  }, '编辑'),
-                  h('Button', {
-                    props: {
-                      type: 'text',
-                      size: 'small',
-                    },
-                    style: {
-                      color: '#2db7f5'
-                    },
-                    on: {
-                      click: () => {
-                        this.remove(params)
-                      }
-                    }
-                  }, '删除'),
-                ])
-              }
-            }
+            // {
+            //   title: '操作',
+            //   key: 'operation',
+            //   render: (h, params) => {
+            //     return h('div', [
+            //       h('Button', {
+            //         props: {
+            //           type: 'text',
+            //           size: 'small',
+            //         },
+            //         style: {
+            //           color: '#2db7f5'
+            //         },
+            //         on: {
+            //           click: () => {
+            //             this.update(params)
+            //           }
+            //         }
+            //       }, '编辑'),
+            //       h('Button', {
+            //         props: {
+            //           type: 'text',
+            //           size: 'small',
+            //         },
+            //         style: {
+            //           color: '#2db7f5'
+            //         },
+            //         on: {
+            //           click: () => {
+            //             this.remove(params)
+            //           }
+            //         }
+            //       }, '删除'),
+            //     ])
+            //   }
+            // }
           ],
       }
     },
@@ -194,6 +194,7 @@
           search: this.searchValue,
           getShare: true,
           activity_id: this.activity_id,
+          status: [config.ActivityOrder.STATUS_PAID],
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,
         }

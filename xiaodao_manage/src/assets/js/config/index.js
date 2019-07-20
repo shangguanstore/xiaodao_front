@@ -6,6 +6,7 @@ var config = {
     XstCompanySetting: XstCompanySetting,
   Mbanner: Mbanner,
   Activity: Activity,
+  ActivityOrder: ActivityOrder,
   Qiniu: Qiniu,
   LineComment: LineComment,
   LotteryGoods: LotteryGoods
@@ -51,6 +52,13 @@ Activity.TYPE_COURSE = 4
 Activity.PUBLISH_OUT = -2
 Activity.PUBLISH_HOLD = 0
 Activity.PUBLISH_ON = 1
+
+function ActivityOrder() {
+}
+ActivityOrder.STATUS_OK = 0;
+ActivityOrder.STATUS_PAID = 1;
+ActivityOrder.STATUS_DELETE = -1;
+ActivityOrder.STATUS_TIMEOUT = 2;
 
 function LotteryGoods() {
 }
