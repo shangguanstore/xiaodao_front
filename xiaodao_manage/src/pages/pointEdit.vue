@@ -43,7 +43,7 @@
 
         <Row>
           <Col span="2">&nbsp;</Col>
-          <Col span="3">
+          <Col span="4">
             <i-switch size="large" v-model="formValidate.KEY_POINT_SHARE_APPLY_STATUS" @on-change="shareApplyChange">
               <span slot="open">开启</span>
               <span slot="close">关闭</span>
@@ -57,21 +57,21 @@
           </Col>
         </Row>
 
-        <Row>
-          <Col span="2">&nbsp;</Col>
-          <Col span="3">
-            <i-switch size="large" v-model="formValidate.KEY_POINT_SHARE_SUCCESS_STATUS" @on-change="shareSuccessChange">
-              <span slot="open">开启</span>
-              <span slot="close">关闭</span>
-            </i-switch>
-            最终转化得学币
-          </Col>
-          <Col span="3">
-            <FormItem prop="KEY_POINT_SHARE_SUCCESS_VALUE">
-              <Input v-model="formValidate.KEY_POINT_SHARE_SUCCESS_VALUE" number></Input>
-            </FormItem>
-          </Col>
-        </Row>
+        <!--<Row>-->
+          <!--<Col span="2">&nbsp;</Col>-->
+          <!--<Col span="3">-->
+            <!--<i-switch size="large" v-model="formValidate.KEY_POINT_SHARE_SUCCESS_STATUS" @on-change="shareSuccessChange">-->
+              <!--<span slot="open">开启</span>-->
+              <!--<span slot="close">关闭</span>-->
+            <!--</i-switch>-->
+            <!--最终转化得学币-->
+          <!--</Col>-->
+          <!--<Col span="3">-->
+            <!--<FormItem prop="KEY_POINT_SHARE_SUCCESS_VALUE">-->
+              <!--<Input v-model="formValidate.KEY_POINT_SHARE_SUCCESS_VALUE" number></Input>-->
+            <!--</FormItem>-->
+          <!--</Col>-->
+        <!--</Row>-->
 
         <Row style="margin-top: 100px">
           <Col span="1">&nbsp;</Col>
@@ -106,8 +106,8 @@
           KEY_POINT_SHARE_VALUE: 0,
           KEY_POINT_SHARE_APPLY_STATUS: 0,
           KEY_POINT_SHARE_APPLY_VALUE: 0,
-          KEY_POINT_SHARE_SUCCESS_STATUS: 0,
-          KEY_POINT_SHARE_SUCCESS_VALUE: 0
+          // KEY_POINT_SHARE_SUCCESS_STATUS: 0,
+          // KEY_POINT_SHARE_SUCCESS_VALUE: 0
         },
         ruleValidate: {
             KEY_POINT_REGISTER_VALUE: [
@@ -119,9 +119,9 @@
             KEY_POINT_SHARE_APPLY_VALUE: [
                 {required: true, type: 'number',message: '请输入学币', trigger: 'blur'}
             ],
-            KEY_POINT_SHARE_SUCCESS_VALUE: [
-                {required: true, type: 'number',message: '请输入学币', trigger: 'blur'}
-            ],
+            // KEY_POINT_SHARE_SUCCESS_VALUE: [
+            //     {required: true, type: 'number',message: '请输入学币', trigger: 'blur'}
+            // ],
         }
       }
     },
@@ -151,8 +151,8 @@
                   this.formValidate.KEY_POINT_SHARE_VALUE = data.KEY_POINT_SHARE.value
                   this.formValidate.KEY_POINT_SHARE_APPLY_STATUS = data.KEY_POINT_SHARE_APPLY.status == 0 ? true : false
                   this.formValidate.KEY_POINT_SHARE_APPLY_VALUE = data.KEY_POINT_SHARE_APPLY.value
-                  this.formValidate.KEY_POINT_SHARE_SUCCESS_STATUS = data.KEY_POINT_SHARE_SUCCESS.status == 0 ? true : false
-                  this.formValidate.KEY_POINT_SHARE_SUCCESS_VALUE = data.KEY_POINT_SHARE_SUCCESS.value
+                  // this.formValidate.KEY_POINT_SHARE_SUCCESS_STATUS = data.KEY_POINT_SHARE_SUCCESS.status == 0 ? true : false
+                  // this.formValidate.KEY_POINT_SHARE_SUCCESS_VALUE = data.KEY_POINT_SHARE_SUCCESS.value
               }
           }).catch(error => {
               console.log(error)
@@ -191,11 +191,11 @@
                       value: this.formValidate.KEY_POINT_SHARE_APPLY_VALUE,
                       status: this.formValidate.KEY_POINT_SHARE_APPLY_STATUS ? config.XstCompanySetting.STATUS_OK : config.XstCompanySetting.STATUS_INVALID,
                   },
-                  {
-                      cfkey: 'KEY_POINT_SHARE_SUCCESS',
-                      value: this.formValidate.KEY_POINT_SHARE_SUCCESS_VALUE,
-                      status: this.formValidate.KEY_POINT_SHARE_SUCCESS_STATUS ? config.XstCompanySetting.STATUS_OK : config.XstCompanySetting.STATUS_INVALID,
-                  },
+                  // {
+                  //     cfkey: 'KEY_POINT_SHARE_SUCCESS',
+                  //     value: this.formValidate.KEY_POINT_SHARE_SUCCESS_VALUE,
+                  //     status: this.formValidate.KEY_POINT_SHARE_SUCCESS_STATUS ? config.XstCompanySetting.STATUS_OK : config.XstCompanySetting.STATUS_INVALID,
+                  // },
               ]
 
               let submitData = {

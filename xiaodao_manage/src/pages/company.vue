@@ -13,8 +13,11 @@
         <FormItem label="机构名称" prop="name" style="width: 60%">
           <Input v-model="formValidate.name" placeholder="请输入机构名称"></Input>
         </FormItem>
-        <FormItem label="电话" prop="phone" style="width: 60%">
-          <Input v-model="formValidate.phone" placeholder="请输入电话号码"></Input>
+        <FormItem label="固话" prop="fixphone" style="width: 60%">
+          <Input v-model="formValidate.fixphone" placeholder="请输入固话"></Input>
+        </FormItem>
+        <FormItem label="手机" prop="phone" style="width: 60%">
+          <Input v-model="formValidate.phone" placeholder="请输入手机号码"></Input>
         </FormItem>
         <FormItem label="地址" prop="address" style="width: 60%">
           <Input v-model="formValidate.address" placeholder="请输入机构所在地址"></Input>
@@ -29,36 +32,59 @@
 </template>
 
 <script>
+  import lib from '@/assets/js/lib/index'
+
   export default {
-    name: 'studentList',
+    name: 'company',
     data() {
       return {
         formValidate: {
           name: '',
           phone: '',
+          fixphone: '',
           address: '',
         },
         ruleValidate: {
           name: [
             {required: true, message: '请输入机构名称', trigger: 'blur'}
           ],
-          phone: [
-            {required: true, message: '请输入手机号', trigger: 'blur'}
-          ],
-          address: [
-            {required: true, message: '请输入机构地址', trigger: 'blur'}
-          ],
+          // phone: [
+          //   {required: true, message: '请输入手机号', trigger: 'blur'}
+          // ],
+          // address: [
+          //   {required: true, message: '请输入机构地址', trigger: 'blur'}
+          // ],
         }
       }
+    },
+    created() {
+      this.getCompany()
     },
     mounted() {
 
     },
     methods: {
+      getCompany() {
+        let url = lib.getRequestUrl('/api/company/getlist', {})
+        this.$http.get(url, {}).then(res => {
+          let company = res.data.data || []
+          this.formValidate = company[0]
+        }).catch(error => {
+          console.log('error', error)
+          this.$Message.error('服务器错误!');
+        })
+      },
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$http.get('http://hxe.7hu.cn' + 'api/member/reg', {}).then(res => {
+            let url = 'api/company/update'
+            let submitData = {
+              name: this.formValidate.name,
+              phone: this.formValidate.phone,
+              fixphone: this.formValidate.fixphone,
+              address: this.formValidate.address
+            }
+            this.$http.post(url, submitData).then(res => {
               console.log(res)
               this.$Message.success('Success!');
             }).catch(error => {
