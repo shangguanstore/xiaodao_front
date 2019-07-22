@@ -19,9 +19,27 @@ page {
   box-sizing: border-box;
 }
 
+.mt10 {
+  margin-top: 10rpx;
+}
 .mt20 {
   margin-top: 20rpx;
 }
+
+.ml10 {
+  margin-left: 10rpx;
+}
+.ml20 {
+  margin-left: 20rpx;
+}
+.mr10 {
+  margin-right: 10rpx;
+}
+.mr20 {
+  margin-right: 20rpx;
+}
+
+
 
 .rich-text {
   padding: 0 20rpx;
@@ -36,13 +54,19 @@ page {
   display: block;
   clear: both;
 }
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
 
 .mainBackgroundColor {
-  background: #31a89e;
+  background: rgba(0, 156, 240, 1);
 }
 
 .mainColor {
-  color: #31a89e;
+  color: rgba(0, 156, 240, 1);
 }
 
 .gap {
@@ -579,6 +603,7 @@ button.no_border {
 /* cell 区域结束 */
 
 .ellipsis {
+  display: inline-block;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

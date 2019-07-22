@@ -10,11 +10,13 @@ import {
 Page({
     data: {
         config: {},
+        company: {},
         showAuthBox: false,
         userInfo: {},
         Loaded: false,
         hasUserInfo: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
+        
         bannerList: [],
         activityList: []
     },
@@ -26,11 +28,15 @@ Page({
         })
 
         let _this = this
+        let hasUserInfo = false
         var timer = setInterval(function () {
             var UU7 = wx.getStorageSync('UU7')
             var uname = wx.getStorageSync('uname')
+            var phone = wx.getStorageSync('phone')
+            if(phone) hasUserInfo = true
             if (UU7) {
                 clearInterval(timer)
+                _this.getCompany()
                 _this.getBannerList()
                 _this.getActivityList()
                 if (!uname) {
@@ -38,6 +44,10 @@ Page({
                         showAuthBox: true
                     })
                 }
+                _this.setData({
+                    hasUserInfo
+                })
+
             }
         }, 500)
     },
@@ -60,6 +70,13 @@ Page({
         })
     },
 
+    toLogin() {
+        let url = `../login/login?from=${app.config.FrontLoginFrom.FROM_INDEX_EXPERIENCE}`
+        wx.navigateTo({
+            url: url
+        })
+    },
+
     routeToArticle(e) {
         let url = e.currentTarget.dataset.url
         wx.navigateTo({
@@ -72,6 +89,46 @@ Page({
         wx.navigateTo({
             url: url
         })
+    },
+
+    callPhone() {
+      let company = this.data.company
+      let tel = company.phone ? company.phone : company.fixphone
+      wx.makePhoneCall({
+        phoneNumber: tel,
+      })
+    },
+
+    viewMap() {
+      console.log('this.company', this.company)
+      if (this.data.company.geo) {
+        var e = this.data.company.geo.split(",");
+        wx.openLocation({
+          latitude: e[0] - 0,
+          longitude: e[1] - 0,
+          name: this.data.company.name,
+          address: this.data.company.address
+        });
+      }
+    },
+
+    getCompany() {
+      let url = 'api/company/getlist'
+      var _this = this
+      request(url, 'get', {}, function (res) {
+        //res就是我们请求接口返回的数据
+        var company = res.data.data
+        lib.filterResult(company)
+
+        _this.setData({
+          company: company[0]
+        })
+      }, function () {
+        wx.showToast({
+          title: '加载数据失败',
+          icon: 'none'
+        })
+      })
     },
 
     getBannerList() {
@@ -150,15 +207,6 @@ Page({
         })
     },
 
-    getUserInfo: function (e) {
-        console.log('aaabbbccc', e)
-        app.globalData.userInfo = e.detail.userInfo
-        this.setData({
-            userInfo: e.detail.userInfo,
-            hasUserInfo: true
-        })
-    },
-
     toAuth: function (e) {
         var _this = this
         var userInfo = e.detail.userInfo
@@ -177,6 +225,15 @@ Page({
 
     print() {
         console.log(app.globalData.userInfo)
+    },
+
+    onShow() {
+        let phone = wx.getStorageSync('phone')
+        let hasUserInfo = false
+        if(phone) hasUserInfo = true
+        this.setData({
+            hasUserInfo
+        })
     },
 
     onShareAppMessage: function () {

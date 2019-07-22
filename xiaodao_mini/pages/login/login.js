@@ -55,6 +55,8 @@ Page({
 
         } else if (options.from == app.config.FrontLoginFrom.FROM_LOTTERY_DRAW) {
 
+        } else if(options.from == app.config.FrontLoginFrom.FROM_INDEX_EXPERIENCE) {
+
         }
 
         this.setData({
@@ -241,6 +243,16 @@ Page({
             } else if (this.data.from == app.config.FrontLoginFrom.FROM_LOGIN || this.data.from == app.config.FrontLoginFrom.FROM_LOTTERY_DRAW) {
                 wx.showToast({
                     title: '注册成功~',
+                    icon: 'success'
+                })
+                setTimeout(() => {
+                    wx.navigateBack({
+                        delta: 1
+                    })
+                }, 2000)
+            } else if(this.data.from == app.config.FrontLoginFrom.FROM_INDEX_EXPERIENCE) {
+                wx.showToast({
+                    title: '您已登记成功！',
                     icon: 'success'
                 })
                 setTimeout(() => {

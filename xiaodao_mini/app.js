@@ -127,6 +127,7 @@ App({
             FROM_ACTIVITY_APPLY: 1,
             FROM_LOGIN: 2,//个人中心，点击登录
             FROM_LOTTERY_DRAW: 3,//抽奖游戏
+            FROM_INDEX_EXPERIENCE: 4,//首页点击 我要体验
         },
 
 

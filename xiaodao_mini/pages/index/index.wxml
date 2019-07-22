@@ -1,16 +1,5 @@
 <!--index.wxml-->
 <view class="container">
-    <!-- 原来的示例代码 -->
-    <view class="userinfo" wx:if="{{false}}">
-        <button class='hideWxBtn' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo"
-                bindgetuserinfo="getUserInfo"> 获取头像昵称
-        </button>
-        <block wx:else>
-            <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        </block>
-    </view>
-
     <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="3000">
         <block wx:for="{{bannerList}}" wx:for-item="item" wx:for-index="index" wx:key="item.id">
             <swiper-item>
@@ -66,6 +55,29 @@
         </view> -->
     </view>
 
+    <view v-if="company.phone && company.address" class="shop-info">
+      <view class="nameArea floatWrap">
+          <view class="fl">
+            <image class="logo" src="{{company.logo_format}}"></image>
+            <text class="ellipsis {{company.logo_format ? 'ml20' : ''}}">{{company.name}}</text>
+          </view>
+          <view class="fr">
+            <image src="http://static.xiaost.net/phone.png" bindtap="callPhone"></image>
+          </view>
+      </view>
+
+      <view class="addressArea floatWrap">
+        <view class="fl ml10">
+            <view class="block mainBackgroundColor"></view>
+            <text class="ml20 ellipsis">{{company.address}}</text>
+        </view>
+
+        <view class="fr">
+          <image src="http://static.xiaost.net/location.png" bindtap="viewMap"></image>
+        </view>
+      </view>
+    </view>
+
     <view class='listTopLine'>
         <text class='line'></text>
         <text class='title'>品牌介绍</text>
@@ -99,6 +111,13 @@
                 </view>
             </view>
         </view>
+    </view>
+
+    <view wx:if="{{ !hasUserInfo }}" class="experienceCircle" bindtap="toLogin">
+      <view class="circle">
+        <view class="item">立即</view>
+        <view class="item">体验</view>
+      </view>
     </view>
 
     <van-popup show="{{ showAuthBox }}" close-on-click-overlay="{{false}}" bind:close="onClose" custom-class="popupBox"

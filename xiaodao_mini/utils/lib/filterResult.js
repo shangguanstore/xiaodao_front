@@ -21,7 +21,13 @@ var filterResult = function(data) {
     }
 
     if (isset(item.imglink)) {
-      item.imglink_format = getImglink(item.imglink)
+      item.imglink_format = getImglink(item.imglink)[0]
+      item.imglink_format_list = getImglink(item.imglink)
+    }
+
+    if (isset(item.logo)) {
+      item.logo_format = getImglink(item.logo)[0]
+      item.logo_format_list = getImglink(item.logo)
     }
 
     if (isset(item.lottery_intro_imglink)) {

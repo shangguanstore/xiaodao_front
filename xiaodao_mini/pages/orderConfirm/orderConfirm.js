@@ -104,12 +104,19 @@ Page({
         })
       }, 3000)
     }, function (res) {
-      if(res.data.errNo === 101201) {
-        setTimeout(() => {
-          wx.navigateTo({
-            url: `../orderDetail/orderDetail?activityId=${_this.data.activityId}&orderId=${res.data.id}`
-          })
-        }, 3000)
+      if(res.data.errNo === 147004) {
+        if(res.data.id) {
+            setTimeout(() => {
+                wx.navigateTo({
+                    url: `../orderDetail/orderDetail?activityId=${_this.data.activityId}&orderId=${res.data.id}`
+                })
+            }, 3000)
+        }else{
+            wx.showToast({
+                title: res.data.errMsg,
+                icon: 'none'
+            })
+        }
       }else{
         wx.showToast({
           title: res.data.errMsg,
