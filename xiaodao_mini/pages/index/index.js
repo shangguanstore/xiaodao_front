@@ -36,9 +36,7 @@ Page({
             if(phone) hasUserInfo = true
             if (UU7) {
                 clearInterval(timer)
-                _this.getCompany()
-                _this.getBannerList()
-                _this.getActivityList()
+                _this.getData()
                 if (!uname) {
                     _this.setData({
                         showAuthBox: true
@@ -50,6 +48,12 @@ Page({
 
             }
         }, 500)
+    },
+
+    getData() {
+      this.getCompany()
+      this.getBannerList()
+      this.getActivityList()
     },
 
     routeTo: function (e) {
@@ -113,6 +117,7 @@ Page({
     },
 
     getCompany() {
+      // wx.showLoading()
       let url = 'api/company/getlist'
       var _this = this
       request(url, 'get', {}, function (res) {
@@ -121,8 +126,10 @@ Page({
         lib.filterResult(company)
 
         _this.setData({
-          company: company[0]
+          company: company[0],
+          Loaded: true
         })
+        // wx.hideLoading()
       }, function () {
         wx.showToast({
           title: '加载数据失败',
@@ -158,9 +165,6 @@ Page({
     },
 
     getActivityList() {
-        this.setData({
-            Loaded: false
-        })
         let url = 'api/activity/getlist'
         let data = {
             pageIndex: 1,
@@ -191,7 +195,6 @@ Page({
             console.log('activityList', activityList)
             _this.setData({
                 activityList: activityList,
-                Loaded: true
             })
         }, function () {
             wx.showToast({
@@ -238,5 +241,12 @@ Page({
 
     onShareAppMessage: function () {
 
+    },
+
+    onPullDownRefresh: function() {
+      console.log(2222)
+      wx.stopPullDownRefresh()
+      this.getData()
     }
+
 })

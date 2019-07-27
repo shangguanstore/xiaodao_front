@@ -15,7 +15,15 @@
       </i-spin>
     </i-grid-item> -->
 
-    <!-- <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff" /> -->
+    <van-overlay wx:if="{{!Loaded}}" 
+      show="{{true}}"
+      custom-style="background: rgba(255,255,255,0.8)"
+      mask
+    />
+
+    <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff" />
+
+    
 
     <view class='gap'></view>
     <view class='topNav'>

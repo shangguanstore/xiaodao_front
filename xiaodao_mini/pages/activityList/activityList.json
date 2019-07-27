@@ -1,7 +1,5 @@
 {
-  "window": {
-    "navigationBarTitleText": "活动"
-  },
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "i-spin": "../../components/spin/index",
     "i-icon": "../../components/icon/index",

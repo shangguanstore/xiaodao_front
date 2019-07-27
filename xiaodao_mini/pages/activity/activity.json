@@ -6,6 +6,7 @@
     "i-spin": "../../components/spin/index",
     "i-icon": "../../components/icon/index",
     "van-popup": "../../components/vant/popup/index",
-    "van-loading": "../../components/vant/loading/index"
+    "van-loading": "../../components/vant/loading/index",
+    "shareImg": "../../components/mine/shareImg/shareImg"
   }
 }
