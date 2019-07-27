@@ -122,4 +122,6 @@
             <button class="btn blueOneBack" open-type="getUserInfo" bindgetuserinfo="toAuth">进入小程序</button>
        </view>
   </van-popup>
+
+  <shareImg bindclose="close" userInfo="{{testU}}" visible="{{testVisible}}" />
 </view>

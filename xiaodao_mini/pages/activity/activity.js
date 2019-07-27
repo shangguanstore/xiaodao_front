@@ -28,7 +28,13 @@ Page({
     activity: {},
     from_mid: 0,
     hasUserInfo: false,
-    groupList: []
+    groupList: [],
+
+    testU: {
+      avatarUrl: `https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJecSGcKOoNvupXnrZ9YbmJslvzJ8d5kjLBlEO8mHG5kObZ7v4GRth23RictBsoFYrZbe0LuWz4Jng/132`,
+      nickName: '小糊涂'
+    },
+    testVisible: false
   },
 
   /**
@@ -36,6 +42,12 @@ Page({
    */
   onLoad: function (options) {
     console.log('a-o',options)
+    setTimeout(()=>{
+      this.setData({
+        testVisible: true
+      })
+    },2000)
+
     let config = app.config
     let _this = this
     
@@ -219,7 +231,8 @@ Page({
       var activity = res.data.data
       console.log('activity', activity)
       activity = lib.filterResult(activity)[0]
-      var imglink = activity.imglink_format[0]
+      var imglink = activity.imglink_format
+      console.log('imglink', imglink)
       var title = activity.name
 
       if (activity.type == app.config.Activity.TYPE_GROUPON) {

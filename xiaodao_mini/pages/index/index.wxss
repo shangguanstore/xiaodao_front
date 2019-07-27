@@ -101,7 +101,7 @@
 
 
 .listTopLine {
-  margin-top: 20rpx;
+  margin-top: 4rpx;
 }
 
 .listTopLine .line {

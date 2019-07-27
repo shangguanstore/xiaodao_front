@@ -32,10 +32,10 @@
     "mall/goods-details/goods-details"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#009cf0",
     "navigationBarTitleText": "校事通体验",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#aaaaaa",

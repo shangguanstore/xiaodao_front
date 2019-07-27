@@ -39,7 +39,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -84,10 +84,11 @@
 					"query": ""
 				},
 				{
-					"id": 8,
+					"id": 7,
 					"name": "活动报名",
-					"pathName": "pages/activityApply/activityApply",
-					"query": "id=23"
+					"pathName": "pages/activity/activity",
+					"query": "id=37",
+					"scene": null
 				},
 				{
 					"id": -1,
