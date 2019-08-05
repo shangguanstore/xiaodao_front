@@ -1,4 +1,3 @@
-/* components/mine/shareImg/shareImg.wxss */
 .share {
   position: fixed;
   top: 0;

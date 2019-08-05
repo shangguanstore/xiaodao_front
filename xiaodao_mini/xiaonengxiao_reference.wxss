@@ -1,0 +1,31 @@
+text.xxxl {
+  font-size: 36rpx!important;
+}
+
+text.xxl {
+  font-size: 34rpx!important;
+}
+
+text.xl {
+  font-size: 32rpx!important;
+}
+
+text.lg {
+  font-size: 30rpx!important;
+}
+
+text.sm {
+  font-size: 26rpx!important;
+}
+
+text.xs {
+  font-size: 24rpx!important;
+}
+
+text.xxs {
+  font-size: 22rpx!important;
+}
+
+text.xxxs {
+  font-size: 20rpx!important;
+}

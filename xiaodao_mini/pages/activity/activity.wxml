@@ -1,127 +1,169 @@
 <!--pages/activity/activity.wxml-->
-<import src="../../wxParse/wxParse.wxml" />
+<import src="../../wxParse/wxParse.wxml"/>
 <view class="container activity_container">
 
-  <!-- <i-grid-item wx:if="{{!Loaded}}">
-    <i-spin custom fix>
-      <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
-      <view>Loading</view>
-    </i-spin>
-  </i-grid-item> -->
+    <!-- <i-grid-item wx:if="{{!Loaded}}">
+      <i-spin custom fix>
+        <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
+        <view>Loading</view>
+      </i-spin>
+    </i-grid-item> -->
 
-  <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff" />
+    <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff"/>
 
-  <view class='topArea'>
-    <image src='{{imglink}}'></image>
-    <view class='des'>
-      <view class='titleArea'>
-        <view class='title'>{{title}}</view>
+    <view class='topArea'>
+        <image src='{{imglink}}'></image>
+        <view class='des'>
+            <view class='titleArea'>
+                <view class='title'>{{title}}</view>
+                <view class='share' bindtap="toShare">
+                    <text class='iconfont icon-share'></text>
+                    <!--<button open-type="share"></button>-->
+                </view>
+            </view>
+            <view class='time'>活动开始时间：{{activity.start_time_format}}</view>
+        </view>
+    </view>
+
+    <!-- 报名列表 -->
+    <view class='gap' wx:if="{{activityApplyMemberList.length > 0}}"></view>
+    <view class='applyArea' wx:if="{{activityApplyMemberList.length > 0 && !typeGroupon}}">
+        <view class='top'>
+            <view class='count'>已报名（{{applyTotal}}）</view>
+            <view wx:if="{{applyTotal > 7}}" class='seeMore' bindtap="goApplyList">更多报名></view>
+        </view>
+        <view class='applyAvatarList'>
+            <view class='listItem' wx:for="{{activityApplyMemberList}}" wx:for-item="applyMember"
+                  wx:for-index="index" wx:key="applyMember.id">
+                <image src='{{applyMember.avatar}}'></image>
+                <view class='name'>
+                    {{applyMember.uname}}
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <!-- 当前团列表 -->
+    <view class='gap' wx:if="{{activity.type == 1 && !groupIsFinished}}"></view>
+    <view class='curGroupListArea' wx:if="{{activity.type == 1 && !groupIsFinished}}">
+        <view class='title fontColor'>
+            离拼团结束还剩
+            <text class='redFiveColor'>{{day}}</text>
+            天
+            <text class='redFiveColor'>{{hour}}</text>
+            时
+            <text class='redFiveColor'>{{minu}}</text>
+            分
+            <text class='redFiveColor'>{{sec}}</text>
+            秒
+        </view>
+        <view class='des fontOneColor' wx:if="{{groupList.length}}">
+            以下小伙伴正在发起拼团，您可以直接参与
+        </view>
+        <view class='listArea'>
+            <view class='listItem' wx:for="{{groupList}}" wx:for-item='item' wx:for-index='index' wx:key='item.groupid'>
+                <view class='left'>
+                    <view class='pic'>
+                        <image src='{{item.avatar}}'></image>
+                    </view>
+                    <view class='content'>
+                        <view class='num fontOneColor'>
+                            还差
+                            <text>{{item.group_num - item.groupTotalPeople}}</text>
+                            人成团
+                        </view>
+                        <view class='time fontFourColor'>{{item.timeRemain}}</view>
+                    </view>
+                </view>
+                <view class='right'>
+                    <text class='price redOneColor'>¥ {{activity.group_price_format}}</text>
+                    <button type='primary' size='mini' data-order-type='{{config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}'
+                            data-groupid="{{item.groupid}}" bindtap='goToGroupDetail'>去拼团
+                    </button>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <!-- <view class='gap' wx:if="{{true}}"></view>
+    <view></view> -->
+
+
+    <view class='gap'></view>
+    <view class='rich-text'>
+        <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    </view>
+
+
+    <view class='fixBottom'
+          wx:if="{{activity.type == config.Activity.TYPE_NORMAL || activity.type == config.Activity.TYPE_COURSE}}">
+        <view class='home' bindtap='goHome'>
+            <text class='iconfont icon-shouye' style='font-size:42rpx;font-weight:500;margin-top:5rpx;'></text>
+            <text style='margin-top:-9rpx'>首页</text>
+        </view>
         <view class='share'>
-          <text class='iconfont icon-share'></text>
-          <button open-type="share"></button>
+            <text class='iconfont icon-fenxiang' style='font-size:32rpx;font-weight:500;margin-top:10rpx;'></text>
+            <button open-type="share">分享</button>
+            <text style='margin-top:-4rpx'>分享</text>
         </view>
-      </view>
-      <view class='time'>活动开始时间：{{activity.start_time_format}}</view>
-    </view>
-  </view>
-
-  <!-- 报名列表 -->
-  <view class='gap' wx:if="{{activityApplyMemberList.length > 0}}"></view>
-  <view class='applyArea' wx:if="{{activityApplyMemberList.length > 0 && !typeGroupon}}">
-    <view class='top'>
-      <view class='count'>已报名（{{applyTotal}}）</view>
-      <view wx:if="{{applyTotal > 7}}" class='seeMore' bindtap="goApplyList">更多报名></view>
-    </view>
-    <view class='applyAvatarList'>
-      <view class='listItem' wx:for="{{activityApplyMemberList}}" wx:for-item="applyMember" wx:for-index="index" wx:key="applyMember.id">
-        <image src='{{applyMember.avatar}}'></image>
-        <view class='name'>
-          {{applyMember.uname}}
+        <view class='apply' data-order-type="{{config.ActivityOrder.TYPE_DEFAULT}}" bindtap="toApply">
+            <text>{{activity.type == config.Activity.TYPE_NORMAL ? '我要报名' : '我要体验'}}</text>
         </view>
-      </view>
     </view>
-  </view>
 
-  <!-- 当前团列表 -->
-  <view class='gap' wx:if="{{activity.type == 1 && !groupIsFinished}}"></view>
-  <view class='curGroupListArea' wx:if="{{activity.type == 1 && !groupIsFinished}}">
-      <view class='title fontColor'>
-        离拼团结束还剩
-        <text class='redFiveColor'>{{day}}</text> 天
-        <text class='redFiveColor'>{{hour}}</text> 时
-        <text class='redFiveColor'>{{minu}}</text> 分
-        <text class='redFiveColor'>{{sec}}</text> 秒
-      </view>
-      <view class='des fontOneColor' wx:if="{{groupList.length}}">
-        以下小伙伴正在发起拼团，您可以直接参与
-      </view>
-      <view class='listArea'>
-        <view class='listItem' wx:for="{{groupList}}" wx:for-item='item' wx:for-index='index' wx:key='item.groupid'>
-          <view class='left'>
-            <view class='pic'>
-              <image src='{{item.avatar}}'></image>
-            </view>
-            <view class='content'>
-              <view class='num fontOneColor'>
-                还差<text>{{item.group_num - item.groupTotalPeople}}</text>人成团
-              </view>
-              <view class='time fontFourColor'>{{item.timeRemain}}</view>
-            </view>
-          </view>
-          <view class='right'>
-            <text class='price redOneColor'>¥ {{activity.group_price_format}}</text>
-            <button type='primary' size='mini' data-order-type='{{config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}' data-groupid="{{item.groupid}}" bindtap='goToGroupDetail'>去拼团</button>
-          </view>
+    <view class='fixBottom' wx:if="{{activity.type == config.Activity.TYPE_GROUPON && !groupIsFinished}}">
+        <view class='aloneBuy' data-order-type="{{config.ActivityOrder.TYPE_GROUP_SINGLE}}" data-groupid="0"
+              bindtap='toApply'>
+            单买 ¥ {{activity.price_format}}
         </view>
-      </view>
-  </view>
-
-  <!-- <view class='gap' wx:if="{{true}}"></view>
-  <view></view> -->
-
-
-  <view class='gap'></view>
-  <view class='rich-text'>
-    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
-  </view>
-
-
-  <view class='fixBottom' wx:if="{{activity.type == config.Activity.TYPE_NORMAL || activity.type == config.Activity.TYPE_COURSE}}">
-    <view class='home' bindtap='goHome'>
-      <text class='iconfont icon-shouye' style='font-size:42rpx;font-weight:500;margin-top:5rpx;'></text>
-      <text style='margin-top:-9rpx'>首页</text>
+        <view class='grouponBuy' data-order-type='{{config.ActivityOrder.TYPE_GROUP_START_TUAN}}'
+              bindtap='goToGroupDetail'>
+            <view>限时拼团</view>
+            <view>¥ {{activity.group_price_format}}</view>
+        </view>
     </view>
-    <view class='share'>
-      <text class='iconfont icon-fenxiang' style='font-size:32rpx;font-weight:500;margin-top:10rpx;'></text>
-      <button open-type="share">分享</button>
-      <text style='margin-top:-4rpx'>分享</text>
-    </view>
-    <view class='apply' data-order-type="{{config.ActivityOrder.TYPE_DEFAULT}}" bindtap="toApply">
-      <text>{{activity.type == config.Activity.TYPE_NORMAL ? '我要报名' : '我要体验'}}</text>
-    </view>
-  </view>
 
-  <view class='fixBottom' wx:if="{{activity.type == config.Activity.TYPE_GROUPON && !groupIsFinished}}">
-    <view class='aloneBuy' data-order-type="{{config.ActivityOrder.TYPE_GROUP_SINGLE}}" data-groupid="0" bindtap='toApply'>
-      单买 ¥ {{activity.price_format}}
+    <view class='finishedBottom fixBottom' wx:if="{{groupIsFinished}}">
+        <button type='default' style="width: 70%;line-height: 68rpx;margin: 16rpx 0;">活动已结束</button>
     </view>
-    <view class='grouponBuy' data-order-type='{{config.ActivityOrder.TYPE_GROUP_START_TUAN}}' bindtap='goToGroupDetail'>
-      <view>限时拼团</view>
-      <view>¥ {{activity.group_price_format}}</view>
-    </view>
-  </view>
 
-  <view class='finishedBottom fixBottom' wx:if="{{groupIsFinished}}">
-    <button type='default' style="width: 70%;line-height: 68rpx;margin: 16rpx 0;">活动已结束</button>
-  </view>
-
-  <van-popup show="{{ showAuthBox }}" close-on-click-overlay="{{false}}" bind:close="onClose" custom-class="popupBox" overlay-style="background-color: rgba(0,0,0,0.5)">
-       <view class="weixinAuthBox">
+    <van-popup show="{{ showAuthBox }}" close-on-click-overlay="{{false}}" bind:close="onClose" custom-class="popupBox"
+               overlay-style="background-color: rgba(0,0,0,0.5)">
+        <view class="weixinAuthBox">
             <image class='title' src="{{config.Qiniu.STATIC_EXTERNAL_LINK + 'welcome.png'}}"></image>
             <image class='egg' src="{{config.Qiniu.STATIC_EXTERNAL_LINK + 'egg.png'}}"></image>
             <button class="btn blueOneBack" open-type="getUserInfo" bindgetuserinfo="toAuth">进入小程序</button>
-       </view>
-  </van-popup>
+        </view>
+    </van-popup>
 
-  <shareImg bindclose="close" userInfo="{{testU}}" visible="{{testVisible}}" />
+    <van-popup
+            show="{{ showShareSelectBox }}"
+            bind:close="onShareSelectClose"
+            overlay-style="background-color: rgba(0,0,0,0.5)"
+            position="bottom"
+            custom-class="shareBoxPopup"
+    >
+        <view class="selectBox">
+            <view class="selectArea pb-20">
+                <view class="shareFriends selectIcon fontColor">
+                    <image src="http://static.xiaost.net/wechat.png" class="mt-30 w-80 h-80"></image>
+                    <view class="mt-5">
+                        <text class="sm">发送给朋友</text>
+                    </view>
+                    <button open-type="share"></button>
+                </view>
+                <view class="selectIcon fontColor" bindtap="showShare">
+                    <image src="http://static.xiaost.net/pengyouquan.png" class="mt-30 w-80 h-80"></image>
+                    <view class="mt-5">
+                        <text class="sm">生成海报分享</text>
+                    </view>
+                </view>
+            </view>
+            <view class="closeArea" bindtap="onShareSelectClose">
+                <text class="lg">取消</text>
+            </view>
+        </view>
+    </van-popup>
+
+    <canvas-share bindclose="close" visible="{{testVisible}}" pageUrl="{{pageUrl}}" scene="{{scene}}" />
 </view>

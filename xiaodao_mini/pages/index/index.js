@@ -27,27 +27,17 @@ Page({
             config: config
         })
 
-        let _this = this
-        let hasUserInfo = false
-        var timer = setInterval(function () {
-            var UU7 = wx.getStorageSync('UU7')
-            var uname = wx.getStorageSync('uname')
-            var phone = wx.getStorageSync('phone')
-            if(phone) hasUserInfo = true
-            if (UU7) {
-                clearInterval(timer)
-                _this.getData()
-                if (!uname) {
-                    _this.setData({
-                        showAuthBox: true
-                    })
-                }
-                _this.setData({
-                    hasUserInfo
-                })
+        app.userOnline.then(res=>{
+            let uname = wx.getStorageSync('uname')
+            let phone = wx.getStorageSync('phone')
+            let hasUserInfo = !!phone
 
-            }
-        }, 500)
+            this.getData()
+            this.setData({
+                hasUserInfo,
+                showAuthBox: !(!!uname)
+            })
+        })
     },
 
     getData() {

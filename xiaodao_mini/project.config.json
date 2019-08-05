@@ -12,7 +12,7 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.1",
+	"libVersion": "2.7.7",
 	"appid": "wx4c9a59a158e5142d",
 	"projectname": "xiaodao_mini",
 	"debugOptions": {

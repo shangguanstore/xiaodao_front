@@ -3,6 +3,9 @@
 @import 'weui-custom.wxss';
 @import 'colors.wxss';
 @import 'button.wxss';
+/*@import 'xiaonengxiao.wxss';*/
+@import 'measure.wxss';
+@import 'xiaonengxiao_reference.wxss';
 
 page {
   background: #f8f8f9;
