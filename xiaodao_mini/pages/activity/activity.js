@@ -32,9 +32,10 @@ Page({
         groupList: [],
         showShareSelectBox: false,
 
-        testVisible: false,
+        shareVisible: false,
         pageUrl: 'pages/activity/activity',
-        scene: ''
+        scene: '',
+        shareContent: {}
     },
 
     /**
@@ -104,14 +105,13 @@ Page({
     },
     showShare() {
         this.setData({
-            testVisible: true,
+            shareVisible: true,
             showShareSelectBox: false
         })
     },
     close() {
-        console.log('fuck')
         this.setData({
-            testVisible: false
+            shareVisible: false
         })
     },
 
@@ -267,6 +267,7 @@ Page({
                 _this.getGroupList()
             }
 
+            console.log('activity', activity)
             _this.setData({
                 imglink: imglink,
                 title: title,
@@ -285,11 +286,44 @@ Page({
             }
 
             _this.getActivityApplyMemberList()
+            _this.getShareContent()
         }, function () {
             wx.showToast({
                 title: '加载数据失败',
                 icon: 'none'
             })
+        })
+    },
+
+    getShareContent() {
+        let activity = this.data.activity
+        let shareContent = {}
+        if(activity.type == app.config.Activity.TYPE_GROUPON) {
+            shareContent = {
+                type: activity.type,
+                title: activity.name,
+                banner: activity.imglink_format,
+                pstart: activity.group_start_time_format,
+                pend: activity.group_end_time_format
+            }
+        }else if(activity.type == app.config.Activity.TYPE_COURSE) {//课程
+            shareContent = {
+                type: activity.type,
+                title: activity.name,
+                banner: activity.imglink_format,
+            }
+        }else if(activity.type == app.config.Activity.TYPE_NORMAL) {//活动
+            shareContent = {
+                type: activity.type,
+                title: activity.name,
+                banner: activity.imglink_format,
+                start: lib.date('Y-m-d H:i',activity.start_time),
+                end: lib.date('Y-m-d H:i',activity.end_time)
+            }
+        }
+
+        this.setData({
+            shareContent
         })
     },
 

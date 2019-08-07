@@ -44,7 +44,7 @@
     </view>
 
     <!-- 当前团列表 -->
-    <view class='gap' wx:if="{{activity.type == 1 && !groupIsFinished}}"></view>
+    <view class='gap' wx:if="{{activity.type == config.Activity.TYPE_GROUPON && !groupIsFinished}}"></view>
     <view class='curGroupListArea' wx:if="{{activity.type == 1 && !groupIsFinished}}">
         <view class='title fontColor'>
             离拼团结束还剩
@@ -165,5 +165,5 @@
         </view>
     </van-popup>
 
-    <canvas-share bindclose="close" visible="{{testVisible}}" pageUrl="{{pageUrl}}" scene="{{scene}}" />
+    <canvas-share bindclose="close" visible="{{shareVisible}}" pageUrl="{{pageUrl}}" scene="{{scene}}" content="{{shareContent}}" />
 </view>

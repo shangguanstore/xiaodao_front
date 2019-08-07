@@ -64,6 +64,7 @@ function saveImageToPhotosAlbum(option) {
 
 
 const request = require('../../../utils/request.js')
+const app = getApp()
 Component({
     properties: {
         visible: {
@@ -83,7 +84,14 @@ Component({
         scene: {
             type: String,
             value: ''
-        }
+        },
+        content: {
+            //拼团类型字段：type,title,banner,pstart(开始拼团时间),pend;
+            // 活动类型字段： type,title,banner,start,end,
+            // 课程： type,title,banner
+            type: Object,
+            value: ''
+        },
     },
 
     data: {
@@ -138,7 +146,7 @@ Component({
             wx.showLoading()
             const { canvasWidth, canvasHeight} = this.data
 
-            const bannerUrl = 'http://qiniu.xiaost.net/FtqSoe9BOptyG2FLlFrGx09pw4b2'
+            const bannerUrl = this.data.content.banner
             const bannerPromise = getImageInfo(bannerUrl)
 
             const locationUrl = `http://static.xiaost.net/location1.png`
@@ -154,6 +162,8 @@ Component({
 
             Promise.all([bannerPromise, backgroundPromise, locationPromise, oclockPromise, qrcodePromise])
                 .then(([banner, background, location, oclock, qrcode]) => {
+                    const content = this.data.content
+
                     const ctx = wx.createCanvasContext('share', this)
 
                     const canvasW = rpx2px(canvasWidth * 2)
@@ -173,7 +183,7 @@ Component({
                     ctx.setTextAlign('center')
                     ctx.setFillStyle('#333')
                     ctx.fillText(
-                        `“六一”儿童节，爱贝大放“价”啦`,
+                        content.title,
                         canvasW / 2,
                         rpx2px(150 * 2),
                     )
@@ -191,51 +201,104 @@ Component({
                     )
 
 
+
+                    if(content.type == app.config.Activity.TYPE_GROUPON) {
+                        // 拼团开始时间
+                        ctx.setFontSize(30)
+                        ctx.setTextAlign('center')
+                        ctx.setFillStyle('#444')
+                        ctx.fillText(
+                            `团购开始时间：${content.pstart}`,
+                            canvasW / 2,
+                            bannerY + banner.height + radius * 1,
+                        )
+
+                        // 拼团结束时间
+                        ctx.setFontSize(30)
+                        ctx.setTextAlign('center')
+                        ctx.setFillStyle('#444')
+                        ctx.fillText(
+                            `团购结束时间：${content.pend}`,
+                            canvasW / 2,
+                            bannerY + banner.height + radius * 2,
+                        )
+                    }else if(content.type == app.config.Activity.TYPE_NORMAL) {
+                        // 活动开始时间
+                        ctx.setFontSize(30)
+                        ctx.setTextAlign('center')
+                        ctx.setFillStyle('#444')
+                        ctx.fillText(
+                            `活动开始时间：${content.start}`,
+                            canvasW / 2,
+                            bannerY + banner.height + radius * 1,
+                        )
+
+                        // 活动结束时间
+                        ctx.setFontSize(30)
+                        ctx.setTextAlign('center')
+                        ctx.setFillStyle('#444')
+                        ctx.fillText(
+                            `活动结束时间：${content.end}`,
+                            canvasW / 2,
+                            bannerY + banner.height + radius * 2,
+                        )
+                    }else if(content.type == app.config.Activity.TYPE_COURSE) {
+                        ctx.setFontSize(30)
+                        ctx.setTextAlign('center')
+                        ctx.setFillStyle('#444')
+                        ctx.fillText(
+                            `分享一门有趣的课程给你`,
+                            canvasW / 2,
+                            bannerY + banner.height + radius * 1,
+                        )
+                    }
+
                     // 绘制时间图片
-                    const textXStar = rpx2px(45 * 2)
-                    const iconImgWidth = 30
-                    const iconImgHeight = 30
-                    ctx.drawImage(
-                        oclock.path,
-                        textXStar,
-                        bannerY + banner.height + radius * 2 - 30,
-                        iconImgWidth,
-                        iconImgHeight
-                    )
+                    // const textXStar = rpx2px(45 * 2)
+                    // const iconImgWidth = 30
+                    // const iconImgHeight = 30
+                    // ctx.drawImage(
+                    //     oclock.path,
+                    //     textXStar,
+                    //     bannerY + banner.height + radius * 2 - 30,
+                    //     iconImgWidth,
+                    //     iconImgHeight
+                    // )
 
                     // 绘制时间
-                    ctx.setFontSize(40)
-                    ctx.setTextAlign('left')
-                    ctx.setFillStyle('#666')
-                    ctx.fillText(
-                        `2019-06-01 00:00:00`,
-                        textXStar + 40,
-                        bannerY + banner.height + radius * 2,
-                    )
+                    // ctx.setFontSize(40)
+                    // ctx.setTextAlign('left')
+                    // ctx.setFillStyle('#666')
+                    // ctx.fillText(
+                    //     `2019-06-01 00:00:00`,
+                    //     textXStar + 40,
+                    //     bannerY + banner.height + radius * 2,
+                    // )
 
                     // 绘制地点图片
-                    ctx.drawImage(
-                        location.path,
-                        textXStar,
-                        bannerY + banner.height + radius * 3 - 30,
-                        iconImgWidth,
-                        iconImgHeight
-                    )
+                    // ctx.drawImage(
+                    //     location.path,
+                    //     textXStar,
+                    //     bannerY + banner.height + radius * 3 - 30,
+                    //     iconImgWidth,
+                    //     iconImgHeight
+                    // )
 
                     // 绘制地点
-                    const locationTextXStart = textXStar + 40
-                    const locationTextYStart = bannerY + banner.height + radius * 3
-                    ctx.setFontSize(40)
-                    ctx.setTextAlign('left')
-                    ctx.setFillStyle('#666')
-                    ctx.fillText(
-                        `校事通河西万达中心`,
-                        locationTextXStart,
-                        locationTextYStart,
-                    )
+                    // const locationTextXStart = textXStar + 40
+                    // const locationTextYStart = bannerY + banner.height + radius * 3
+                    // ctx.setFontSize(40)
+                    // ctx.setTextAlign('left')
+                    // ctx.setFillStyle('#666')
+                    // ctx.fillText(
+                    //     `校事通河西万达中心`,
+                    //     locationTextXStart,
+                    //     locationTextYStart,
+                    // )
+
 
                     // 绘制小程序码
-                    const qrcodeYStart = locationTextYStart + 80
+                    const qrcodeYStart = bannerY + banner.height + radius * 3 + 80
                     ctx.drawImage(
                         qrcode.path,
                         canvasW / 2 - qrcode.width / 2,
