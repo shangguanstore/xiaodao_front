@@ -11,7 +11,7 @@ var getImglink = function (picStr, addExternal = true) {
     })
     if (addExternal) {
       picArr = picArr.map(function (item) {
-        return app.config.Qiniu.EXTERNAL_LINK + item
+        return app.config.Qiniu.EXTERNAL_SSL_LINK + item
       })
     }
 

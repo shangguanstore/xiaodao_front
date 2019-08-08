@@ -15,19 +15,19 @@ function getMiniQrcode(page, scene) {
         scene
     }
 
-    let apiPromise = new Promise((resolve, reject)=> {
-        request(url, 'post', data, res=>{
+    let apiPromise = new Promise((resolve, reject) => {
+        request(url, 'post', data, res => {
             resolve(res)
-        }, err=>{
+        }, err => {
             reject(err)
         })
     })
 
     //promise 嵌套
-    return apiPromise.then(res=>{
+    return apiPromise.then(res => {
         var url = res.data.data
         return getImageInfo(url)
-    },err=>{
+    }, err => {
 
     })
 }
@@ -64,6 +64,8 @@ function saveImageToPhotosAlbum(option) {
 
 
 const request = require('../../../utils/request.js')
+import CTB from '../../../utils/canvas-text-break'
+
 const app = getApp()
 Component({
     properties: {
@@ -144,24 +146,26 @@ Component({
         },
         draw() {
             wx.showLoading()
-            const { canvasWidth, canvasHeight} = this.data
+            const {canvasWidth, canvasHeight} = this.data
 
             const bannerUrl = this.data.content.banner
+            console.log('bannerUrl', bannerUrl)
             const bannerPromise = getImageInfo(bannerUrl)
 
-            const locationUrl = `http://static.xiaost.net/location1.png`
-            const locationPromise = getImageInfo(locationUrl)
-
-            const oclockUrl = `http://static.xiaost.net/oclock.png`
-            const oclockPromise = getImageInfo(oclockUrl)
+            // const locationUrl = `http://static.xiaost.net/location1.png`
+            // const locationPromise = getImageInfo(locationUrl)
+            //
+            // const oclockUrl = `http://static.xiaost.net/oclock.png`
+            // const oclockPromise = getImageInfo(oclockUrl)
 
             //const backgroundPromise = getImageInfo('https://img.xiaomeipingou.com/_assets_home-share-bg.jpg')
-            const backgroundPromise = getImageInfo('http://static.xiaost.net/shareBg2.png')
+            const backgroundPromise = getImageInfo('https://img.xiaost.net/shareBg2.png')
 
+            console.log('this.data.scene', this.data.scene)
             const qrcodePromise = getMiniQrcode(this.data.pageUrl, this.data.scene)
 
-            Promise.all([bannerPromise, backgroundPromise, locationPromise, oclockPromise, qrcodePromise])
-                .then(([banner, background, location, oclock, qrcode]) => {
+            Promise.all([bannerPromise, backgroundPromise, qrcodePromise])
+                .then(([banner, background, qrcode]) => {
                     const content = this.data.content
 
                     const ctx = wx.createCanvasContext('share', this)
@@ -179,19 +183,36 @@ Component({
                     )
 
                     // 绘制标题
-                    ctx.setFontSize(40)
-                    ctx.setTextAlign('center')
-                    ctx.setFillStyle('#333')
-                    ctx.fillText(
-                        content.title,
-                        canvasW / 2,
-                        rpx2px(150 * 2),
-                    )
+                    // ctx.setFontSize(40)
+                    // ctx.setTextAlign('center')
+                    // ctx.setFillStyle('#333')
+                    // ctx.fillText(
+                    //     content.title,
+                    //     canvasW / 2,
+                    //     rpx2px(150 * 2),
+                    // )
+
+                    const titleY = CTB({
+                        ctx,
+                        text: content.title,
+                        x: canvasW / 2,
+                        y: rpx2px(150 * 2),
+                        w: 550,
+                        fontStyle: {
+                            lineHeight: 50,
+                            textAlign: 'center',
+                            textBaseline: 'top',
+                            // font: 'normal 23px arial',
+                            fontSize: 40,
+                            fillStyle: '#333'
+                        }
+                    })
+
 
                     // 绘制banner
                     const radius = rpx2px(90 * 2)
-                    const bannerY = rpx2px(150 * 3)
-                    console.log('banner',banner)
+                    const bannerY = titleY + rpx2px(150 * 1)
+                    console.log('banner', banner)
                     ctx.drawImage(
                         banner.path,
                         canvasW / 2 - banner.width / 2,
@@ -201,8 +222,7 @@ Component({
                     )
 
 
-
-                    if(content.type == app.config.Activity.TYPE_GROUPON) {
+                    if (content.type == app.config.Activity.TYPE_GROUPON) {
                         // 拼团开始时间
                         ctx.setFontSize(30)
                         ctx.setTextAlign('center')
@@ -222,7 +242,7 @@ Component({
                             canvasW / 2,
                             bannerY + banner.height + radius * 2,
                         )
-                    }else if(content.type == app.config.Activity.TYPE_NORMAL) {
+                    } else if (content.type == app.config.Activity.TYPE_NORMAL) {
                         // 活动开始时间
                         ctx.setFontSize(30)
                         ctx.setTextAlign('center')
@@ -242,7 +262,7 @@ Component({
                             canvasW / 2,
                             bannerY + banner.height + radius * 2,
                         )
-                    }else if(content.type == app.config.Activity.TYPE_COURSE) {
+                    } else if (content.type == app.config.Activity.TYPE_COURSE) {
                         ctx.setFontSize(30)
                         ctx.setTextAlign('center')
                         ctx.setFillStyle('#444')
@@ -330,7 +350,7 @@ Component({
                     this.setData({isDraw: true})
                 })
                 .catch(err => {
-                    console.log('err',err)
+                    console.log('err', err)
                     this.setData({beginDraw: false})
                     wx.hideLoading()
                 })

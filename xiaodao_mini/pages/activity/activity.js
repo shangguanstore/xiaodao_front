@@ -46,16 +46,22 @@ Page({
 
         app.userOnline.then(res=>{
             //初始化参数
+            // options.scene = `id%3D37%26from_mid%3D17425`
             if(!options.scene) {
                 initOption.call(this, options)
             }else{
+                wx.showToast({
+                    title: `[${options.scene}]`,
+                    duration: 5000,
+                    icon: 'none'
+                })
                 let queryStringObj = new Object()
                 var queryStringArr = decodeURIComponent(options.scene).split('&')
 
                 for(var i in queryStringArr) {
                     queryStringObj[queryStringArr[i].split('=')[0]] = queryStringArr[i].split('=')[1]
                 }
-
+                // console.log('queryStringObj',queryStringObj)
                 initOption.call(this, queryStringObj)
             }
 
@@ -77,6 +83,7 @@ Page({
                 })
             }
             let scene = encodeURIComponent(`id=${options.id}&from_mid=${wx.getStorageSync('mid')}`) //分享二维码，以当前用户为 from_mid
+            console.log('scene',scene)
             this.setData({
                 activityId: options.id,
                 scene,

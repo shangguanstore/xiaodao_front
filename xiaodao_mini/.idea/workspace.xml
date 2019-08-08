@@ -17,8 +17,8 @@
       <file leaf-file-name="activity.wxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/activity/activity.wxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="159" column="23" lean-forward="true" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
+            <state relative-caret-position="448">
+              <caret line="159" column="23" lean-forward="false" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -27,8 +27,8 @@
       <file leaf-file-name="activity.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/activity/activity.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="315" column="28" lean-forward="true" selection-start-line="315" selection-start-column="28" selection-end-line="315" selection-end-column="28" />
+            <state relative-caret-position="189">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -37,8 +37,18 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="276">
+              <caret line="60" column="20" lean-forward="true" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="getImglink.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/lib/getImglink.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="5" column="34" lean-forward="true" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -47,15 +57,24 @@
       <file leaf-file-name="canvas-share.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/mine/canvas-share/canvas-share.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3861">
-              <caret line="195" column="36" lean-forward="true" selection-start-line="195" selection-start-column="36" selection-end-line="195" selection-end-column="36" />
+            <state relative-caret-position="211">
+              <caret line="193" column="0" lean-forward="true" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
               <folding>
                 <element signature="n#!!block;n#getImageInfo#0" expanded="false" />
-                <element signature="n#!!block;n#getMiniQrcode#0" expanded="false" />
                 <element signature="n#!!block;n#createRpx2px#0" expanded="false" />
                 <element signature="n#!!block;n#canvasToTempFilePath#0" expanded="false" />
                 <element signature="n#!!block;n#saveImageToPhotosAlbum#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="canvas-text-break.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/canvas-text-break.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="552">
+              <caret line="31" column="19" lean-forward="true" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -74,7 +93,7 @@
         <entry file="file://$PROJECT_DIR$/measure.wxss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="81">
-              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+              <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -84,7 +103,7 @@
         <entry file="file://$PROJECT_DIR$/xiaonengxiao.wxss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="540">
-              <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+              <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -106,21 +125,12 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>options</find>
-      <find>UU7</find>
-      <find>share</find>
-      <find>open-type=&quot;share&quot;</find>
-      <find>onClose</find>
-      <find>show</find>
-      <find>popup</find>
-      <find>showShareSelectBox</find>
-      <find>margin-top: 20rpx</find>
-      <find>toShare</find>
       <find>font-size</find>
       <find>.share</find>
       <find>confirm-word1</find>
@@ -141,6 +151,16 @@
       <find>/getlist</find>
       <find>sharecontent</find>
       <find>qrcode</find>
+      <find>static.xiaost.net</find>
+      <find>getImageInfo</find>
+      <find>qiniu.xiao</find>
+      <find>EXTERNAL_LINK</find>
+      <find>加载数据失败</find>
+      <find>locationPromise</find>
+      <find>return</find>
+      <find>textY</find>
+      <find>CTB</find>
+      <find>getdata</find>
     </findStrings>
     <replaceStrings>
       <replace>学币</replace>
@@ -157,8 +177,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mall/order-details/order-details.js" />
-        <option value="$PROJECT_DIR$/mall/to-pay-order/to-pay-order.js" />
         <option value="$PROJECT_DIR$/mall-utils/util.js" />
         <option value="$PROJECT_DIR$/mall/shop-cart/shop-cart.wxml" />
         <option value="$PROJECT_DIR$/mall/mall/mall.wxml" />
@@ -202,11 +220,13 @@
         <option value="$PROJECT_DIR$/measure.css" />
         <option value="$PROJECT_DIR$/xiaonengxiao_reference.wxss" />
         <option value="$PROJECT_DIR$/app.wxss" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/pages/activity/activity.wxss" />
         <option value="$PROJECT_DIR$/pages/activity/activity.wxml" />
         <option value="$PROJECT_DIR$/utils/lib/filterResult.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/utils/lib/getImglink.js" />
         <option value="$PROJECT_DIR$/pages/activity/activity.js" />
+        <option value="$PROJECT_DIR$/utils/canvas-text-break.js" />
         <option value="$PROJECT_DIR$/components/mine/canvas-share/canvas-share.js" />
       </list>
     </option>
@@ -223,7 +243,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="-7" />
     <option name="width" value="1932" />
     <option name="height" value="1038" />
@@ -243,7 +263,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -251,10 +270,16 @@
               <item name="xiaodao_mini" type="b2602c69:ProjectViewProjectNode" />
               <item name="xiaodao_mini" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="xiaodao_mini" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xiaodao_mini" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -343,19 +368,23 @@
       <workItem from="1564901541323" duration="1968000" />
       <workItem from="1565012424427" duration="8676000" />
       <workItem from="1565093002241" duration="9960000" />
+      <workItem from="1565187225964" duration="2255000" />
+      <workItem from="1565270747015" duration="6041000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183048000" />
+    <option name="totallyTimeSpent" value="191344000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1932" height="1038" extended-state="0" />
+    <frame x="-7" y="0" width="1932" height="1038" extended-state="1" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20749736" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36644593" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973601" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -367,7 +396,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6231386" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -384,20 +412,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pages/eTicket/eTicket.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/login/login.wxss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/login/login.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
@@ -642,7 +656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -650,7 +663,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="7" column="14" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -658,7 +670,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2295">
           <caret line="85" column="10" lean-forward="false" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -673,7 +684,7 @@
     <entry file="file://$PROJECT_DIR$/measure.wxss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
-          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+          <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -690,15 +701,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
           <caret line="1" column="29" lean-forward="true" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/activity/activity.wxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="159" column="23" lean-forward="true" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -706,35 +708,39 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#25#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xiaonengxiao.wxss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
-          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+          <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/activity/activity.js">
+    <entry file="file://$PROJECT_DIR$/utils/lib/getImglink.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="315" column="28" lean-forward="true" selection-start-line="315" selection-start-column="28" selection-end-line="315" selection-end-column="28" />
+        <state relative-caret-position="135">
+          <caret line="5" column="34" lean-forward="true" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/canvas-text-break.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="31" column="19" lean-forward="true" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/components/mine/canvas-share/canvas-share.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3861">
-          <caret line="195" column="36" lean-forward="true" selection-start-line="195" selection-start-column="36" selection-end-line="195" selection-end-column="36" />
+        <state relative-caret-position="211">
+          <caret line="193" column="0" lean-forward="true" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#getImageInfo#0" expanded="false" />
-            <element signature="n#!!block;n#getMiniQrcode#0" expanded="false" />
             <element signature="n#!!block;n#createRpx2px#0" expanded="false" />
             <element signature="n#!!block;n#canvasToTempFilePath#0" expanded="false" />
             <element signature="n#!!block;n#saveImageToPhotosAlbum#0" expanded="false" />
@@ -742,10 +748,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pages/activity/activity.wxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="159" column="23" lean-forward="false" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/activity/activity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="276">
+          <caret line="60" column="20" lean-forward="true" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
           <folding />
         </state>
       </provider>

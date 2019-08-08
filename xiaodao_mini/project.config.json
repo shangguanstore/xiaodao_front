@@ -4,12 +4,22 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"nodeModules": true
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.7",
@@ -39,13 +49,14 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "活动页面",
 					"pathName": "pages/activity/activity",
-					"query": "id=37"
+					"query": "scene=id%3D37%26from_mid%3D17425",
+					"scene": null
 				},
 				{
 					"id": 1,

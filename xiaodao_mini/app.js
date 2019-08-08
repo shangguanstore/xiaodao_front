@@ -65,6 +65,7 @@ App({
         Qiniu: {
             ACTION_URL: 'http://up.qiniu.com',
             EXTERNAL_LINK: 'http://qiniu.xiaost.net/',
+            EXTERNAL_SSL_LINK: 'https://qinius.xiaost.net/',
             STATIC_EXTERNAL_LINK: 'http://static.xiaost.net/',
         },
         ActivityOrder: {
