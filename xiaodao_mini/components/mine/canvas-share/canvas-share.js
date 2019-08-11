@@ -35,6 +35,9 @@ function getMiniQrcode(page, scene) {
 function createRpx2px() {
     const {windowWidth} = wx.getSystemInfoSync()
 
+
+    console.log('windowWidth',windowWidth)
+
     return function (rpx) {
         return windowWidth / 750 * rpx
     }
@@ -103,6 +106,14 @@ Component({
         canvasWidth: 843,
         canvasHeight: 1500,
 
+        // canvasWidth: 500,
+        // canvasHeight: 889,
+
+        designWidth: 750,
+        designHeight: 1206,
+        canvasDesignWidth: 621,
+        canvasDesignHeight: 1000,
+
         imageFile: '',
 
         responsiveScale: 1,
@@ -110,18 +121,19 @@ Component({
 
     lifetimes: {
         ready() {
-            const designWidth = 375
-            const designHeight = 603 // 这是在顶部位置定义，底部无tabbar情况下的设计稿高度
-
             // 以iphone6为设计稿，计算相应的缩放比例
-            const {windowWidth, windowHeight} = wx.getSystemInfoSync()
-            const responsiveScale =
-                windowHeight / ((windowWidth / designWidth) * designHeight)
+            let {designWidth, designHeight} = this.data
+            let {windowWidth, windowHeight} = wx.getSystemInfoSync()
+            //let responsiveScale = windowHeight / ((windowWidth / designWidth) * designHeight)
+            let responsiveScale = windowWidth / designWidth
+
             if (responsiveScale < 1) {
                 this.setData({
                     responsiveScale,
                 })
             }
+
+            console.log('responsiveScale',responsiveScale)
         },
     },
 
@@ -146,10 +158,9 @@ Component({
         },
         draw() {
             wx.showLoading()
-            const {canvasWidth, canvasHeight} = this.data
+            const {canvasDesignWidth, canvasDesignHeight} = this.data
 
             const bannerUrl = this.data.content.banner
-            console.log('bannerUrl', bannerUrl)
             const bannerPromise = getImageInfo(bannerUrl)
 
             // const locationUrl = `http://static.xiaost.net/location1.png`
@@ -161,17 +172,21 @@ Component({
             //const backgroundPromise = getImageInfo('https://img.xiaomeipingou.com/_assets_home-share-bg.jpg')
             const backgroundPromise = getImageInfo('https://img.xiaost.net/shareBg2.png')
 
-            console.log('this.data.scene', this.data.scene)
             const qrcodePromise = getMiniQrcode(this.data.pageUrl, this.data.scene)
+
+
 
             Promise.all([bannerPromise, backgroundPromise, qrcodePromise])
                 .then(([banner, background, qrcode]) => {
-                    const content = this.data.content
+                    let content = this.data.content
 
-                    const ctx = wx.createCanvasContext('share', this)
+                    let ctx = wx.createCanvasContext('share', this)
 
-                    const canvasW = rpx2px(canvasWidth * 2)
-                    const canvasH = rpx2px(canvasHeight * 2)
+                    // let canvasW = rpx2px(canvasDesignWidth * 2)
+                    // let canvasH = rpx2px(canvasDesignHeight * 2)
+
+                    let canvasW = this.data.canvasDesignWidth / 2;
+                    let canvasH = this.data.canvasDesignHeight / 2;
 
                     // 绘制背景
                     ctx.drawImage(
@@ -196,140 +211,133 @@ Component({
                         ctx,
                         text: content.title,
                         x: canvasW / 2,
-                        y: rpx2px(150 * 2),
-                        w: 550,
+                        y: 20,
+                        w: 220,
                         fontStyle: {
-                            lineHeight: 50,
+                            lineHeight: 20,
                             textAlign: 'center',
                             textBaseline: 'top',
-                            // font: 'normal 23px arial',
-                            fontSize: 40,
+                            font: 'normal 23px arial',
+                            fontSize: 18,
                             fillStyle: '#333'
                         }
                     })
 
 
                     // 绘制banner
-                    const radius = rpx2px(90 * 2)
-                    const bannerY = titleY + rpx2px(150 * 1)
-                    console.log('banner', banner)
+                    const radius = rpx2px(30 * 2)
+                    const bannerY = titleY + 40
+
+                    let designBannerW = 542 / 2
+                    let designBannerH = 300 / 2
+                    let scaleDesign = designBannerW / designBannerH  //设计图的banner宽、高
+                    let scaleBannerImg = banner.width / banner.height
+                    let bannerW, bannerH
+                    if(scaleDesign > scaleBannerImg) {
+                        // bannerH = designBannerH;
+                        // bannerW = designBannerH * scaleBannerImg;
+
+                        bannerW = designBannerW
+                        bannerH = bannerW / scaleBannerImg
+                        if(bannerH > designBannerH) bannerH = designBannerH
+                    }else{
+                        // bannerW = designBannerW;
+                        // bannerH = designBannerW / scaleBannerImg;
+
+                        bannerH = designBannerH;
+                        bannerW = designBannerH * scaleBannerImg;
+                    }
+                    console.log('bannerW', bannerW)
+                    console.log('bannerH', bannerH)
+
+                    // ctx.save();
+                    // ctx.beginPath();
+                    // ctx.strokeStyle = "rgba(0,0,0,0)";
+                    // ctx.rect(66, 251, 621, 668);
+                    // ctx.closePath();
+                    // ctx.stroke();
+                    //
+                    // ctx.clip();
+                    // // 画图片
+                    // ctx.drawImage(res.path, ml + 66, mt + 251, drawW, drawH);
+                    // ctx.restore();
+
                     ctx.drawImage(
                         banner.path,
-                        canvasW / 2 - banner.width / 2,
+                        canvasW / 2 - bannerW / 2,
                         bannerY,
-                        banner.width,
-                        banner.height
+                        bannerW,
+                        bannerH
                     )
 
 
                     if (content.type == app.config.Activity.TYPE_GROUPON) {
                         // 拼团开始时间
-                        ctx.setFontSize(30)
+                        ctx.setFontSize(14)
                         ctx.setTextAlign('center')
                         ctx.setFillStyle('#444')
                         ctx.fillText(
                             `团购开始时间：${content.pstart}`,
                             canvasW / 2,
-                            bannerY + banner.height + radius * 1,
+                            bannerY + bannerH + radius * 1,
                         )
 
                         // 拼团结束时间
-                        ctx.setFontSize(30)
+                        ctx.setFontSize(14)
                         ctx.setTextAlign('center')
                         ctx.setFillStyle('#444')
                         ctx.fillText(
                             `团购结束时间：${content.pend}`,
                             canvasW / 2,
-                            bannerY + banner.height + radius * 2,
+                            bannerY + bannerH + radius * 2,
                         )
                     } else if (content.type == app.config.Activity.TYPE_NORMAL) {
                         // 活动开始时间
-                        ctx.setFontSize(30)
+                        ctx.setFontSize(14)
                         ctx.setTextAlign('center')
                         ctx.setFillStyle('#444')
                         ctx.fillText(
                             `活动开始时间：${content.start}`,
                             canvasW / 2,
-                            bannerY + banner.height + radius * 1,
+                            bannerY + bannerH + radius * 1,
                         )
 
                         // 活动结束时间
-                        ctx.setFontSize(30)
+                        ctx.setFontSize(14)
                         ctx.setTextAlign('center')
                         ctx.setFillStyle('#444')
                         ctx.fillText(
                             `活动结束时间：${content.end}`,
                             canvasW / 2,
-                            bannerY + banner.height + radius * 2,
+                            bannerY + bannerH + radius * 2,
                         )
                     } else if (content.type == app.config.Activity.TYPE_COURSE) {
-                        ctx.setFontSize(30)
+                        ctx.setFontSize(14)
                         ctx.setTextAlign('center')
                         ctx.setFillStyle('#444')
                         ctx.fillText(
                             `分享一门有趣的课程给你`,
                             canvasW / 2,
-                            bannerY + banner.height + radius * 1,
+                            bannerY + bannerH + radius * 1,
                         )
                     }
 
-                    // 绘制时间图片
-                    // const textXStar = rpx2px(45 * 2)
-                    // const iconImgWidth = 30
-                    // const iconImgHeight = 30
-                    // ctx.drawImage(
-                    //     oclock.path,
-                    //     textXStar,
-                    //     bannerY + banner.height + radius * 2 - 30,
-                    //     iconImgWidth,
-                    //     iconImgHeight
-                    // )
-
-                    // 绘制时间
-                    // ctx.setFontSize(40)
-                    // ctx.setTextAlign('left')
-                    // ctx.setFillStyle('#666')
-                    // ctx.fillText(
-                    //     `2019-06-01 00:00:00`,
-                    //     textXStar + 40,
-                    //     bannerY + banner.height + radius * 2,
-                    // )
-
-                    // 绘制地点图片
-                    // ctx.drawImage(
-                    //     location.path,
-                    //     textXStar,
-                    //     bannerY + banner.height + radius * 3 - 30,
-                    //     iconImgWidth,
-                    //     iconImgHeight
-                    // )
-
-                    // 绘制地点
-                    // const locationTextXStart = textXStar + 40
-                    // const locationTextYStart = bannerY + banner.height + radius * 3
-                    // ctx.setFontSize(40)
-                    // ctx.setTextAlign('left')
-                    // ctx.setFillStyle('#666')
-                    // ctx.fillText(
-                    //     `校事通河西万达中心`,
-                    //     locationTextXStart,
-                    //     locationTextYStart,
-                    // )
-
 
                     // 绘制小程序码
-                    const qrcodeYStart = bannerY + banner.height + radius * 3 + 80
+                    let qrcodeYStart = bannerY + bannerH + 90
+                    let qrcodeW = qrcode.width / 2
+                    let qrcodeH = qrcode.height / 2
                     ctx.drawImage(
                         qrcode.path,
-                        canvasW / 2 - qrcode.width / 2,
+                        canvasW / 2 - qrcodeW / 2,
                         qrcodeYStart,
-                        qrcode.width,
-                        qrcode.height
+                        qrcodeW,
+                        qrcodeH
                     )
 
                     //绘制扫码提示
-                    const qrcodeDesYStart = qrcodeYStart + qrcode.height + 50
-                    ctx.setFontSize(30)
+                    const qrcodeDesYStart = qrcodeYStart + qrcodeH + 10
+                    ctx.setFontSize(14)
                     ctx.setTextAlign('center')
                     ctx.setFillStyle('#666')
                     ctx.fillText(

@@ -50,18 +50,19 @@ Page({
             if(!options.scene) {
                 initOption.call(this, options)
             }else{
-                wx.showToast({
-                    title: `[${options.scene}]`,
-                    duration: 5000,
-                    icon: 'none'
-                })
+                // wx.showToast({
+                //     title: `[${options.scene}]`,
+                //     duration: 5000,
+                //     icon: 'none'
+                // })
+
                 let queryStringObj = new Object()
                 var queryStringArr = decodeURIComponent(options.scene).split('&')
+                // var queryStringArr = options.scene.split('&')
 
                 for(var i in queryStringArr) {
                     queryStringObj[queryStringArr[i].split('=')[0]] = queryStringArr[i].split('=')[1]
                 }
-                // console.log('queryStringObj',queryStringObj)
                 initOption.call(this, queryStringObj)
             }
 
@@ -82,8 +83,8 @@ Page({
                     from_mid: options.from_mid
                 })
             }
-            let scene = encodeURIComponent(`id=${options.id}&from_mid=${wx.getStorageSync('mid')}`) //分享二维码，以当前用户为 from_mid
-            console.log('scene',scene)
+            // let scene = encodeURIComponent(`id=${options.id}&from_mid=${wx.getStorageSync('mid')}`) //分享二维码，以当前用户为 from_mid
+            let scene = `id=${options.id}&from_mid=${wx.getStorageSync('mid')}` //分享二维码，以当前用户为 from_mid
             this.setData({
                 activityId: options.id,
                 scene,
@@ -105,7 +106,6 @@ Page({
     },
 
     toShare() {
-        console.log('hahahhaahah')
         this.setData({
             showShareSelectBox: true
         })
@@ -245,7 +245,6 @@ Page({
         var _this = this
         request(url, 'post', data, function (res) {
             //res就是我们请求接口返回的数据
-            console.log(res)
         }, function (res) {
             console.log('err', res)
         })
@@ -264,17 +263,14 @@ Page({
         request(url, 'get', data, function (res) {
             //res就是我们请求接口返回的数据
             var activity = res.data.data
-            console.log('activity', activity)
             activity = lib.filterResult(activity)[0]
             var imglink = activity.imglink_format
-            console.log('imglink', imglink)
             var title = activity.name
 
             if (activity.type == app.config.Activity.TYPE_GROUPON) {
                 _this.getGroupList()
             }
 
-            console.log('activity', activity)
             _this.setData({
                 imglink: imglink,
                 title: title,
@@ -352,7 +348,6 @@ Page({
                 groupList: groupList
             })
         }, function () {
-            // console.log('error',error)
             wx.showToast({
                 title: '加载数据失败',
                 icon: 'none'
@@ -361,7 +356,6 @@ Page({
     },
 
     routeTo(e) {
-        console.log('e', e)
         let url = e.currentTarget.dataset.url
         wx.navigateTo({
             url: url
@@ -383,7 +377,6 @@ Page({
             //res就是我们请求接口返回的数据
             let activityApplyMemberList = lib.filterResult(res.data.data)
             let applyTotal = res.data.total
-            console.log('activityApplyMemberList', activityApplyMemberList)
 
             _this.setData({
                 Loaded: true,
@@ -407,7 +400,6 @@ Page({
 
         var userAuth = new UserAuth(userInfo, null, false);
         userAuth.login(function (res) {
-            console.log('res', res)
             _this.setData({
                 showAuthBox: false
             })
@@ -422,7 +414,6 @@ Page({
         common.clearPageInterval('timeRemainTimer')
         common.setPageInterval('timeRemainTimer', function () {
             _this.changeTimeRemaining()
-            console.log(222222222222)
         }, 1000)
     },
 
@@ -430,7 +421,6 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        console.log('哈哈哈哈哈')
         common.clearPageInterval('timeRemainTimer')
     },
 
@@ -465,7 +455,6 @@ Page({
             imageUrl: this.data.imglink
         }
 
-        console.log(shareInfo)
         return shareInfo
     }
 })

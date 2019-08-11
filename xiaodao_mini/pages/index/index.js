@@ -21,7 +21,9 @@ Page({
         activityList: []
     },
 
-    onLoad: function () {
+    onLoad: function (options) {
+        console.log('options---',options)
+
         let config = app.config
         this.setData({
             config: config

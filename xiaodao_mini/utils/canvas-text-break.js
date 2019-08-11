@@ -18,19 +18,23 @@ const CTB = ({
                      textAlign = 'left',
                      textBaseline = 'top',
                      font = 'normal 40px arial',
-                     fillStyle = '#000000'
+                     fontSize = 20,
+                     fillStyle = '#000001'
                  }
              }) => {
 
+console.log('fillStyle',fillStyle)
+console.log('fontSize',fontSize)
 
-    ctx.save();
-    ctx.font = font;
-    ctx.fillStyle = fillStyle;
-    ctx.textAlign = textAlign;
-    ctx.textBaseline = textBaseline;
-    const chr = text.split('');
-    const row = [];
-    let temp = '';
+    ctx.save()
+    ctx.font = font
+    ctx.fillStyle = fillStyle
+    ctx.setFontSize(fontSize)
+    ctx.textAlign = textAlign
+    ctx.textBaseline = textBaseline
+    const chr = text.split('')
+    const row = []
+    let temp = ''
     let textY = 0
 
     /*
