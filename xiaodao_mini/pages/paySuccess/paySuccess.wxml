@@ -10,7 +10,7 @@
   </view>
   <view class='box'>
     <view class='img' wx:if="{{false}}">
-      <image src='{{activityOrder.imglink_format[0]}}'></image>
+      <image src='{{activityOrder.imglink_format}}'></image>
     </view>
     <view class='title'>{{activityOrder.name}}</view>
     <view class='time'>

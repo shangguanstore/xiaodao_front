@@ -21,7 +21,7 @@
     </view>
     <view class='orderGoodsBlock'>
       <view class='imgArea'>
-        <image src='{{activityData.imglink_format[0]}}'></image>
+        <image src='{{activityData.imglink_format}}'></image>
       </view>
       <view class='goodsContent'>
         <view class='title'>精品小课团购会员</view>

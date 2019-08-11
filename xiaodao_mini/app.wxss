@@ -328,12 +328,13 @@ button[class="primary"]::after {
 
 .listArea .listItem .bottom .btn button {
   color: white;
-  height: 56rpx;
-  box-sizing: content-box;
-  padding: 6rpx 20rpx;
+  box-sizing: border-box;
+  /*padding: 6rpx 20rpx;*/
   line-height: 56rpx;
   font-weight: 300;
   font-size: 32rpx;
+  min-width: 186rpx;
+
 }
 
 /* 活动列表结束 */

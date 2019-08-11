@@ -200,7 +200,7 @@ Page({
             var activity = res.data.data
             console.log('activity', activity)
             activity = lib.filterResult(activity)[0]
-            var imglink = activity.imglink_format[0]
+            var imglink = activity.imglink_format
             var title = activity.name
 
             _this.setData({

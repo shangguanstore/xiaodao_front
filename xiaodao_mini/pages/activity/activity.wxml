@@ -78,8 +78,7 @@
                 <view class='right'>
                     <text class='price redOneColor'>¥ {{activity.group_price_format}}</text>
                     <button type='primary' size='mini' data-order-type='{{config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}'
-                            data-groupid="{{item.groupid}}" bindtap='goToGroupDetail'>去拼团
-                    </button>
+                            data-groupid="{{item.groupid}}" bindtap='goToGroupDetail'>去拼团</button>
                 </view>
             </view>
         </view>

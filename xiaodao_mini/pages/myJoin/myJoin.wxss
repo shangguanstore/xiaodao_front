@@ -101,7 +101,7 @@
 }
 
 .listItem .bottom .btn .viewButton {
-  width: 200rpx;
+  /*width: 200rpx;*/
   font-size: 24rpx;
   float: right;
 }

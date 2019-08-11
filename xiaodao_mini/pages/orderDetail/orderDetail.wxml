@@ -12,7 +12,7 @@
 
   <view class='orderGoodsBlock'>
     <view class='imgArea'>
-      <image src='{{activity.imglink_format[0]}}'></image>
+      <image src='{{activity.imglink_format}}'></image>
     </view>
     <view class='goodsContent'>
       <view class='description'>

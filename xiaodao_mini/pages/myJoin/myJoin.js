@@ -47,7 +47,7 @@ Page({
       //res就是我们请求接口返回的数据
       var activityOrderList = lib.filterResult(res.data.data)
       activityOrderList.map(function (item) {
-        item.imglink_format = item.imglink_format[0]
+        item.imglink_format = item.imglink_format
         return item
       })
 
