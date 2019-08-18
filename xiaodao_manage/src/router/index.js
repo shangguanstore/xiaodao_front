@@ -26,10 +26,10 @@ export default new Router({
       component: () => import('@/pages/applySuccess')
     },
     {
-        path: '/',
-        name: 'index',
-        component: () => import('@/pages/index'),
-        redirect: '/login',
+      path: '/',
+      name: 'index',
+      component: () => import('@/pages/index'),
+      redirect: '/login',
     },
     {
       path: '/main',
@@ -53,9 +53,9 @@ export default new Router({
           component: () => import('@/pages/student')
         },
         {
-            path: '/studentEdit',
-            name: 'studentEdit',
-            component: () => import('@/pages/studentEdit')
+          path: '/studentEdit',
+          name: 'studentEdit',
+          component: () => import('@/pages/studentEdit')
         },
         {
           path: '/teacherList',
@@ -78,19 +78,19 @@ export default new Router({
           component: () => import('@/pages/company')
         },
         {
-            path: '/staff',
-            name: 'staff',
-            component: () => import('@/pages/staff')
+          path: '/staff',
+          name: 'staff',
+          component: () => import('@/pages/staff')
         },
         {
-            path: '/staffEdit',
-            name: 'staffEdit',
-            component: () => import('@/pages/staffEdit')
+          path: '/staffEdit',
+          name: 'staffEdit',
+          component: () => import('@/pages/staffEdit')
         },
         {
-            path: '/activity',
-            name: 'activity',
-            component: () => import('@/pages/activity')
+          path: '/activity',
+          name: 'activity',
+          component: () => import('@/pages/activity')
         },
         {
           path: '/groupon',
@@ -102,56 +102,66 @@ export default new Router({
           name: 'trialClass',
           component: () => import('@/pages/trialClass')
         },
-          {
-              path: '/lottery',
-              name: 'lottery',
-              component: () => import('@/pages/lottery')
-          },
-          {
-              path: '/lotteryEdit',
-              name: 'lotteryEdit',
-              component: () => import('@/pages/lotteryEdit')
-          },
         {
-            path: '/activityEdit',
-            name: 'activityEdit',
-            component: () => import('@/pages/activityEdit')
+          path: '/lottery',
+          name: 'lottery',
+          component: () => import('@/pages/lottery')
         },
-          {
-              path: '/activityOrder',
-              name: 'activityOrder',
-              component: () => import('@/pages/activityOrder')
-          },
+        {
+          path: '/lotteryEdit',
+          name: 'lotteryEdit',
+          component: () => import('@/pages/lotteryEdit')
+        },
+        {
+          path: '/activityEdit',
+          name: 'activityEdit',
+          component: () => import('@/pages/activityEdit')
+        },
+        {
+          path: '/activityOrder',
+          name: 'activityOrder',
+          component: () => import('@/pages/activityOrder')
+        },
         {
           path: '/weWebsite',
           name: 'weWebsite',
           component: () => import('@/pages/weWebsite')
         },
-          {
-              path: '/weWebsiteBannerEdit',
-              name: 'weWebsiteBannerEdit',
-              component: () => import('@/pages/weWebsiteBannerEdit')
-          },
+        {
+          path: '/weWebsiteBannerEdit',
+          name: 'weWebsiteBannerEdit',
+          component: () => import('@/pages/weWebsiteBannerEdit')
+        },
         {
           path: '/homeActivity',
           name: 'homeActivity',
           component: () => import('@/pages/homeActivity')
         },
-          {
-              path: '/pointEdit',
-              name: 'pointEdit',
-              component: () => import('@/pages/pointEdit')
-          },
-          {
-              path: '/pointDetail',
-              name: 'pointDetail',
-              component: () => import('@/pages/pointDetail')
-          },
-          {
-              path: '/userPoint',
-              name: 'userPoint',
-              component: () => import('@/pages/userPoint')
-          },
+        {
+          path: '/pointEdit',
+          name: 'pointEdit',
+          component: () => import('@/pages/pointEdit')
+        },
+        {
+          path: '/pointDetail',
+          name: 'pointDetail',
+          component: () => import('@/pages/pointDetail')
+        },
+        {
+          path: '/userPoint',
+          name: 'userPoint',
+          component: () => import('@/pages/userPoint')
+        },
+        {
+          path: '/class',
+          name: 'class',
+          component: () => import('@/pages/class')
+        },
+        {
+          path: '/classDetail',
+          name: 'classDetail',
+          component: () => import('@/pages/classDetail')
+        },
       ]
     }
   ]

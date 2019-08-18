@@ -111,7 +111,7 @@
             <ul class="quickList float-wrap">
               <Row>
                 <Col span="8">
-                  <li>
+                  <li @click="routeTo('student')">
                     <div class="icon">
                       <i class="iconfont icon icon-tianjiayonghu" style="font-size: 40px;color: #999;"></i>
                     </div>
@@ -121,7 +121,7 @@
                   </li>
                 </Col>
                 <Col span="8">
-                  <li>
+                  <li @click="routeTo('groupon')">
                     <div class="icon">
                       <i class="iconfont icon icon-pintuanzhuanqu" style="font-size: 40px;color: #999;"></i>
                     </div>
@@ -131,7 +131,7 @@
                   </li>
                 </Col>
                 <Col span="8">
-                  <li>
+                  <li @click="routeTo('activity')">
                     <div class="icon">
                       <i class="iconfont icon icon-activity_icon" style="font-size: 40px;color: #999;"></i>
                     </div>
@@ -143,7 +143,7 @@
               </Row>
               <Row>
                 <Col span="8">
-                <li>
+                <li @click="routeTo('trialClass')">
                   <div class="icon">
                     <i class="iconfont icon icon-chanpinjieshao" style="font-size: 40px;color: #999;"></i>
                   </div>
@@ -153,7 +153,7 @@
                 </li>
                 </Col>
                 <Col span="8">
-                <li>
+                <li @click="routeTo('lottery')">
                   <div class="icon">
                     <i class="iconfont icon icon-choujiang" style="font-size: 40px;color: #999;"></i>
                   </div>
@@ -163,7 +163,7 @@
                 </li>
                 </Col>
                 <Col span="8">
-                <li>
+                <li @click="routeTo('pointEdit')">
                   <div class="icon">
                     <i class="iconfont icon icon-ziyuan" style="font-size: 40px;color: #999;"></i>
                   </div>
@@ -175,7 +175,7 @@
               </Row>
               <Row>
                 <Col span="8">
-                <li>
+                <li @click="routeTo('userPoint')">
                   <div class="icon">
                     <i class="iconfont icon icon-jifen" style="font-size: 40px;color: #999;"></i>
                   </div>
@@ -227,6 +227,9 @@
     methods: {
       viewMore() {
 
+      },
+      routeTo(e) {
+        this.$router.push(e)
       },
       getActivityList(option) {
         let submitData = {
@@ -331,6 +334,7 @@
   .home_container ul.quickList li {
     width: 100%;
     padding: 10px 0;
+    cursor: pointer;
   }
 
   .home_container ul.quickList li div.icon {
