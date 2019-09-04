@@ -30,6 +30,7 @@ axios.interceptors.request.use(
       config.data.XDEBUG_SESSION_START = 'PHPSTORM'
       config.data = qs.stringify(config.data)
     }
+    console.log('请求config',config)
     return config
   }
 );

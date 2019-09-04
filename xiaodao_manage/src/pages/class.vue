@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="class_container">
     <!--<div class="manage_title">-->
     <!--<Breadcrumb>-->
     <!--<BreadcrumbItem>招生中心</BreadcrumbItem>-->
@@ -19,7 +19,7 @@
       </li>
     </ul>
 
-    <div class="container student_container mt20">
+    <div class="container mt20">
       <div v-show="currentNavIndex == 0">
         <div class="search_container">
           <Row :gutter="20">
@@ -32,14 +32,14 @@
 
             <Col span="6">
             <span>所属课程：</span>
-            <Select v-model="model1" style="width:calc(100% - 80px);">
+            <Select v-model="model1" style="width:calc(100% - 120px);">
               <Option v-for="item in courseList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
             </Col>
 
             <Col span="6">
             <span>班级老师：</span>
-            <Select v-model="model1" style="width:calc(100% - 80px);">
+            <Select v-model="model1" style="width:calc(100% - 120px);">
               <Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
             </Col>
@@ -534,7 +534,7 @@
           this.loading = false
           console.log('error', error)
 
-          this.$Message.error('服务器错误!');
+          this.$Message.error(error.message);
         })
       },
       getTrackTableData(option) {
@@ -577,7 +577,7 @@
 
           }
         }).catch(error => {
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       changePage(page) {
@@ -659,7 +659,7 @@
                 )
               }
             }).catch(error => {
-              this.$Message.error('服务器错误!')
+              this.$Message.error(error.message)
             })
           },
           onCancel: () => {

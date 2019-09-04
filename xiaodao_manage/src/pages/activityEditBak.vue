@@ -377,7 +377,7 @@
           }
         }).catch(error => {
           console.log('error', error)
-          this.$Message.error('服务器错误!');
+          this.$Message.error(error.message);
         })
       } else {
         this.title = "新增活动"
@@ -466,7 +466,7 @@
             _this.getImgCategory()
           }
         }).catch(error => {
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       getImgCategory() {
@@ -486,7 +486,7 @@
           }
         }).catch(error => {
           console.log(error)
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       selectDetailImg() {
@@ -558,7 +558,7 @@
           }
         }).catch(error => {
           console.log(error)
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
 
@@ -584,7 +584,7 @@
           }
         }).catch(error => {
           console.log(error)
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
 
@@ -607,7 +607,7 @@
             _this.getImgCategory()
           }
         }).catch(error => {
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
 
@@ -628,7 +628,7 @@
             this.QiniuToken = res.data.token
           }
         }).catch(error => {
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       handleView(name) {

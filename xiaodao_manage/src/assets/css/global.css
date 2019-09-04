@@ -529,9 +529,6 @@ footer {
   margin-bottom: 10px;
 }
 
-
-
-
 .tabBar {
   line-height: 30px;
   border: solid 1px rgba(59, 184, 223, 1);
@@ -555,6 +552,13 @@ footer {
 .tabBar .item.active {
   background: rgba(59, 184, 223, 1);
   color: white;
+}
+
+
+.container-sub-title {
+  font-size:16px;
+  font-weight:bold;
+  color:#333;
 }
 
 

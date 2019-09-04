@@ -84,7 +84,7 @@
                this.memberLogin()
             }
             }).catch(error => {
-              this.$Message.error('服务器错误!');
+              this.$Message.error(error.message);
             })
           } else {
             this.$Message.error('请输入完整信息!');
@@ -113,7 +113,7 @@
           }
         }).catch(error => {
             console.log(error)
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       toApply() {

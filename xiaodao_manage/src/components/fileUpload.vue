@@ -113,7 +113,7 @@
             this.QiniuToken = res.data.token
           }
         }).catch(error => {
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       handleView(name) {

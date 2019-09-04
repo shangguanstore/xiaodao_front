@@ -254,7 +254,7 @@
         }).catch(error => {
           console.log('error', error)
           this.loading = false
-          this.$Message.error('服务器错误!');
+          this.$Message.error(error.message);
         })
       },
       getOrderList(option) {
@@ -276,7 +276,7 @@
         }).catch(error => {
           console.log('error', error)
           this.loading = false
-          this.$Message.error('服务器错误!');
+          this.$Message.error(error.message);
         })
       },
     },

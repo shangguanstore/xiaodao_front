@@ -57,8 +57,9 @@
             教务中心
           </template>
           <MenuItem name="class">班级管理</MenuItem>
-          <MenuItem name="courseList">课程管理</MenuItem>
-          <MenuItem name="courseList1">教室管理</MenuItem>
+          <!--<MenuItem name="courseList">课程管理</MenuItem>-->
+          <MenuItem name="courseFee">课程/收费</MenuItem>
+          <MenuItem name="teacherList">教师管理</MenuItem>
         </Submenu>
 
 
@@ -108,22 +109,25 @@
           <MenuItem name="staff">员工管理</MenuItem>
         </Submenu>
 
+        <!--<Submenu name="9">-->
+          <!--<template slot="title">-->
+            <!--<Icon type="logo-googleplus"/>-->
+            <!--机构设置-->
+          <!--</template>-->
+          <!--<MenuItem name="company">机构信息</MenuItem>-->
+        <!--</Submenu>-->
+
         <Submenu name="9">
           <template slot="title">
-            <Icon type="logo-googleplus"/>
+            <Icon type="md-settings"/>
             机构设置
           </template>
           <MenuItem name="company">机构信息</MenuItem>
-        </Submenu>
-
-        <Submenu name="10">
-          <template slot="title">
-            <Icon type="md-settings"/>
-            系统设置
-          </template>
           <MenuItem name="pointEdit">学币设置</MenuItem>
+          <MenuItem name="ruleSetting">规则设置</MenuItem>
         </Submenu>
       </Menu>
+
     </Sider>
     <Layout :style="{marginLeft: '180px',minHeight: '100%'}">
       <Affix :offset-top="0">

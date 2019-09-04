@@ -162,6 +162,21 @@ export default new Router({
           name: 'classDetail',
           component: () => import('@/pages/classDetail')
         },
+        {
+          path: '/courseFee',
+          name: 'courseFee',
+          component: () => import('@/pages/courseFee')
+        },
+        {
+          path: '/ruleSetting',
+          name: 'ruleSetting',
+          component: () => import('@/pages/ruleSetting')
+        },
+        {
+          path: '/teacherEdit',
+          name: 'teacherEdit',
+          component: () => import('@/pages/teacherEdit')
+        },
       ]
     }
   ]

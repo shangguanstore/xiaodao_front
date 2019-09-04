@@ -227,7 +227,7 @@
             this.QiniuToken = res.data.token
           }
         }).catch(error => {
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       addImgCategory() {
@@ -242,7 +242,7 @@
             _this.getImgCategory()
           }
         }).catch(error => {
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       getImgCategory() {
@@ -262,7 +262,7 @@
           }
         }).catch(error => {
           console.log(error)
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       addImgStorage(name) {
@@ -284,7 +284,7 @@
             _this.getImgCategory()
           }
         }).catch(error => {
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       getImgStorage() {
@@ -309,7 +309,7 @@
           }
         }).catch(error => {
           console.log(error)
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       selectDetailImg() {

@@ -13,25 +13,33 @@ import getRandomString from './getRandomString.js'
 import getUploadPicStr from './getUploadPicStr.js'
 import getUpdateUploadPicStr from './getUpdateUploadPicStr.js'
 import is_array from './is_array.js'
+import in_array from './in_array.js'
+import is_int from './is_int.js'
+import is_string from './is_string.js'
+import chinese2pinyin from './chinese2pinyin.js'
 import getImglink from './getImglink.js'
 
 var lib = {
-	date: date,
-	count: count,
-	strtotime: strtotime,
-	array_sum: array_sum,
-	empty: empty,
-	implode: implode,
-	isset: isset,
-  	sprintf: sprintf,
-    getRequestUrl: getRequestUrl,
-    filterResult: filterResult,
-    is_array: is_array,
-    getRandomString: getRandomString,
-    getUploadPicStr: getUploadPicStr,
-    getUpdateUploadPicStr: getUpdateUploadPicStr,
-    getImglink: getImglink,
-	str_replace: str_replace
+  date: date,
+  count: count,
+  strtotime: strtotime,
+  array_sum: array_sum,
+  empty: empty,
+  implode: implode,
+  isset: isset,
+  sprintf: sprintf,
+  getRequestUrl: getRequestUrl,
+  filterResult: filterResult,
+  is_array: is_array,
+  in_array: in_array,
+  is_int: is_int,
+  is_string: is_string,
+  chinese2pinyin: chinese2pinyin,
+  getRandomString: getRandomString,
+  getUploadPicStr: getUploadPicStr,
+  getUpdateUploadPicStr: getUpdateUploadPicStr,
+  getImglink: getImglink,
+  str_replace: str_replace
 }
 
 export default lib

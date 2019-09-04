@@ -2,7 +2,7 @@
   <div>
     <div class="manage_title">
       <Breadcrumb>
-        <BreadcrumbItem>系统设置</BreadcrumbItem>
+        <BreadcrumbItem>机构设置</BreadcrumbItem>
         <BreadcrumbItem>学币设置</BreadcrumbItem>
       </Breadcrumb>
     </div>
@@ -156,7 +156,7 @@
               }
           }).catch(error => {
               console.log(error)
-              this.$Message.error('服务器错误!');
+              this.$Message.error(error.message);
           })
       },
       registerChange(value) {
@@ -215,7 +215,7 @@
                       // },200)
                   }
               }).catch(error => {
-                  this.$Message.error('服务器错误!')
+                  this.$Message.error(error.message)
               })
           } else {
             this.$Message.error('请输入完整信息!');

@@ -9,7 +9,7 @@
     </div>
     <div class="container staff_edit_container mt20">
       <p class="content_title">基本信息</p>
-      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" class="mt20">
+      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="120" class="mt20">
         <FormItem label="姓名" prop="name" style="width: 60%">
           <Input v-model="formValidate.name" placeholder="请输入员工姓名"></Input>
         </FormItem>
@@ -60,9 +60,13 @@
                 value: config.UserRole.ROLE_TEACHER,
                 label: "老师",
             },
+            // {
+            //     value: config.UserRole.ROLE_ASSIST_TEACHER,
+            //     label: "辅助老师",
+            // },
             {
-                value: config.UserRole.ROLE_ASSIST_TEACHER,
-                label: "辅助老师",
+              value: config.UserRole.ROLE_CLASS_TEACHER,
+              label: "教务/班主任",
             },
             {
                 value: config.UserRole.ROLE_FRONT,
@@ -70,11 +74,11 @@
             },
             {
                 value: config.UserRole.ROLE_SALE,
-                label: "销售",
+                label: "市场/咨询师",
             },
             {
                 value: config.UserRole.ROLE_MANAGER,
-                label: "校区主管",
+                label: "校长",
             },
             {
                 value: config.UserRole.ROLE_ADMIN,
@@ -120,7 +124,7 @@
                 }
             }).catch(error => {
                 console.log(error)
-                this.$Message.error('服务器错误!');
+                this.$Message.error(error.message);
             })
         }else{
             this.title = "新增员工"
@@ -166,7 +170,7 @@
                       },200)
                   }
               }).catch(error => {
-                  this.$Message.error('服务器错误!')
+                  this.$Message.error(error.message)
               })
           } else {
             this.$Message.error('请输入完整信息!');

@@ -221,7 +221,7 @@
         }).catch(error => {
           console.log('error',error)
           this.loading = false
-          this.$Message.error('服务器错误!');
+          this.$Message.error(error.message);
         })
       },
       handleSubmit(formValidate) {
@@ -253,7 +253,7 @@
             }).catch(error => {
               console.log('error',error)
               this.loading = false
-              this.$Message.error('服务器错误!');
+              this.$Message.error(error.message);
             })
           }
         })
@@ -306,7 +306,7 @@
                 )
               }
             }).catch(error => {
-              this.$Message.error('服务器错误!')
+              this.$Message.error(error.message)
             })
           },
           onCancel: () => {

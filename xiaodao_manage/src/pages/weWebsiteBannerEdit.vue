@@ -130,7 +130,7 @@
                     }
                 }).catch(error => {
                     console.log(error)
-                    this.$Message.error('服务器错误!');
+                    this.$Message.error(error.message);
                 })
             } else {
                 this.title = "新增Banner"
@@ -194,7 +194,7 @@
                     }
                 }).catch(error => {
                     console.log(error)
-                    this.$Message.error('服务器错误!');
+                    this.$Message.error(error.message);
                 })
             },
             handleSubmit() {
@@ -232,7 +232,7 @@
                         }, 200)
                     }
                 }).catch(error => {
-                    this.$Message.error('服务器错误!')
+                    this.$Message.error(error.message)
                 })
             },
 
@@ -245,7 +245,7 @@
                         this.QiniuToken = res.data.token
                     }
                 }).catch(error => {
-                    this.$Message.error('服务器错误!')
+                    this.$Message.error(error.message)
                 })
             },
             handleView(name) {

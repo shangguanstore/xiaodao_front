@@ -343,7 +343,7 @@
           }
         }).catch(error => {
           console.log('error', error)
-          this.$Message.error('服务器错误!');
+          this.$Message.error(error.message);
         })
       } else {
         this.title = "新增" + this.activityTypeName
@@ -407,7 +407,7 @@
           }
         }).catch(error => {
           console.log(error)
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       back(afterTimes) {

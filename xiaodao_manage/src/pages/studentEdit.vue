@@ -92,7 +92,7 @@
                 }
             }).catch(error => {
                 console.log(error)
-                this.$Message.error('服务器错误!');
+                this.$Message.error(error.message);
             })
         }else{
             this.title = "新增学员"
@@ -146,7 +146,7 @@
                       },200)
                   }
               }).catch(error => {
-                  this.$Message.error('服务器错误!')
+                  this.$Message.error(error.message)
               })
           } else {
             this.$Message.error('请输入完整信息!');

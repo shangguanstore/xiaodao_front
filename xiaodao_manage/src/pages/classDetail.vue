@@ -7,6 +7,7 @@
         <BreadcrumbItem>班级详情</BreadcrumbItem>
       </Breadcrumb>
     </div>
+
     <div class="container detail_info mt20">
       <p class="content_title">班级信息</p>
       <Row :gutter="60" class="mt20">
@@ -65,11 +66,9 @@
             <Button type="default" class="ml20">批量删除</Button>
           </div>
 
-          <Table border ref="selection" :loading="loading" @on-selection-change="checkNum" :columns="tableColumns"
+          <Table border ref="selection" :loading="loading" @on-selection-change="checkNum" :columns="courseTableColumns"
                  :data="tableData" class="mt20">>
           </Table>
-
-
         </TabPane>
         <TabPane label="班级学员" name="name2">
           <div class="mt20">
@@ -78,7 +77,7 @@
             <Button type="default" class="ml20">移出本班</Button>
           </div>
 
-          <Table border ref="selection" :loading="loading" @on-selection-change="checkNum" :columns="tableColumns"
+          <Table border ref="selection" :loading="loading" @on-selection-change="checkNum" :columns="studentTableColumns"
                  :data="tableData" class="mt20">>
           </Table>
 
@@ -87,11 +86,10 @@
       </Tabs>
     </div>
 
-
     <Modal
       v-model="showCourseSchedulBox"
       width:="480"
-      :styles="{top: '200px'}"
+      :styles="{top: '100px'}"
     >
       <p slot="header">
         <span>排课</span>
@@ -142,15 +140,21 @@
 
           <FormItem label="周几上课">
             <div class="tabBar float-wrap mb10 ml10" style="line-height: 100%;">
-              <div class="item fl" :class="courseTabBar == 0 ? 'active' : ''"
-                   @click="changeCourseTabBar(0)" style="padding: 10px;">一
+              <div class="item fl active" style="padding: 10px;">一
               </div>
-              <div class="item fl" :class="courseTabBar == 1 ? 'active' : ''"
-                   @click="changeCourseTabBar(1)" style="padding: 10px">二
+              <div class="item fl" style="padding: 10px">二
               </div>
-              <div class="item fl" :class="courseTabBar == 1 ? 'active' : ''"
-                   @click="changeCourseTabBar(1)" style="padding: 10px">三
+              <div class="item fl" style="padding: 10px">三
               </div>
+              <div class="item fl" style="padding: 10px">四
+              </div>
+              <div class="item fl" style="padding: 10px">五
+              </div>
+              <div class="item fl" style="padding: 10px">六
+              </div>
+              <div class="item fl" style="padding: 10px">日
+              </div>
+
             </div>
           </FormItem>
 
@@ -160,19 +164,65 @@
             </Select>
           </FormItem>
 
-          <FormItem label="上课老师" prop="end_type">
+          <FormItem label="授课老师" prop="end_type">
+            <Select v-model="courseFormValidate.course_time" @on-change="changeEndType" style="width: 200px">
+              <Option v-for="item in courseTimeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+
+          <FormItem label="学管师" prop="end_type">
+            <Select v-model="courseFormValidate.course_time" @on-change="changeEndType" style="width: 200px">
+              <Option v-for="item in courseTimeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+
+          <FormItem label="上课教室" prop="end_type">
             <Select v-model="courseFormValidate.course_time" @on-change="changeEndType" style="width: 200px">
               <Option v-for="item in courseTimeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
           </FormItem>
 
 
-          <!--<FormItem label="备注" prop="comment">-->
-          <!--<Input v-model="courseFormValidate.comment" type="textarea" :autosize="{minRows: 3,maxRows: 8}" placeholder="请输入备注" style="width:calc(100% - 60px);"></Input>-->
-          <!--</FormItem>-->
+          <FormItem label="上课内容" prop="comment">
+          <Input v-model="courseFormValidate.comment" type="textarea" :autosize="{minRows: 3,maxRows: 8}" placeholder="最多20字" style="width:calc(100% - 60px);"></Input>
+          </FormItem>
 
         </Form>
 
+        <Form v-if="courseTabBar == 1" ref="courseFormValidate" :model="courseFormValidate" :rules="courseRuleValidate" :label-width="80">
+          <FormItem label="上课日期" prop="start_date">
+            <DatePicker v-model="courseFormValidate.start_date" type="date" format="yyyy-MM-dd" placeholder="选择开始日期" style="width: 200px"></DatePicker>
+          </FormItem>
+
+          <FormItem label="上课时间" prop="end_type">
+            <Select v-model="courseFormValidate.course_time" @on-change="changeEndType" style="width: 200px">
+              <Option v-for="item in courseTimeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+
+          <FormItem label="授课老师" prop="end_type">
+            <Select v-model="courseFormValidate.course_time" @on-change="changeEndType" style="width: 200px">
+              <Option v-for="item in courseTimeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+
+          <FormItem label="学管师" prop="end_type">
+            <Select v-model="courseFormValidate.course_time" @on-change="changeEndType" style="width: 200px">
+              <Option v-for="item in courseTimeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+
+          <FormItem label="上课教室" prop="end_type">
+            <Select v-model="courseFormValidate.course_time" @on-change="changeEndType" style="width: 200px">
+              <Option v-for="item in courseTimeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+
+          <FormItem label="上课内容" prop="comment">
+            <Input v-model="courseFormValidate.comment" type="textarea" :autosize="{minRows: 3,maxRows: 8}" placeholder="最多20字" style="width:calc(100% - 60px);"></Input>
+          </FormItem>
+
+        </Form>
       </div>
 
       <div slot="footer">
@@ -180,8 +230,6 @@
         <Button type="primary" @click="handleCourseSubmit('courseFormValidate')">提交</Button>
       </div>
     </Modal>
-
-
   </div>
 </template>
 
@@ -237,53 +285,36 @@
         },
         courseRuleValidate: {},
 
-
-        tableColumns: [
+        courseTableColumns: [
             {
               type: 'selection',
               width: 60,
               align: 'center'
             },
             {
-              title: '班级名称',
-              key: 'name',
-              render: (h, params) => {
-                return h('div', [
-                  h('div', {
-                    style: {
-                      fontSize: "13px",
-                      color: "rgb(45, 183, 245)",
-                      cursor: "pointer"
-                    },
-                    on: {
-                      click: () => {
-                        this.showDetail(params)
-                      }
-                    }
-                  }, (params.row.name)),
-                ])
-              }
+              title: '排课方式',
+              key: '排课方式'
             },
             {
-              title: '课程名称',
-              key: 'company_course_name'
+              title: '上课日期',
+              key: '上课日期'
             },
             {
-              title: '班级老师',
-              key: 'teacher_name'
+              title: '上课时间',
+              key: '上课时间'
             },
             {
-              title: '人数/容量',
-              key: 'capacity'
+              title: '上课教室',
+              key: '上课教室',
             },
             {
-              title: '已上/排课课次',
-              key: 'process',
+              title: '上课老师',
+              key: '上课老师'
             },
-            {
-              title: '班级分类',
-              key: 'catetory'
-            },
+          {
+            title: '上课内容',
+            key: '上课内容'
+          },
             {
               title: '创建日期',
               key: 'create_time_format'
@@ -293,20 +324,6 @@
               key: 'operation',
               render: (h, params) => {
                 return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'text',
-                      size: 'small',
-                    },
-                    style: {
-                      color: '#2db7f5'
-                    },
-                    on: {
-                      click: () => {
-                        this.showDetail(params)
-                      }
-                    }
-                  }, '查看'),
                   h('Button', {
                     props: {
                       type: 'text',
@@ -339,6 +356,66 @@
               }
             }
           ],
+
+        studentTableColumns: [
+          {
+            type: 'selection',
+            width: 60,
+            align: 'center'
+          },
+          {
+            title: '姓名',
+            key: '姓名'
+          },
+          {
+            title: '性别',
+            key: '性别'
+          },
+          {
+            title: '手机号',
+            key: '手机号'
+          },
+          {
+            title: '课程名',
+            key: '课程名',
+          },
+          {
+            title: '操作',
+            key: 'operation',
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'text',
+                    size: 'small',
+                  },
+                  style: {
+                    color: '#2db7f5'
+                  },
+                  on: {
+                    click: () => {
+                      this.update(params)
+                    }
+                  }
+                }, '调至其他班'),
+                h('Button', {
+                  props: {
+                    type: 'text',
+                    size: 'small',
+                  },
+                  style: {
+                    color: '#2db7f5'
+                  },
+                  on: {
+                    click: () => {
+                      this.remove(params)
+                    }
+                  }
+                }, '移出本班'),
+              ])
+            }
+          }
+        ],
       }
     },
     created() {

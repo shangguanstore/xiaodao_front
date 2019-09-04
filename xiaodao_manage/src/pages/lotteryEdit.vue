@@ -390,7 +390,7 @@
           }
         }).catch(error => {
           console.log('error', error)
-          this.$Message.error('服务器错误!');
+          this.$Message.error(error.message);
         })
 
         _this.getLotteryGoods(_this.$route.query.id)
@@ -418,7 +418,7 @@
           _this.lotteryFormValidate.lotteryItems = res.data.data
         }).catch(error => {
           console.log('error', error)
-          this.$Message.error('服务器错误!');
+          this.$Message.error(error.message);
         })
       },
       addLotteryItem() {
@@ -499,7 +499,7 @@
           }
         }).catch(error => {
           console.log(error)
-          this.$Message.error('服务器错误!')
+          this.$Message.error(error.message)
         })
       },
       back(afterTimes) {

@@ -1,33 +1,49 @@
 <template>
-  <div class="student_container">
+  <div class="course_fee_container">
     <ul class="top_nav_bar float-wrap">
       <li class="title">
         <img src="http://static.xiaost.net/zixunben-icon.png" style="top: 14px;left: 16px" alt="">
-        <span>咨询本</span>
+        <span>课程/收费</span>
       </li>
       <li class="item" :class="{current: currentNavIndex == 0}" @click="changeNav(0)">
-        咨询记录
+        课程管理
       </li>
       <li class="item" :class="{current: currentNavIndex == 1}" @click="changeNav(1)">
-        沟通管理
+        收费项管理
+      </li>
+      <li class="item" :class="{current: currentNavIndex == 2}" @click="changeNav(2)">
+        套餐管理
       </li>
     </ul>
 
     <div class="container mt20">
       <div v-show="currentNavIndex == 0">
         <div class="search_container">
-          <div class="fl">
-            <span>搜索查询：</span>
-            <Input v-model="searchValue" placeholder="请输入手机号、用户名查询" style="width: 200px" @on-change="changeName"></Input>
+          <Row :gutter="20">
+            <Col span="6">
+            <span>搜索课程：</span>
+            <Input v-model="searchValue" placeholder="请输入课程名称" style="width: 200px"
+                   @on-change="changeName"></Input>
             <Button class="ml20" type="info" @click="search">查询</Button>
-          </div>
-          <div class="fr">
-            <Button type="info" icon="ios-plus-empty" @click="addUser">新建咨询</Button>
-            <!--<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>-->
-          </div>
+            </Col>
+
+            <Col span="6">
+            <span>课程状态：</span>
+            <Select v-model="model1" style="width:calc(100% - 120px);">
+              <Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+            </Col>
+
+          </Row>
         </div>
+
+        <div class="mt20">
+          <Button type="info" icon="ios-plus-empty" @click="add">新建课程</Button>
+          <Button type="default" class="ml20" @click="exportDataDilog()">新建通用课程</Button>
+        </div>
+
         <Table border ref="selection" :loading="loading" @on-selection-change="checkNum" :columns="tableColumns"
-               :data="tableData" class="mt20">>
+               :data="tableData" class="mt20">
         </Table>
 
         <div style="margin: 10px;overflow: hidden">
@@ -51,31 +67,65 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <Modal
-      v-model="showTrackBox"
+      v-model="showClassBox"
       width:="480"
       :styles="{top: '200px'}"
     >
       <p slot="header">
-        <span>沟通记录</span>
+        <span>新增班级</span>
       </p>
+
       <div>
-        <Form ref="trackFormValidate" :model="trackFormValidate" :rules="trackRuleValidate" :label-width="120">
-          <FormItem label="新增沟通记录" prop="content">
-            <Input v-model="trackFormValidate.content" type="textarea" :autosize="{minRows: 3,maxRows: 8}" placeholder="请输入沟通记录"></Input>
+        <div class="comment-tip">
+          <i class="icon iconfont icon-tishi"></i>
+          <span>一对一课程在报名时创建班级</span>
+        </div>
+        <Form ref="classFormValidate" :model="classFormValidate" :rules="classRuleValidate" :label-width="80">
+          <FormItem label="所属课程" prop="class_id">
+            <Select v-model="classFormValidate.class_id" style="width:calc(100% - 60px);">
+              <Option v-for="item in courseList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
           </FormItem>
+
+          <FormItem label="班级名称" prop="name">
+            <Input v-model="classFormValidate.name" style="width:calc(100% - 60px);"
+                   placeholder="请输入班级名称"></Input>
+          </FormItem>
+
+          <FormItem label="班级容量" prop="capacity">
+            <Input v-model="classFormValidate.capacity" style="width: calc(100% - 60px)"
+                   placeholder="请输入班级容量"></Input>
+
+            <Tooltip content="班级容量即班级人数上限" placement="top">
+              <i class="icon iconfont icon-tishi ml10"></i>
+            </Tooltip>
+          </FormItem>
+
+          <FormItem label="上课教室" prop="classroom">
+            <Select v-model="classFormValidate.classroom" style="width:calc(100% - 60px);">
+              <Option v-for="item in courseList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+
+          <FormItem label="班级老师" prop="teacher_id">
+            <Select v-model="classFormValidate.teacher_id" style="width:calc(100% - 60px);">
+              <Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </FormItem>
+
+          <FormItem label="备注" prop="comment">
+            <Input v-model="classFormValidate.comment" type="textarea" :autosize="{minRows: 3,maxRows: 8}" placeholder="请输入备注" style="width:calc(100% - 60px);"></Input>
+          </FormItem>
+
         </Form>
-        <Table border :columns="trackListColumns" :loading="trackListLoading"
-               :data="trackList" class="mt20">
-        </Table>
       </div>
 
       <div slot="footer">
         <Button type="default" @click="handleTrackCancel" style="margin-left: 8px">取消</Button>
-        <Button type="primary" @click="handleTrackSubmit('trackFormValidate')">提交</Button>
+        <Button type="primary" @click="handleTrackSubmit('classFormValidate')">提交</Button>
       </div>
     </Modal>
 
@@ -117,12 +167,51 @@
     name: 'student',
     data() {
       return {
+        model1: '',
+        courseList: [
+          {
+            value: 1,
+            label: '芭蕾舞'
+          },
+          {
+            value: 2,
+            label: '硬笔书画'
+          }
+        ],
+
+        teacherList: [
+          {
+            value: 1,
+            label: '张浩'
+          },
+          {
+            value: 2,
+            label: '朱标'
+          }
+        ],
+        classFormValidate: {
+          class_id: 0,
+          name: '',
+          capacity: '',
+          classroom: '',
+          teacher_id: '',
+          comment: '',
+        },
+        classRuleValidate: {
+          class_id: [
+            {required: true, message: '请选择课程', trigger: 'change'}
+          ],
+          name: [{
+            required: true,
+            message: '班级名称不能为空',
+            trigger: 'blur'
+          }],
+        },
         searchValue: "",
         editUser: "新建用户",
         currentNavIndex: 0,
         curMid: 0,
-        showTrackBox: false,
-        trackListLoading: true,
+        showClassBox: false,
         trackTableLoading: true,
         trackList: [],//弹出框，选定用户跟踪记录
         trackTableData: [],//跟踪记录表格数据
@@ -145,16 +234,7 @@
         exportDataShow: false,
         tableData: [],
         showMessage: false,
-        trackFormValidate: {
-          content: ''
-        },
-        trackRuleValidate: {
-          content: [{
-            required: true,
-            message: '跟踪记录不能为空',
-            trigger: 'blur'
-          }],
-        },
+
         exportData: {
           exportNum: "",
         },
@@ -167,152 +247,60 @@
           },
             {type: 'number', max: 5000, message: '输入大于5000', trigger: 'blur'}],
         },
-        trackListColumns: [
-          {
-            title:'历史沟通记录',
-            key:'content'
-          },
-          {
-            title:'创建时间',
-            key:'create_time_format'
-          },
-        ],
         trackTableColumns: [
           {
-            title:'学员姓名',
-            key:'uname'
+            title: '学员姓名',
+            key: 'uname'
           },
           {
-            title:'联系电话',
-            key:'phone'
+            title: '联系电话',
+            key: 'phone'
           },
           {
-            title:'沟通内容',
-            key:'content'
+            title: '沟通内容',
+            key: 'content'
           },
           {
-            title:'创建时间',
-            key:'create_time_format'
+            title: '创建时间',
+            key: 'create_time_format'
           },
         ],
-        tableColumns:
-          [
+        tableColumns: [
             {
               type: 'selection',
               width: 60,
               align: 'center'
             },
             {
-              title: '姓名/编号',
-              key: 'uname',
-              render: (h, params) => {
-                return h('div', [
-                  h('img', {
-                    attrs: {
-                      src: params.row.avatar ? params.row.avatar : config.Qiniu.EXTERNAL_LINK + 'Fnv8Hshkyhgmv_P6yVlL290xikd7',
-                    },
-                    style: {
-                      width: '40px',
-                      height: '40px',
-                      backgroundColor: "#c6cfe1",
-                      borderRadius: "20px",
-                      margin: "6px 0",
-                      float: "left"
-                    }
-                  }),
-                  h('div', {
-                    style: {
-                      marginTop: "12px",
-                      marginLeft: "48px",
-                      fontSize: "16px",
-                      color: "rgba(0, 0, 0, 0.85)",
-                      position: "absolute"
-                    }
-                  }, (params.row.uname)),
-                ])
-              }
-            },
-
-            {
-              title: '跟踪记录',
-              key: 'line_comment_format',
-              render: (h, params) => {
-                let row = params.row
-                if(row.line_comment_format) {
-                  return h('div', [
-                    h('Button', {
-                      props: {
-                        type: 'text',
-                        size: 'small',
-                      },
-                      style: {
-                        color: '#2db7f5'
-                      },
-                      on: {
-                        click: () => {
-                          this.showTrack(params.row)
-                        }
-                      }
-                    }, params.row.line_comment_format),
-                  ])
-                }else{
-                  return h('div', [
-                    h('icon', { //渲染图标
-                      props: {
-                        type: 'ios-add-circle',
-                        size: 'small'
-                      },
-                      style: {
-                        color: '#87d068',
-                        fontSize: '20px',
-                        cursor: 'pointer'
-                      },
-                      on: {
-                        click: () => {
-                          this.showTrack(params.row)
-                        }
-                      }
-                    })
-                  ])
-                }
-
-
-              }
-            },
-
-            // {
-            //   title:'生日',
-            //   key:'birthday'
-            // },
-            {
-              title: '绑定手机',
-              key: 'phone'
+              title: '课程名称',
+              key: 'name'
             },
             {
-              title:'母亲手机',
-              key:'mother_phone'
+              title: '类型',
+              key: 'type'
             },
             {
-              title:'父亲手机',
-              key:'father_phone'
+              title: '单价(元/课时)',
+              key: 'unit_price_format'
             },
             {
-              title:'性别',
-              key:'sex_format',
+              title: '在读学员数',
+              key: '在读学员数'
             },
-            		{
-            			title:'创建日期',
-            			key:'create_time_format'
-            		},
-            // {
-            //   title: '角色',
-            //   key: 'role_id_format',
-            // },
+          {
+            title: '启用状态',
+            key: '启用状态'
+          },
+            {
+              title: '创建日期',
+              key: 'create_time_format'
+            },
             {
               title: '操作',
               key: 'operation',
               render: (h, params) => {
                 return h('div', [
+
                   h('Button', {
                     props: {
                       type: 'text',
@@ -345,7 +333,6 @@
               }
             }
           ],
-
       }
     },
     mounted() {
@@ -361,13 +348,13 @@
       // this.test()
     },
     methods: {
-      addUser() {
+      add() {
+        // this.showClassBox = true
         this.$router.push({
-          path: 'studentEdit',
+          path: 'courseEdit',
           query: {
-            // cid: params.row.cid,
-            // mid: params.row.mid
-          }
+            isAdd: true
+          },
         })
       },
       exportDataDilog() {
@@ -409,9 +396,9 @@
       },
 
       changeNav(index) {
-        if(index == 0) {
+        if (index == 0) {
 
-        }else if(index == 1) {
+        } else if (index == 1) {
           this.getTrackTableData({
             page: this.current1,
             size: this.pageSize1
@@ -420,15 +407,6 @@
 
         this.currentNavIndex = index
       },
-      showTrack(params) {
-        this.showTrackBox = true
-        this.curMid = params.mid
-        this.trackFormValidate = {
-          content: ''
-        }
-        this.trackList = []
-        this.getTrackList()
-      },
       handleTrackSubmit(inventory) {
         this.$refs[inventory].validate((valid) => {
           if (valid) {
@@ -436,27 +414,27 @@
             let submitData = {
               type: config.LineComment.TYPE_TRACK,
               thread_id: this.curMid,
-              content: this.trackFormValidate.content
+              content: this.classFormValidate.content
             }
             this.$http.post(url, submitData).then(res => {
-              if(res) {
+              if (res) {
                 this.$Message.success('新添沟通记录成功!')
-                this.showTrackBox = false
+                this.showClassBox = false
                 this.getTableData({
                   page: this.current,
                   size: this.pageSize
                 })
               }
             }).catch(error => {
-              this.$Message.error('添加失败,'+error.message)
+              this.$Message.error('添加失败,' + error.message)
             })
-          }else{
+          } else {
             this.$Message.error('请输入完整信息!');
           }
         })
       },
       handleTrackCancel() {
-        this.showTrackBox = false
+        this.showClassBox = false
       },
       checkNum(selection) {
         this.checkNums = selection.length
@@ -464,32 +442,26 @@
       },
       getTableData(option) {
         let submitData = {
-          roles: [config.UserRole.ROLE_MEMBER],
-          queryTrack: true,
+          search: this.searchValue,
           pageIndex: option.page,
-          pageSize: option.size,
+          pageSize: option.size
         }
-        let url = lib.getRequestUrl('/api/member/getlist', submitData)
+        let url = lib.getRequestUrl('/api/company/course/getlist', submitData)
         this.$http.get(url, {}).then(res => {
-          if (res) {
+          if(res) {
             this.loading = false
-            this.current = option.page
+            this.current = option.pageIndex
 
             this.total = res.data.total
-            let tableData = res.data.member ? lib.filterResult(res.data.member) : []
-            tableData.map(function (item) {
-              item.line_comment_format = item.line_comment.length ? item.line_comment[0].content : ''
-            })
-
-            this.tableData = tableData
+            this.tableData = lib.filterResult(res.data.data)
           }
         }).catch(error => {
-          this.loading = false
           console.log('error',error)
-
+          this.loading = false
           this.$Message.error(error.message);
         })
       },
+
       getTrackTableData(option) {
         let submitData = {
           type: config.LineComment.TYPE_TRACK,
@@ -568,6 +540,15 @@
             size: this.pageSize1,
           }
         )
+      },
+      showDetail() {
+        this.$router.push({
+          path: 'classDetail',
+          query: {
+            // cid: params.row.cid,
+            // mid: params.row.mid
+          }
+        })
       },
       // 编辑页面
       update(params) {
