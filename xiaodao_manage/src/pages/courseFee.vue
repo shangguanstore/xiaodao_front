@@ -277,7 +277,7 @@
             },
             {
               title: '类型',
-              key: 'type'
+              key: 'type_format'
             },
             {
               title: '单价(元/课时)',
@@ -345,7 +345,6 @@
           size: this.pageSize,
         }
       )
-      // this.test()
     },
     methods: {
       add() {
@@ -450,10 +449,17 @@
         this.$http.get(url, {}).then(res => {
           if(res) {
             this.loading = false
-            this.current = option.pageIndex
+            this.current = option.page
 
             this.total = res.data.total
             this.tableData = lib.filterResult(res.data.data)
+            this.tableData.map(item=>{
+              if(item.type == config.CompanyCourse.TYPE_ONE_TO_MANY) {
+                item.type_format = '一对多'
+              }else if(item.type == config.CompanyCourse.TYPE_ONT_TO_ONE) {
+                item.type_format = '一对一'
+              }
+            })
           }
         }).catch(error => {
           console.log('error',error)
@@ -493,16 +499,6 @@
         }).catch(error => {
           this.trackListLoading = false
           this.$Message.error(error.message);
-        })
-      },
-      test() {
-        let url = "/api/apigc/order/push"
-        this.$http.post(url, {}).then(res => {
-          if (res) {
-
-          }
-        }).catch(error => {
-          this.$Message.error(error.message)
         })
       },
       changePage(page) {
@@ -563,17 +559,15 @@
       remove(params) {
         this.$Modal.confirm({
           title: '删除',
-          content: "确认删除" + params.row.uname + "吗？",
+          content: "确认删除" + params.row.name + "吗？",
           okText: '确认',
           cancelText: '取消',
           onOk: () => {
             console.log('params', params)
             let submitData = {
-              mid: params.row.mid,
-              cid: params.row.cid,
-              roles: params.row.role_id,
+              ccid: params.row.ccid
             }
-            this.$http.post("/api/member/del", submitData).then(res => {
+            this.$http.post("/api/course/del", submitData).then(res => {
               if (res) {
                 this.$Message.success('删除成功!')
                 this.getTableData(

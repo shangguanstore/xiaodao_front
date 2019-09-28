@@ -49,6 +49,49 @@ html, body {
   margin-left: 40px;
 }
 
+
+
+.pt10 {
+  padding-top: 10px;
+}
+
+.pt20 {
+  padding-top: 20px;
+}
+
+.pt25 {
+  padding-top: 25px;
+}
+
+.pb10 {
+  padding-bottom: 10px;
+}
+.pb20 {
+  padding-bottom: 20px;
+}
+.pb25 {
+  padding-bottom: 25px;
+}
+
+.pl10 {
+  padding-left: 10px;
+}
+
+.pl20 {
+  padding-left: 20px;
+}
+
+.pl30 {
+  padding-left: 30px;
+}
+
+.pl40 {
+  padding-left: 40px;
+}
+
+
+
+
 li {
   list-style: none;
 }
@@ -501,6 +544,11 @@ footer {
   top: 0;
   right: -24px;
 }
+.fieldPlus {
+  position: absolute;
+  top: 0;
+  right: -24px;
+}
 
 .imgListBtn {
   width: 90px;
@@ -553,13 +601,111 @@ footer {
   background: rgba(59, 184, 223, 1);
   color: white;
 }
-
-
 .container-sub-title {
   font-size:16px;
   font-weight:bold;
   color:#333;
 }
 
+.specialItem:first-child {
+  margin-left: 20px;
+}
+.itemLabel {
+  color: rgba(170, 170, 170, 1);
+  font-size: 14px;
+  padding-right: 10px;
+}
+.itemValue {
+  font-size: 14px;
+  color: rgb(86,86,86);
+}
 
+/*表格开始*/
+.table-wrap {
+  width: 100%;
+  outline: none;
+  position: relative;
+  font-size: 14px;
+  color: #444;
+  border: 1px #ccc solid;
+}
+
+/*.table-wrap.footer-table {*/
+  /*border-left: none;*/
+  /*border-right: none;*/
+/*}*/
+
+.table-head {
+  padding-right: 17px;
+  /*background-color: #eeeeee;*/
+  background-color: #f5f5f5;
+  border-bottom: 1px #ccc solid;
+}
+
+.grid {
+  margin: 0px;
+  table-layout: fixed;
+  width: 100%;
+  max-width: none;
+  border-spacing: 0px;
+  empty-cells: show;
+  border-width: 0px;
+  outline: 0px none;
+  border-collapse: collapse;
+}
+
+.grid tr th {
+  padding: 12px 25px;
+  vertical-align: bottom;
+  /*overflow: hidden;*/
+  border-left: 1px #ccc solid;
+  font-weight: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.grid tr th:first-child {
+  border-left-width: 0;
+}
+
+.grid tr td {
+  border-left: 1px #ccc solid;
+  border-bottom: 1px #ccc solid;
+  padding: 9px 5px 9px 25px;
+  overflow: hidden;
+  line-height: 34px;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  height:52px
+}
+
+.grid tr td:first-child {
+  border-left-width: 0px;
+}
+
+.grid tr:last-child td {
+  border-bottom: none;
+}
+/*表格结束*/
+
+
+
+/*边框开始*/
+.border {
+  border: solid 1px #ccc;
+}
+.border-top {
+  border-top: solid 1px #ccc;
+}
+.border-bottom {
+  border-bottom: solid 1px #ccc;
+}
+.border-left {
+  border-left: solid 1px #ccc;
+}
+.border-right {
+  border-right: solid 1px #ccc;
+}
+/*边框结束*/
 

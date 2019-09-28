@@ -206,7 +206,7 @@
       },
       getTableData(option) {
         let submitData = {
-          roles: option.roles ? option.roles : [config.UserRole.ROLE_ADMIN, config.UserRole.ROLE_FRONT, config.UserRole.ROLE_TEACHER, config.UserRole.ROLE_SALE, config.UserRole.ROLE_ASSIST_TEACHER, config.UserRole.ROLE_MANAGER],
+          roles: option.roles ? option.roles : [config.UserRole.ROLE_ADMIN, config.UserRole.ROLE_FRONT, config.UserRole.ROLE_TEACHER, config.UserRole.ROLE_CLASS_TEACHER, config.UserRole.ROLE_SALE, config.UserRole.ROLE_ASSIST_TEACHER, config.UserRole.ROLE_MANAGER],
           search: this.searchValue,
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,

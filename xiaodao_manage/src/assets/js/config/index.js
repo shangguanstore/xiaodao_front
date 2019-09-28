@@ -12,6 +12,9 @@ var config = {
   CompanyCourse: CompanyCourse,
   ClassRoom: ClassRoom,
   Subject: Subject,
+  CourseSchedule: CourseSchedule,
+  Attendance: Attendance,
+  Promotion: Promotion,
   LotteryGoods: LotteryGoods
 }
 
@@ -96,6 +99,40 @@ Subject.STATUS_INVALID = -2
 
 Subject.TYPE_SYS_DETAULT = 0
 Subject.TYPE_CUSTOM = 1
+
+
+function CourseSchedule() {
+}
+CourseSchedule.SCHEDULE_TYPE_NOT_REGULAR = -1
+CourseSchedule.SCHEDULE_TYPE_REGULAR_WEEK = 0
+CourseSchedule.SCHEDULE_TYPE_REGULAR_BIWEEKLY = 1
+
+
+function Promotion() {
+}
+Promotion.TYPE_DISCOUNT = 0
+Promotion.TYPE_CUT_DOWN = 1
+
+Promotion.STATUS_OK = 0
+Promotion.STATUS_DELETED = -1
+Promotion.STATUS_INVALID = -2
+
+
+function Attendance() {
+}
+Attendance.STATUS_INIT = 0//初始状态
+Attendance.STATUS_ATTENDANCE = 1
+Attendance.STATUS_ABSENCE = 2
+Attendance.STATUS_DELETED = -1
+
+Attendance.TYPE_INIT = 0
+Attendance.TYPE_ATTEND = 1
+Attendance.TYPE_LATE = 2
+Attendance.TYPE_ERALY_GO = 3
+Attendance.TYPE_LEAVE_PERSONAL_AFFAIRS = 4
+Attendance.TYPE_LEAVE_SICK = 5
+Attendance.TYPE_TRUANCY = 6
+Attendance.TYPE_OTHERS = 7
 
 
 export default config

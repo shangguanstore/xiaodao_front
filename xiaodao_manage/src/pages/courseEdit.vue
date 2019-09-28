@@ -45,7 +45,7 @@
         <Row v-if="formValidate.type == 0">
           <Col span="4">
           <FormItem label="课程总价" prop="price" style="position: relative;">
-            <Input v-model="formValidate.price" placeholder="请输入" @on-blur="changePrice"></Input>
+            <Input v-model="formValidate.price" placeholder="请输入" @on-blur="changePrice" number></Input>
             <span class="fieldUnit">元</span>
           </FormItem>
           </Col>
@@ -54,7 +54,7 @@
         <Row v-if="formValidate.type == 0">
           <Col span="4">
           <FormItem label="课时数" prop="course_num">
-            <Input v-model="formValidate.course_num" placeholder="请输入" @on-blur="changeCourseNum"></Input>
+            <Input v-model="formValidate.course_num" placeholder="请输入" @on-blur="changeCourseNum" number></Input>
           </FormItem>
           </Col>
         </Row>
@@ -62,7 +62,7 @@
         <Row>
           <Col span="4">
           <FormItem label="课程单价" prop="unit_price" style="position: relative;">
-            <Input v-model="formValidate.unit_price" placeholder="请输入" @on-blur="changeUnitPrice"></Input>
+            <Input v-model="formValidate.unit_price" placeholder="请输入" @on-blur="changeUnitPrice" number></Input>
             <span class="fieldUnit" style="right: -51px">元/课时</span>
           </FormItem>
           </Col>
@@ -139,13 +139,13 @@
             {required: true, message: '请选择课表颜色', trigger: 'change'},
           ],
           price: [
-            {required: true, message: '请输入课程总价', trigger: 'blur'},
+            {required: true, type: 'number', message: '请输入课程总价', trigger: 'blur'},
           ],
           unit_price: [
-            {required: true, message: '请输入课程单价', trigger: 'blur'},
+            {required: true, type: 'number', message: '请输入课程单价', trigger: 'blur'},
           ],
           course_num: [
-            {required: true, message: '请输入课时数', trigger: 'blur'},
+            {required: true, type: 'number', message: '请输入课时数', trigger: 'blur'},
           ],
         }
       }
@@ -187,7 +187,7 @@
           if(lib.is_int(count)) {
             this.formValidate.unit_price = count
           }else{
-            this.formValidate.unit_price = count.toFixed(2)
+            this.formValidate.unit_price = parseFloat(count.toFixed(2))
           }
         }
       },
@@ -202,7 +202,7 @@
           if(lib.is_int(count)) {
             this.formValidate.unit_price = count
           }else{
-            this.formValidate.unit_price = count.toFixed(2)
+            this.formValidate.unit_price = parseFloat(count.toFixed(2))
           }
         }
       },

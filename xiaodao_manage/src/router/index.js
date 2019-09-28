@@ -53,6 +53,11 @@ export default new Router({
           component: () => import('@/pages/student')
         },
         {
+          path: '/client',
+          name: 'client',
+          component: () => import('@/pages/client')
+        },
+        {
           path: '/studentEdit',
           name: 'studentEdit',
           component: () => import('@/pages/studentEdit')
@@ -176,6 +181,21 @@ export default new Router({
           path: '/teacherEdit',
           name: 'teacherEdit',
           component: () => import('@/pages/teacherEdit')
+        },
+        {
+          path: '/coursetable',
+          name: 'coursetable',
+          component: () => import('@/pages/coursetable')
+        },
+        {
+          path: '/purchase',
+          name: 'purchase',
+          component: () => import('@/pages/purchase')
+        },
+        {
+          path: '/attendance',
+          name: 'attendance',
+          component: () => import('@/pages/attendance')
         },
       ]
     }

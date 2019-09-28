@@ -14,8 +14,15 @@ import getUploadPicStr from './getUploadPicStr.js'
 import getUpdateUploadPicStr from './getUpdateUploadPicStr.js'
 import is_array from './is_array.js'
 import in_array from './in_array.js'
+import array_column from './array_column.js'
 import is_int from './is_int.js'
+import getCurWeekStartEndDate from './getCurWeekStartEndDate.js'
 import is_string from './is_string.js'
+import getDateFirstLastTimestamp from './getDateFirstLastTimestamp.js'
+import fixedNumber from './fixedNumber.js'
+import getWeekdayDate from './getWeekdayDate.js'
+import getTimestamp from './getTimestamp.js'
+import getWeekdaysFormat from './getWeekdaysFormat.js'
 import chinese2pinyin from './chinese2pinyin.js'
 import getImglink from './getImglink.js'
 
@@ -30,6 +37,7 @@ var lib = {
   sprintf: sprintf,
   getRequestUrl: getRequestUrl,
   filterResult: filterResult,
+  array_column: array_column,
   is_array: is_array,
   in_array: in_array,
   is_int: is_int,
@@ -39,6 +47,12 @@ var lib = {
   getUploadPicStr: getUploadPicStr,
   getUpdateUploadPicStr: getUpdateUploadPicStr,
   getImglink: getImglink,
+  fixedNumber: fixedNumber,
+  getWeekdayDate: getWeekdayDate,
+  getTimestamp: getTimestamp,
+  getCurWeekStartEndDate: getCurWeekStartEndDate,
+  getWeekdaysFormat: getWeekdaysFormat,
+  getDateFirstLastTimestamp: getDateFirstLastTimestamp,
   str_replace: str_replace
 }
 

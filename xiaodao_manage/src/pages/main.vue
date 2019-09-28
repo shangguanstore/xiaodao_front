@@ -39,7 +39,7 @@
             <i class="icon iconfont icon-tianjiayonghu" style="font-size: 14px;margin-left: 14px;"></i>
             招生中心
           </template>
-          <MenuItem name="student">咨询本</MenuItem>
+          <MenuItem name="client">咨询本</MenuItem>
         </Submenu>
 
         <Submenu name="3">
@@ -56,8 +56,9 @@
             <Icon type="md-book"/>
             教务中心
           </template>
-          <MenuItem name="class">班级管理</MenuItem>
-          <!--<MenuItem name="courseList">课程管理</MenuItem>-->
+          <MenuItem name="coursetable">课程表</MenuItem>
+          <MenuItem name="class">班级/排课</MenuItem>
+          <MenuItem name="attendance">考勤</MenuItem>
           <MenuItem name="courseFee">课程/收费</MenuItem>
           <MenuItem name="teacherList">教师管理</MenuItem>
         </Submenu>

@@ -7,7 +7,7 @@
       </Breadcrumb>
     </div>
     <div class="container mt20">
-      <Tabs value="name1">
+      <Tabs value="name1" @on-click="changeTab">
         <TabPane label="机构配置" name="name1">
           <p class="container-sub-title mt20">科目和教室设置</p>
           <Collapse class="mt20" accordion @on-change="changePanel">
@@ -48,20 +48,58 @@
                 </Row>
               </div>
             </Panel>
-
-
-            <!--<Panel name="3">-->
-              <!--乔纳森·伊夫-->
-              <!--<p slot="content">-->
-                <!--乔纳森·伊夫是一位工业设计师，现任Apple公司设计师兼资深副总裁，英国爵士。他曾参与设计了iPod，iMac，iPhone，iPad等众多苹果产品。除了乔布斯，他是对苹果那些著名的产品最有影响力的人。</p>-->
-            <!--</Panel>-->
           </Collapse>
         </TabPane>
         <!--<TabPane label="节假日设置" name="name2"></TabPane>-->
-        <TabPane label="" name="name2"></TabPane>
+
+        <TabPane label="优惠类目" name="name2">
+          <Button type="primary" @click="preAddPromotion">添加</Button>
+          <Table border stripe ref="promotion" :loading="promotionLoading" :columns="promotionColumns" :data="promotionList"
+                 class="mt20"></Table>
+        </TabPane>
       </Tabs>
     </div>
 
+    <Modal
+      v-model="promotionModel"
+      width:="480"
+      :styles="{top: '200px'}"
+    >
+      <p slot="header">
+        <span>新增优惠</span>
+      </p>
+
+      <div>
+        <Form ref="promotionFormValidate" :model="promotionFormValidate" :rules="promotionRuleValidate" :label-width="80">
+          <FormItem label="所属课程" prop="type">
+            <RadioGroup v-model="promotionFormValidate.type">
+              <Radio :label="config.Promotion.TYPE_DISCOUNT">打折</Radio>
+              <Radio :label="config.Promotion.TYPE_CUT_DOWN">减免现金</Radio>
+            </RadioGroup>
+          </FormItem>
+
+          <FormItem label="操作数值" prop="num" style="position: relative;margin-bottom: 6px;">
+            <Input v-if="promotionFormValidate.type == config.Promotion.TYPE_DISCOUNT" v-model="promotionFormValidate.num" style="width:calc(100% - 60px);"
+                   placeholder="请输入0~100的数值" @on-blur="onPromotionNumBlur"></Input>
+            <Input v-else v-model="promotionFormValidate.num" style="width:calc(100% - 60px);"
+                   placeholder="请输入大于0的数值" @on-blur="onPromotionNumBlur"></Input>
+            <span v-if="promotionFormValidate.type == config.Promotion.TYPE_DISCOUNT" class="fieldUnit" style="right: 40px">%</span>
+            <span v-else class="fieldUnit" style="right: 40px">元</span>
+          </FormItem>
+
+          <FormItem label="优惠名称" prop="name">
+            <Input v-model="promotionFormValidate.name" style="width:calc(100% - 60px);"
+                   placeholder="输入操作数值自动完成"></Input>
+          </FormItem>
+
+        </Form>
+      </div>
+
+      <div slot="footer">
+        <Button type="default" @click="handlePromotionCancel" style="margin-left: 8px">取消</Button>
+        <Button type="primary" @click="handlePromotionSubmit('promotionFormValidate')">提交</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -73,8 +111,99 @@
     name: 'ruleSetting',
     data() {
       return {
+        config: {},
         subjectLoading: true,
         subjectTabBar: 0,
+
+        promotionList: [],
+        promotionColumns: [
+          {
+            title: '优惠名称',
+            key: 'name',
+          },
+          {
+            title: '优惠类型',
+            key: 'type_format',
+          },
+          {
+            title: '操作数值',
+            key: 'num_format',
+          },
+          {
+            title: '创建时间',
+            key: 'create_time_format',
+          },
+          {
+            title: '操作',
+            key: 'operation',
+            // width:220,
+            // fixed:"right",
+            render: (h, params) => {
+              return h('div', [
+                h('i-switch', {
+                  props: {
+                    size: 'large',
+                    value: params.row.status == config.Promotion.STATUS_OK ? true : false
+                  },
+                  style: {
+                    color: '#2db7f5'
+                  },
+                  on: {
+                    'on-change': () => {
+                      this.changePromotionValid(params)
+                    }
+                  }
+                }, [
+                  h('span', {
+                    slot: 'open',
+                    domProps: {
+                      innerHTML: '有效'
+                    }
+                  }),
+                  h('span', {
+                    slot: 'close',
+                    domProps: {
+                      innerHTML: '无效'
+                    }
+                  })
+                ]),
+                h('Button', {
+                  props: {
+                    type: 'text',
+                    size: 'small'
+                  },
+                  style: {
+                    color: '#2db7f5',
+                    marginLeft: '20px'
+                  },
+                  on: {
+                    click: () => {
+                      this.removePromotion(params)
+                    }
+                  }
+                }, '删除'),
+
+              ])
+            }
+          }
+        ],
+        promotionLoading: false,
+        promotionModel: false,
+        promotionFormValidate: {
+          type: config.Promotion.TYPE_DISCOUNT,
+          num: '',
+          name: '',
+        },
+        promotionRuleValidate: {
+          // ccid: [
+          //   {required: true, type: 'number', message: '请选择课程', trigger: 'change'}
+          // ],
+          // name: [{
+          //   required: true,
+          //   message: '班级名称不能为空',
+          //   trigger: 'blur'
+          // }],
+        },
 
         classroomLoading: true,
         switch1: true,
@@ -208,9 +337,28 @@
 
     },
     created() {
-
+      this.config = config
     },
     methods: {
+      onPromotionNumBlur() {
+        let val = this.promotionFormValidate.num
+        if(this.promotionFormValidate.type == config.Promotion.TYPE_DISCOUNT) {
+          var discount = val / 10
+          this.promotionFormValidate.name = `打${discount}折`
+        }else if(this.promotionFormValidate.type == config.Promotion.TYPE_CUT_DOWN){
+          this.promotionFormValidate.name = `减${val}元`
+        }
+      },
+      changeTab(e) {
+        if(e == 'name2') {
+          this.getPromotionList()
+        }
+      },
+      preAddPromotion() {
+        this.promotionModel = true
+        this.promotionFormValidate.num = ''
+        this.promotionFormValidate.name = ''
+      },
       changePanel(e) {
         if(lib.in_array('subject',e) && this.subjectList.length == 0) {
           this.getSubjectList()
@@ -505,6 +653,88 @@
         this.$http.post(url, submitData).then(res => {
           this.$Message.success('删除成功!')
           this.getSubjectList()
+        }).catch(error => {
+          this.$Message.error(error.message)
+        })
+      },
+
+      //优惠券信息
+      getPromotionList() {
+        this.promotionLoading = true
+        let submitData = {
+          status: [config.Promotion.STATUS_OK, config.Promotion.STATUS_INVALID]
+        }
+        let url = '/api/promotion/getlist'
+        this.$http.post(url, submitData).then(res => {
+          this.promotionLoading = false
+          this.promotionList = res.data.data
+          this.promotionList = lib.filterResult(this.promotionList)
+          this.promotionList.map(item=>{
+            if(item.type == config.Promotion.TYPE_DISCOUNT) {
+              item.type_format = '打折'
+              item.num_format = `${item.num}%`
+            }else if(item.type == config.Promotion.TYPE_CUT_DOWN) {
+              item.type_format = '减免现金'
+              item.num_format = item.num
+            }
+          })
+        }).catch(error => {
+          this.promotionLoading = false
+          this.$Message.error(error.message);
+        })
+      },
+      handlePromotionSubmit(inventory) {
+        this.$refs[inventory].validate((valid) => {
+          if (valid) {
+            let url = '/api/promotion/add'
+
+            let submitData = {
+              name: this.promotionFormValidate.name,
+              num: this.promotionFormValidate.num,
+              type: this.promotionFormValidate.type
+            }
+            this.$http.post(url, submitData).then(res => {
+              this.$Message.success('添加成功')
+              this.promotionModel = false
+              this.getPromotionList()
+            }).catch(error => {
+              this.$Message.error('添加失败，' + error.message)
+            })
+          } else {
+            this.$Message.error('请输入完整信息!');
+          }
+        })
+      },
+      handlePromotionCancel() {
+        this.promotionModel = false
+      },
+
+      changePromotionValid(params) {
+        let newStatus = params.row.status == config.Promotion.STATUS_OK ? config.Promotion.STATUS_INVALID : config.Promotion.STATUS_OK
+
+        let submitData = {
+          id: params.row.id,
+          status: newStatus
+        }
+        let url = "/api/promotion/update"
+        this.$http.post(url, submitData).then(res => {
+          this.$Message.success('更新状态成功！')
+          this.getPromotionList()
+        }).catch(error => {
+          this.getPromotionList()
+          this.$Message.error(error.message)
+        })
+      },
+      removePromotion(params) {
+        let submitData = {
+          id: params.row.id
+        }
+        let url = "/api/promotion/del"
+        this.$http.post(url, submitData).then(res => {
+          if (res.data.errNo == 100000) {
+            this.$Message.success('删除成功!')
+            this.getPromotionList()
+          }
         }).catch(error => {
           this.$Message.error(error.message)
         })

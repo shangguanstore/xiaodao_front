@@ -1,6 +1,8 @@
 import date from './date'
 import isset from './isset'
+import empty from './empty'
 import is_array from './is_array'
+import array_column from './array_column'
 import config from '../config'
 import getImglink from './getImglink'
 
@@ -24,12 +26,16 @@ export default function filterResult(data) {
             roleIdCorrespondString(item.role_id[i])
           )
         }
-        role_id_format = role_id_format.join('/ ')
+        role_id_format = role_id_format.join(' / ')
       } else {
         role_id_format = roleIdCorrespondString(item.role_id)
       }
 
       item.role_id_format = role_id_format
+    }
+
+    if(!empty(item.subject)) {
+      item.subject_format = array_column(item.subject, 'name').join(' / ')
     }
 
     if (isset(item.imglink)) {
@@ -41,13 +47,13 @@ export default function filterResult(data) {
     }
 
     if (item.price) {
-      item.price_format = (item.price / 100).toFixed(2)
+      item.price_format = parseFloat((item.price / 100).toFixed(2))
     } else {
       item.price_format = 0
     }
 
     if (item.unit_price) {
-      item.unit_price_format = (item.unit_price / 100).toFixed(2)
+      item.unit_price_format = parseFloat((item.unit_price / 100).toFixed(2))
     } else {
       item.unit_price_format = 0
     }

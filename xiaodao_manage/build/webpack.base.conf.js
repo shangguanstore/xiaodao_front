@@ -4,6 +4,9 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
+//为了引入Jquery加的
+var webpack = require('webpack')
+
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -28,6 +31,15 @@ module.exports = {
       '@': resolve('src'),
     }
   },
+  //引入Jquery需要添加的
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      jquery: "jquery",
+      "window.jQuery": "jquery"
+    })
+  ],
   module: {
     rules: [
       {

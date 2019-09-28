@@ -11,18 +11,18 @@
       <div class="search_container">
         <Row :gutter="20">
           <Col span="6">
-          <span>搜索课程：</span>
+          <span>按姓名搜索：</span>
           <Input v-model="searchValue" placeholder="请输入课程名称" style="width: 200px"
-                 @on-change="changeName"></Input>
+                 @on-change="changeSearch"></Input>
           <Button class="ml20" type="info" @click="search">查询</Button>
           </Col>
 
-          <Col span="6">
-          <span>课程状态：</span>
-          <Select v-model="model1" style="width:calc(100% - 120px);">
-            <Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          </Col>
+          <!--<Col span="6">-->
+          <!--<span>课程状态：</span>-->
+          <!--<Select v-model="model1" style="width:calc(100% - 120px);">-->
+            <!--<Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+          <!--</Select>-->
+          <!--</Col>-->
 
         </Row>
       </div>
@@ -47,16 +47,20 @@
 </template>
 
 <script>
+  import lib from '@/assets/js/lib/index'
+  import config from '@/assets/js/config/index'
+
   export default {
     name: 'teacherList',
     data() {
       return {
         loading: true,
+        model1: 0,
 
         current: 1,
         pageSize: 10,
         sort: "",
-        Search: "",
+        searchValue: "",
         total: 0,
 
         tableData: [],
@@ -68,11 +72,15 @@
           },
           {
             title: '姓名',
-            key: 'name'
+            key: 'uname'
+          },
+          {
+            title: '角色',
+            key: 'role_id_format'
           },
           {
             title: '教授科目',
-            key: 'type'
+            key: 'subject_format'
           },
           {
             title: '创建日期',
@@ -119,12 +127,12 @@
       }
     },
     created() {
-      // this.getTableData(
-      //   {
-      //     page: this.current,
-      //     size: this.pageSize,
-      //   }
-      // )
+      this.getTableData(
+        {
+          page: this.current,
+          size: this.pageSize,
+        }
+      )
     },
     mounted(){
 
@@ -136,21 +144,34 @@
           query: {}
         })
       },
+      update(params) {
+        this.$router.push({
+          path: 'teacherEdit',
+          query: {
+            mid: params.row.mid
+          }
+        })
+      },
 
       getTableData(option) {
         let submitData = {
+          roles: option.roles ? option.roles : [config.UserRole.ROLE_TEACHER, config.UserRole.ROLE_ASSIST_TEACHER, config.UserRole.ROLE_CLASS_TEACHER],
+          getSubject: true,
           search: this.searchValue,
           pageIndex: option.page,
-          pageSize: option.size
+          pageSize: option.size,
         }
-        let url = lib.getRequestUrl('/api/company/course/getlist', submitData)
+        let url = lib.getRequestUrl('/api/member/getlist', submitData)
         this.$http.get(url, {}).then(res => {
-          if(res) {
+          if (res) {
             this.loading = false
             this.current = option.pageIndex
 
             this.total = res.data.total
-            this.tableData = lib.filterResult(res.data.data)
+            this.tableData = lib.filterResult(res.data.member)
+
+            console.log('this.tableData', this.tableData)
+
           }
         }).catch(error => {
           this.loading = false
@@ -174,6 +195,24 @@
             size: this.pageSize,
           }
         )
+      },
+      changeSearch() {
+        if (this.searchValue.length === 0) {
+          this.getTableData({
+            page: this.current,
+            size: this.pageSize,
+          })
+        }
+      },
+      search() {
+        if (this.searchValue.length == 0) {
+          this.$Message.warning('请输入您要查询教师姓名！');
+        } else {
+          this.getTableData({
+            page: this.current,
+            size: this.pageSize,
+          })
+        }
       },
     },
   }

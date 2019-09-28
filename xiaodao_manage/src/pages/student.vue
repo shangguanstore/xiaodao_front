@@ -1,57 +1,27 @@
 <template>
   <div class="student_container">
-    <ul class="top_nav_bar float-wrap">
-      <li class="title">
-        <img src="http://static.xiaost.net/zixunben-icon.png" style="top: 14px;left: 16px" alt="">
-        <span>咨询本</span>
-      </li>
-      <li class="item" :class="{current: currentNavIndex == 0}" @click="changeNav(0)">
-        咨询记录
-      </li>
-      <li class="item" :class="{current: currentNavIndex == 1}" @click="changeNav(1)">
-        沟通管理
-      </li>
-    </ul>
-
     <div class="container mt20">
-      <div v-show="currentNavIndex == 0">
-        <div class="search_container">
-          <div class="fl">
-            <span>搜索查询：</span>
-            <Input v-model="searchValue" placeholder="请输入手机号、用户名查询" style="width: 200px" @on-change="changeName"></Input>
-            <Button class="ml20" type="info" @click="search">查询</Button>
-          </div>
-          <div class="fr">
-            <Button type="info" icon="ios-plus-empty" @click="addUser">新建咨询</Button>
-            <!--<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>-->
-          </div>
+      <div class="search_container">
+        <div class="fl">
+          <span>搜索查询：</span>
+          <Input v-model="searchValue" placeholder="请输入手机号、用户名查询" style="width: 200px" @on-change="changeName"></Input>
+          <Button class="ml20" type="info" @click="search">查询</Button>
         </div>
-        <Table border ref="selection" :loading="loading" @on-selection-change="checkNum" :columns="tableColumns"
-               :data="tableData" class="mt20">>
-        </Table>
-
-        <div style="margin: 10px;overflow: hidden">
-          <div style="float: right;">
-            <Page :total="total" show-total show-sizer show-elevator :current="current" @on-change="changePage"
-                  @on-page-size-change="changepageSize"></Page>
-          </div>
+        <div class="fr">
+          <!--<Button type="info" icon="ios-plus-empty" @click="addUser">新建咨询</Button>-->
+          <!--<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>-->
         </div>
       </div>
+      <Table border ref="selection" :loading="loading" @on-selection-change="checkNum" :columns="tableColumns"
+             :data="tableData" class="mt20">>
+      </Table>
 
-
-      <div v-show="currentNavIndex == 1">
-        <Table border :loading="trackTableLoading" :columns="trackTableColumns"
-               :data="trackTableData" class="mt20">>
-        </Table>
-
-        <div style="margin: 10px;overflow: hidden">
-          <div style="float: right;">
-            <Page :total="total1" show-total show-sizer show-elevator :current="current1" @on-change="changePage1"
-                  @on-page-size-change="changepageSize1"></Page>
-          </div>
+      <div style="margin: 10px;overflow: hidden">
+        <div style="float: right;">
+          <Page :total="total" show-total show-sizer show-elevator :current="current" @on-change="changePage"
+                @on-page-size-change="changepageSize"></Page>
         </div>
       </div>
-
     </div>
 
     <Modal
@@ -233,52 +203,6 @@
               }
             },
 
-            {
-              title: '跟踪记录',
-              key: 'line_comment_format',
-              render: (h, params) => {
-                let row = params.row
-                if(row.line_comment_format) {
-                  return h('div', [
-                    h('Button', {
-                      props: {
-                        type: 'text',
-                        size: 'small',
-                      },
-                      style: {
-                        color: '#2db7f5'
-                      },
-                      on: {
-                        click: () => {
-                          this.showTrack(params.row)
-                        }
-                      }
-                    }, params.row.line_comment_format),
-                  ])
-                }else{
-                  return h('div', [
-                    h('icon', { //渲染图标
-                      props: {
-                        type: 'ios-add-circle',
-                        size: 'small'
-                      },
-                      style: {
-                        color: '#87d068',
-                        fontSize: '20px',
-                        cursor: 'pointer'
-                      },
-                      on: {
-                        click: () => {
-                          this.showTrack(params.row)
-                        }
-                      }
-                    })
-                  ])
-                }
-
-
-              }
-            },
 
             // {
             //   title:'生日',
@@ -297,6 +221,26 @@
               key:'father_phone'
             },
             {
+              title: '所报课程',
+              key: 'name',
+              render: (h, params) => {
+                return h('div', [
+                  h('div', {
+                    style: {
+                      fontSize: "13px",
+                      // color: "rgb(45, 183, 245)",
+                      cursor: "pointer"
+                    },
+                    // on: {
+                    //   click: () => {
+                    //     this.showDetail(params)
+                    //   }
+                    // }
+                  }, (params.row.card_format)),
+                ])
+              }
+            },
+            {
               title:'性别',
               key:'sex_format',
             },
@@ -313,6 +257,20 @@
               key: 'operation',
               render: (h, params) => {
                 return h('div', [
+                  h('Button', {
+                    props: {
+                      type: 'text',
+                      size: 'small',
+                    },
+                    style: {
+                      color: '#2db7f5'
+                    },
+                    on: {
+                      click: () => {
+                        this.purchase(params)
+                      }
+                    }
+                  }, '报名'),
                   h('Button', {
                     props: {
                       type: 'text',
@@ -465,7 +423,8 @@
       getTableData(option) {
         let submitData = {
           roles: [config.UserRole.ROLE_MEMBER],
-          queryTrack: true,
+          getCard: true,
+          isStudent: true,
           pageIndex: option.page,
           pageSize: option.size,
         }
@@ -477,10 +436,10 @@
 
             this.total = res.data.total
             let tableData = res.data.member ? lib.filterResult(res.data.member) : []
-            tableData.map(function (item) {
-              item.line_comment_format = item.line_comment.length ? item.line_comment[0].content : ''
+            tableData.map(item=>{
+              var cardArr = lib.array_column(item.card, 'company_course_name')
+              item.card_format = cardArr.length > 0 ? cardArr.join('，') : ''
             })
-
             this.tableData = tableData
           }
         }).catch(error => {
@@ -568,6 +527,14 @@
             size: this.pageSize1,
           }
         )
+      },
+      purchase(params) {
+        this.$router.push({
+          path: 'purchase',
+          query: {
+            mid: params.row.mid
+          }
+        })
       },
       // 编辑页面
       update(params) {

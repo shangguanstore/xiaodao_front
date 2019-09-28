@@ -1,61 +1,31 @@
 <template>
-  <div class="class_container">
-    <div class="manage_title">
-    <Breadcrumb>
-    <BreadcrumbItem>招生中心</BreadcrumbItem>
-    <BreadcrumbItem>班级/排课</BreadcrumbItem>
-    </Breadcrumb>
-    </div>
-
-    <ul v-if="false" class="top_nav_bar float-wrap">
+  <div class="client_container">
+    <ul class="top_nav_bar float-wrap">
       <li class="title">
         <img src="http://static.xiaost.net/zixunben-icon.png" style="top: 14px;left: 16px" alt="">
-        <span>班级管理</span>
+        <span>咨询本</span>
       </li>
       <li class="item" :class="{current: currentNavIndex == 0}" @click="changeNav(0)">
-        班课
+        咨询记录
       </li>
       <li class="item" :class="{current: currentNavIndex == 1}" @click="changeNav(1)">
-        一对一
+        沟通管理
       </li>
     </ul>
 
     <div class="container mt20">
       <div v-show="currentNavIndex == 0">
         <div class="search_container">
-          <Row :gutter="20">
-            <Col span="4">
-            <!--<span>搜索班级：</span>-->
-            <Input v-model="searchValue" placeholder="请输入班级名称"
-                   @on-change="changeName"></Input>
-            </Col>
-
-            <!--<Col span="4">-->
-            <!--&lt;!&ndash;<span>所属课程：</span>&ndash;&gt;-->
-            <!--<Select v-model="model1">-->
-              <!--<Option v-for="item in courseList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-            <!--</Select>-->
-            <!--</Col>-->
-
-            <!--<Col span="4">-->
-            <!--&lt;!&ndash;<span>班级老师：</span>&ndash;&gt;-->
-            <!--<Select v-model="model1">-->
-              <!--<Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-            <!--</Select>-->
-            <!--</Col>-->
-
-            <Col span="2">
+          <div class="fl">
+            <span>搜索查询：</span>
+            <Input v-model="searchValue" placeholder="请输入手机号、用户名查询" style="width: 200px" @on-change="changeName"></Input>
             <Button class="ml20" type="info" @click="search">查询</Button>
-            </Col>
-
-          </Row>
+          </div>
+          <div class="fr">
+            <Button type="info" icon="ios-plus-empty" @click="addUser">新建咨询</Button>
+            <!--<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>-->
+          </div>
         </div>
-
-        <div class="mt20">
-          <Button type="info" icon="ios-plus-empty" @click="add">添加班级</Button>
-          <Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>
-        </div>
-
         <Table border ref="selection" :loading="loading" @on-selection-change="checkNum" :columns="tableColumns"
                :data="tableData" class="mt20">>
         </Table>
@@ -81,65 +51,31 @@
           </div>
         </div>
       </div>
+
     </div>
 
     <Modal
-      v-model="showClassBox"
+      v-model="showTrackBox"
       width:="480"
       :styles="{top: '200px'}"
     >
       <p slot="header">
-        <span>新增班级</span>
+        <span>沟通记录</span>
       </p>
-
       <div>
-        <div class="comment-tip">
-          <i class="icon iconfont icon-tishi"></i>
-          <span>一对一课程在报名时创建班级</span>
-        </div>
-        <Form ref="classFormValidate" :model="classFormValidate" :rules="classRuleValidate" :label-width="80">
-          <FormItem label="所属课程" prop="ccid">
-            <Select v-model="classFormValidate.ccid" style="width:calc(100% - 60px);">
-              <Option v-for="item in courseList" :value="item.ccid" :key="item.ccid">{{ item.name }}</Option>
-            </Select>
+        <Form ref="trackFormValidate" :model="trackFormValidate" :rules="trackRuleValidate" :label-width="120">
+          <FormItem label="新增沟通记录" prop="content">
+            <Input v-model="trackFormValidate.content" type="textarea" :autosize="{minRows: 3,maxRows: 8}" placeholder="请输入沟通记录"></Input>
           </FormItem>
-
-          <FormItem label="班级名称" prop="name">
-            <Input v-model="classFormValidate.name" style="width:calc(100% - 60px);"
-                   placeholder="请输入班级名称"></Input>
-          </FormItem>
-
-          <FormItem label="班级容量" prop="max_num">
-            <Input v-model="classFormValidate.max_num" style="width: calc(100% - 60px)"
-                   placeholder="请输入班级容量,不填表示不限制"></Input>
-
-            <Tooltip content="班级容量即班级人数上限" placement="top">
-              <i class="icon iconfont icon-tishi ml10"></i>
-            </Tooltip>
-          </FormItem>
-
-          <FormItem label="上课教室" prop="classroom_id">
-            <Select v-model="classFormValidate.classroom_id" style="width:calc(100% - 60px);">
-              <Option v-for="item in classroomList" :value="item.id" :key="item.id">{{ item.name }}</Option>
-            </Select>
-          </FormItem>
-
-          <!--<FormItem label="班级老师" prop="teacher_id">-->
-            <!--<Select v-model="classFormValidate.teacher_id" style="width:calc(100% - 60px);">-->
-              <!--<Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-            <!--</Select>-->
-          <!--</FormItem>-->
-
-          <FormItem label="备注" prop="comment">
-            <Input v-model="classFormValidate.comment" type="textarea" :autosize="{minRows: 3,maxRows: 8}" placeholder="请输入备注" style="width:calc(100% - 60px);"></Input>
-          </FormItem>
-
         </Form>
+        <Table border :columns="trackListColumns" :loading="trackListLoading"
+               :data="trackList" class="mt20">
+        </Table>
       </div>
 
       <div slot="footer">
-        <Button type="default" @click="handleCancel" style="margin-left: 8px">取消</Button>
-        <Button type="primary" @click="handleSubmit('classFormValidate')">提交</Button>
+        <Button type="default" @click="handleTrackCancel" style="margin-left: 8px">取消</Button>
+        <Button type="primary" @click="handleTrackSubmit('trackFormValidate')">提交</Button>
       </div>
     </Modal>
 
@@ -178,49 +114,15 @@
     }
   }
   export default {
-    name: 'student',
+    name: 'client',
     data() {
       return {
-        model1: '',
-        courseList: [],
-        classroomList: [],
-
-        teacherList: [
-          {
-            value: 1,
-            label: '张浩'
-          },
-          {
-            value: 2,
-            label: '朱标'
-          }
-        ],
-        classFormValidate: {
-          ccid: 0,
-          name: '',
-          max_num: '',
-          classroom_id: '',
-          // teacher_id: '',
-          comment: '',
-        },
-        classRuleValidate: {
-          ccid: [
-            {required: true, type: 'number', message: '请选择课程', trigger: 'change'}
-          ],
-          name: [{
-            required: true,
-            message: '班级名称不能为空',
-            trigger: 'blur'
-          }],
-
-        },
-
-
         searchValue: "",
         editUser: "新建用户",
         currentNavIndex: 0,
         curMid: 0,
-        showClassBox: false,
+        showTrackBox: false,
+        trackListLoading: true,
         trackTableLoading: true,
         trackList: [],//弹出框，选定用户跟踪记录
         trackTableData: [],//跟踪记录表格数据
@@ -243,7 +145,16 @@
         exportDataShow: false,
         tableData: [],
         showMessage: false,
-
+        trackFormValidate: {
+          content: ''
+        },
+        trackRuleValidate: {
+          content: [{
+            required: true,
+            message: '跟踪记录不能为空',
+            trigger: 'blur'
+          }],
+        },
         exportData: {
           exportNum: "",
         },
@@ -256,79 +167,147 @@
           },
             {type: 'number', max: 5000, message: '输入大于5000', trigger: 'blur'}],
         },
-        trackTableColumns: [
+        trackListColumns: [
           {
-            title: '学员姓名',
-            key: 'uname'
+            title:'历史沟通记录',
+            key:'content'
           },
           {
-            title: '联系电话',
-            key: 'phone'
-          },
-          {
-            title: '沟通内容',
-            key: 'content'
-          },
-          {
-            title: '创建时间',
-            key: 'create_time_format'
+            title:'创建时间',
+            key:'create_time_format'
           },
         ],
-
-        tableColumns: [
+        trackTableColumns: [
+          {
+            title:'学员姓名',
+            key:'uname'
+          },
+          {
+            title:'联系电话',
+            key:'phone'
+          },
+          {
+            title:'沟通内容',
+            key:'content'
+          },
+          {
+            title:'创建时间',
+            key:'create_time_format'
+          },
+        ],
+        tableColumns:
+          [
             {
               type: 'selection',
               width: 60,
               align: 'center'
             },
             {
-              title: '班级名称',
-              key: 'name',
+              title: '姓名/编号',
+              key: 'uname',
               render: (h, params) => {
                 return h('div', [
+                  h('img', {
+                    attrs: {
+                      src: params.row.avatar ? params.row.avatar : config.Qiniu.EXTERNAL_LINK + 'Fnv8Hshkyhgmv_P6yVlL290xikd7',
+                    },
+                    style: {
+                      width: '40px',
+                      height: '40px',
+                      backgroundColor: "#c6cfe1",
+                      borderRadius: "20px",
+                      margin: "6px 0",
+                      float: "left"
+                    }
+                  }),
                   h('div', {
                     style: {
-                      fontSize: "13px",
-                      color: "rgb(45, 183, 245)",
-                      cursor: "pointer"
-                    },
-                    on: {
-                      click: () => {
-                        this.showDetail(params)
-                      }
+                      marginTop: "12px",
+                      marginLeft: "48px",
+                      fontSize: "16px",
+                      color: "rgba(0, 0, 0, 0.85)",
+                      position: "absolute"
                     }
-                  }, (params.row.name)),
+                  }, (params.row.uname)),
                 ])
               }
             },
+
             {
-              title: '课程名称',
-              key: 'company_course_name'
+              title: '跟踪记录',
+              key: 'line_comment_format',
+              render: (h, params) => {
+                let row = params.row
+                if(row.line_comment_format) {
+                  return h('div', [
+                    h('Button', {
+                      props: {
+                        type: 'text',
+                        size: 'small',
+                      },
+                      style: {
+                        color: '#2db7f5'
+                      },
+                      on: {
+                        click: () => {
+                          this.showTrack(params.row)
+                        }
+                      }
+                    }, params.row.line_comment_format),
+                  ])
+                }else{
+                  return h('div', [
+                    h('icon', { //渲染图标
+                      props: {
+                        type: 'ios-add-circle',
+                        size: 'small'
+                      },
+                      style: {
+                        color: '#87d068',
+                        fontSize: '20px',
+                        cursor: 'pointer'
+                      },
+                      on: {
+                        click: () => {
+                          this.showTrack(params.row)
+                        }
+                      }
+                    })
+                  ])
+                }
+
+
+              }
             },
+
             // {
-            //   title: '班级老师',
-            //   key: 'teacher_name'
+            //   title:'生日',
+            //   key:'birthday'
             // },
             {
-              title: '教室',
-              key: 'classroom_name'
+              title: '绑定手机',
+              key: 'phone'
             },
             {
-              title: '人数/容量',
-              key: 'capacity'
+              title:'母亲手机',
+              key:'mother_phone'
             },
             {
-              title: '已上/排课课次',
-              key: 'process',
+              title:'父亲手机',
+              key:'father_phone'
             },
+            {
+              title:'性别',
+              key:'sex_format',
+            },
+            		{
+            			title:'创建日期',
+            			key:'create_time_format'
+            		},
             // {
-            //   title: '班级分类',
-            //   key: 'catetory'
+            //   title: '角色',
+            //   key: 'role_id_format',
             // },
-            {
-              title: '创建日期',
-              key: 'create_time_format'
-            },
             {
               title: '操作',
               key: 'operation',
@@ -344,10 +323,10 @@
                     },
                     on: {
                       click: () => {
-                        this.showDetail(params)
+                        this.purchase(params)
                       }
                     }
-                  }, '排课/查看'),
+                  }, '报名'),
                   h('Button', {
                     props: {
                       type: 'text',
@@ -384,7 +363,7 @@
       }
     },
     mounted() {
-
+      var uname = store.state.uname
     },
     created() {
       this.getTableData(
@@ -393,33 +372,17 @@
           size: this.pageSize,
         }
       )
-
-      this.getCourseList()
-      this.getClassroomList()
+      // this.test()
     },
     methods: {
-      getCourseList() {
-        let submitData = {}
-        let url = lib.getRequestUrl('/api/company/course/getlist', submitData)
-        this.$http.get(url, {}).then(res => {
-          this.courseList = res.data.data
-        }).catch(error => {
-          this.$Message.error(error.message);
+      addUser() {
+        this.$router.push({
+          path: 'studentEdit',
+          query: {
+            // cid: params.row.cid,
+            // mid: params.row.mid
+          }
         })
-      },
-      getClassroomList() {
-        let submitData = {
-        }
-        let url = lib.getRequestUrl('/api/classroom/my', submitData)
-        this.$http.get(url, {}).then(res => {
-          this.classroomList = res.data.data
-        }).catch(error => {
-          this.$Message.error(error.message);
-        })
-      },
-
-      add() {
-        this.showClassBox = true
       },
       exportDataDilog() {
         this.exportDataShow = true
@@ -460,9 +423,9 @@
       },
 
       changeNav(index) {
-        if (index == 0) {
+        if(index == 0) {
 
-        } else if (index == 1) {
+        }else if(index == 1) {
           this.getTrackTableData({
             page: this.current1,
             size: this.pageSize1
@@ -471,43 +434,43 @@
 
         this.currentNavIndex = index
       },
-      handleSubmit(inventory) {
+      showTrack(params) {
+        this.showTrackBox = true
+        this.curMid = params.mid
+        this.trackFormValidate = {
+          content: ''
+        }
+        this.trackList = []
+        this.getTrackList()
+      },
+      handleTrackSubmit(inventory) {
         this.$refs[inventory].validate((valid) => {
           if (valid) {
-            let url,successMsg,errMsg
-            if(this.classFormValidate.id) {
-              url = '/api/classes/update'
-              successMsg = '更新班级成功!'
-              errMsg = '更新班级失败，'
-            }else{
-              url = '/api/classes/add'
-              successMsg = '新添班级成功!'
-              errMsg = '添加班级失败，'
-            }
-
+            let url = '/api/line/comment/add'
             let submitData = {
-              name: this.classFormValidate.name,
-              ccid: this.classFormValidate.ccid,
-              max_num: this.classFormValidate.max_num,
-              classroom_id: this.classFormValidate.classroom_id ? this.classFormValidate.classroom_id : null,
+              type: config.LineComment.TYPE_TRACK,
+              thread_id: this.curMid,
+              content: this.trackFormValidate.content
             }
             this.$http.post(url, submitData).then(res => {
-              this.$Message.success(successMsg)
-              this.showClassBox = false
-              this.getTableData({
-                page: this.current,
-                size: this.pageSize
-              })
+              if(res) {
+                this.$Message.success('新添沟通记录成功!')
+                this.showTrackBox = false
+                this.getTableData({
+                  page: this.current,
+                  size: this.pageSize
+                })
+              }
             }).catch(error => {
-              this.$Message.error(errMsg + error.message)
+              this.$Message.error('添加失败,'+error.message)
             })
-          } else {
+          }else{
             this.$Message.error('请输入完整信息!');
           }
         })
       },
-      handleCancel() {
-        this.showClassBox = false
+      handleTrackCancel() {
+        this.showTrackBox = false
       },
       checkNum(selection) {
         this.checkNums = selection.length
@@ -515,55 +478,28 @@
       },
       getTableData(option) {
         let submitData = {
+          roles: [config.UserRole.ROLE_MEMBER],
+          queryTrack: true,
           pageIndex: option.page,
           pageSize: option.size,
         }
-        let url = '/api/classes/getlist'
-        this.$http.post(url, submitData).then(res => {
+        let url = lib.getRequestUrl('/api/member/getlist', submitData)
+        this.$http.get(url, {}).then(res => {
           if (res) {
             this.loading = false
             this.current = option.page
 
             this.total = res.data.total
-            let tableData = res.data.data ? res.data.data : []
-
-            tableData = lib.filterResult(tableData)
-            tableData.map(item=>{
-              item.capacity = item.max_num ? `0/${item.max_num}` : 0
+            let tableData = res.data.member ? lib.filterResult(res.data.member) : []
+            tableData.map(function (item) {
+              item.line_comment_format = item.line_comment.length ? item.line_comment[0].content : ''
             })
-
-            // tableData = [
-            //   {
-            //     name: '芭蕾舞一班',
-            //     company_course_name: '芭蕾舞',
-            //     teacher_name: '张勇',
-            //     capacity: '0/12',
-            //     process: '0/48',
-            //     category: '小组课',
-            //   },
-            //   {
-            //     name: '芭蕾舞一班',
-            //     company_course_name: '芭蕾舞',
-            //     teacher_name: '张勇',
-            //     capacity: '0/12',
-            //     process: '0/48',
-            //     category: '小组课',
-            //   },
-            //   {
-            //     name: '芭蕾舞一班',
-            //     company_course_name: '芭蕾舞',
-            //     teacher_name: '张勇',
-            //     capacity: '0/12',
-            //     process: '0/48',
-            //     category: '小组课',
-            //   },
-            // ]
 
             this.tableData = tableData
           }
         }).catch(error => {
           this.loading = false
-          console.log('error', error)
+          console.log('error',error)
 
           this.$Message.error(error.message);
         })
@@ -647,19 +583,23 @@
           }
         )
       },
-      showDetail(params) {
+      purchase(params) {
         this.$router.push({
-          path: 'classDetail',
+          path: 'purchase',
           query: {
-            id: params.row.id
+            mid: params.row.mid
           }
         })
       },
       // 编辑页面
       update(params) {
-        this.showClassBox = true
-        this.classFormValidate = params.row
-
+        this.$router.push({
+          path: 'studentEdit',
+          query: {
+            cid: params.row.cid,
+            mid: params.row.mid
+          }
+        })
       },
       remove(params) {
         this.$Modal.confirm({

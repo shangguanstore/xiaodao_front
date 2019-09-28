@@ -1,0 +1,148 @@
+
+.white {
+  color: #FFF !important;
+}
+
+.midgrey {
+  color: #606060 !important;
+}
+
+.lightgrey {
+  color: #909090 !important;
+}
+
+.mutegrey {
+  color: #d7d7d7 !important;
+}
+
+.yellow {
+  color: #ffa921 !important;
+}
+
+.grey_bg {
+  background-color: #ccc!important;
+  color: white;
+}
+
+.bg-midmute {
+  background-color: #d7d7d7!important;
+}
+
+.light_grey_bg {
+  background-color: #ececec!important;
+  color: white;
+}
+
+.danger {
+  color: #ff3f3f !important;
+}
+
+
+
+.greenColor {
+  color: #009137 !important;
+}
+.greenBack {
+  background: #009137 !important;
+}
+.greenOneColor {
+  color: #19be6b !important;
+}
+.greenOneBack {
+  background: #19be6b !important;
+}
+.greenTwoColor {
+  color: #1ed97b !important;
+}
+.greenTwoBack {
+  background: #1ed97b !important;
+}
+.blueColor {
+  color: #0051ff !important;
+}
+.blueBack {
+  background: #0051ff !important;
+}
+.blueOneColor {
+  color: #009cf0 !important;
+}
+.blueOneBack {
+  background: #009cf0 !important;
+}
+.blueTwoColor {
+  color: #60c6f0 !important;
+}
+.blueTwoBack {
+  background: #60c6f0 !important;
+}
+.blueThreeColor {
+  color: #c4e6ff !important;
+}
+.blueThreeBack {
+  background: #c4e6ff !important;
+}
+
+.redColor {
+  color: #ed4014 !important;
+}
+.redBack {
+  background: #ed4014 !important;
+}
+.redOneColor {
+  color: #ed5c3d !important;
+}
+.redOneBack {
+  background: #ed5c3d !important;
+}
+
+.redFiveColor {
+  color: #FA2C87 !important;
+}
+.redFiveBack {
+  background: #FA2C87 !important;
+}
+
+
+
+.fontColor {
+  color: #333333 !important;
+}
+.fontBack {
+  background: #333333 !important;
+}
+.fontOneColor {
+  color: #444444 !important;
+}
+.fontOneBack {
+  background: #444444 !important;
+}
+.fontTwoColor {
+  color: #555555 !important;
+}
+.fontTwoBack {
+  background: #555555 !important;
+}
+.fontThreeColor {
+  color: #666666 !important;
+}
+.fontThreeBack {
+  background: #666666 !important;
+}
+.fontFourColor {
+  color: #999999 !important;
+}
+.fontFourBack {
+  background: #999999 !important;
+}
+.fontFiveColor {
+  color: #cccccc !important;
+}
+.fontFiveBack {
+  background: #cccccc !important;
+}
+.fontSixColor {
+  color: #eeeeee !important;
+}
+.fontSixBack {
+  background: #eeeeee !important;
+}

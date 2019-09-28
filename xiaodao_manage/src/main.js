@@ -4,6 +4,7 @@ import Vue from 'vue'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import '@/assets/css/global.css'
+import '@/assets/css/colors.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import qs from 'qs'
@@ -24,13 +25,14 @@ Vue.use(VueAxios, axios)
 
 axios.interceptors.request.use(
   config => {
-    config.headers['Content-Type'] = "application/x-www-form-urlencoded"
+    // config.headers['Content-Type'] = "application/x-www-form-urlencoded"
+    config.headers['Content-Type'] = "application/json; charset=utf-8"
     if (config.method === 'post') {
-      console.log('发生post请求,参数为：', JSON.stringify(config.data))
-      config.data.XDEBUG_SESSION_START = 'PHPSTORM'
-      config.data = qs.stringify(config.data)
+      //config.data.XDEBUG_SESSION_START = 'PHPSTORM'
+      config.url = `${config.url}?XDEBUG_SESSION_START=PHPSTORM`
     }
     console.log('请求config',config)
+    console.log('请求config.data',config.data)
     return config
   }
 );

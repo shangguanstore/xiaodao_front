@@ -22,7 +22,7 @@
         <Row>
           <Col span="8">
           <FormItem label="账号" prop="account">
-            <Input v-model="formValidate.account" placeholder="输入姓名自动生成"></Input>
+            <Input v-model="formValidate.account" :disabled="!isAdd" placeholder="输入姓名自动生成"></Input>
           </FormItem>
           </Col>
         </Row>
@@ -49,16 +49,16 @@
           <Col span="8">
           <FormItem label="可教科目" prop="subject">
             <CheckboxGroup v-model="formValidate.subject">
-              <Checkbox :label="item.id" v-for="item in subjectList">{{item.name}}</Checkbox>
+              <Checkbox :label="item.id" v-for="item in subjectList" :key="item.id">{{item.name}}</Checkbox>
             </CheckboxGroup>
           </FormItem>
           </Col>
         </Row>
 
-        <Row>
+        <Row v-if="isAdd">
           <Col span="8">
-          <FormItem label="是否允许登录系统" prop="canLogin">
-            <RadioGroup v-model="formValidate.canLogin">
+          <FormItem label="是否允许登录系统" prop="can_login">
+            <RadioGroup v-model="formValidate.can_login">
               <Radio :label="1">是</Radio>
               <Radio :label="0">否</Radio>
             </RadioGroup>
@@ -67,7 +67,7 @@
         </Row>
       </Form>
 
-      <Row v-if="formValidate.canLogin">
+      <Row v-if="formValidate.can_login && isAdd">
         <Col span="8">
         <div class="comment-tip mt20">
           <i class="icon iconfont icon-tishi"></i>
@@ -142,7 +142,7 @@
           phone: '',
           role: [],
           subject: [],
-          canLogin: '是',
+          can_login: 1,
         },
         ruleValidate: {
           name: [
@@ -167,17 +167,18 @@
         this.isAdd = false
         let submitData = {
           mid: this.$route.query.mid,
+          getSubject: true
         }
         let url = lib.getRequestUrl('/api/member/getlist', submitData)
         this.$http.get(url, {}).then(res => {
-          if (res) {
-            let member = res.data.member[0]
-            this.formValidate.phone = member.phone
-            this.formValidate.name = member.uname
-            this.formValidate.canLogin = '是'
-            this.formValidate.role = lib.is_array(member.role_id) ? member.role_id : [member.role_id]
-            this.mid = member.mid
-          }
+          let member = res.data.member[0]
+          this.formValidate.phone = member.phone
+          this.formValidate.name = member.uname
+          this.formValidate.can_login = member.can_login
+          this.formValidate.account = member.account
+          this.formValidate.role = lib.is_array(member.role_id) ? member.role_id : [member.role_id]
+          this.formValidate.subject = member.subject.length ? lib.array_column(member.subject, 'subject_id') : []
+          this.mid = member.mid
         }).catch(error => {
           console.log(error)
           this.$Message.error(error.message);
@@ -219,6 +220,8 @@
                 name: this.formValidate.name,
                 phone: this.formValidate.phone,
                 roles: this.formValidate.role,
+                account: this.formValidate.account,
+                can_login: this.formValidate.can_login,
                 subjects: this.formValidate.subject,
               }
               url = "/api/member/add"
@@ -239,7 +242,7 @@
                 var _this = this
                 setTimeout(function () {
                   _this.$router.push({
-                    path: 'staff',
+                    path: 'teacherList',
                     query: {}
                   })
                 }, 200)
