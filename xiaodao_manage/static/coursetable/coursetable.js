@@ -319,25 +319,40 @@ function loadWeekEvent(startDate) {
   g_coursetableCalendar.showHeader(startDate);
   g_coursetableCalendar.render();
 
-  $.post(HXE_DOMAIN + '/api/coursetable/getlist?XDEBUG_SESSION_START=PHPSTORM', {
-    start_time: start_time,
-    end_time: end_time,
-    cid: COMPANY_ID
-  }, function (data) {
-    if (data.errNo == 100000) {
-      if(data.have_big_course_rule == 1){
-        $('div[name=classtype]').parent().removeClass('hidden');
-      }
-      for (var i in data.data) {
-        if (data.data[i].status == '-1' || data.data[i].status == '-2')continue;
-        var eventInfo = new EventInfo(data.data[i]);
-        g_coursetableCalendar.addEventInfo(eventInfo);
-      }
-      g_coursetableCalendar.render();
-    } else {
-      ResultAlert(data.errNo, data.errMsg);
+  getCoursetableList({start_time: start_time,end_time: end_time}, res=>{
+    let data = res.data
+    if(data.have_big_course_rule == 1){
+      $('div[name=classtype]').parent().removeClass('hidden');
     }
-  });
+    for (var i in data.data) {
+      if (data.data[i].status == '-1' || data.data[i].status == '-2')continue;
+      var eventInfo = new EventInfo(data.data[i]);
+      g_coursetableCalendar.addEventInfo(eventInfo);
+    }
+    g_coursetableCalendar.render();
+  }, error=>{
+
+  })
+
+  // $.post(HXE_DOMAIN + '/api/coursetable/getlist?XDEBUG_SESSION_START=PHPSTORM', {
+  //   start_time: start_time,
+  //   end_time: end_time,
+  //   cid: COMPANY_ID
+  // }, function (data) {
+  //   if (data.errNo == 100000) {
+  //     if(data.have_big_course_rule == 1){
+  //       $('div[name=classtype]').parent().removeClass('hidden');
+  //     }
+  //     for (var i in data.data) {
+  //       if (data.data[i].status == '-1' || data.data[i].status == '-2')continue;
+  //       var eventInfo = new EventInfo(data.data[i]);
+  //       g_coursetableCalendar.addEventInfo(eventInfo);
+  //     }
+  //     g_coursetableCalendar.render();
+  //   } else {
+  //     ResultAlert(data.errNo, data.errMsg);
+  //   }
+  // });
 }
 function openWeekView() {
   loadWeekEvent(new Date());
@@ -349,23 +364,38 @@ function openMonthView() {
 function reloadWeekData(curday, monday, sunday) {
   g_coursetableCalendar.removeEventInfoAll();
   g_coursetableCalendar.render();
-  $.post(HXE_DOMAIN + '/api/coursetable/getlist?XDEBUG_SESSION_START=PHPSTORM', {
-    start_time: parseInt(monday.getTime() / 1000),
-    end_time: parseInt(sunday.getTime() / 1000),
-    cid: COMPANY_ID
-  }, function (data) {
-    if (data.errNo == 100000) {
-      for (var i in data.data) {
-        if (data.data[i].status == '-1')continue;
-        var eventInfo = new EventInfo(data.data[i]);
-        g_coursetableCalendar.addEventInfo(eventInfo);
-      }
-      g_coursetableCalendar.showHeader(curday);
-      g_coursetableCalendar.render();
-    } else {
-      ResultAlert(data.errNo, data.errMsg);
+
+  getCoursetableList({start_time: parseInt(monday.getTime() / 1000),end_time: parseInt(sunday.getTime() / 1000)}, res=>{
+    let data = res.data
+
+    for (var i in data.data) {
+      if (data.data[i].status == '-1')continue;
+      var eventInfo = new EventInfo(data.data[i]);
+      g_coursetableCalendar.addEventInfo(eventInfo);
     }
-  });
+    g_coursetableCalendar.showHeader(curday);
+    g_coursetableCalendar.render();
+  }, error=>{
+
+  })
+
+  // $.post(HXE_DOMAIN + '/api/coursetable/getlist?XDEBUG_SESSION_START=PHPSTORM', {
+  //   start_time: parseInt(monday.getTime() / 1000),
+  //   end_time: parseInt(sunday.getTime() / 1000),
+  //   cid: COMPANY_ID
+  // }, function (data) {
+  //   if (data.errNo == 100000) {
+  //     for (var i in data.data) {
+  //       if (data.data[i].status == '-1')continue;
+  //       var eventInfo = new EventInfo(data.data[i]);
+  //       g_coursetableCalendar.addEventInfo(eventInfo);
+  //     }
+  //     g_coursetableCalendar.showHeader(curday);
+  //     g_coursetableCalendar.render();
+  //   } else {
+  //     ResultAlert(data.errNo, data.errMsg);
+  //   }
+  // });
 }
 
 function showCourseLimit(ccid) {
@@ -392,8 +422,6 @@ function coursetablePanel(isOpen, defaultData) {
   if (isOpen == true) {
     $('.calendar-holder').css('right', 380);
     $('.event-detail-panel').css('right', 0);
-    console.log(window)
-    console.log(window.courseDetail)
 
     window.courseDetail(defaultData)
 
@@ -708,15 +736,12 @@ function updateLeftFilterPanel(data) {
       courseData.push({ccid: i, course_name: data.course[i]});
     }
 
-    console.log('data',data)
-    console.log('courseData',courseData)
     var html = Mustache.render($('#temp_filter_course').html(), {item: courseData});
     $leftFiter.find('[class~=course-list]').append(html);
   }
 
   //左侧栏点击筛选
   $leftFiter.find('li').off('click').click(function () {
-    console.log('hahah')
     if ($(this).is('[data-id]')) {
       $(this).is('[class~=selected]') ? $(this).removeClass('selected') : $(this).addClass('selected');
     } else {
@@ -849,7 +874,6 @@ function publicDelCoursetableCallback(eventId) {
 }
 
 function InitCoursetable(companyId, cardTypeList, classList) {
-  console.log('companyId',companyId)
   cardTypeList = []
   classList = []
 
@@ -981,13 +1005,19 @@ function InitCoursetable(companyId, cardTypeList, classList) {
       var start_time = parseInt(weekInfo.monday.getTime() / 1000);
       var end_time = parseInt(weekInfo.sunday.getTime() / 1000);
 
+      // getCoursetableList({start_time: start_time,end_time: end_time}, res=>{
+      //   let data = res.data
+      //
+      // }, error=>{
+      //
+      // })
+
       $.post(HXE_DOMAIN + '/api/coursetable/getlist?XDEBUG_SESSION_START=PHPSTORM', {
         start_time: start_time,
         end_time: end_time,
         cid: COMPANY_ID
       }, function (data) {
-        if (data.errNo == 100000) {
-          var param = [];
+        if (data.errNo == 100000) {var param = [];
           for (var i in data.data) {
             if (data.data[i].status == '-1')continue;
             var newData = data.data[i];
@@ -1019,6 +1049,7 @@ function InitCoursetable(companyId, cardTypeList, classList) {
           data.course = param;
           var curday = data.course[0].curday;
           var weekday = Util.getWeek(curday);
+
           $.post(HXE_DOMAIN + '/api/coursetable/many/add', data, function (res) {
             if(res.errNo == 100000){
               alert('复制成功！');

@@ -31,9 +31,6 @@ function CoursetableCalendar() {
   this.rowsHideNum = {};//当前行之前已隐藏的行数
   this.weekTime = $('div[class~=week-time]');
 
-  console.log("this.weekTime.find('div[class~=left-side]')",this.weekTime.find('div[class~=left-side]'))
-  console.log("this.weekTime",this.weekTime)
-
   this.leftSideWidth = parseFloat(this.weekTime.find('div[class~=left-side]').css('width').replace('px', ''));
   this.onCallBack = {};
 }
@@ -69,8 +66,6 @@ CoursetableCalendar.prototype.addEventInfo = function (eventInfo) {
   var hour = eventInfo.data.starttime.getHours();
   this.events.push(new CoursetableEvent(eventInfo, hour, week));
 
-  console.log('eventInfo.hahaha',eventInfo)
-
   if (typeof(eventInfo.data.teacher_mid) != 'undefined' && typeof(this.teacherList[eventInfo.data.teacher_mid]) == 'undefined') {
     this.teacherList[eventInfo.data.teacher_mid] = eventInfo.data.teacher_name;
     this.callback('e.filterChange', {
@@ -90,8 +85,6 @@ CoursetableCalendar.prototype.addEventInfo = function (eventInfo) {
   }
 
   if (typeof(eventInfo.data.ccid) != 'undefined' && typeof(this.courseList[eventInfo.data.ccid]) == 'undefined') {
-    console.log('eventInfo.data.course_name',eventInfo.data.course_name)
-
     this.courseList[eventInfo.data.ccid] = eventInfo.data.course_name;
     this.callback('e.filterChange', {
       classroom: this.classroomList,

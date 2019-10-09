@@ -354,6 +354,7 @@
     },
     created() {
       window.courseDetail = this.courseDetail
+      window.getCoursetableList = this.getCoursetableList
       this.getTeacherList()
       this.getClassroomList()
     },
@@ -383,6 +384,20 @@
           this.$Message.error(error.message);
         })
       },
+      getCoursetableList(params, success, fail) {
+        let submitData = {
+          start_time: params.start_time,
+          end_time: params.end_time
+        }
+        let url = '/api/coursetable/getlist'
+        this.$http.post(url, submitData).then(res => {
+          success(res)
+        }).catch(error => {
+          this.$Message.error(error.message);
+          fail(error)
+        })
+      },
+
 
 
       courseDetail(data) {
