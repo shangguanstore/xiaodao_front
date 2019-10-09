@@ -14,14 +14,15 @@ import router from './router'
 import store from './store'
 import lib from '@/assets/js/lib'
 import 'babel-polyfill'
-
+import $ from 'jquery'
+import _ from 'lodash'
 
 Vue.use(iView)
 Vue.use(lib)
-
-
 Vue.use(VueAxios, axios)
 
+window.$ = $
+window._ = _
 
 axios.interceptors.request.use(
   config => {

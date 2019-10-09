@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <!--<script src="https://unpkg.com/vue-ckeditor2"></script>-->
-    <!--<script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>-->
-    <!--<script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <!--<script src="https://unpkg.com/vue-ckeditor2"></script>-->
+  <!--<script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>-->
+  <!--<script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>-->
 
-    <!--<script src="./static/ckeditor/ckeditor.js"></script>-->
-    <script src="https://cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
+  <!--<script src="./static/ckeditor/ckeditor.js"></script>-->
+  <script src="https://cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
 
-    <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=RYKBZ-Z6YWF-72DJW-NZAG3-NUZXK-T5BL6"></script>
-    <title>校事通</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+  <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=RYKBZ-Z6YWF-72DJW-NZAG3-NUZXK-T5BL6"></script>
+
+  <!--<link rel="stylesheet" href="./static/coursetable/bootstrap.min.css">-->
+  <script src="./static/coursetable/coursetableCalendar.js"></script>
+  <script src="./static/coursetable/Mustache.js"></script>
+  <script src="./static/coursetable/Util.js"></script>
+  <script src="./static/coursetable/coursetable.js"></script>
+
+
+  <script id="temp_event" class="hu7-mustache-temp" type="x-tmpl-mustache">
+    <div class="event {{class_type}}" data-event-id="{{eventId}}" data-course_name="{{course_name}}" data-course_date="{{course_date}}" data-ctid="{{ctid}}" data-clid="{{clid}}" data-startday="{{startday}}" data-type="{{type}}" data-ccid="{{ccid}}" data-teacher_mid="{{teacher_mid}}" data-classroom_id="{{classroom_id}}" data-course_type="{{course_type}}" data-reversible="{{reversible}}"  data-book_max_count="{{book_max_count}}" data-book_min_count="{{book_min_count}}" data-starttime="{{start}}" data-start_time="{{start_time}}" data-end_time="{{end_time}}" data-classroom_id={{classroom_id}} data-teacher_mid="{{teacher_mid}}" data-len="{{len}}" style="left:{{left}};top:{{top}}px;height:{{height}}px;width:{{width}};">
+        <div class="content-wrapper" style="{{#color}}border-left: 2px solid {{color}};{{/color}}">
+            <div class="content">{{course_name}}({{teacher_name}})</div>
+            <div class="time">{{course_time}}{{#cancel}}(已解散){{/cancel}}</div>
+        </div>
+    </div>
+  </script>
+
+  <script id="temp_filter_course" class="hu7-mustache-temp" type="x-tmpl-mustache">
+{{#item}}
+<li class="course-item cursor selected" data-id="{{ccid}}">
+    <div class="prettybox-container"><span
+                class="prettybox-box checked"
+                ></span>
+            {{course_name}}
+        </div>
+</li>
+{{/item}}
+  </script>
+
+  <title>校事通</title>
+</head>
+<body>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>

@@ -68,7 +68,7 @@
 
       <div>
         <Table border ref="attend" style="overflow: visible" :loading="attendanceLoading" :columns="attendanceTableColumns"
-               :data="attendanceTableData" class="mt20">>
+               :data="attendanceTableData" @on-selection-change="attendanceCheckNum" class="mt20">>
         </Table>
       </div>
 
@@ -127,6 +127,11 @@
         attendanceBox: false,
         attendanceLoading: true,
         attendanceTableColumns: [
+          // {
+          //   type: 'selection',
+          //   width: 60,
+          //   align: 'center'
+          // },
           {
             title: '学员姓名',
             key: 'uname'
@@ -249,6 +254,8 @@
         attendanceTableData: [],
         attendList: [],
         checkingSubmitLoading: false,
+        attendanceCheckNums: 0,
+        attendanceSels: [],
 
         teacherList: [
           {
@@ -643,6 +650,10 @@
       },
       handleCancel() {
         this.attendanceBox = false
+      },
+      attendanceCheckNum(selection) {
+        this.attendanceCheckNums = selection.length
+        this.attendanceSels = selection
       },
       checkNum(selection) {
         this.checkNums = selection.length

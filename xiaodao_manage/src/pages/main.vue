@@ -2,7 +2,7 @@
   <div class="layout">
     <Sider class="sliderbar" :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto','z-index': 20}"
            width='180'>
-      <div class="icon-control"></div>
+      <!--<div class="icon-control"></div>-->
       <Menu active-name="1" theme="dark" width="auto" :open-names="['1']" @on-select="routeTo" accordion>
         <!--<div class="xdm_logo">-->
         <!--<img width="30" src="../../static/common/logo.jpg" />-->
