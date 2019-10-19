@@ -1,5 +1,12 @@
 <template>
   <div class="student_container">
+    <div class="manage_title">
+      <Breadcrumb>
+        <BreadcrumbItem>学员</BreadcrumbItem>
+        <BreadcrumbItem>学员列表</BreadcrumbItem>
+      </Breadcrumb>
+    </div>
+
     <div class="container mt20">
       <div class="search_container">
         <div class="fl">
@@ -187,7 +194,13 @@
                       backgroundColor: "#c6cfe1",
                       borderRadius: "20px",
                       margin: "6px 0",
-                      float: "left"
+                      float: "left",
+                      cursor: "pointer"
+                    },
+                    on: {
+                      click: () => {
+                        this.showDetail(params)
+                      }
                     }
                   }),
                   h('div', {
@@ -195,8 +208,14 @@
                       marginTop: "12px",
                       marginLeft: "48px",
                       fontSize: "16px",
-                      color: "rgba(0, 0, 0, 0.85)",
-                      position: "absolute"
+                      position: "absolute",
+                      color: "rgb(45, 183, 245)",
+                      cursor: "pointer"
+                    },
+                    on: {
+                      click: () => {
+                        this.showDetail(params)
+                      }
                     }
                   }, (params.row.uname)),
                 ])
@@ -270,7 +289,7 @@
                         this.purchase(params)
                       }
                     }
-                  }, '报名'),
+                  }, '购课'),
                   h('Button', {
                     props: {
                       type: 'text',
@@ -319,6 +338,14 @@
       // this.test()
     },
     methods: {
+      showDetail(params) {
+        this.$router.push({
+          path: 'studentDetail',
+          query: {
+            mid: params.row.mid
+          }
+        })
+      },
       addUser() {
         this.$router.push({
           path: 'studentEdit',

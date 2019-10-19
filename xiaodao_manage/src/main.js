@@ -42,8 +42,11 @@ axios.interceptors.response.use(
   response => {
     if (response.data.errNo !== 100000) {
       // Message.error(response.data.errMsg)
-      throw new Error(response.data.errMsg)
-      // return response
+      if(response.data.errNo == 112004) {//属于多家机构
+        return response
+      }else{
+        throw new Error(response.data.errMsg)
+      }
     } else {
       return response
     }

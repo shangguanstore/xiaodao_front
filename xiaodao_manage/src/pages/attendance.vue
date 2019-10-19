@@ -66,6 +66,9 @@
         <span>课程考勤与扣课时</span>
       </p>
 
+      <div class="check_nums mt20">
+        已选择<span>{{attendanceCheckNums}}</span>项
+      </div>
       <div>
         <Table border ref="attend" style="overflow: visible" :loading="attendanceLoading" :columns="attendanceTableColumns"
                :data="attendanceTableData" @on-selection-change="attendanceCheckNum" class="mt20">>
@@ -74,6 +77,7 @@
 
       <div slot="footer">
         <Button type="default" @click="handleCancel" style="margin-left: 8px">取消</Button>
+        <Button type="info" :loading="checkingCancelLoading" @click="handleCancelAttendance" style="margin-left: 8px">取消考勤</Button>
         <Button type="primary" :loading="checkingSubmitLoading" @click="handleSubmit">考勤并扣费</Button>
       </div>
     </Modal>
@@ -127,11 +131,11 @@
         attendanceBox: false,
         attendanceLoading: true,
         attendanceTableColumns: [
-          // {
-          //   type: 'selection',
-          //   width: 60,
-          //   align: 'center'
-          // },
+          {
+            type: 'selection',
+            width: 60,
+            align: 'center'
+          },
           {
             title: '学员姓名',
             key: 'uname'
@@ -254,6 +258,7 @@
         attendanceTableData: [],
         attendList: [],
         checkingSubmitLoading: false,
+        checkingCancelLoading: false,
         attendanceCheckNums: 0,
         attendanceSels: [],
 
@@ -485,6 +490,8 @@
       preAttendance(params) {
         this.ctid = params.row.ctid
         this.attendanceBox = true
+        this.attendanceCheckNums = 0
+        this.attendanceSels = []
         this.getAttendance()
       },
       getAttendance() {
@@ -498,7 +505,7 @@
           this.attendanceLoading = false
           let attendanceTableData = res.data.data
           attendanceTableData.map(item=>{
-            if(item.status == config.Attendance.STATUS_INIT) {
+            if(item.status == config.Attendance.STATUS_INIT || item.status == config.Attendance.STATUS_CANCEL) {
               item['KQflag'] = 0
             }else{
               item['KQflag'] = 1
@@ -626,12 +633,27 @@
         }
       },
 
+      getAttendanceCheckList() {
+        let list = []
+        let attendIds = lib.array_column(this.attendanceSels,'id')
+        for(var i = 0; i < this.attendList.length; i++) {
+          if(lib.in_array(this.attendList[i].id, attendIds)) {
+            list.push(this.attendList[i])
+          }
+        }
+        return list
+      },
       handleSubmit() {
+        if(this.attendanceCheckNums == 0) {
+          this.$Message.error('请先在列表栏中勾选要更改的条目。')
+          return
+        }
+
         this.checkingSubmitLoading = true
         let url = '/api/coursetable/attendance/update'
         let submitData = {
           ctid: this.ctid,
-          attendList: this.attendList
+          attendList: this.getAttendanceCheckList()
         }
         this.$http.post(url, submitData).then(res => {
           this.$Message.success('考勤操作成功！')
@@ -651,7 +673,35 @@
       handleCancel() {
         this.attendanceBox = false
       },
+      handleCancelAttendance() {
+        if(this.attendanceCheckNums == 0) {
+          this.$Message.error('请先在列表栏中勾选要更改的条目。')
+          return
+        }
+
+        this.checkingCancelLoading = true
+        let url = '/api/coursetable/attendance/cancel'
+        let submitData = {
+          ctid: this.ctid,
+          attendList: this.getAttendanceCheckList()
+        }
+        this.$http.post(url, submitData).then(res => {
+          this.$Message.success('取消考勤操作成功！')
+          this.checkingCancelLoading = false
+          this.attendanceBox = false
+
+          this.getTableData({
+            page: this.current,
+            size: this.pageSize,
+          })
+        }).catch(error => {
+          this.attendanceBox = false
+          this.checkingCancelLoading = false
+          this.$Message.error('操作失败，' + error.message)
+        })
+      },
       attendanceCheckNum(selection) {
+        console.log('selection',selection)
         this.attendanceCheckNums = selection.length
         this.attendanceSels = selection
       },

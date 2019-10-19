@@ -14,8 +14,8 @@
                  style="border-radius: 50%;"/>
           </li>
           <li class="sliderbar_personal_information">
-            <span style="display: block">{{this.uname}}</span>
-            <span style="display: block">超级管理员</span>
+            <span style="display: block">{{$store.state.uname}}</span>
+            <span style="display: block">{{$store.state.role_name}}</span>
           </li>
         </ul>
 
@@ -111,11 +111,11 @@
         </Submenu>
 
         <!--<Submenu name="9">-->
-          <!--<template slot="title">-->
-            <!--<Icon type="logo-googleplus"/>-->
-            <!--机构设置-->
-          <!--</template>-->
-          <!--<MenuItem name="company">机构信息</MenuItem>-->
+        <!--<template slot="title">-->
+        <!--<Icon type="logo-googleplus"/>-->
+        <!--机构设置-->
+        <!--</template>-->
+        <!--<MenuItem name="company">机构信息</MenuItem>-->
         <!--</Submenu>-->
 
         <Submenu name="9">
@@ -146,8 +146,56 @@
             <!--<Icon type="md-notifications" size="26"/>-->
             <!--</Badge><span>预警</span>-->
             <!--</li>-->
-            <li class="header_bar_last" style="cursor: pointer;text-align: center" @click="routeTo('login')">
-              <Icon type="md-log-out" size="20"/>
+
+            <li style="padding: 0 0" v-if="companyList.length > 1">
+              <span class="wrap" style="border: none">
+								{{$store.state.company_name}}
+								<Dropdown placement="bottom" style="float: right;margin-right: 15px;">
+									<a href="javascript:void(0)">
+										&nbsp;&nbsp;切换门店
+										<Icon type="arrow-down-b"></Icon>
+									</a>
+
+									<DropdownMenu slot="list">
+										<DropdownItem v-for="(item,index) in companyList" :key="index" style="display: block;line-height:30px ;">
+											<div @click.stop="changeCompany(item)">
+												<span >{{index+1}}、</span>
+												<span>{{item.name}} ({{item.role}})</span>
+											</div>
+										</DropdownItem>
+									</DropdownMenu>
+								</Dropdown>
+							</span>
+            </li>
+            <li class="header_bar_last" style="cursor: pointer;text-align: center">
+              <!--<Icon type="md-log-out" size="20"/>-->
+
+              <Poptip trigger="hover" placement="bottom-end">
+                <i class="iconfont icon icon-avatar" style="color: #87d068;font-size: 28px"></i>
+                <div slot="content">
+                  <div class="headDrop">
+                    <p class="item">
+                      <i class="username headdrop-i"></i>
+                      {{$store.state.uname}}
+                    </p>
+                    <p class="item">
+                      <i class="rolename headdrop-i"></i>
+                      {{$store.state.role_name}}
+                    </p>
+                    <p class="item">
+                      <i class="campusname headdrop-i"></i>
+                      {{$store.state.company_name}}
+                    </p>
+                    <p class="item logout">
+                      <Button type="primary" size="small" style="width: 160px;color: white;" @click="logout">退出登录</Button>
+                    </p>
+                    <p class="bottom-ope">
+                      <a href="#" title="修改密码" @click="editPassWord = true">修改密码</a>
+                      <a href="#">个人信息维护</a>
+                    </p>
+                  </div>
+                </div>
+              </Poptip>
             </li>
           </ul>
         </Header>
@@ -159,31 +207,83 @@
 
       <footer>
         <p>技术支持</p>
-        <p>copyright © 2016 - 2019 校事通</p>
+        <p>copyright © 2018 - 2019 校事通</p>
       </footer>
     </Layout>
+
+
+    <Modal v-model="editPassWord">
+      <p slot="header">
+        <span>修改密码</span>
+      </p>
+      <div style="width: 600px">
+        <Form ref="pwdFormValidate" :model="pwdFormValidate" :rules="pwdRuleValidate" :label-width="80">
+          <FormItem label="手机号码" prop="phone">
+            <Input v-model="pwdFormValidate.phone"  type="text" placeholder="请输入手机号码获取验证码" style="width: 300px;"/>
+            <Button :disabled="codeDisabled" @click="getMobleCode" :loading="phoneCodeLoading">{{getPhoneCode}}</Button>
+          </FormItem>
+
+          <FormItem label="验证码" prop="vcode">
+            <Input v-model="pwdFormValidate.vcode" number placeholder="请输入验证码" style="width: 300px;"/>
+          </FormItem>
+
+          <FormItem label="新密码" prop="newPwd">
+            <Input v-model="pwdFormValidate.newPwd" placeholder="请输入新密码" type="password" style="width: 300px;"/>
+          </FormItem>
+
+          <FormItem label="确认密码" prop="confirmPwd">
+            <Input v-model="pwdFormValidate.confirmPwd" placeholder="再次输入密码" type="password" style="width: 300px;"/>
+          </FormItem>
+        </Form>
+      </div>
+      <div slot="footer">
+        <Button type="primary" @click="resetpassword('pwdFormValidate')">提交</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
   import store from '../store'
+  import config from '../../config/index'
   import '@/assets/css/iconfont/iconfont.css'
 
   export default {
     data() {
       return {
+        config: {},
         count: 0,
-        uname: ""
+        editPassWord: false,
+        pwdFormValidate: {},
+        pwdRuleValidate: {},
+        getPhoneCode: '获取验证码',
+        phoneCodeLoading: false,
+        codeDisabled: false,
+        codeTime: 60,
+        companyList: []
+
       }
     },
     created() {
-
+      this.config = config
+      this.getMultiCompanyList()
     },
     mounted() {
-      this.uname = store.state.uname
-      this.setFont(1920,1920)
+      this.setFont(1920, 1920)
     },
     methods: {
+      logout() {
+        this.$store.dispatch('UserLogout')
+        let submitData = {}
+        this.$http.post('/u/api/logout', submitData).then(res => {
+          this.$router.push({
+            path: 'login',
+            query: {}
+          })
+        }).catch(error => {
+          this.$Message.error(error.message);
+        })
+      },
       routeTo(e) {
         this.$router.push(e)
       },
@@ -250,6 +350,100 @@
           }, false)
         }
       },
+
+      getMultiCompanyList() {
+        let submitData = {
+          uid: this.$store.state.uid,
+        }
+        this.$http.post('/api/multicompany/list', submitData).then(res => {
+          let data = res.data.data
+          this.companyList = data
+
+        }).catch(error => {
+          this.$Message.error(error.message);
+        })
+      },
+      changeCompany(item) {
+        let submitData = {
+          cid: item.cid,
+          uid: item.uid,
+          role_id: item.role_id,
+        }
+        this.$http.post('/api/member/multilogin', submitData).then(res => {
+          let data = res.data
+
+          this.$store.dispatch('Uname', data.member.uname)
+          this.$store.dispatch('Cid', item.cid)
+          this.$store.dispatch('Uid', item.uid)
+          this.$store.dispatch('Mid', item.mid)
+          this.$store.dispatch('CompanyName', item.name)
+          this.$store.dispatch('RoleName', item.role)
+          this.$store.dispatch('RoleId', item.role_id)
+
+          this.$Message.success('切换门店成功！');
+          setTimeout(()=>{
+            this.$router.go(0)
+          },1000)
+        }).catch(error => {
+          this.$Message.error(error.message);
+        })
+      },
+      getMobleCode() {
+        this.phoneCodeLoading = true
+        let submitData = {
+          phone: this.pwdFormValidate.phone,
+          type: 1,
+          sendType: 1
+        }
+        this.$http.post('/api/sms/send', submitData).then(res => {
+          this.phoneCodeLoading = false
+          this.afterSendCode()
+        }).catch(error => {
+          this.phoneCodeLoading = false
+          this.$Message.error(error.message);
+        })
+      },
+      // 验证码倒计时
+      afterSendCode() {
+        let _that = this
+        this.codeDisabled = true
+        let interval = window.setInterval(function() {
+          if((_that.codeTime--) <= 0) {
+            _that.codeTime = 60;
+            _that.getPhoneCode = "获取验证码"
+            _that.codeDisabled = false;
+            window.clearInterval(interval)
+          } else {
+            _that.getPhoneCode = _that.codeTime + 's'
+          }
+        }, 1000);
+      },
+
+      resetpassword(inventory) {
+        this.$refs[inventory].validate((valid) => {
+          if (valid) {
+            if(this.pwdFormValidate.newPwd == this.pwdFormValidate.confirmPwd) {
+              let url = '/u/api/password/reset'
+              let submitData = {
+                uname: this.pwdFormValidate.phone,
+                vcode: this.pwdFormValidate.vcode,
+                pwd: this.pwdFormValidate.newPwd,
+              }
+              this.$http.post(url, submitData).then(res => {
+                this.$Message.success('修改密码成功')
+                this.editPassWord = false
+              }).catch(error => {
+                this.$Message.error(error.message)
+                this.editPassWord = false
+              })
+            }else{
+              this.$Message.error('新密码和确认密码不一致!');
+            }
+          } else {
+            this.$Message.error('请输入完整信息!');
+          }
+        })
+      }
     },
   }
 </script>
@@ -276,4 +470,57 @@
   .ivu-badge-count {
     top: 4px;
   }
+
+
+
+  .headDrop {
+    font-size: 12px;
+    max-width: 220px;
+    padding: 10px;
+    min-width: 220px;
+  }
+  .headDrop p.item {
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+    padding: 10px 0px;
+  }
+  .headDrop p.logout {
+    text-align: center;
+    color: white;
+  }
+  .headDrop p.bottom-ope {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 12px;
+  }
+
+  .headDrop .headdrop-i {
+    background: url(../../static/ico_loginuser.png) no-repeat;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    margin: 0 5px -5px 0;
+    vertical-align: top;
+  }
+
+  .headDrop .headdrop-i.username {
+    background-position: 0 0;
+  }
+
+  .headDrop .headdrop-i.rolename {
+    background-position: 0 -22.5px;
+    margin-top: -1px;
+  }
+
+  .headDrop .headdrop-i.rolename {
+    background-position: 0 -22.5px;
+    margin-top: -1px;
+  }
+
+  .headDrop .headdrop-i.campusname {
+    background-position: 0 -45px;
+  }
+
+
 </style>

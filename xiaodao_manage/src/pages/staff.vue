@@ -86,8 +86,8 @@
                       src: params.row.avatar ? params.row.avatar : config.Qiniu.EXTERNAL_LINK + 'FutGJjiqn1lS_Gw4xdY7cM671pMx',
                     },
                     style: {
-                      width: '58px',
-                      height: '58px',
+                      width: '38px',
+                      height: '38px',
                       backgroundColor: "#c6cfe1",
                       borderRadius: "29px",
                       margin: "10px 0",
@@ -97,7 +97,7 @@
                   h('div', {
                     style: {
                       marginTop: "18px",
-                      marginLeft: "70px",
+                      marginLeft: "50px",
                       fontSize: "16px",
                       color: "rgba(0, 0, 0, 0.85)",
                       position: "absolute"

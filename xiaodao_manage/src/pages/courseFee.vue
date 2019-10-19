@@ -1,20 +1,20 @@
 <template>
   <div class="course_fee_container">
-    <ul class="top_nav_bar float-wrap">
-      <li class="title">
-        <img src="http://static.xiaost.net/zixunben-icon.png" style="top: 14px;left: 16px" alt="">
-        <span>课程/收费</span>
-      </li>
-      <li class="item" :class="{current: currentNavIndex == 0}" @click="changeNav(0)">
-        课程管理
-      </li>
-      <li class="item" :class="{current: currentNavIndex == 1}" @click="changeNav(1)">
-        收费项管理
-      </li>
-      <li class="item" :class="{current: currentNavIndex == 2}" @click="changeNav(2)">
-        套餐管理
-      </li>
-    </ul>
+    <!--<ul class="top_nav_bar float-wrap">-->
+      <!--<li class="title">-->
+        <!--<img src="http://static.xiaost.net/zixunben-icon.png" style="top: 14px;left: 16px" alt="">-->
+        <!--<span>课程/收费</span>-->
+      <!--</li>-->
+      <!--<li class="item" :class="{current: currentNavIndex == 0}" @click="changeNav(0)">-->
+        <!--课程管理-->
+      <!--</li>-->
+      <!--<li class="item" :class="{current: currentNavIndex == 1}" @click="changeNav(1)">-->
+        <!--收费项管理-->
+      <!--</li>-->
+      <!--<li class="item" :class="{current: currentNavIndex == 2}" @click="changeNav(2)">-->
+        <!--套餐管理-->
+      <!--</li>-->
+    <!--</ul>-->
 
     <div class="container mt20">
       <div v-show="currentNavIndex == 0">
@@ -287,10 +287,10 @@
               title: '在读学员数',
               key: '在读学员数'
             },
-          {
-            title: '启用状态',
-            key: '启用状态'
-          },
+          // {
+          //   title: '启用状态',
+          //   key: '启用状态'
+          // },
             {
               title: '创建日期',
               key: 'create_time_format'

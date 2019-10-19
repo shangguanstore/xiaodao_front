@@ -22,7 +22,7 @@
               <Input type="password" v-model="formValidate.pwd" placeholder="请输入密码"></Input>
             </FormItem>
             <FormItem>
-              <Button type="primary" @click="handleSubmit('formValidate')" size="large" long>登录</Button>
+              <Button type="primary" @click="handleSubmit('formValidate')" :loading="submitLoading" size="large" long>登录</Button>
               <!--<Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>-->
             </FormItem>
           </Form>
@@ -43,6 +43,7 @@
     name: 'login',
     data() {
       return {
+        submitLoading: false,
         formValidate: {
           phone: '',
           pwd: '',
@@ -95,11 +96,13 @@
         this.$refs[name].resetFields();
       },
       memberLogin() {
+        this.submitLoading = true
         let submitData = {
           uname: this.formValidate.phone,
         }
         this.$http.post('/api/member/login', submitData).then(res => {
-          if(res) {
+          this.submitLoading = false
+          if(res.data.errNo == 100000) {
               let member = res.data.member
               this.$store.dispatch('UserName', member.uname)
               this.$Message.success('Success!')
@@ -110,9 +113,18 @@
                       query: {}
                   })
               },2000)
+          }else if(res.data.errNo == 112004){
+            this.$router.push({
+              path: 'multilogin',
+              query: {
+                uid: res.data.uid
+              }
+            })
+          }else{
+            this.$Message.error('出错啦')
           }
         }).catch(error => {
-            console.log(error)
+          this.submitLoading = false
           this.$Message.error(error.message)
         })
       },

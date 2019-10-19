@@ -11,6 +11,9 @@ let cookie = {
 
 //设置cookie,增加到vue实例方便全局调用
   setCookie: function (c_name, value, expiredays) {
+    console.log('c_name',c_name)
+    console.log('value',value)
+
     var exdate = new Date()
     exdate.setDate(exdate.getDate() + expiredays)
     document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString());

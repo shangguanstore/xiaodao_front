@@ -17,6 +17,14 @@ export default function filterResult(data) {
       item.update_time_format = date('Y-m-d H:i:s', item.update_time)
     }
 
+    if (isset(item.expire_start)) {
+      item.expire_start_format = date('Y-m-d H:i:s', item.expire_start)
+    }
+
+    if (isset(item.expire_end)) {
+      item.expire_end_format = date('Y-m-d H:i:s', item.expire_end)
+    }
+
     if (isset(item.role_id)) {
       let role_id_format
       if (is_array(item.role_id)) {
@@ -50,6 +58,12 @@ export default function filterResult(data) {
       item.price_format = parseFloat((item.price / 100).toFixed(2))
     } else {
       item.price_format = 0
+    }
+
+    if (item.real_price) {
+      item.real_price_format = parseFloat((item.real_price / 100).toFixed(2))
+    } else {
+      item.real_price_format = 0
     }
 
     if (item.unit_price) {

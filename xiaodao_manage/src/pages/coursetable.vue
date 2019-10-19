@@ -484,14 +484,10 @@
         })
       },
     },
-
-
   }
 </script>
 
 <style>
-
-
   body::-webkit-scrollbar {
     width: 12px
   }
@@ -505,20 +501,20 @@
     background: #a6a6a6
   }
 
-  body, h4, h5, li {
+  .coursetableContainer h4, .coursetableContainer h5, .coursetableContainer li {
     line-height: 20px
   }
 
-  .hint p, ol, p, ul {
+  .coursetableContainer .hint p, .coursetableContainer ol, .coursetableContainer p, .coursetableContainer ul {
     margin: 0;
     padding: 0;
   }
 
-  li {
+  .coursetableContainer li {
     list-style: none;
   }
 
-  .card {
+  .coursetableContainer .card {
     border: 0;
     background-color: #fff;
     -webkit-border-radius: 2px;
@@ -528,31 +524,31 @@
     box-shadow: rgba(0, 0, 0, .0470588) 0 2px 3px 0;
   }
 
-  .thin-scroll::-webkit-scrollbar {
+  .coursetableContainer .thin-scroll::-webkit-scrollbar {
     width: 7px
   }
 
-  .thin-scroll::-webkit-scrollbar-track {
+  .coursetableContainer .thin-scroll::-webkit-scrollbar-track {
     background-color: #d9d9d9;
     border-left: 2px solid transparent
   }
 
-  .thin-scroll::-webkit-scrollbar-thumb {
+  .coursetableContainer .thin-scroll::-webkit-scrollbar-thumb {
     background-color: #a6a6a6;
     border-left: 2px solid transparent
   }
 
-  .thin-scroll::-webkit-scrollbar-thumb:window-inactive {
+  .coursetableContainer .thin-scroll::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(0, 0, 0, .1)
   }
 
-  .avatar {
+  .coursetableContainer .avatar {
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important
   }
 
-  .img-24 {
+  .coursetableContainer .img-24 {
   . display: inline-block;
     width: 24px;
     height: 24px;
@@ -560,7 +556,7 @@
     background-color: #eee;
   }
 
-  .calendar-view {
+  .coursetableContainer .calendar-view {
     position: fixed;
     z-index: 51;
     top: 0px;
@@ -571,7 +567,7 @@
     background-color: rgba(238, 238, 238, .96)
   }
 
-  .calendar-view .calendar-holder {
+  .coursetableContainer .calendar-view .calendar-holder {
     position: absolute;
     overflow: hidden;
     top: 65px;
@@ -580,7 +576,7 @@
     bottom: 15px
   }
 
-  .calendar-header-view {
+  .coursetableContainer .calendar-header-view {
     width: 100%;
     height: 50px;
     border-bottom: 1px solid #d9d9d9;
@@ -591,11 +587,11 @@
     -webkit-user-select: none
   }
 
-  .calendar-header-view .filter-toggler-wrapper {
+  .coursetableContainer .calendar-header-view .filter-toggler-wrapper {
     position: absolute
   }
 
-  .calendar-header-view .btn {
+  .coursetableContainer .calendar-header-view .btn {
     padding: 2px 12px;
     border: none;
     -webkit-border-radius: 0;
@@ -603,12 +599,12 @@
     border-radius: 0
   }
 
-  .calendar-header-view .btn.active {
+  .coursetableContainer .calendar-header-view .btn.active {
     color: #fff;
     background-color: #a6a6a6
   }
 
-  .calendar-header-view .btn-calendar {
+  .coursetableContainer .calendar-header-view .btn-calendar {
     color: #383838;
     height: 30px;
     background-color: #fff;
@@ -620,84 +616,84 @@
     border-radius: 4px
   }
 
-  .calendar-header-view .btn-addcalendar {
+  .coursetableContainer .calendar-header-view .btn-addcalendar {
     float: left;
     display: inline-block;
     margin-left: 20px;
     padding: 3px 0
   }
 
-  .calendar-header-view .btn-addcalendar button {
+  .coursetableContainer .calendar-header-view .btn-addcalendar button {
     height: 30px;
     margin-top: 6px;
     text-align: center;
     margin-right: 10px;
   }
 
-  .calendar-header-view .btn-calendar .btn:hover, .calendar-header-view .btn-calendar:hover:not(.active) {
+  .coursetableContainer .calendar-header-view .btn-calendar .btn:hover, .calendar-header-view .btn-calendar:hover:not(.active) {
     color: #03a9f4
   }
 
-  .calendar-header-view .btn-calendar .btn:first-child {
+  .coursetableContainer .calendar-header-view .btn-calendar .btn:first-child {
     border-right: 1px solid rgba(0, 0, 0, .1)
   }
 
-  .calendar-header-view .btn-calendar .btn:nth-child(2) {
+  .coursetableContainer .calendar-header-view .btn-calendar .btn:nth-child(2) {
     border-left: 1px solid rgba(0, 0, 0, .1)
   }
 
-  .calendar-header-view .calendar-filter-toggle {
+  .coursetableContainer .calendar-header-view .calendar-filter-toggle {
     color: grey;
     float: left;
     width: 30px;
     line-height: 32px
   }
 
-  .calendar-header-view .today {
+  .coursetableContainer .calendar-header-view .today {
     float: left;
     min-width: 70px;
     margin-left: 20px;
     line-height: 28px
   }
 
-  .calendar-header-view .current-day {
+  .coursetableContainer .calendar-header-view .current-day {
     font-size: 18px;
     min-width: 160px;
     text-align: center
   }
 
-  .calendar-header-view .move {
+  .coursetableContainer .calendar-header-view .move {
     float: left;
     display: inline-block;
     margin-left: 20px;
     padding: 3px 0
   }
 
-  .calendar-header-view .move .btn {
+  .coursetableContainer .calendar-header-view .move .btn {
     color: grey
   }
 
-  .calendar-header-view .move .btn:hover {
+  .coursetableContainer .calendar-header-view .move .btn:hover {
     color: #03a9f4
   }
 
-  .calendar-header-view .move .icon {
+  .coursetableContainer .calendar-header-view .move .icon {
     font-size: 12px
   }
 
-  .calendar-header-view .right-navigation {
+  .coursetableContainer .calendar-header-view .right-navigation {
     position: absolute;
     display: inline-block;
     right: 15px;
     top: 0
   }
 
-  .calendar-header-view .right-navigation .month-or-week-mode-switcher {
+  .coursetableContainer .calendar-header-view .right-navigation .month-or-week-mode-switcher {
     float: left;
     display: inline-block
   }
 
-  .calendar-header-view .right-navigation .month-or-week-mode-switcher .btn {
+  .coursetableContainer .calendar-header-view .right-navigation .month-or-week-mode-switcher .btn {
     border: none;
     margin: 0;
     color: #383838;
@@ -706,15 +702,15 @@
     height: 30px
   }
 
-  .calendar-header-view .right-navigation .month-or-week-mode-switcher .btn.active {
+  .coursetableContainer .calendar-header-view .right-navigation .month-or-week-mode-switcher .btn.active {
     color: #fff
   }
 
-  .calendar-header-view .right-navigation .month-or-week-mode-switcher .btn:hover:not(.active) {
+  .coursetableContainer .calendar-header-view .right-navigation .month-or-week-mode-switcher .btn:hover:not(.active) {
     color: #03a9f4
   }
 
-  .calendar-view .calendar-holder {
+  .coursetableContainer .calendar-view .calendar-holder {
     position: absolute;
     overflow: hidden;
     top: 65px;
@@ -723,7 +719,7 @@
     bottom: 15px
   }
 
-  .calendar-filter-view {
+  .coursetableContainer .calendar-filter-view {
     position: absolute;
     top: 0;
     left: 0;
@@ -738,7 +734,7 @@
     left: -160px;
   }
 
-  .calendar-filter-view .calendar-filter-inner {
+  .coursetableContainer .calendar-filter-view .calendar-filter-inner {
     position: absolute;
     top: 0px;
     left: 0;
@@ -746,21 +742,21 @@
     bottom: 10px
   }
 
-  .calendar-filter-view .search-form {
+  .coursetableContainer .calendar-filter-view .search-form {
     padding: 20px 20px 10px
   }
 
-  .calendar-filter-view .search-form .search-project-or-member {
+  .coursetableContainer .calendar-filter-view .search-form .search-project-or-member {
     height: 30px;
     line-height: 18px;
     padding: 4px 12px
   }
 
-  .calendar-filter-view .calendar-filter-wrapper {
+  .coursetableContainer .calendar-filter-view .calendar-filter-wrapper {
     border-bottom: 1px solid rgba(0, 0, 0, .07)
   }
 
-  .calendar-filter-view .projects-wrapper {
+  .coursetableContainer .calendar-filter-view .projects-wrapper {
     height: 50%;
     position: absolute;
     top: 0;
@@ -769,30 +765,30 @@
     overflow-y: auto
   }
 
-  .calendar-filter-view .projects-wrapper .project-list {
+  .coursetableContainer .calendar-filter-view .projects-wrapper .project-list {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch
   }
 
-  .calendar-filter-view .projects-wrapper .group-name {
+  .coursetableContainer .calendar-filter-view .projects-wrapper .group-name {
     padding: 15px 15px 5px
   }
 
-  .calendar-filter-view .projects-wrapper .project-item {
+  .coursetableContainer .calendar-filter-view .projects-wrapper .project-item {
     margin-left: 20px;
     line-height: 36px;
   }
 
-  .calendar-filter-view .projects-wrapper .project-item.selected {
+  .coursetableContainer .calendar-filter-view .projects-wrapper .project-item.selected {
     position: relative
   }
 
-  .calendar-filter-view .projects-wrapper .project-item.active {
+  .coursetableContainer .calendar-filter-view .projects-wrapper .project-item.active {
     background-color: #f5f5f5;
     font-weight: 700
   }
 
-  .calendar-filter-view .projects-wrapper .project-item .icon {
+  .coursetableContainer .calendar-filter-view .projects-wrapper .project-item .icon {
     font-size: 18px;
     width: 24px;
     height: 24px;
@@ -802,7 +798,7 @@
     float: left
   }
 
-  .calendar-filter-view .projects-wrapper .project-item .project-logo {
+  .coursetableContainer .calendar-filter-view .projects-wrapper .project-item .project-logo {
     width: 24px;
     height: 24px;
     margin-right: 10px;
@@ -812,7 +808,7 @@
     border-radius: 3px
   }
 
-  .calendar-filter-view .projects-wrapper .project-item a {
+  .coursetableContainer .calendar-filter-view .projects-wrapper .project-item a {
     display: block;
     padding: 6px 50px 6px 20px;
     line-height: 24px;
@@ -822,13 +818,13 @@
     color: #383838
   }
 
-  .calendar-filter-view .projects-wrapper .project-item a:hover {
+  .coursetableContainer .calendar-filter-view .projects-wrapper .project-item a:hover {
     background-color: #f5f5f5;
     text-decoration: none;
     color: #737373
   }
 
-  .calendar-filter-view .members-wrapper {
+  .coursetableContainer .calendar-filter-view .members-wrapper {
     position: absolute;
     top: 20%;
     left: 0;
@@ -837,13 +833,13 @@
     overflow-y: auto
   }
 
-  .calendar-filter-view .members-wrapper .member-item {
+  .coursetableContainer .calendar-filter-view .members-wrapper .member-item {
     position: relative;
     line-height: 36px;
     padding-left: 20px;
   }
 
-  .calendar-filter-view .members-wrapper .member-item > a {
+  .coursetableContainer .calendar-filter-view .members-wrapper .member-item > a {
     display: block;
     width: 100%;
     height: 36px;
@@ -854,24 +850,24 @@
     color: #383838
   }
 
-  .calendar-filter-view .members-wrapper .member-item > a:hover {
+  .coursetableContainer .calendar-filter-view .members-wrapper .member-item > a:hover {
     color: #383838;
     background-color: #f3f3f3
   }
 
-  .calendar-filter-view .members-wrapper .member-item.active:after {
+  .coursetableContainer .calendar-filter-view .members-wrapper .member-item.active:after {
     display: block
   }
 
-  .calendar-filter-view .members-wrapper .member-item .avatar {
+  .coursetableContainer .calendar-filter-view .members-wrapper .member-item .avatar {
     margin-top: 6px;
   }
 
-  .calendar-filter-view .members-wrapper .member-item .img-circle {
+  .coursetableContainer .calendar-filter-view .members-wrapper .member-item .img-circle {
     border-radius: 50%;
   }
 
-  .calendar-filter-view .members-wrapper .avatar, .calendar-filter-view .members-wrapper .icon-users-bold {
+  .coursetableContainer .calendar-filter-view .members-wrapper .avatar, .calendar-filter-view .members-wrapper .icon-users-bold {
     display: inline-block;
     float: left;
     margin-right: 10px;
@@ -883,11 +879,11 @@
     font-size: 18px
   }
 
-  .calendar-filter-view .courses-wrapper span {
+  .coursetableContainer .calendar-filter-view .courses-wrapper span {
     line-height: 24px
   }
 
-  .calendar-filter-view .courses-wrapper {
+  .coursetableContainer .calendar-filter-view .courses-wrapper {
     position: absolute;
     top: 20%;
     left: 0;
@@ -896,13 +892,13 @@
     overflow-y: auto
   }
 
-  .calendar-filter-view .courses-wrapper .course-item {
+  .coursetableContainer .calendar-filter-view .courses-wrapper .course-item {
     position: relative;
     padding-left: 20px;
     line-height: 36px;
   }
 
-  .calendar-filter-view .courses-wrapper .course-item > a {
+  .coursetableContainer .calendar-filter-view .courses-wrapper .course-item > a {
     display: block;
     width: 100%;
     height: 36px;
@@ -913,16 +909,16 @@
     color: #383838
   }
 
-  .calendar-filter-view .courses-wrapper .course-item > a:hover {
+  .coursetableContainer .calendar-filter-view .courses-wrapper .course-item > a:hover {
     color: #383838;
     background-color: #f3f3f3
   }
 
-  .calendar-filter-view .courses-wrapper .course-item.active:after {
+  .coursetableContainer .calendar-filter-view .courses-wrapper .course-item.active:after {
     display: block
   }
 
-  .calendar-filter-view .courses-wrapper .avatar, .calendar-filter-view .courses-wrapper .icon-users-bold {
+  .coursetableContainer .calendar-filter-view .courses-wrapper .avatar, .calendar-filter-view .courses-wrapper .icon-users-bold {
     display: inline-block;
     float: left;
     margin-right: 10px;
@@ -934,15 +930,15 @@
     font-size: 18px
   }
 
-  .calendar-filter-view .courses-wrapper span {
+  .coursetableContainer .calendar-filter-view .courses-wrapper span {
     line-height: 24px
   }
 
-  .calendar-filter-view .selected {
+  .coursetableContainer .calendar-filter-view .selected {
     color: green;
   }
 
-  .calendar-filter-view .types-wrapper {
+  .coursetableContainer .calendar-filter-view .types-wrapper {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -953,7 +949,7 @@
     border-bottom: none
   }
 
-  .calendar-filter-view .types-wrapper .check-box {
+  .coursetableContainer .calendar-filter-view .types-wrapper .check-box {
     margin-right: 6px;
     width: 16px;
     height: 16px;
@@ -967,46 +963,46 @@
     border-radius: 2px
   }
 
-  .calendar-filter-view .types-wrapper .check-box:hover {
+  .coursetableContainer .calendar-filter-view .types-wrapper .check-box:hover {
     border: 1px solid grey
   }
 
-  .calendar-filter-view .types-wrapper .check-box.active {
+  .coursetableContainer .calendar-filter-view .types-wrapper .check-box.active {
     border-color: grey
   }
 
-  .calendar-filter-view .types-wrapper .check-box.active .icon.icon-tick {
+  .coursetableContainer .calendar-filter-view .types-wrapper .check-box.active .icon.icon-tick {
     visibility: visible
   }
 
-  .calendar-filter-view .types-wrapper .check-box .icon-tick {
+  .coursetableContainer .calendar-filter-view .types-wrapper .check-box .icon-tick {
     visibility: hidden;
     color: grey;
     font-size: 12px;
     margin-top: -3px
   }
 
-  .calendar-month-view .calendar-month-body .month-day.weekend .date, .calendar-month-view .calendar-month-header .week-name.weekend {
+  .coursetableContainer .calendar-month-view .calendar-month-body .month-day.weekend .date, .calendar-month-view .calendar-month-header .week-name.weekend {
     color: #a6a6a6
   }
 
-  .calendar-filter-view .types-wrapper a {
+  .coursetableContainer .calendar-filter-view .types-wrapper a {
     display: inline-block;
     float: left;
     margin-right: 48px
   }
 
-  .calendar-filter-view .types-wrapper a:last-child {
+  .coursetableContainer .calendar-filter-view .types-wrapper a:last-child {
     margin-right: 0
   }
 
-  .calendar-month-view, .calendar-week-view {
+  .coursetableContainer .calendar-month-view, .calendar-week-view {
     bottom: 0;
     -webkit-transition: left 327ms ease;
     -o-transition: left 327ms ease
   }
 
-  .calendar-week-view {
+  .coursetableContainer .calendar-week-view {
     font-size: 13px;
     position: absolute;
     top: 0;
@@ -1015,7 +1011,7 @@
     transition: left 327ms ease
   }
 
-  .calendar-week-view .loading-indicator {
+  .coursetableContainer .calendar-week-view .loading-indicator {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1023,7 +1019,7 @@
     margin-top: -10px
   }
 
-  .calendar-week-view .calendar-week-header {
+  .coursetableContainer .calendar-week-view .calendar-week-header {
     background-color: #fff;
     height: 50px;
     line-height: 50px;
@@ -1031,12 +1027,12 @@
     border-bottom: 1px solid rgba(0, 0, 0, .07)
   }
 
-  .calendar-week-view .calendar-week-header .week-title {
+  .coursetableContainer .calendar-week-view .calendar-week-header .week-title {
     margin-left: 64px;
     position: relative
   }
 
-  .calendar-week-view .calendar-week-header .title {
+  .coursetableContainer .calendar-week-view .calendar-week-header .title {
     width: calc(14.28571% - 1px);
     padding-left: 10px;
     font-size: 15px;
@@ -1046,17 +1042,17 @@
     float: left
   }
 
-  .calendar-week-view .calendar-week-header .title.weekend {
+  .coursetableContainer .calendar-week-view .calendar-week-header .title.weekend {
     color: #a6a6a6
   }
 
-  .calendar-week-view .week-top {
+  .coursetableContainer .calendar-week-view .week-top {
     position: relative;
     overflow-y: scroll;
     max-height: 240px
   }
 
-  .calendar-week-view .all-day-text {
+  .coursetableContainer .calendar-week-view .all-day-text {
     color: #a6a6a6;
     position: absolute;
     top: 50%;
@@ -1068,13 +1064,13 @@
     transform: translate(-50%, -50%)
   }
 
-  .calendar-week-view .week-days-wrapper {
+  .coursetableContainer .calendar-week-view .week-days-wrapper {
     width: calc(100% - 64px);
     margin-left: 64px;
     position: relative
   }
 
-  .calendar-week-view .week-days-wrapper .week-day {
+  .coursetableContainer .calendar-week-view .week-days-wrapper .week-day {
     min-height: 34px;
     width: 14.28571%;
     border-right: 1px solid rgba(0, 0, 0, .07);
@@ -1088,7 +1084,7 @@
     transition: height 327ms ease
   }
 
-  .calendar-week-view .week-days-wrapper .week-day .temp {
+  .coursetableContainer .calendar-week-view .week-days-wrapper .week-day .temp {
     position: fixed;
     height: 19px;
     background-color: #03a9f4;
@@ -1098,19 +1094,19 @@
     border-radius: 1px
   }
 
-  .calendar-week-view .week-days-wrapper .week-day.current {
+  .coursetableContainer .calendar-week-view .week-days-wrapper .week-day.current {
     background-color: rgba(3, 169, 244, .03)
   }
 
-  .calendar-week-view .week-days-wrapper .week-day:first-child {
+  .coursetableContainer .calendar-week-view .week-days-wrapper .week-day:first-child {
     border-left: 1px solid rgba(0, 0, 0, .07)
   }
 
-  .calendar-week-view .week-days-wrapper .week-day:last-child {
+  .coursetableContainer .calendar-week-view .week-days-wrapper .week-day:last-child {
     border-right: none
   }
 
-  .calendar-week-view .toggle-height {
+  .coursetableContainer .calendar-week-view .toggle-height {
     position: absolute;
     left: 50%;
     top: -26px;
@@ -1118,7 +1114,7 @@
     z-index: 1000
   }
 
-  .calendar-week-view .toggle-height .expand-or-collapse {
+  .coursetableContainer .calendar-week-view .toggle-height .expand-or-collapse {
     color: #383838;
     background-color: #f5f5f5;
     border: 1px solid #ededed;
@@ -1132,7 +1128,7 @@
     user-select: none
   }
 
-  .calendar-week-view .tasks, .calendar-week-view .tasks .event-layer {
+  .coursetableContainer .calendar-week-view .tasks, .calendar-week-view .tasks .event-layer {
     position: absolute;
     top: 0;
     left: 0;
@@ -1140,22 +1136,22 @@
     height: 100%
   }
 
-  .calendar-week-view .toggle-height .icon {
+  .coursetableContainer .calendar-week-view .toggle-height .icon {
     margin-left: 5px
   }
 
-  .calendar-week-view .tasks {
+  .coursetableContainer .calendar-week-view .tasks {
     pointer-events: none
   }
 
-  .calendar-week-view .tasks .event-inner {
+  .coursetableContainer .calendar-week-view .tasks .event-inner {
     padding: 1px 3px;
     line-height: 16px;
     height: 19px;
     vertical-align: middle
   }
 
-  .calendar-week-view .tasks .event-inner .title {
+  .coursetableContainer .calendar-week-view .tasks .event-inner .title {
     display: inline-block;
     width: calc(100% - 20px);
     overflow: hidden;
@@ -1165,13 +1161,13 @@
     vertical-align: middle
   }
 
-  .calendar-week-view .tasks .event-inner .time {
+  .coursetableContainer .calendar-week-view .tasks .event-inner .time {
     font-size: 12px;
     display: inline-block;
     text-align: right
   }
 
-  .calendar-week-view .tasks .event-inner .avatar {
+  .coursetableContainer .calendar-week-view .tasks .event-inner .avatar {
     display: inline-block;
     float: right;
     height: 16px;
@@ -1183,14 +1179,14 @@
     border-radius: 2px
   }
 
-  .calendar-week-view .tasks .rows {
+  .coursetableContainer .calendar-week-view .tasks .rows {
     position: absolute;
     width: 100%;
     height: 100%;
     overflow-y: auto
   }
 
-  .calendar-week-view .tasks .rows .et {
+  .coursetableContainer .calendar-week-view .tasks .rows .et {
     position: absolute;
     top: 1px;
     height: 21px;
@@ -1200,117 +1196,117 @@
     pointer-events: auto
   }
 
-  .calendar-week-view .tasks .rows .et.active-event-detail .event-inner, .calendar-week-view .tasks .rows .et.active-task-detail .event-inner {
+  .coursetableContainer .calendar-week-view .tasks .rows .et.active-event-detail .event-inner, .calendar-week-view .tasks .rows .et.active-task-detail .event-inner {
     background-color: #b8eaff
   }
 
-  .calendar-week-view .tasks .rows .event {
+  .coursetableContainer .calendar-week-view .tasks .rows .event {
     color: #4982b6;
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px
   }
 
-  .calendar-week-view .tasks .rows .event .event-inner {
+  .coursetableContainer .calendar-week-view .tasks .rows .event .event-inner {
     background-color: #dcf3fd;
     border-left: 2px solid #03a9f4
   }
 
-  .calendar-week-view .tasks .rows .event .event-inner .title {
+  .coursetableContainer .calendar-week-view .tasks .rows .event .event-inner .title {
     width: calc(100% - 62px)
   }
 
-  .calendar-week-view .tasks .rows .event .event-inner .time {
+  .coursetableContainer .calendar-week-view .tasks .rows .event .event-inner .time {
     width: 58px
   }
 
-  .calendar-week-view .tasks .rows .event .event-inner.all-day .title {
+  .coursetableContainer .calendar-week-view .tasks .rows .event .event-inner.all-day .title {
     width: 100%
   }
 
-  .calendar-week-view .tasks .rows .event .event-inner.multi .title {
+  .coursetableContainer .calendar-week-view .tasks .rows .event .event-inner.multi .title {
     width: calc(100% - 104px)
   }
 
-  .calendar-week-view .tasks .rows .event .event-inner.multi .time {
+  .coursetableContainer .calendar-week-view .tasks .rows .event .event-inner.multi .time {
     width: 100px
   }
 
   @media screen and (max-width: 1264px) {
-    .calendar-week-view .tasks .rows .event.length-1 .event-inner > span.title {
+    .coursetableContainer .calendar-week-view .tasks .rows .event.length-1 .event-inner > span.title {
       width: 100%
     }
 
-    .calendar-week-view .tasks .rows .event.length-1 .event-inner > span.time {
+    .coursetableContainer .calendar-week-view .tasks .rows .event.length-1 .event-inner > span.time {
       width: 0;
       display: none
     }
   }
 
-  .calendar-week-view .tasks .col-0 {
+  .coursetableContainer .calendar-week-view .tasks .col-0 {
     left: calc(0% + 3px)
   }
 
-  .calendar-week-view .tasks .col-1 {
+  .coursetableContainer .calendar-week-view .tasks .col-1 {
     left: calc(14.28571% + 3px)
   }
 
-  .calendar-week-view .tasks .col-2 {
+  .coursetableContainer .calendar-week-view .tasks .col-2 {
     left: calc(28.57142% + 3px)
   }
 
-  .calendar-week-view .tasks .col-3 {
+  .coursetableContainer .calendar-week-view .tasks .col-3 {
     left: calc(42.85713% + 3px)
   }
 
-  .calendar-week-view .tasks .col-4 {
+  .coursetableContainer .calendar-week-view .tasks .col-4 {
     left: calc(57.14284% + 3px)
   }
 
-  .calendar-week-view .tasks .col-5 {
+  .coursetableContainer .calendar-week-view .tasks .col-5 {
     left: calc(71.42855% + 3px)
   }
 
-  .calendar-week-view .tasks .col-6 {
+  .coursetableContainer .calendar-week-view .tasks .col-6 {
     left: calc(85.71426% + 3px)
   }
 
-  .calendar-week-view .tasks .length-1 {
+  .coursetableContainer .calendar-week-view .tasks .length-1 {
     width: calc(14.28571% - 6px)
   }
 
-  .calendar-week-view .tasks .length-2 {
+  .coursetableContainer .calendar-week-view .tasks .length-2 {
     width: calc(28.57142% - 6px)
   }
 
-  .calendar-week-view .tasks .length-3 {
+  .coursetableContainer .calendar-week-view .tasks .length-3 {
     width: calc(42.85713% - 6px)
   }
 
-  .calendar-week-view .tasks .length-4 {
+  .coursetableContainer .calendar-week-view .tasks .length-4 {
     width: calc(57.14284% - 6px)
   }
 
-  .calendar-week-view .tasks .length-5 {
+  .coursetableContainer .calendar-week-view .tasks .length-5 {
     width: calc(71.42855% - 6px)
   }
 
-  .calendar-week-view .tasks .length-6 {
+  .coursetableContainer .calendar-week-view .tasks .length-6 {
     width: calc(85.71426% - 6px)
   }
 
-  .calendar-week-view .tasks .length-7 {
+  .coursetableContainer .calendar-week-view .tasks .length-7 {
     width: calc(99.99997% - 6px)
   }
 
-  .calendar-week-view .gap {
+  .coursetableContainer .calendar-week-view .gap {
     position: relative;
     background-color: #eee;
     height: 4px;
     width: 100%
   }
 
-  .calendar-week-view .week-time {
+  .coursetableContainer .calendar-week-view .week-time {
     position: relative;
     overflow-y: scroll;
     width: 100%;
@@ -1320,14 +1316,14 @@
     transition: height 327ms ease
   }
 
-  .calendar-week-view .week-time .left-side {
+  .coursetableContainer .calendar-week-view .week-time .left-side {
     height: 1440px;
     width: 64px;
     float: left;
     position: relative
   }
 
-  .calendar-week-view .week-time .left-side .hour {
+  .coursetableContainer .calendar-week-view .week-time .left-side .hour {
     color: #a6a6a6;
     font-size: 12px;
     /*height: 60px;*/
@@ -1337,11 +1333,11 @@
     position: relative
   }
 
-  .calendar-week-view .week-time .left-side .hour > div {
+  .coursetableContainer .calendar-week-view .week-time .left-side .hour > div {
     position: relative;
   }
 
-  .calendar-week-view .week-time .left-side .hour.now-time {
+  .coursetableContainer .calendar-week-view .week-time .left-side .hour.now-time {
     color: #e51c23;
     position: absolute;
     left: 50%;
@@ -1353,14 +1349,14 @@
     transform: translateX(-50%)
   }
 
-  .calendar-week-view .week-time .day-hours {
+  .coursetableContainer .calendar-week-view .week-time .day-hours {
     width: calc(100% - 64px);
     height: 1440px;
     position: absolute;
     left: 64px
   }
 
-  .calendar-week-view .week-time .day-hours .now-time {
+  .coursetableContainer .calendar-week-view .week-time .day-hours .now-time {
     width: 100%;
     height: 1px;
     background-color: #e51c23;
@@ -1369,7 +1365,7 @@
     z-index: 1000
   }
 
-  .calendar-week-view .week-time .day-col-wrapper {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper {
     width: 14.28571%;
     float: left;
     height: 100%;
@@ -1377,14 +1373,14 @@
     z-index: 1000
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .day-col {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .day-col {
     height: 100%;
     width: 90%;
     left: 2px;
     position: relative
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .day-col-select-tip {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .day-col-select-tip {
     height: 60px;
     width: 100%;
     left: -2px;
@@ -1397,7 +1393,7 @@
     top: 0px;
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .now-time {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .now-time {
     background-color: #e51c23;
     position: absolute;
     left: 3px;
@@ -1411,19 +1407,19 @@
     border-radius: 50%
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .event-delete {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .event-delete {
     color: #ddd;
   }
 
-  .calendar-week-view .week-time .day-col-wrapper:first-child {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper:first-child {
     border-left: 1px solid #f5f5f5
   }
 
-  .calendar-week-view .week-time .day-col-wrapper.current {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper.current {
     background-color: rgba(3, 169, 244, .02)
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .event {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .event {
     color: #4982b6;
     position: absolute;
     border-radius: 1px;
@@ -1432,15 +1428,15 @@
     box-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, 0 2px 0 #fff, -2px 2px 0 #fff
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .event-example {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .event-example {
     color: red;
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .event.active-event-detail .content-wrapper {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .event.active-event-detail .content-wrapper {
     background-color: #b8eaff
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .event .content-wrapper {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .event .content-wrapper {
     background-color: rgba(214, 241, 253, .85);
     padding-left: 4px;
     padding-top: 2px;
@@ -1449,17 +1445,17 @@
     height: 100%
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .event .content-wrapper .content, .calendar-week-view .week-time .day-col-wrapper .event .content-wrapper .time {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .event .content-wrapper .content, .calendar-week-view .week-time .day-col-wrapper .event .content-wrapper .time {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .event .content-wrapper .time {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .event .content-wrapper .time {
     font-size: 12px
   }
 
-  .calendar-week-view .week-time .day-col-wrapper .new-event {
+  .coursetableContainer .calendar-week-view .week-time .day-col-wrapper .new-event {
     position: absolute;
     border-radius: 1px;
     overflow: hidden;
@@ -1470,14 +1466,14 @@
     opacity: .8
   }
 
-  .calendar-week-view .week-time .day-lines {
+  .coursetableContainer .calendar-week-view .week-time .day-lines {
     width: calc(100% - 64px);
     height: 1440px;
     position: absolute;
     left: 64px
   }
 
-  .calendar-week-view .week-time .day-lines .vertical-line {
+  .coursetableContainer .calendar-week-view .week-time .day-lines .vertical-line {
     width: 14.28571%;
     border-right: 1px solid #f5f5f5;
     float: left;
@@ -1485,7 +1481,7 @@
     position: relative
   }
 
-  .calendar-week-view .week-time .hour-lines {
+  .coursetableContainer .calendar-week-view .week-time .hour-lines {
     position: absolute;
     top: 0;
     right: 0;
@@ -1493,13 +1489,13 @@
     z-index: 1
   }
 
-  .calendar-week-view .week-time .hour-lines .hour-line {
+  .coursetableContainer .calendar-week-view .week-time .hour-lines .hour-line {
     border-bottom: 1px solid #eee;
     /*height: 60px;*/
     height: 56px;
   }
 
-  .panel-view {
+  .coursetableContainer .panel-view {
     position: fixed;
     z-index: 60;
     top: 65px;
@@ -1515,11 +1511,11 @@
     backface-visibility: hidden
   }
 
-  .prettybox-container {
+  .coursetableContainer .prettybox-container {
     margin: 5px 0;
   }
 
-  .prettybox-container .prettybox-box {
+  .coursetableContainer .prettybox-container .prettybox-box {
     cursor: pointer;
     vertical-align: text-bottom;
     border: 2px solid #999;
@@ -1541,42 +1537,42 @@
     border-radius: 13px;
   }
 
-  .prettybox-container .prettybox-box > span {
+  .coursetableContainer .prettybox-container .prettybox-box > span {
     margin-right: 0px;
     display: inline-block;
     border-color: rgb(141, 174, 223);
     background-color: rgb(141, 174, 223);
   }
 
-  .prettybox-container div {
+  .coursetableContainer .prettybox-container div {
     font-weight: 100 !important;
     width: 84px;
     overflow: hidden;
     height: 20px;
   }
 
-  .classroom-select-btn {
+  .coursetableContainer .classroom-select-btn {
     margin-top: 5px;
   }
 
-  #coursetable-setting-panel .modal-dialog {
+  .coursetableContainer #coursetable-setting-panel .modal-dialog {
     width: 800px;
   }
 
-  .coursetable-action .cardrules label {
+  .coursetableContainer .coursetable-action .cardrules label {
     font-weight: normal;
   }
 
-  .coursetable-action .cardrules span {
+  .coursetableContainer .coursetable-action .cardrules span {
     font-weight: 700;
     font-size: 15px;
   }
 
-  .coursetable-action .cardrules i {
+  .coursetableContainer .coursetable-action .cardrules i {
     color: grey;
   }
 
-  .coursetable-action .cardrule-action {
+  .coursetableContainer .coursetable-action .cardrule-action {
     font-weight: normal;
     border-radius: 3px;
     background-color: #f9f9f9;
@@ -1586,21 +1582,21 @@
     border: 1px solid #ddd;
   }
 
-  .coursetable-action .suggest {
+  .coursetableContainer .coursetable-action .suggest {
     padding: 15px;
   }
 
-  .coursetable-action .courselist {
+  .coursetableContainer .coursetable-action .courselist {
     max-height: 400px;
     overflow-y: scroll;
   }
 
-  .card-allow-detail {
+  .coursetableContainer .card-allow-detail {
     border: 1px solid rgba(0, 0, 0, .1);
     margin: 10px;
   }
 
-  .card-allow-detail .card-header {
+  .coursetableContainer .card-allow-detail .card-header {
     margin: 10px 15px 10px;
     font-size: 12px;
     line-height: 20px;
@@ -1608,7 +1604,7 @@
     font-weight: 700;
   }
 
-  .card-allow-detail .card-item {
+  .coursetableContainer .card-allow-detail .card-item {
     padding-left: 15px;
     border-top: 1px solid rgba(0, 0, 0, .1);
     line-height: 30px;
@@ -1616,16 +1612,16 @@
     overflow-y: scroll;
   }
 
-  .card-allow-detail .card-item i {
+  .coursetableContainer .card-allow-detail .card-item i {
     color: #a6a6a6;
   }
 
-  #coursetable-setting-panel .activity-creator-wrapper button {
+  .coursetableContainer #coursetable-setting-panel .activity-creator-wrapper button {
     width: 20%;
     margin-left: 15px;
   }
 
-  #coursetable-setting-panel .cardinfo i {
+  .coursetableContainer #coursetable-setting-panel .cardinfo i {
     color: grey;
     font-size: 13px;
   }
@@ -1710,7 +1706,7 @@
   }
 
   /* 定义blink类*/
-  .blink {
+  .coursetableContainer .blink {
     animation: blink .75s linear infinite;
     /* 其它浏览器兼容性前缀 */
     -webkit-animation: blink .75s ease infinite;
@@ -1719,25 +1715,25 @@
     -o-animation: blink .75s linear infinite;
   }
 
-  .event-detail-panel {
+  .coursetableContainer .event-detail-panel {
     width: 365px;
     margin-right: 15px;
     border-left: 1px solid rgba(0, 0, 0, .1);
   }
 
-  .event-detail-panel .panel-layer {
+  .coursetableContainer .event-detail-panel .panel-layer {
     margin-top: 10px;
   }
 
-  .event-detail-panel footer .form-group {
+  .coursetableContainer .event-detail-panel footer .form-group {
     margin-left: 10px;
   }
 
-  .event-detail-panel footer #form_add_class {
+  .coursetableContainer .event-detail-panel footer #form_add_class {
     width: 30%;
   }
 
-  .courselist tr td i {
+  .coursetableContainer .courselist tr td i {
     font-size: 30px;
     border: 1px solid #eee;
     width: 45px;

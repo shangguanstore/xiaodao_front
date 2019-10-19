@@ -21,9 +21,11 @@ import is_string from './is_string.js'
 import getDateFirstLastTimestamp from './getDateFirstLastTimestamp.js'
 import fixedNumber from './fixedNumber.js'
 import getWeekdayDate from './getWeekdayDate.js'
+import isNotLimitDate from './isNotLimitDate.js'
 import getTimestamp from './getTimestamp.js'
 import getWeekdaysFormat from './getWeekdaysFormat.js'
 import chinese2pinyin from './chinese2pinyin.js'
+import getNextMonthDate from './getNextMonthDate.js'
 import getImglink from './getImglink.js'
 
 var lib = {
@@ -53,6 +55,8 @@ var lib = {
   getCurWeekStartEndDate: getCurWeekStartEndDate,
   getWeekdaysFormat: getWeekdaysFormat,
   getDateFirstLastTimestamp: getDateFirstLastTimestamp,
+  isNotLimitDate: isNotLimitDate,
+  getNextMonthDate: getNextMonthDate,
   str_replace: str_replace
 }
 

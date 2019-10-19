@@ -16,6 +16,11 @@ export default new Router({
       component: () => import('@/pages/login')
     },
     {
+      path: '/multilogin',
+      name: 'multilogin',
+      component: () => import('@/pages/multilogin')
+    },
+    {
       path: '/apply',
       name: 'apply',
       component: () => import('@/pages/apply')
@@ -196,6 +201,11 @@ export default new Router({
           path: '/attendance',
           name: 'attendance',
           component: () => import('@/pages/attendance')
+        },
+        {
+          path: '/studentDetail',
+          name: 'studentDetail',
+          component: () => import('@/pages/studentDetail')
         },
       ]
     }

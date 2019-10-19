@@ -15,7 +15,9 @@ var config = {
   CourseSchedule: CourseSchedule,
   Attendance: Attendance,
   Promotion: Promotion,
-  LotteryGoods: LotteryGoods
+  Card: Card,
+  LotteryGoods: LotteryGoods,
+  payType: [{label: '支付宝',value: 1},{label: '微信',value: 2},{label: '银行卡',value: 3},{label: '现金',value: 4},{label: '其他',value: 5}]
 }
 
 function UserRole() {
@@ -46,6 +48,13 @@ function XstCompanySetting() {
 XstCompanySetting.STATUS_OK = 0
 XstCompanySetting.STATUS_DELETE = -1
 XstCompanySetting.STATUS_INVALID = -2
+
+XstCompanySetting.KEY_POINT_REGISTER = 'KEY_POINT_REGISTER'
+XstCompanySetting.KEY_POINT_SHARE = 'KEY_POINT_SHARE'
+XstCompanySetting.KEY_POINT_SHARE_APPLY = 'KEY_POINT_SHARE_APPLY'
+XstCompanySetting.KEY_POINT_COURSE_CONSUME = 'KEY_POINT_COURSE_CONSUME'
+XstCompanySetting.KEY_POINT_PURCHASE_CARD = 'KEY_POINT_PURCHASE_CARD'
+XstCompanySetting.KEY_POINT_PURCHASE_DEDUCTION = 'KEY_POINT_PURCHASE_DEDUCTION'
 
 
 function Activity() {
@@ -123,6 +132,7 @@ function Attendance() {
 Attendance.STATUS_INIT = 0//初始状态
 Attendance.STATUS_ATTENDANCE = 1
 Attendance.STATUS_ABSENCE = 2
+Attendance.STATUS_CANCEL = 3
 Attendance.STATUS_DELETED = -1
 
 Attendance.TYPE_INIT = 0
@@ -133,6 +143,19 @@ Attendance.TYPE_LEAVE_PERSONAL_AFFAIRS = 4
 Attendance.TYPE_LEAVE_SICK = 5
 Attendance.TYPE_TRUANCY = 6
 Attendance.TYPE_OTHERS = 7
+
+
+function Card() {
+}
+Card.STATUS_BUY = 1;
+Card.STATUS_USING = 2;
+Card.STATUS_PAUSE = 3;
+Card.STATUS_EXPIRE = 4;
+Card.STATUS_DELETED = 5;
+Card.STATUS_REFUND = 6;
+Card.STATUS_FREEZE = 7;
+Card.STATUS_TRANSFER = 8;
+
 
 
 export default config

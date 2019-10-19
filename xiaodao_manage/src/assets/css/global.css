@@ -283,7 +283,7 @@ li {
   cursor: pointer;
 }
 
-.header_bar li span {
+.header_bar li > span {
   font-size: 14px;
   color: #999;
   margin-left: 15px;
@@ -708,4 +708,14 @@ footer {
   border-right: solid 1px #ccc;
 }
 /*边框结束*/
+
+/*表单disabled文字颜色设置*/
+.ivu-input[disabled], fieldset[disabled] .ivu-input {
+  color: #555 !important;
+}
+
+/*iview的tab默认是overflow：hidden;的， 设置y轴方向为visible*/
+/*.ivu-tabs {*/
+  /*overflow-y: visible !important;*/
+/*}*/
 
