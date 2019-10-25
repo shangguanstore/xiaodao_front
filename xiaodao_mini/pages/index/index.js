@@ -37,7 +37,7 @@ Page({
             this.getData()
             this.setData({
                 hasUserInfo,
-                showAuthBox: !(!!uname)
+                // showAuthBox: !(!!uname)
             })
         })
     },

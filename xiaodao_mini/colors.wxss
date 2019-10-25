@@ -75,7 +75,7 @@
 }
 
 .redFiveColor {
-  color: #FA2C87;
+  color: #FA2C87 !important;
 }
 .redFiveBack {
   background: #FA2C87;

@@ -392,7 +392,7 @@ button[class="primary"]::after {
 
 form {
   width: 70%;
-  margin-top: 60rpx;
+  /*margin-top: 60rpx;*/
 }
 
 form input {
@@ -612,6 +612,29 @@ button.no_border {
   white-space: nowrap;
   overflow: hidden;
 }
+
+
+.no-goods {
+  width: 100%;
+  padding-top: 330rpx;
+  text-align: center;
+  font-size:28rpx;
+  color:#999;
+  background: url(https://cdn.it120.cc/images/weappshop/icon-cart.png) no-repeat center 205rpx;
+  background-size: 100rpx auto;
+  margin-bottom: 50rpx;
+}
+
+
+
+.shop-btn-bg-primary {
+  background: #009cf0 !important;
+}
+.shop-btn-bg-cart {
+  background: #ff9b2c !important;
+}
+
+
 
 /* icon - front-mobile 项目 */
 @import 'iconfont.wxss';

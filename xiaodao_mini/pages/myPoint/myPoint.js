@@ -39,9 +39,11 @@ Page({
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
       var pointList = res.data.data
-      var curPoint = !lib.empty(pointList[0]) ? pointList[0].cur_point_num : 0
-      pointList = pointList.map(function(item) {
-        item.create_time_format = lib.date('Y-m-d',item.create_time)
+      var curPoint = !lib.empty(pointList[0]) ? parseInt(pointList[0].cur_point_num / 1000) : 0
+      pointList = pointList.map(item=>{
+        item.create_time_format = lib.date('Y-m-d', item.create_time)
+        item.num_format = item.num / 1000
+        item.cur_point_num_format = item.cur_point_num / 1000
         return item
       })
 

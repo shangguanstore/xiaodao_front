@@ -36,6 +36,7 @@ App({
                                     wx.setStorageSync('member', member)
                                     wx.setStorageSync('uname', member.uname)
                                     wx.setStorageSync('phone', member.phone)
+                                    wx.setStorageSync('avatar', member.avatar)
                                     resolve(res)
                                 },
                                 fail(err) {
@@ -109,6 +110,18 @@ App({
             FROM_LOGIN: 2,//个人中心，点击登录
             FROM_LOTTERY_DRAW: 3,//抽奖游戏
             FROM_INDEX_EXPERIENCE: 4,//首页点击 我要体验
+        },
+        ShopOrderGoods: {
+            PAY_TYPE_POINT: 0,
+            PAY_TYPE_MONEY: 1,
+        },
+        ShopOrder: {
+            ORDER_STATUS_WAIT_PAY: 0,
+            ORDER_STATUS_PAID: 1,
+            ORDER_STATUS_WAIT_COMMENT: 11,
+            ORDER_STATUS_FINISH: 12,
+            ORDER_STATUS_CANCEL: 13,
+            ORDER_STATUS_REFUND: 14,
         },
 
 

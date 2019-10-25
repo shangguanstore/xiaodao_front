@@ -5,8 +5,8 @@ var app = getApp()
 class UserAuth {
     //构造函数
     constructor(userInfo, userSubmitInfo, onlyCheckApigc = true) {
-        this.userInfo = userInfo;
-        this.userSubmitInfo = userSubmitInfo;
+        this.userInfo = userInfo
+        this.userSubmitInfo = userSubmitInfo
         this.onlyCheckApigc = onlyCheckApigc
 
         if(!lib.empty(userInfo)) {

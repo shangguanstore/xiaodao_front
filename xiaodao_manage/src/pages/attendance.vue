@@ -200,7 +200,7 @@
           },
           {
             title: '扣课时',
-            key: 'num'
+            key: 'num_show',
           },
           {
             title: '出勤详情',
@@ -376,6 +376,7 @@
                       }
                     }
                   }, '考勤'),
+                  /*
                   h('Button', {
                     props: {
                       type: 'text',
@@ -404,6 +405,7 @@
                       }
                     }
                   }, '删除'),
+                  */
                 ])
               }
             }
@@ -449,6 +451,7 @@
         this.attendList[params.index].status = e
 
         if(e == config.Attendance.STATUS_ATTENDANCE) {
+          params.row.num_show = 1
           params.row.type_show = config.Attendance.TYPE_ATTEND
           params.row.typeList = [
             {
@@ -465,6 +468,7 @@
             },
           ]
         }else if(e == config.Attendance.STATUS_ABSENCE) {
+          params.row.num_show = '--'
           params.row.type_show = config.Attendance.TYPE_LEAVE_PERSONAL_AFFAIRS
           params.row.typeList = [
             {
@@ -514,6 +518,7 @@
             item.type_show = item.type == config.Attendance.TYPE_INIT ? config.Attendance.TYPE_ATTEND : item.type
 
             if(item.status_show == config.Attendance.STATUS_ATTENDANCE) {
+              item.num_show = 1
               item.typeList = [
                 {
                   label: '上课',
@@ -529,6 +534,7 @@
                 },
               ]
             }else if(item.status_show == config.Attendance.STATUS_ABSENCE) {
+              item.num_show = '--'
               item.typeList = [
                 {
                   label: '事假',

@@ -16,6 +16,9 @@ var config = {
   Attendance: Attendance,
   Promotion: Promotion,
   Card: Card,
+  ShopGoods: ShopGoods,
+  ShopBanner: ShopBanner,
+  ShopStorageChangeDetail: ShopStorageChangeDetail,
   LotteryGoods: LotteryGoods,
   payType: [{label: '支付宝',value: 1},{label: '微信',value: 2},{label: '银行卡',value: 3},{label: '现金',value: 4},{label: '其他',value: 5}]
 }
@@ -156,6 +159,27 @@ Card.STATUS_REFUND = 6;
 Card.STATUS_FREEZE = 7;
 Card.STATUS_TRANSFER = 8;
 
+function ShopGoods() {
+}
+ShopGoods.STATUS_OK = 0;
+ShopGoods.STATUS_DELETED = -1;
+ShopGoods.PUBLISH_OUT = -1;
+ShopGoods.PUBLISH_ON = 0;
+
+ShopGoods.PAY_TYPE_POINT = 0;
+ShopGoods.PAY_TYPE_MONEY = 1;
+ShopGoods.PAY_TYPE_MONEY_POINT = 2;
+
+
+function ShopStorageChangeDetail() {
+}
+ShopStorageChangeDetail.TYPE_IN = 0;
+ShopStorageChangeDetail.TYPE_OUT = 1;
+
+
+function ShopBanner() {
+}
+ShopBanner.TYPE_GOODS = 0;
 
 
 export default config

@@ -1,7 +1,7 @@
 <!--pages/getPointIntro/getPointIntro.wxml-->
 <view class="container">
   <view class="top">
-    <view class="title">我的学币</view>
+    <view class="title">我的积分</view>
     <view class="des">{{curPoint}}</view>
   </view>
 
@@ -12,8 +12,8 @@
         </view>
         <view class="content">
             <view class="wrap">
-              <view class="title">注册送50学币</view>
-              <view class="des">完成手机号绑定注册送50学币</view>
+              <view class="title">注册送50积分</view>
+              <view class="des">完成手机号绑定注册送50积分</view>
             </view>
         </view>
     </view>
@@ -24,8 +24,8 @@
         </view>
         <view class="content">
             <view class="wrap">
-              <view class="title">邀请送20学币</view>
-              <view class="des">邀请好友注册送20学币</view>
+              <view class="title">邀请送20积分</view>
+              <view class="des">邀请好友注册送20积分</view>
             </view>
         </view>
     </view>
@@ -36,8 +36,8 @@
         </view>
         <view class="content">
             <view class="wrap">
-              <view class="title">推荐课程消费得20学币</view>
-              <view class="des">推荐好友消费得20学币</view>
+              <view class="title">推荐课程消费得20积分</view>
+              <view class="des">推荐好友消费得20积分</view>
             </view>
         </view>
     </view>
@@ -48,8 +48,8 @@
         </view>
         <view class="content">
             <view class="wrap">
-              <view class="title">连续签到得5学币</view>
-              <view class="des">连续签到5天得5学币</view>
+              <view class="title">连续签到得5积分</view>
+              <view class="des">连续签到5天得5积分</view>
             </view>
         </view>
     </view>

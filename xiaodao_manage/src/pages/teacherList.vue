@@ -129,8 +129,8 @@
     created() {
       this.getTableData(
         {
-          page: this.current,
-          size: this.pageSize,
+          current: this.current,
+          pageSize: this.pageSize,
         }
       )
     },
@@ -144,6 +144,37 @@
           query: {}
         })
       },
+      remove(params) {
+        this.$Modal.confirm({
+          title: '删除',
+          content: "确认删除" + params.row.uname + "吗？",
+          okText: '确认',
+          cancelText: '取消',
+          onOk: () => {
+            console.log('params', params)
+            let submitData = {
+              mid: params.row.mid,
+              cid: params.row.cid,
+              roles: params.row.role_id,
+            }
+            this.$http.post("/api/member/del", submitData).then(res => {
+              if (res) {
+                this.$Message.success('删除成功!')
+                this.getTableData(
+                  {
+                    current: this.current,
+                    pageSize: this.pageSize,
+                  }
+                )
+              }
+            }).catch(error => {
+              this.$Message.error(error.message)
+            })
+          },
+          onCancel: () => {
+          }
+        })
+      },
       update(params) {
         this.$router.push({
           path: 'teacherEdit',
@@ -154,18 +185,19 @@
       },
 
       getTableData(option) {
+        console.log('option222222',option)
         let submitData = {
           roles: option.roles ? option.roles : [config.UserRole.ROLE_TEACHER, config.UserRole.ROLE_ASSIST_TEACHER, config.UserRole.ROLE_CLASS_TEACHER],
           getSubject: true,
           search: this.searchValue,
-          pageIndex: option.page,
-          pageSize: option.size,
+          pageIndex: option.current,
+          pageSize: option.pageSize,
         }
         let url = lib.getRequestUrl('/api/member/getlist', submitData)
         this.$http.get(url, {}).then(res => {
           if (res) {
             this.loading = false
-            this.current = option.pageIndex
+            this.current = option.current
 
             this.total = res.data.total
             this.tableData = lib.filterResult(res.data.member)
@@ -182,8 +214,8 @@
         this.current = page
         this.getTableData(
           {
-            page: this.current,
-            size: this.pageSize,
+            current: this.current,
+            pageSize: this.pageSize,
           }
         )
       },
@@ -191,16 +223,16 @@
         this.pageSize = size
         this.getTableData(
           {
-            page: this.current,
-            size: this.pageSize,
+            current: this.current,
+            pageSize: this.pageSize,
           }
         )
       },
       changeSearch() {
         if (this.searchValue.length === 0) {
           this.getTableData({
-            page: this.current,
-            size: this.pageSize,
+            current: this.current,
+            pageSize: this.pageSize,
           })
         }
       },
@@ -209,8 +241,8 @@
           this.$Message.warning('请输入您要查询教师姓名！');
         } else {
           this.getTableData({
-            page: this.current,
-            size: this.pageSize,
+            current: this.current,
+            pageSize: this.pageSize,
           })
         }
       },

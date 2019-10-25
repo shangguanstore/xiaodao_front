@@ -72,6 +72,32 @@ export default function filterResult(data) {
       item.unit_price_format = 0
     }
 
+    if (item.purchase_price) {
+      item.purchase_price_format = parseFloat((item.purchase_price / 100).toFixed(2))
+    } else {
+      item.purchase_price_format = 0
+    }
+
+    if (item.order_money) {
+      item.order_money_format = parseFloat((item.order_money / 100).toFixed(2))
+    } else {
+      item.order_money_format = 0
+    }
+
+    if (item.payment_money) {
+      item.payment_money_format = parseFloat((item.payment_money / 100).toFixed(2))
+    } else {
+      item.payment_money_format = 0
+    }
+
+    if(isset(item.order_point)) {
+      item.order_point_format = parseInt(item.order_point / 1000)
+    }
+
+    if(isset(item.payment_point)) {
+      item.payment_point_format = parseInt(item.payment_point / 1000)
+    }
+
     return item
   })
 

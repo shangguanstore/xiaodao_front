@@ -3,7 +3,7 @@
     <div class="manage_title">
       <Breadcrumb>
         <BreadcrumbItem>用户资金管理</BreadcrumbItem>
-        <BreadcrumbItem>用户学币明细</BreadcrumbItem>
+        <BreadcrumbItem>用户积分明细</BreadcrumbItem>
       </Breadcrumb>
     </div>
     <div class="container staff_container mt20">
@@ -93,7 +93,7 @@
               key: 'num_format'
             },
             {
-              title: '剩余学币',
+              title: '剩余积分',
               key: 'cur_point_num_format'
             },
             {

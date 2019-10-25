@@ -7,9 +7,10 @@
     <view class='goodsContent'>
       <view class='title'>{{activity.name}}</view>
       <view class='price' wx:if="{{activity.type == config.Activity.TYPE_GROUPON}}">
-        <text class='realPrice'> ¥ {{activity.group_price_format}}</text>
-        <text class='fullPrice' wx:if="{{orderType == config.ActivityOrder.TYPE_GROUP_START_TUAN}}"> ¥ {{activity.group_price_format}}</text>
-        <text class='fullPrice' wx:if="{{orderType == config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}"> ¥ {{activity.group_price_format}}</text>
+        <text class='fullPrice' wx:if="{{orderType != config.ActivityOrder.TYPE_GROUP_SINGLE}}"> ¥ {{activity.price_format}}</text>
+        <text class='realPrice' wx:if="{{orderType == config.ActivityOrder.TYPE_GROUP_SINGLE}}"> ¥ {{activity.price_format}}</text>
+        <text class='realPrice' wx:if="{{orderType == config.ActivityOrder.TYPE_GROUP_START_TUAN}}"> ¥ {{activity.group_price_format}}</text>
+        <text class='realPrice' wx:if="{{orderType == config.ActivityOrder.TYPE_GROUP_JOIN_TUAN}}"> ¥ {{activity.group_price_format}}</text>
       </view>
       <view class='price' wx:else>
         <text class='realPrice'> ¥ {{activity.price_format}}</text>

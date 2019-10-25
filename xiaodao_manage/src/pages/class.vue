@@ -93,13 +93,13 @@
       </p>
 
       <div>
-        <div class="comment-tip">
-          <i class="icon iconfont icon-tishi"></i>
-          <span>一对一课程在报名时创建班级</span>
-        </div>
+        <!--<div class="comment-tip">-->
+          <!--<i class="icon iconfont icon-tishi"></i>-->
+          <!--<span>一对一课程在报名时创建班级</span>-->
+        <!--</div>-->
         <Form ref="classFormValidate" :model="classFormValidate" :rules="classRuleValidate" :label-width="80">
           <FormItem label="所属课程" prop="ccid">
-            <Select v-model="classFormValidate.ccid" style="width:calc(100% - 60px);">
+            <Select v-model="classFormValidate.ccid" :disabled="classFormValidate.id ? true : false" style="width:calc(100% - 60px);">
               <Option v-for="item in courseList" :value="item.ccid" :key="item.ccid">{{ item.name }}</Option>
             </Select>
           </FormItem>
@@ -475,7 +475,14 @@
         this.$refs[inventory].validate((valid) => {
           if (valid) {
             let url,successMsg,errMsg
+            let submitData = {
+              name: this.classFormValidate.name,
+              ccid: this.classFormValidate.ccid,
+              max_num: this.classFormValidate.max_num,
+              classroom_id: this.classFormValidate.classroom_id ? this.classFormValidate.classroom_id : null,
+            }
             if(this.classFormValidate.id) {
+              submitData.id = this.classFormValidate.id
               url = '/api/classes/update'
               successMsg = '更新班级成功!'
               errMsg = '更新班级失败，'
@@ -485,12 +492,6 @@
               errMsg = '添加班级失败，'
             }
 
-            let submitData = {
-              name: this.classFormValidate.name,
-              ccid: this.classFormValidate.ccid,
-              max_num: this.classFormValidate.max_num,
-              classroom_id: this.classFormValidate.classroom_id ? this.classFormValidate.classroom_id : null,
-            }
             this.$http.post(url, submitData).then(res => {
               this.$Message.success(successMsg)
               this.showClassBox = false
@@ -529,7 +530,8 @@
 
             tableData = lib.filterResult(tableData)
             tableData.map(item=>{
-              item.capacity = item.max_num ? `0/${item.max_num}` : 0
+              item.capacity = item.max_num ? `${item.num} / ${item.max_num}` : `${item.num} / 无限制`
+              item.process = `${item.isCheckAttendanceNum} / ${item.allCoursetableNum}`
             })
 
             // tableData = [
@@ -664,17 +666,15 @@
       remove(params) {
         this.$Modal.confirm({
           title: '删除',
-          content: "确认删除" + params.row.uname + "吗？",
+          content: "确认删除" + params.row.name + "吗？",
           okText: '确认',
           cancelText: '取消',
           onOk: () => {
             console.log('params', params)
             let submitData = {
-              mid: params.row.mid,
-              cid: params.row.cid,
-              roles: params.row.role_id,
+              id: params.row.id,
             }
-            this.$http.post("/api/member/del", submitData).then(res => {
+            this.$http.post("/api/classes/del", submitData).then(res => {
               if (res) {
                 this.$Message.success('删除成功!')
                 this.getTableData(

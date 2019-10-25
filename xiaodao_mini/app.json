@@ -29,7 +29,13 @@
     "mall/order-list/order-list",
     "mall/select-address/select-address",
     "mall/shop-cart/shop-cart",
-    "mall/goods-details/goods-details"
+    "mall/goods-details/goods-details",
+    "shop/shop/shop",
+    "shop/goodsDetail/goodsDetail",
+    "shop/shopCart/shopCart",
+    "shop/toPayOrder/toPayOrder",
+    "shop/shopOrderDetail/shopOrderDetail",
+    "shop/shopOrderList/shopOrderList"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -58,7 +64,7 @@
       {
         "selectedIconPath": "images/shop-icon-active.png",
         "iconPath": "images/shop-icon.png",
-        "pagePath": "mall/mall/mall",
+        "pagePath": "shop/shop/shop",
         "text": "积分商城"
       },
       {

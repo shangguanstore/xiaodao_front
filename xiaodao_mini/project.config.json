@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -49,27 +49,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 6,
 			"list": [
-				{
-					"id": 0,
-					"name": "活动页面",
-					"pathName": "pages/activity/activity",
-					"query": "scene=id%3D37%26from_mid%3D17425",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "个人中心",
-					"pathName": "pages/ucenter/ucenter",
-					"query": ""
-				},
-				{
-					"id": 2,
-					"name": "我的学币",
-					"pathName": "pages/myPoint/myPoint",
-					"query": ""
-				},
 				{
 					"id": -1,
 					"name": "推广",
@@ -77,130 +58,44 @@
 					"query": ""
 				},
 				{
+					"id": 24,
+					"name": "积分商城",
+					"pathName": "shop/shop/shop",
+					"query": "",
+					"scene": null
+				},
+				{
 					"id": -1,
-					"name": "商城首页",
+					"name": "老商城",
 					"pathName": "mall/mall/mall",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "购物车",
-					"pathName": "mall/shop-cart/shop-cart",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "文章",
-					"pathName": "pages/article/article",
-					"query": ""
-				},
-				{
-					"id": 7,
-					"name": "活动报名",
-					"pathName": "pages/activity/activity",
-					"query": "id=37",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "活动",
-					"pathName": "pages/activity/activity",
-					"query": "id=23"
-				},
-				{
-					"id": -1,
-					"name": "活动列表",
-					"pathName": "pages/activityList/activityList",
-					"query": ""
-				},
-				{
-					"id": 11,
-					"name": "支付成功",
-					"pathName": "pages/paySuccess/paySuccess",
-					"query": "activityId=37&orderId=142",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "电子票",
-					"pathName": "pages/eTicket/eTicket",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "我参加的",
-					"pathName": "pages/myJoin/myJoin",
-					"query": ""
-				},
-				{
-					"id": 14,
-					"name": "报名列表",
-					"pathName": "pages/applyList/applyList",
-					"query": "activityId=23"
-				},
-				{
-					"id": 15,
-					"name": "拼团详情页",
-					"pathName": "pages/grouponDetail/grouponDetail",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "拼团详情",
-					"pathName": "pages/grouponDetail/grouponDetail",
-					"query": ""
-				},
-				{
-					"id": 17,
-					"name": "订单确认页",
-					"pathName": "pages/orderConfirm/orderConfirm",
-					"query": ""
-				},
-				{
-					"id": 18,
-					"name": "订单详情页",
-					"pathName": "pages/orderDetail/orderDetail",
-					"query": "activityId=37&orderId=149",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "集赞详情页",
-					"pathName": "pages/collectLikes/collectLikes",
-					"query": ""
-				},
-				{
-					"id": 21,
-					"name": "抽奖",
-					"pathName": "pages/drawLottery/drawLottery",
-					"query": "id=47"
-				},
-				{
-					"id": -1,
-					"name": "奖品列表",
-					"pathName": "pages/lotteryList/lotteryList",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "商城订单列表",
-					"pathName": "mall/order-list/order-list",
+					"name": "详情页",
+					"pathName": "shop/goodsDetail/goodsDetail",
+					"query": "id=8",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "toPayOrder",
+					"pathName": "shop/toPayOrder/toPayOrder",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "学币说明",
-					"pathName": "pages/getPointIntro/getPointIntro",
+					"name": "订单详情",
+					"pathName": "shop/shopOrderDetail/shopOrderDetail",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "登录",
-					"pathName": "pages/login/login",
-					"query": "",
+					"name": "shopOrderList",
+					"pathName": "shop/shopOrderList/shopOrderList",
 					"scene": null
 				}
 			]

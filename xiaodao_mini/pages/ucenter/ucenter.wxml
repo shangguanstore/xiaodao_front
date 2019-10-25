@@ -29,7 +29,7 @@
 
       <view class='item oprNum'>
         <view>47</view>
-        <view>学币数量</view>
+        <view>积分数量</view>
       </view>
 
       <view class='item fieldNum'>
@@ -45,7 +45,7 @@
         <image src='../../images/ucenter/myOpe.png'></image>
       </view>
       <view class='title'>
-        我的学币
+        我的积分
       </view>
     </view>
 
@@ -67,7 +67,7 @@
       </view>
     </view>
 
-    <view class='list' data-url='../../mall/order-list/order-list' bindtap='routeTo'>
+    <view class='list' data-url='../../shop/shopOrderList/shopOrderList' bindtap='routeTo'>
       <view class='iconArea' style='background: #009cf0'>
         <text class='iconfont icon-dingdanyichenggong'></text>
       </view>
@@ -90,7 +90,7 @@
         <image src='../../images/ucenter/myData.png'></image>
       </view>
       <view class='title'>
-        推广送学币
+        推广送积分
       </view>
     </view>
 

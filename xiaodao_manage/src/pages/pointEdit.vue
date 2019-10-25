@@ -3,7 +3,7 @@
     <div class="manage_title">
       <Breadcrumb>
         <BreadcrumbItem>机构设置</BreadcrumbItem>
-        <BreadcrumbItem>学币设置</BreadcrumbItem>
+        <BreadcrumbItem>积分设置</BreadcrumbItem>
       </Breadcrumb>
     </div>
     <div class="container staff_edit_container mt20">
@@ -16,7 +16,7 @@
             <span slot="open">开启</span>
             <span slot="close">关闭</span>
           </i-switch>
-          注册得学币
+          注册得积分
           </Col>
           <Col span="3">
           <FormItem prop="KEY_POINT_REGISTER_VALUE">
@@ -32,7 +32,7 @@
             <span slot="open">开启</span>
             <span slot="close">关闭</span>
           </i-switch>
-          分享得学币
+          分享得积分
           </Col>
           <Col span="3">
           <FormItem prop="KEY_POINT_SHARE_VALUE">
@@ -48,7 +48,7 @@
             <span slot="open">开启</span>
             <span slot="close">关闭</span>
           </i-switch>
-          分享并且报名得学币
+          分享并且报名得积分
           </Col>
           <Col span="3">
           <FormItem prop="KEY_POINT_SHARE_APPLY_VALUE">
@@ -64,7 +64,7 @@
         <!--<span slot="open">开启</span>-->
         <!--<span slot="close">关闭</span>-->
         <!--</i-switch>-->
-        <!--最终转化得学币-->
+        <!--最终转化得积分-->
         <!--</Col>-->
         <!--<Col span="3">-->
         <!--<FormItem prop="KEY_POINT_SHARE_SUCCESS_VALUE">-->
@@ -111,19 +111,19 @@
         <p v-show="editCfkey == config.XstCompanySetting.KEY_POINT_REGISTER" class="mt20 ml20">
           <span>新用户注册，获得</span>
           <Input v-model="editFormValidate.KEY_POINT_REGISTER" style="width: 100px" />
-          <span>个学币</span>
+          <span>个积分</span>
         </p>
 
         <p v-show="editCfkey == config.XstCompanySetting.KEY_POINT_SHARE" class="mt20 ml20">
           <span>通过机构小程序分享课程、活动等，成功分享一次获得</span>
           <Input v-model="editFormValidate.KEY_POINT_SHARE" style="width: 100px" />
-          <span>个学币</span>
+          <span>个积分</span>
         </p>
 
         <p v-show="editCfkey == config.XstCompanySetting.KEY_POINT_SHARE_APPLY" class="mt20 ml20">
           <span>学员每转介绍1人，获得</span>
           <Input v-model="editFormValidate.KEY_POINT_SHARE_APPLY" style="width: 100px" />
-          <span>个学币</span>
+          <span>个积分</span>
         </p>
 
         <p v-show="editCfkey == config.XstCompanySetting.KEY_POINT_COURSE_CONSUME" class="mt20 ml20">
@@ -131,7 +131,7 @@
           <Input v-model="editFormValidate.KEY_POINT_COURSE_CONSUME.course_num" style="width: 100px" />
           <span>课时，获得</span>
           <Input v-model="editFormValidate.KEY_POINT_COURSE_CONSUME.num" style="width: 100px" />
-          <span>个学币</span>
+          <span>个积分</span>
         </p>
 
         <p v-show="editCfkey == config.XstCompanySetting.KEY_POINT_PURCHASE_CARD" class="mt20 ml20">
@@ -139,7 +139,7 @@
           <Input v-model="editFormValidate.KEY_POINT_PURCHASE_CARD.money" style="width: 100px" />
           <span>元，获得</span>
           <Input v-model="editFormValidate.KEY_POINT_PURCHASE_CARD.num" style="width: 100px" />
-          <span>个学币</span>
+          <span>个积分</span>
         </p>
 
         <p v-show="editCfkey == config.XstCompanySetting.KEY_POINT_PURCHASE_DEDUCTION" class="mt20 ml20">
@@ -260,16 +260,16 @@
         },
         ruleValidate: {
           KEY_POINT_REGISTER_VALUE: [
-            {required: true, type: 'number', message: '请输入学币', trigger: 'blur'}
+            {required: true, type: 'number', message: '请输入积分', trigger: 'blur'}
           ],
           KEY_POINT_SHARE_VALUE: [
-            {required: true, type: 'number', message: '请输入学币', trigger: 'blur'}
+            {required: true, type: 'number', message: '请输入积分', trigger: 'blur'}
           ],
           KEY_POINT_SHARE_APPLY_VALUE: [
-            {required: true, type: 'number', message: '请输入学币', trigger: 'blur'}
+            {required: true, type: 'number', message: '请输入积分', trigger: 'blur'}
           ],
           // KEY_POINT_SHARE_SUCCESS_VALUE: [
-          //     {required: true, type: 'number',message: '请输入学币', trigger: 'blur'}
+          //     {required: true, type: 'number',message: '请输入积分', trigger: 'blur'}
           // ],
         }
       }
@@ -286,12 +286,12 @@
         this.showEditBox = true
         this.editCfkey = params.row.cfkey
         if(this.editCfkey == config.XstCompanySetting.KEY_POINT_REGISTER) {
-          this.editTitle = '注册加学币'
-          this.editTip = '新用户首次注册获得学币'
+          this.editTitle = '注册加积分'
+          this.editTip = '新用户首次注册获得积分'
           this.editFormValidate.KEY_POINT_REGISTER = params.row.value
         }else if(this.editCfkey == config.XstCompanySetting.KEY_POINT_SHARE) {
-          this.editTitle = '分享加学币'
-          this.editTip = '机构小程序分享课程、活动获得学币'
+          this.editTitle = '分享加积分'
+          this.editTip = '机构小程序分享课程、活动获得积分'
           this.editFormValidate.KEY_POINT_SHARE = params.row.value
         }else if(this.editCfkey == config.XstCompanySetting.KEY_POINT_SHARE_APPLY) {
           this.editTitle = '转介绍加分'
@@ -299,11 +299,11 @@
           this.editFormValidate.KEY_POINT_SHARE_APPLY = params.row.value
         } else if(this.editCfkey == config.XstCompanySetting.KEY_POINT_COURSE_CONSUME) {
           this.editTitle = '课消加分'
-          this.editTip = '扣费时根据课消奖励对应学币，取消扣费将减少对应学币'
+          this.editTip = '扣费时根据课消奖励对应积分，取消扣费将减少对应积分'
           this.editFormValidate.KEY_POINT_COURSE_CONSUME = params.row.value
         } else if(this.editCfkey == config.XstCompanySetting.KEY_POINT_PURCHASE_CARD) {
           this.editTitle = '签约加分'
-          this.editTip = '仅限于签合同收款奖励学币，奖励学币值取整'
+          this.editTip = '仅限于签合同收款奖励积分，奖励积分值取整'
           this.editFormValidate.KEY_POINT_PURCHASE_CARD = params.row.value
         } else if(this.editCfkey == config.XstCompanySetting.KEY_POINT_PURCHASE_DEDUCTION) {
           this.editTitle = '积分抵学费减分'
@@ -366,35 +366,35 @@
             ruleList.push({
               cfkey: config.XstCompanySetting.KEY_POINT_REGISTER,
               type: '注册',
-              content: `注册获得${data[config.XstCompanySetting.KEY_POINT_REGISTER].value}学币`,
+              content: `注册获得${data[config.XstCompanySetting.KEY_POINT_REGISTER].value}积分`,
               status: data[config.XstCompanySetting.KEY_POINT_REGISTER].status,
               value: data[config.XstCompanySetting.KEY_POINT_REGISTER].value,
             })
             ruleList.push({
               cfkey: config.XstCompanySetting.KEY_POINT_SHARE,
               type: '分享',
-              content: `每分享一人获得${data[config.XstCompanySetting.KEY_POINT_SHARE].value}学币`,
+              content: `每分享一人获得${data[config.XstCompanySetting.KEY_POINT_SHARE].value}积分（小程序端分享课程、活动）`,
               status: data[config.XstCompanySetting.KEY_POINT_SHARE].status,
               value: data[config.XstCompanySetting.KEY_POINT_SHARE].value,
             })
             ruleList.push({
               cfkey: config.XstCompanySetting.KEY_POINT_SHARE_APPLY,
               type: '转介绍',
-              content: `每转介绍一人获得${data[config.XstCompanySetting.KEY_POINT_SHARE_APPLY].value}学币`,
+              content: `每转介绍一人获得${data[config.XstCompanySetting.KEY_POINT_SHARE_APPLY].value}积分（小程序端）`,
               status: data[config.XstCompanySetting.KEY_POINT_SHARE_APPLY].status,
               value: data[config.XstCompanySetting.KEY_POINT_SHARE_APPLY].value,
             })
             ruleList.push({
               cfkey: config.XstCompanySetting.KEY_POINT_COURSE_CONSUME,
               type: '课消',
-              content: `学员每课消${data[config.XstCompanySetting.KEY_POINT_COURSE_CONSUME].value.course_num}课时，获得${data[config.XstCompanySetting.KEY_POINT_COURSE_CONSUME].value.num}学币`,
+              content: `学员每课消${data[config.XstCompanySetting.KEY_POINT_COURSE_CONSUME].value.course_num}课时，获得${data[config.XstCompanySetting.KEY_POINT_COURSE_CONSUME].value.num}积分`,
               status: data[config.XstCompanySetting.KEY_POINT_COURSE_CONSUME].status,
               value: data[config.XstCompanySetting.KEY_POINT_COURSE_CONSUME].value,
             })
             ruleList.push({
               cfkey: config.XstCompanySetting.KEY_POINT_PURCHASE_CARD,
               type: '签约',
-              content: `每满${data[config.XstCompanySetting.KEY_POINT_PURCHASE_CARD].value.money}元，获得${data[config.XstCompanySetting.KEY_POINT_PURCHASE_CARD].value.num}学币`,
+              content: `每满${data[config.XstCompanySetting.KEY_POINT_PURCHASE_CARD].value.money}元，获得${data[config.XstCompanySetting.KEY_POINT_PURCHASE_CARD].value.num}积分`,
               status: data[config.XstCompanySetting.KEY_POINT_PURCHASE_CARD].status,
               value: data[config.XstCompanySetting.KEY_POINT_PURCHASE_CARD].value,
             })
@@ -459,7 +459,7 @@
             let url = "/api/company/setting/update"
             this.$http.post(url, submitData).then(res => {
               if (res) {
-                this.$Message.success('更新学币配置成功!')
+                this.$Message.success('更新积分配置成功!')
 
                 // var _this = this
                 // setTimeout(function () {

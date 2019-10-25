@@ -67,12 +67,14 @@ Page({
             }
 
             //用户在线状态
+            /*
             let phone = wx.getStorageSync('phone')
             let uname = wx.getStorageSync('uname')
             this.setData({
                 hasUserInfo: !!phone,
                 showAuthBox: !(!!uname)
             })
+            */
 
             this.getData()
         })

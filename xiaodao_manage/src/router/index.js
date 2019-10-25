@@ -207,6 +207,31 @@ export default new Router({
           name: 'studentDetail',
           component: () => import('@/pages/studentDetail')
         },
+        {
+          path: '/shopGoods',
+          name: 'shopGoods',
+          component: () => import('@/pages/shopGoods')
+        },
+        {
+          path: '/shopGoodsEdit',
+          name: 'shopGoodsEdit',
+          component: () => import('@/pages/shopGoodsEdit')
+        },
+        {
+          path: '/shopGoodsCategory',
+          name: 'shopGoodsCategory',
+          component: () => import('@/pages/shopGoodsCategory')
+        },
+        {
+          path: '/shopBanner',
+          name: 'shopBanner',
+          component: () => import('@/pages/shopBanner')
+        },
+        {
+          path: '/shopOrder',
+          name: 'shopOrder',
+          component: () => import('@/pages/shopOrder')
+        },
       ]
     }
   ]

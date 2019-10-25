@@ -20,6 +20,7 @@ Page({
     youhuijine:0, //优惠券金额
     curCoupon:null // 当前选择使用的优惠券
   },
+
   onShow : function () {
     var that = this;
     var shopList = [];

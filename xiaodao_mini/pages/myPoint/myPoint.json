@@ -1,6 +1,6 @@
 {
   "window": {
-    "navigationBarTitleText": "学币"
+    "navigationBarTitleText": "积分"
   },
   "usingComponents": {
     "i-spin": "../../components/spin/index",

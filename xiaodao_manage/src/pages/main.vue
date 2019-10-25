@@ -81,12 +81,24 @@
             <i class="icon iconfont icon-jifen" style="margin-left: 12px;font-size: 14px;"></i>
             用户资金管理
           </template>
-          <MenuItem name="userPoint">用户学币</MenuItem>
-          <MenuItem name="pointDetail">用户学币明细</MenuItem>
+          <MenuItem name="userPoint">用户积分</MenuItem>
+          <MenuItem name="pointDetail">用户积分明细</MenuItem>
         </Submenu>
 
 
         <Submenu name="7">
+          <template slot="title">
+            <i class="icon iconfont icon-shangcheng" style="margin-left: 12px;font-size: 14px;"></i>
+            积分商城管理
+          </template>
+          <MenuItem name="shopGoods">商品管理</MenuItem>
+          <MenuItem name="shopGoodsCategory">商品类别</MenuItem>
+          <MenuItem name="shopOrder">订单管理</MenuItem>
+          <MenuItem name="shopBanner">商城Banner</MenuItem>
+        </Submenu>
+
+
+        <Submenu name="8">
           <template slot="title">
             <Icon type="md-phone-portrait" style="font-size: 18px"/>
             手机端设置
@@ -102,7 +114,7 @@
         <!--</MenuItem>-->
 
 
-        <Submenu name="8">
+        <Submenu name="9">
           <template slot="title">
             <Icon type="ios-home"/>
             内部管理
@@ -118,13 +130,13 @@
         <!--<MenuItem name="company">机构信息</MenuItem>-->
         <!--</Submenu>-->
 
-        <Submenu name="9">
+        <Submenu name="10">
           <template slot="title">
             <Icon type="md-settings"/>
             机构设置
           </template>
           <MenuItem name="company">机构信息</MenuItem>
-          <MenuItem name="pointEdit">学币设置</MenuItem>
+          <MenuItem name="pointEdit">积分设置</MenuItem>
           <MenuItem name="ruleSetting">规则设置</MenuItem>
         </Submenu>
       </Menu>
