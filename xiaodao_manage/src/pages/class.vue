@@ -47,7 +47,6 @@
             <Col span="2">
             <Button class="ml20" type="info" @click="search">查询</Button>
             </Col>
-
           </Row>
         </div>
 
@@ -124,11 +123,11 @@
             </Select>
           </FormItem>
 
-          <!--<FormItem label="班级老师" prop="teacher_id">-->
-            <!--<Select v-model="classFormValidate.teacher_id" style="width:calc(100% - 60px);">-->
-              <!--<Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-            <!--</Select>-->
-          <!--</FormItem>-->
+          <FormItem label="班级老师" prop="teacher_mid">
+            <Select v-model="classFormValidate.teacher_mid" clearable style="width:calc(100% - 60px);">
+              <Option v-for="item in teacherList" :value="item.mid" :key="item.mid">{{ item.uname }}</Option>
+            </Select>
+          </FormItem>
 
           <FormItem label="备注" prop="comment">
             <Input v-model="classFormValidate.comment" type="textarea" :autosize="{minRows: 3,maxRows: 8}" placeholder="请输入备注" style="width:calc(100% - 60px);"></Input>
@@ -167,6 +166,7 @@
   import store from '../store'
   import lib from '@/assets/js/lib/index'
   import config from '@/assets/js/config/index'
+  import api from '@/assets/js/api'
 
 
   // 检验手机号码
@@ -185,22 +185,13 @@
         courseList: [],
         classroomList: [],
 
-        teacherList: [
-          {
-            value: 1,
-            label: '张浩'
-          },
-          {
-            value: 2,
-            label: '朱标'
-          }
-        ],
+        teacherList: [],
         classFormValidate: {
           ccid: 0,
           name: '',
           max_num: '',
           classroom_id: '',
-          // teacher_id: '',
+          teacher_mid: '',
           comment: '',
         },
         classRuleValidate: {
@@ -396,6 +387,12 @@
 
       this.getCourseList()
       this.getClassroomList()
+
+      api.getTeacherList.call(this, data => {
+        this.teacherList = data
+      }, error => {
+        this.$Message.error(error.message)
+      })
     },
     methods: {
       getCourseList() {
@@ -479,6 +476,7 @@
               name: this.classFormValidate.name,
               ccid: this.classFormValidate.ccid,
               max_num: this.classFormValidate.max_num,
+              teacher_mid: this.classFormValidate.teacher_mid,
               classroom_id: this.classFormValidate.classroom_id ? this.classFormValidate.classroom_id : null,
             }
             if(this.classFormValidate.id) {

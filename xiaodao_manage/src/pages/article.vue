@@ -2,19 +2,13 @@
   <div>
     <div class="manage_title">
       <Breadcrumb>
-        <BreadcrumbItem>用户资金管理</BreadcrumbItem>
-        <BreadcrumbItem>用户积分明细</BreadcrumbItem>
+        <BreadcrumbItem>手机端设置</BreadcrumbItem>
+        <BreadcrumbItem>机构介绍文章管理</BreadcrumbItem>
       </Breadcrumb>
     </div>
-    <div class="container staff_container mt20">
-      <div>
-        <span>搜索查询：</span>
-        <Input v-model="searchValue" placeholder="输入用户昵称或手机号" style="width: 300px" @on-change="changeSearch"></Input>
-        <Button class="ml20" type="info" @click="search">查询</Button>
-      </div>
+    <div class="container article_container mt20">
       <div class="mt20">
-        <!--<Button type="info" icon="ios-plus-empty" @click="add">新建用户</Button>-->
-        <!--<Button type="default" class="ml20" @click="exportDataDilog()">导出Excel</Button>-->
+        <Button type="info" icon="ios-plus-empty" @click="add">添加</Button>
       </div>
       <Table border ref="selection" :loading="loading" :columns="tableColumns" :data="tableData" class="mt20">></Table>
       <div style="margin: 10px;overflow: hidden">
@@ -24,6 +18,7 @@
         </div>
       </div>
     </div>
+
 
     <Modal v-model="exportDataShow">
       <p slot="header">
@@ -48,11 +43,18 @@
 <script>
   import lib from '@/assets/js/lib/index'
   import config from '@/assets/js/config/index'
+  import fileUpload from '@/components/fileUpload'
 
   export default {
-    name: 'staff',
+    name: 'shopBanner',
+    components: {
+      fileUpload
+    },
     data() {
       return {
+        formValidate: {},
+        ruleValidate: {},
+
         searchValue: "",
         current: 1,
         pageSize: 10,
@@ -76,29 +78,48 @@
         },
         tableColumns:
           [
+            // {
+            //   title: '图片',
+            //   key: 'imglink_format',
+            //   render: (h, params) => {
+            //     return h('div', [
+            //       h('img', {
+            //         attrs: {
+            //           src: params.row.imglink_format ? params.row.imglink_format : 'http://img.7hu.cn/avatar-student.jpg',
+            //         },
+            //         style: {
+            //           width: '80px',
+            //           backgroundColor: "#c6cfe1",
+            //           margin: "6px 0",
+            //           float: "left"
+            //         }
+            //       }),
+            //     ])
+            //   }
+            // },
             {
-              title: '姓名',
-              key: 'uname'
+              title: '标题',
+              key: 'name'
             },
             {
-              title: '手机',
-              key: 'phone'
+              title: '状态',
+              key: 'status',
+              render: (h, params) => {
+                const row = params.row;
+                const color = row.status === config.Article.STATUS_PUBLISH ? 'success' : row.status === config.Article.STATUS_WAIT_CHECK ? 'primary' : 'error';
+                const text = row.status === config.Article.STATUS_PUBLISH ? '审核通过' : row.status === config.Article.STATUS_WAIT_CHECK ? '待审核' : '审核不通过';
+
+                return h('Tag', {
+                  props: {
+                    type: 'dot',
+                    color: color
+                  }
+                }, text);
+              }
             },
             {
-              title: '类型',
-              key: 'comment'
-            },
-            {
-              title: '变动数量',
-              key: 'num_format'
-            },
-            {
-              title: '剩余积分',
-              key: 'cur_point_num_format'
-            },
-            {
-              title: '备注',
-              key: 'comment'
+              title: '排序',
+              key: 'sort'
             },
             {
               title: '创建日期',
@@ -141,7 +162,6 @@
               }
             }
           ],
-
       }
     },
     mounted() {
@@ -158,7 +178,7 @@
     methods: {
       add() {
         this.$router.push({
-          path: 'staffEdit',
+          path: 'articleEdit',
           query: {}
         })
       },
@@ -183,7 +203,7 @@
         this.$refs[inventory].validate((valid) => {
           if (valid) {
             this.$refs.selection.exportCsv({
-              filename: '用户列表数据',
+              filename: '活动列表数据',
               columns: this.tableColumns.filter((col, index) => index < 6),
               data: this.tableData.filter((data, index) => index < 9999)
             })
@@ -192,23 +212,20 @@
       },
       getTableData(option) {
         let submitData = {
-          search: this.searchValue,
           pageIndex: option.pageIndex,
-          pageSize: option.pageSize
+          pageSize: option.pageSize,
         }
-        let url = lib.getRequestUrl('/api/point/detail/getlist', submitData)
-        this.$http.get(url, {}).then(res => {
+        let url = `/api/article/getlist`
+        this.$http.post(url, submitData).then(res => {
           if (res) {
-            this.loading = false
             this.current = option.pageIndex
 
             this.total = res.data.total
-            this.tableData = lib.filterResult(res.data.data)
-             console.log('this.tableData',this.tableData)
-            this.tableData.map(item=>{
-              item.num_format = item.num / 1000
-              item.cur_point_num_format = item.cur_point_num / 1000
-            })
+            let list = lib.filterResult(res.data.data)
+
+            this.tableData = list
+
+            this.loading = false
           }
         }).catch(error => {
           console.log('error', error)
@@ -216,6 +233,46 @@
           this.$Message.error(error.message);
         })
       },
+      handleSubmit(inventory) {
+        this.$refs[inventory].validate((valid) => {
+          if(valid) {
+            let submitData = {
+              content_id: this.formValidate.content_id,
+              type: config.ShopBanner.TYPE_GOODS,
+              sort: this.formValidate.sort,
+              imglink: this.formValidate.imglink
+            }
+
+            let url
+            if(this.formValidate.id) {
+              url = 'api/shop/banner/update'
+              submitData.id = this.formValidate.id
+            }else{
+              url = 'api/shop/banner/add'
+            }
+
+            this.$http.post(url, submitData).then(res => {
+              if(res) {
+                let message = this.isAdd ? '添加成功' : '修改成功'
+                this.$Message.success(message);
+
+                this.getTableData({
+                  pageIndex: this.current,
+                  pageSize: this.pageSize,
+                })
+
+                this.showBannerModal = false
+              }
+            }).catch(error => {
+              this.$Message.error(error.message);
+            })
+          }
+        })
+      },
+      handleCancel() {
+        this.showBannerModal = false
+      },
+
       changePage(page) {
         this.current = page
         this.getTableData(
@@ -237,27 +294,24 @@
       // 编辑页面
       update(params) {
         this.$router.push({
-          path: 'staffEdit',
+          path: 'articleEdit',
           query: {
-            cid: params.row.cid,
-            mid: params.row.mid
+            id: params.row.id
           }
         })
       },
       remove(params) {
         this.$Modal.confirm({
           title: '删除',
-          content: "确认删除" + params.row.uname + "吗？",
+          content: "确认删除吗？",
           okText: '确认',
           cancelText: '取消',
           onOk: () => {
             console.log('params', params)
             let submitData = {
-              mid: params.row.mid,
-              cid: params.row.cid,
-              roles: params.row.role_id,
+              id: params.row.id
             }
-            this.$http.post("/api/member/del", submitData).then(res => {
+            this.$http.post("/api/shop/banner/del", submitData).then(res => {
               if (res) {
                 this.$Message.success('删除成功!')
                 this.getTableData(
@@ -292,6 +346,9 @@
             pageSize: this.pageSize,
           })
         }
+      },
+      imglinkFileUpload(uploadfile) {
+        this.formValidate.imglink = lib.getUpdateUploadPicStr(uploadfile)
       },
     },
   }

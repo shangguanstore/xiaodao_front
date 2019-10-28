@@ -20,6 +20,7 @@ var config = {
   ShopBanner: ShopBanner,
   ShopStorageChangeDetail: ShopStorageChangeDetail,
   LotteryGoods: LotteryGoods,
+  Article: Article,
   payType: [{label: '支付宝',value: 1},{label: '微信',value: 2},{label: '银行卡',value: 3},{label: '现金',value: 4},{label: '其他',value: 5}]
 }
 
@@ -180,6 +181,19 @@ ShopStorageChangeDetail.TYPE_OUT = 1;
 function ShopBanner() {
 }
 ShopBanner.TYPE_GOODS = 0;
+
+
+
+function Article() {
+}
+Article.STATUS_WAIT_CHECK = 0;
+Article.STATUS_PUBLISH = 1;
+Article.STATUS_DENY = 2;
+Article.STATUS_DELETED = -1;
+
+Article.TYPE_MINI_HOME_ARTICLE = 0;
+Article.TYPE_OTHER = 10;
+
 
 
 export default config

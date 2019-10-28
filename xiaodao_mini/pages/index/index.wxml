@@ -27,33 +27,42 @@
 
     <view class='gap'></view>
     <view class='topNav'>
-        <view class='navItem' data-url='../article/article?id=9862' bindtap='routeToArticle'>
-            <view class='circle' style='background: #80CEFC;'>
+        <view wx:for-items="{{articleList}}" wx:key="{{index}}" class='navItem' data-url='../article/article?id={{item.id}}' bindtap='routeToArticle'>
+            <view wx:if="{{item.name == '教学特色'}}" class='circle' style='background: #80CEFC;'>
                 <text class="iconfont icon-icon"></text>
             </view>
-            <text class='des'>教学特色</text>
-        </view>
-
-        <view class='navItem' data-url='../article/article?id=9866' bindtap='routeToArticle'>
-            <view class='circle' style='background: #88FAFD;'>
+            <view wx:if="{{item.name == '学员风采'}}" class='circle' style='background: #88FAFD;'>
                 <text class="iconfont icon-course"></text>
             </view>
-            <text class='des'>学员风采</text>
-        </view>
-
-        <view class='navItem' data-url='../article/article?id=9867' bindtap='routeToArticle'>
-            <view class='circle' style='background: #A7CCFE;'>
+            <view wx:if="{{item.name == '精英教师'}}" class='circle' style='background: #A7CCFE;'>
                 <text class="iconfont icon-shiziduiwu"></text>
             </view>
-            <text class='des'>精英教师</text>
-        </view>
-
-        <view class='navItem' data-url='../article/article?id=9868' bindtap='routeToArticle'>
-            <view class='circle' style='background: A7CCFE;'>
+            <view wx:if="{{item.name == '机构优势'}}" class='circle' style='background: A7CCFE;'>
                 <text class="iconfont icon-zan"></text>
             </view>
-            <text class='des'>机构优势</text>
+            <text class='des'>{{item.name}}</text>
         </view>
+
+        <!--<view class='navItem' data-url='../article/article?id=9866' bindtap='routeToArticle'>-->
+            <!--<view class='circle' style='background: #88FAFD;'>-->
+                <!--<text class="iconfont icon-course"></text>-->
+            <!--</view>-->
+            <!--<text class='des'>学员风采</text>-->
+        <!--</view>-->
+
+        <!--<view class='navItem' data-url='../article/article?id=9867' bindtap='routeToArticle'>-->
+            <!--<view class='circle' style='background: #A7CCFE;'>-->
+                <!--<text class="iconfont icon-shiziduiwu"></text>-->
+            <!--</view>-->
+            <!--<text class='des'>精英教师</text>-->
+        <!--</view>-->
+
+        <!--<view class='navItem' data-url='../article/article?id=9868' bindtap='routeToArticle'>-->
+            <!--<view class='circle' style='background: A7CCFE;'>-->
+                <!--<text class="iconfont icon-zan"></text>-->
+            <!--</view>-->
+            <!--<text class='des'>机构优势</text>-->
+        <!--</view>-->
 
         <!-- <view class='navItem'  data-url='../../mall/mall/mall' bindtap='routeToShop'>
           <view class='circle' style='background: #9AC79D;'>

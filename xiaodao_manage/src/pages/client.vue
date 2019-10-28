@@ -379,8 +379,7 @@
         this.$router.push({
           path: 'studentEdit',
           query: {
-            // cid: params.row.cid,
-            // mid: params.row.mid
+            from: 'client'
           }
         })
       },
@@ -597,7 +596,8 @@
           path: 'studentEdit',
           query: {
             cid: params.row.cid,
-            mid: params.row.mid
+            mid: params.row.mid,
+            from: 'client'
           }
         })
       },

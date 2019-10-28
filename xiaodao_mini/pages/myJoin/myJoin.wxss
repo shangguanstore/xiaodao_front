@@ -106,11 +106,4 @@
   float: right;
 }
 
-.noData {
-  margin-top: 60rpx;
-}
 
-.noData image {
-  width: 796rpx;
-  height: 360rpx;
-}

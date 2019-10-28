@@ -224,7 +224,7 @@
             {name: 'editing', items: ['Scayt']}
           ],
           height: 400,
-          width: 700
+          width: '100%'
         },
         showPicModal: false,
         formValidate: {

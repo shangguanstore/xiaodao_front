@@ -121,7 +121,11 @@
     },
     created() {
       if (this.$route.query.mid) {
-        this.title = "编辑学员"
+        if(this.$route.query.from == 'client') {
+          this.title = "编辑咨询用户"
+        }else{
+          this.title = "编辑学员"
+        }
         this.isAdd = false
         let submitData = {
           mid: this.$route.query.mid,
@@ -145,7 +149,11 @@
           this.$Message.error(error.message);
         })
       } else {
-        this.title = "新增学员"
+        if(this.$route.query.from == 'client') {
+          this.title = "新增咨询用户"
+        }else{
+          this.title = "新增学员"
+        }
         this.isAdd = true
       }
       this.getSchoolList()
@@ -246,6 +254,22 @@
             this.$http.post(url, submitData).then(res => {
               if (res) {
                 this.$Message.success(this.title + '成功!')
+
+                setTimeout(()=>{
+                  if(this.$route.query.from == 'client') {
+                    this.$router.push({
+                      path: 'client',
+                      query: {}
+                    })
+                  }else{
+                    this.$router.push({
+                      path: 'student',
+                      query: {}
+                    })
+                  }
+                }, 200)
+
+
                 var _this = this
                 setTimeout(function () {
                   _this.$router.push({

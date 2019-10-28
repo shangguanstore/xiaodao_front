@@ -105,6 +105,7 @@
           </template>
           <MenuItem name="weWebsite">首页Banner设置</MenuItem>
           <MenuItem name="homeActivity">首页活动排序</MenuItem>
+          <MenuItem name="article">机构介绍文章管理</MenuItem>
         </Submenu>
 
 

@@ -232,6 +232,16 @@ export default new Router({
           name: 'shopOrder',
           component: () => import('@/pages/shopOrder')
         },
+        {
+          path: '/article',
+          name: 'article',
+          component: () => import('@/pages/article')
+        },
+        {
+          path: '/articleEdit',
+          name: 'articleEdit',
+          component: () => import('@/pages/articleEdit')
+        },
       ]
     }
   ]

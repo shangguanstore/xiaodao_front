@@ -224,7 +224,7 @@
           if (valid) {
             let submitData = {
               mid: this.formValidate.mid,
-              num: this.formValidate.num,
+              num: this.formValidate.num * 1000,
               comment: this.formValidate.comment
             }
             let url = 'api/change/user/point'

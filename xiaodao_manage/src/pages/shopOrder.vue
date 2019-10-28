@@ -16,42 +16,6 @@
       </div>
     </div>
 
-
-    <Modal
-      v-model="showBannerModal"
-      width:="480"
-      :styles="{top: '200px'}"
-    >
-      <p slot="header">
-        <span>{{modalTitle}}</span>
-      </p>
-
-      <div>
-        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" class="mt20">
-          <fileUpload v-if="!loading && formValidate.imglink" :imglink="formValidate.imglink" label="轮播图片" :limit="1"
-                      v-on:fileupload="imglinkFileUpload"></fileUpload>
-
-          <FormItem label="跳转内容" prop="content_id">
-            <Select v-model="formValidate.content_id">
-              <Option v-for="item in goodsList" :value="item.id" :key="item.id">{{ item.name }}</Option>
-            </Select>
-          </FormItem>
-
-          <FormItem label="排序" prop="sort">
-            <Input v-model="formValidate.sort" placeholder="banner顺序,数值越大越靠前"></Input>
-          </FormItem>
-          <p style="margin-bottom: 24px;margin-top: -12px;margin-left: 86px;color: #666666;">
-            *&nbsp;数值越大，排序越靠前，值相等时按添加时间排序
-          </p>
-        </Form>
-      </div>
-
-      <div slot="footer">
-        <Button type="default" @click="handleCancel" style="margin-left: 8px">取消</Button>
-        <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
-      </div>
-    </Modal>
-
     <Modal v-model="exportDataShow">
       <p slot="header">
         <span>导出数据</span>
@@ -84,8 +48,6 @@
     },
     data() {
       return {
-        showBannerModal: false,
-        modalTitle: '',
         formValidate: {},
         ruleValidate: {},
         goodsList: [],
@@ -135,6 +97,10 @@
                   }),
                 ])
               }
+            },
+            {
+              title: '订单状态',
+              key: 'order_status_string'
             },
             {
               title: '姓名',
@@ -212,8 +178,7 @@
     },
     methods: {
       add() {
-        this.showBannerModal = true
-        this.modalTitle = '添加轮播图'
+
       },
       exportDataDilog() {
         this.exportDataShow = true
@@ -281,45 +246,7 @@
           this.$Message.error(error.message);
         })
       },
-      handleSubmit(inventory) {
-        this.$refs[inventory].validate((valid) => {
-          if(valid) {
-            let submitData = {
-              content_id: this.formValidate.content_id,
-              type: config.ShopBanner.TYPE_GOODS,
-              sort: this.formValidate.sort,
-              imglink: this.formValidate.imglink
-            }
 
-            let url
-            if(this.formValidate.id) {
-              url = 'api/shop/banner/update'
-              submitData.id = this.formValidate.id
-            }else{
-              url = 'api/shop/banner/add'
-            }
-
-            this.$http.post(url, submitData).then(res => {
-              if(res) {
-                let message = this.isAdd ? '添加成功' : '修改成功'
-                this.$Message.success(message);
-
-                this.getTableData({
-                  pageIndex: this.current,
-                  pageSize: this.pageSize,
-                })
-
-                this.showBannerModal = false
-              }
-            }).catch(error => {
-              this.$Message.error(error.message);
-            })
-          }
-        })
-      },
-      handleCancel() {
-        this.showBannerModal = false
-      },
 
       changePage(page) {
         this.current = page
@@ -341,15 +268,7 @@
       },
       // 编辑页面
       update(params) {
-        // this.formValidate.id = params.row.id
-        // this.formValidate.imglink = params.row.imglink
-        // this.formValidate.content_id = params.row.content_id
-        // this.formValidate.sort = params.row.sort
 
-        this.formValidate = params.row
-
-        this.showBannerModal = true
-        this.modalTitle = '编辑轮播图'
       },
       remove(params) {
         this.$Modal.confirm({

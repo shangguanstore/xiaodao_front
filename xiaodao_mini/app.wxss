@@ -616,6 +616,7 @@ button.no_border {
 
 .no-goods {
   width: 100%;
+  margin-top: 200rpx;
   padding-top: 330rpx;
   text-align: center;
   font-size:28rpx;
@@ -634,6 +635,13 @@ button.no_border {
   background: #ff9b2c !important;
 }
 
+.noData {
+  margin-top: 200rpx;
+}
+.noData image {
+  width: 796rpx;
+  height: 360rpx;
+}
 
 
 /* icon - front-mobile 项目 */

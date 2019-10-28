@@ -131,10 +131,13 @@
                 加入购物车
             </view>
 
-            <button class="popup-join-btn shop-btn-bg-primary no_border no_border_radius" open-type="getUserInfo" data-shopType="{{shopType}}" wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" bindgetuserinfo="buyNow">
+            <!--<button class="popup-join-btn shop-btn-bg-primary no_border no_border_radius" open-type="getUserInfo" data-shopType="{{shopType}}" wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" bindgetuserinfo="buyNow">-->
+                <!--立即购买-->
+            <!--</button>-->
+
+            <button class="popup-join-btn shop-btn-bg-primary no_border no_border_radius" data-shopType="{{shopType}}" wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" bindtap="doBuyNow">
                 立即购买
             </button>
-
 
         </view>
     </view>

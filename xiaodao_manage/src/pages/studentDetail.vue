@@ -63,7 +63,7 @@
     </div>
 
     <div class="container mt20">
-      <Tabs value="name1">
+      <Tabs value="name1" @on-click="tabClick">
         <TabPane label="报读课程" name="name1">
           <div class="courseArea">
             <Row :gutter="20">
@@ -395,8 +395,6 @@
                     <!--<span>{{item.label}}</span>-->
                   <!--</li>-->
                 <!--</ul>-->
-
-
               </div>
               </Col>
             </Row>
@@ -404,23 +402,37 @@
         </TabPane>
         <TabPane label="积分明细" name="name2">
           <div class="mt20">
-            <!--<Button type="info" icon="ios-plus-empty" @click="preJoinClass">添加学员</Button>-->
-            <!--<Button type="default" class="ml20">调至其他班</Button>-->
-            <!--<Button type="default" class="ml20">移出本班</Button>-->
+            <Button type="info" icon="ios-plus-empty" @click="addPoint">调整积分</Button>
           </div>
 
-          <Table border ref="selection" :loading="loading"
-                 :columns="studentTableColumns"
-                 :data="studentTableData" class="mt20">>
-          </Table>
+          <MyTable ref="pointtable" class="mt20" action="/api/point/detail/getlist"
+                   :columns="pointDetailTableColumns"
+                   :filterFn="pointDetailFilterFun"
+                   :options="pointDetailOptions">
+          </MyTable>
+
+          <!--<Table border ref="selection" :loading="loading"-->
+                 <!--:columns="studentTableColumns"-->
+                 <!--:data="studentTableData" class="mt20">>-->
+          <!--</Table>-->
         </TabPane>
-
-
         <!--<TabPane label="点名情况" name="name3">标签三的内容</TabPane>-->
       </Tabs>
     </div>
 
+    <Modal
+      v-model="changePointModel"
+      title="修改用户积分" @on-ok="changePointModalSubmit('pointFormValidate')">
+      <Form ref="pointFormValidate" :model="pointFormValidate" :rules="pointRuleValidate" label-position="left" :label-width="70">
+        <FormItem label="更改数量" prop="num">
+          <Input v-model="pointFormValidate.num" placeholder="请输入变动积分，正数表示增加积分，负数表示减少积分"></Input>
+        </FormItem>
 
+        <FormItem label="备注" prop="comment">
+          <Input v-model="pointFormValidate.comment" placeholder="备注说明"></Input>
+        </FormItem>
+      </Form>
+    </Modal>
   </div>
 </template>
 
@@ -428,10 +440,13 @@
   import lib from '@/assets/js/lib/index'
   import config from '@/assets/js/config/index'
   import api from '@/assets/js/api'
+  import MyTable from '@/components/MyTable'
 
   export default {
     name: 'classDetail',
-    components: {},
+    components: {
+      MyTable
+    },
     data() {
       return {
         memberInfo: {},
@@ -454,6 +469,49 @@
 
         delFormValidate: {},
         delLoading: false,
+
+        pointFormValidate: {},
+        pointRuleValidate: {},
+
+        changePointModel: false,
+        pointDetailOptions: {},
+        pointDetailFilterFun: i=> {
+          i.map(item=>{
+            item.num_format = item.num / 1000
+            item.cur_point_num_format = item.cur_point_num / 1000
+          })
+          return i
+        },
+        pointDetailTableColumns: [
+          {
+            title: '姓名',
+            key: 'uname'
+          },
+          {
+            title: '手机',
+            key: 'phone'
+          },
+          {
+            title: '类型',
+            key: 'comment'
+          },
+          {
+            title: '变动数量',
+            key: 'num_format'
+          },
+          {
+            title: '剩余积分',
+            key: 'cur_point_num_format'
+          },
+          {
+            title: '备注',
+            key: 'comment'
+          },
+          {
+            title: '创建日期',
+            key: 'create_time_format'
+          },
+        ],
 
         studentTableData: [],
         studentTableColumns: [
@@ -533,11 +591,48 @@
       })
 
       this.payTypeList = config.payType
+      this.pointDetailOptions = {
+        mid: this.$route.query.mid
+      }
     },
     mounted() {
 
     },
     methods: {
+      tabClick(e) {
+        if(e == 'name2') {
+
+        }
+      },
+      addPoint() {
+        this.pointFormValidate = {}
+        this.changePointModel = true
+      },
+      changePointModalSubmit(formValidate) {
+        console.log('111',formValidate)
+        this.$refs[formValidate].validate((valid) => {
+          if (valid) {
+            let submitData = {
+              mid: this.$route.query.mid,
+              num: this.pointFormValidate.num * 1000,
+              comment: this.pointFormValidate.comment
+            }
+            let url = 'api/change/user/point'
+            this.$http.post(url, submitData).then(res => {
+              if (res) {
+                this.$Message.success('调整积分成功!');
+                this.$refs.pointtable.refresh()
+              }
+            }).catch(error => {
+              console.log('error', error)
+              this.loading = false
+              this.$Message.error(error.message);
+            })
+          }else{
+            this.$Message.error('请填写完整信息');
+          }
+        })
+      },
       changeRechargeSetDate(e) {
         console.log('setdate', e)
         console.log('this.rechargeFormValidate', this.rechargeFormValidate)
@@ -687,6 +782,41 @@
           let member = res.data.member
           member = lib.filterResult(member)
           this.memberInfo = member[0]
+        }).catch(error => {
+          this.loading = false
+          console.log('error', error)
+
+          this.$Message.error(error.message);
+        })
+      },
+      getPointDetailList() {
+        let submitData = {
+          mid: this.$route.query.mid
+        }
+        this.$http.post('/api/card/getlist', submitData).then(res => {
+          let card = res.data.data
+          card = lib.filterResult(card)
+
+          card.map(item=>{
+            item.disabled = false
+            if(item.status == config.Card.STATUS_USING) {
+              item.des = `${item.num}课时`
+            }else if(item.status == config.Card.STATUS_REFUND) {
+              item.des = `已退费`
+              item.disabled = true
+            }
+          })
+
+          this.cardList = card
+          for(var i = 0; i < this.cardList.length; i++) {
+            if(!lib.empty(this.curCard)) {
+              this.changeCard(this.curCard.id)
+              break
+            }else if(!lib.in_array(this.cardList[i].status, [config.Card.STATUS_REFUND])){
+              this.changeCard(this.cardList[i].id)
+              break
+            }
+          }
         }).catch(error => {
           this.loading = false
           console.log('error', error)

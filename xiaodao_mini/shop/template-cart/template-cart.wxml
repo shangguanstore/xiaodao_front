@@ -47,7 +47,8 @@
             <!--<view class="total" hidden="{{noSelect}}">合计：¥ {{totalPrice}} + {{totalScoreToPay}} 积分</view>-->
             <view class="total" hidden="{{noSelect}}">合计：{{totalScoreToPay}} 积分</view>
         </view>
-        <button class="to-pay-btn no_border_radius no_border {{noSelect?'no-select':''}}" open-type="getUserInfo" hidden="{{!saveHidden}}" bindgetuserinfo="toPayOrder">去结算</button>
+        <!--<button class="to-pay-btn no_border_radius no_border {{noSelect?'no-select':''}}" open-type="getUserInfo" hidden="{{!saveHidden}}" bindgetuserinfo="toPayOrder">去结算</button>-->
+        <button class="to-pay-btn no_border_radius no_border {{noSelect?'no-select':''}}" hidden="{{!saveHidden}}" bindtap="doPayOrder">去结算</button>
         <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{saveHidden}}" bindtap="deleteSelected">删除</view>
     </view>
 </template>

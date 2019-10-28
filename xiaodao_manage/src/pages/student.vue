@@ -274,8 +274,23 @@
             {
               title: '操作',
               key: 'operation',
+              width: '200px',
               render: (h, params) => {
                 return h('div', [
+                  h('Button', {
+                    props: {
+                      type: 'text',
+                      size: 'small',
+                    },
+                    style: {
+                      color: '#2db7f5'
+                    },
+                    on: {
+                      click: () => {
+                        this.showDetail(params)
+                      }
+                    }
+                  }, '查看'),
                   h('Button', {
                     props: {
                       type: 'text',
@@ -453,7 +468,8 @@
           getCard: true,
           isStudent: true,
           pageIndex: option.page,
-          pageSize: option.size,
+          // pageSize: option.size,
+          pageSize: 1000,
         }
         let url = lib.getRequestUrl('/api/member/getlist', submitData)
         this.$http.get(url, {}).then(res => {

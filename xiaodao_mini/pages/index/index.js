@@ -16,20 +16,21 @@ Page({
         Loaded: false,
         hasUserInfo: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
-        
+
         bannerList: [],
-        activityList: []
+        activityList: [],
+        articleList: []
     },
 
     onLoad: function (options) {
-        console.log('options---',options)
+        console.log('options---', options)
 
         let config = app.config
         this.setData({
             config: config
         })
 
-        app.userOnline.then(res=>{
+        app.userOnline.then(res => {
             let uname = wx.getStorageSync('uname')
             let phone = wx.getStorageSync('phone')
             let hasUserInfo = !!phone
@@ -43,9 +44,10 @@ Page({
     },
 
     getData() {
-      this.getCompany()
-      this.getBannerList()
-      this.getActivityList()
+        this.getCompany()
+        this.getBannerList()
+        this.getActivityList()
+        this.getArticleList()
     },
 
     routeTo: function (e) {
@@ -88,46 +90,46 @@ Page({
     },
 
     callPhone() {
-      let company = this.data.company
-      let tel = company.phone ? company.phone : company.fixphone
-      wx.makePhoneCall({
-        phoneNumber: tel,
-      })
+        let company = this.data.company
+        let tel = company.phone ? company.phone : company.fixphone
+        wx.makePhoneCall({
+            phoneNumber: tel,
+        })
     },
 
     viewMap() {
-      console.log('this.company', this.company)
-      if (this.data.company.geo) {
-        var e = this.data.company.geo.split(",");
-        wx.openLocation({
-          latitude: e[0] - 0,
-          longitude: e[1] - 0,
-          name: this.data.company.name,
-          address: this.data.company.address
-        });
-      }
+        console.log('this.company', this.company)
+        if (this.data.company.geo) {
+            var e = this.data.company.geo.split(",");
+            wx.openLocation({
+                latitude: e[0] - 0,
+                longitude: e[1] - 0,
+                name: this.data.company.name,
+                address: this.data.company.address
+            });
+        }
     },
 
     getCompany() {
-      // wx.showLoading()
-      let url = 'api/company/getlist'
-      var _this = this
-      request(url, 'get', {}, function (res) {
-        //res就是我们请求接口返回的数据
-        var company = res.data.data
-        lib.filterResult(company)
+        // wx.showLoading()
+        let url = 'api/company/getlist'
+        var _this = this
+        request(url, 'get', {}, function (res) {
+            //res就是我们请求接口返回的数据
+            var company = res.data.data
+            lib.filterResult(company)
 
-        _this.setData({
-          company: company[0],
-          Loaded: true
+            _this.setData({
+                company: company[0],
+                Loaded: true
+            })
+            // wx.hideLoading()
+        }, function () {
+            wx.showToast({
+                title: '加载数据失败',
+                icon: 'none'
+            })
         })
-        // wx.hideLoading()
-      }, function () {
-        wx.showToast({
-          title: '加载数据失败',
-          icon: 'none'
-        })
-      })
     },
 
     getBannerList() {
@@ -149,6 +151,22 @@ Page({
                 bannerList: bannerList
             })
         }, function () {
+            wx.showToast({
+                title: '加载数据失败',
+                icon: 'none'
+            })
+        })
+    },
+
+    getArticleList() {
+        let url = 'api/article/getlist'
+        let submitData = {}
+        request(url, 'post', submitData, res => {
+            let articleList = res.data.data
+            this.setData({
+                articleList
+            })
+        }, res => {
             wx.showToast({
                 title: '加载数据失败',
                 icon: 'none'
@@ -225,7 +243,7 @@ Page({
     onShow() {
         let phone = wx.getStorageSync('phone')
         let hasUserInfo = false
-        if(phone) hasUserInfo = true
+        if (phone) hasUserInfo = true
         this.setData({
             hasUserInfo
         })
@@ -235,10 +253,10 @@ Page({
 
     },
 
-    onPullDownRefresh: function() {
-      console.log(2222)
-      wx.stopPullDownRefresh()
-      this.getData()
+    onPullDownRefresh: function () {
+        console.log(2222)
+        wx.stopPullDownRefresh()
+        this.getData()
     }
 
 })
