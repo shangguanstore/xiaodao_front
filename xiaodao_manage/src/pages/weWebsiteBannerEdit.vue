@@ -53,7 +53,7 @@
         <FormItem label="排序" prop="sort" style="width: 50%">
           <Input v-model="formValidate.sort" placeholder="banner顺序,数值越大越靠前"></Input>
         </FormItem>
-        <p style="margin-bottom: 24px;margin-top: -12px;margin-left: 86px;color: #666666;">
+        <p style="margin-bottom: 24px;margin-top: -12px;margin-left: 86px;color: #666666;font-size: 12px;">
           *&nbsp;数值越大，排序越靠前，值相等时按添加时间排序
         </p>
       </Form>

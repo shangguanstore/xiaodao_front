@@ -48,7 +48,7 @@
             <Input number v-model="formValidate.price_format" placeholder="请输入商品价格"></Input>
             <span class="fieldUnit">元</span>
           </FormItem>
-          <p style="margin-bottom: 7px;margin-top: 12px;margin-left: 106px;color: #666666;">
+          <p style="margin-bottom: 7px;margin-top: 12px;margin-left: 106px;color: #666666;font-size: 12px;">
             *&nbsp;在小程序端，选择支付方式为“微信支付”的价格
           </p>
           </Col>
@@ -60,7 +60,7 @@
             <Input number v-model="formValidate.point_format" placeholder="请输入"></Input>
             <span class="fieldUnit">分</span>
           </FormItem>
-          <p style="margin-bottom: 7px;margin-top: 12px;margin-left: 106px;color: #666666;">
+          <p style="margin-bottom: 7px;margin-top: 12px;margin-left: 106px;color: #666666;font-size: 12px;">
             *&nbsp;在小程序端，选择支付方式为“积分兑换”所需要的积分
           </p>
           </Col>
@@ -160,7 +160,7 @@
             {name: 'editing', items: ['Scayt']}
           ],
           height: 400,
-          width: 700
+          width: '100%'
         },
         showPicModal: false,
         formValidate: {

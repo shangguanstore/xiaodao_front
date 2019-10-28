@@ -34,7 +34,7 @@
               <Input number v-model="formValidate.price" placeholder="请输入活动价格"></Input>
               <span class="fieldUnit">元</span>
             </FormItem>
-          <p style="margin-bottom: 24px;margin-top: 8px;margin-left: 100px;color: #666666;">
+          <p style="margin-bottom: 24px;margin-top: 8px;margin-left: 100px;color: #666666;font-size: 12px;">
             *&nbsp;如果免费请不填</p>
           </Col>
         </Row>
@@ -52,7 +52,7 @@
             <Input number v-model="formValidate.price" placeholder="请输入课程价格"></Input>
             <span class="fieldUnit">元</span>
           </FormItem>
-          <p style="margin-bottom: 24px;margin-top: 8px;margin-left: 100px;color: #666666;">
+          <p style="margin-bottom: 24px;margin-top: 8px;margin-left: 100px;color: #666666;font-size: 12px;">
             *&nbsp;如果免费请不填</p>
           </Col>
         </Row>

@@ -66,7 +66,7 @@
         <span>课程考勤与扣课时</span>
       </p>
 
-      <div class="check_nums mt20">
+      <div class="check_nums">
         已选择<span>{{attendanceCheckNums}}</span>项
       </div>
       <div>
@@ -167,7 +167,7 @@
           {
             title: '出勤情况',
             key: '出勤情况',
-            width: '150px',
+            width: 150,
             render: (h, params) => {
               return h('div', [
                 h('RadioGroup', {

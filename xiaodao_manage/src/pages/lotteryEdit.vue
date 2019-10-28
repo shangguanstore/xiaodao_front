@@ -42,7 +42,7 @@
             <Input number v-model="formValidate.lottery_limit_draw" placeholder="请输入每人抽奖次数上限"></Input>
             <span class="fieldUnit">次</span>
           </FormItem>
-          <p style="margin-bottom: 24px;margin-top: 8px;margin-left: 100px;color: #666666;">
+          <p style="margin-bottom: 24px;margin-top: 8px;margin-left: 100px;color: #666666;font-size: 12px;">
             *&nbsp;设定抽奖次数上限值，避免一个人重复多次抽奖</p>
           </Col>
         </Row>
