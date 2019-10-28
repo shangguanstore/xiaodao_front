@@ -274,7 +274,6 @@
             {
               title: '操作',
               key: 'operation',
-              width: '200px',
               render: (h, params) => {
                 return h('div', [
                   h('Button', {
