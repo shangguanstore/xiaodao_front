@@ -59,9 +59,9 @@ App({
 
     //配置开始
     config: {
-        cid: 100023,
-        // baseServerUrl: 'https://api.xiaost.net/',
-        baseServerUrl: 'http://hxe.7hu.cn/',
+        cid: 100021,
+        baseServerUrl: 'https://api.xiaost.net/',
+        // baseServerUrl: 'http://hxe.7hu.cn/',
 
         Qiniu: {
             ACTION_URL: 'http://up.qiniu.com',
