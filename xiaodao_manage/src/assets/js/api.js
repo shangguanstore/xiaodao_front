@@ -10,7 +10,7 @@ import lib from '@/assets/js/lib/index'
 //     }
 //     let url = lib.getRequestUrl('/api/member/getlist', submitData)
 //     this.$http.get(url, {}).then(res => {
-//       let member = res.data.member
+//       let member = res.data.data
 //       member = lib.filterResult(member)
 //       success(member)
 //     }).catch(error => {
@@ -26,7 +26,7 @@ function getSaleList(success, fail){
   }
   let url = lib.getRequestUrl('/api/member/getlist', submitData)
   this.$http.get(url, {}).then(res => {
-    let member = res.data.member
+    let member = res.data.data
     member = lib.filterResult(member)
     success(member)
   }).catch(error => {
@@ -40,7 +40,7 @@ function getTeacherList(success, fail){
   }
   let url = lib.getRequestUrl('/api/member/getlist', submitData)
   this.$http.get(url, {}).then(res => {
-    let member = res.data.member
+    let member = res.data.data
     member = lib.filterResult(member)
     success(member)
   }).catch(error => {

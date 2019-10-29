@@ -19,12 +19,15 @@ function toApplyActivity(type, activityData, groupid) {
             url: `../login/login?from=${app.config.FrontLoginFrom.FROM_ACTIVITY_APPLY}&orderType=${type}&activityData=${JSON.stringify(activityData)}&groupid=${groupid}`
         })
     }
+}
 
-    // if (lib.in_array(type, [app.config.ActivityOrder.TYPE_DEFAULT, app.config.FrontOrderType.TYPE_GROUP_SINGLE])) {
-
-    // } else if (lib.in_array(type, [app.config.ActivityOrder.TYPE_GROUP_START_TUAN, app.config.FrontOrderType.TYPE_GROUP_JOIN_TUAN])) {
-
-    // }
+function shopSubmitOrder() {
+    let member = wx.getStorageSync('member')
+    if (!member.phone) {
+        wx.navigateTo({
+            url: `../../pages/login/login?from=${app.config.FrontLoginFrom.FROM_SUBMIT_SHOP_ORDER}`
+        })
+    }
 }
 
 function setPageInterval(key, fn, t) {
@@ -78,13 +81,14 @@ function updateUserInfo() {
                     },
                     success(res) {
                         var data = res.data
-                        var member = data.member[0]
-                        wx.setStorageSync('UU7', data.UU7)
-                        wx.setStorageSync('mid', member.mid)
-                        wx.setStorageSync('member', member)
-                        wx.setStorageSync('uname', member.uname)
-                        wx.setStorageSync('phone', member.phone)
-
+                        if(data.data) {
+                            var member = data.data[0]
+                            wx.setStorageSync('UU7', data.UU7)
+                            wx.setStorageSync('mid', member.mid)
+                            wx.setStorageSync('member', member)
+                            wx.setStorageSync('uname', member.uname)
+                            wx.setStorageSync('phone', member.phone)
+                        }
                     }
                 })
             }
@@ -94,6 +98,7 @@ function updateUserInfo() {
 
 module.exports = {
     toApplyActivity: toApplyActivity,
+    shopSubmitOrder: shopSubmitOrder,
     setPageInterval: setPageInterval,
     clearPageInterval: clearPageInterval,
     checkWxSession,

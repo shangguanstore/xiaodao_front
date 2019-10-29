@@ -145,7 +145,10 @@
     },
     methods: {
       getCompany() {
-        let url = lib.getRequestUrl('/api/company/getlist', {})
+        let submitData = {
+          cid: this.$store.state.cid
+        }
+        let url = lib.getRequestUrl('/api/company/getlist', submitData)
         this.$http.get(url, {}).then(res => {
           let company = res.data.data || []
           this.formValidate = company[0]

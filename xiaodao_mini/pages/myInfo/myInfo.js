@@ -44,7 +44,7 @@ Page({
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
       console.log('res',res)
-      var data = res.data.member[0]
+      var data = res.data.data[0]
       var  sex = data.sex == 1 ? '男' : '女'
       var create_time_format = lib.date('Y年m月d日',data.create_time)
       _this.setData({

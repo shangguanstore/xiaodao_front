@@ -72,231 +72,233 @@
 </template>
 
 <script>
-    import lib from '@/assets/js/lib/index'
-    import config from '@/assets/js/config/index'
+  import lib from '@/assets/js/lib/index'
+  import config from '@/assets/js/config/index'
 
 
-    export default {
-        name: 'weWebsiteBannerEdit',
-        data() {
-            return {
-                mid: 0,
-                title: "",
-                isAdd: true,
-                QiniuToken: '',
-                activityList: [],
-                imglink_format: [],
-                formValidate: {
-                    activity_id: 0,
-                    sort: 0,
-                },
-                ruleValidate: {
-                    name: [
-                        {required: true, message: '请输入活动名称', trigger: 'blur'}
-                    ],
-                    desc: [
-                        {required: true, message: '请输入活动简介', trigger: 'blur'}
-                    ],
-                },
-                /*图片上传*/
-                uploadList: [],
-                imgName: '',
-                viewImg: false,
-                EXTERNAL_LINK: '',
-                ACTION_URL: ''
-                /*图片上传结束*/
-            }
+  export default {
+    name: 'weWebsiteBannerEdit',
+    data() {
+      return {
+        mid: 0,
+        title: "",
+        isAdd: true,
+        QiniuToken: '',
+        activityList: [],
+        imglink_format: [],
+        formValidate: {
+          activity_id: 0,
+          sort: 0,
         },
-        created() {
-            if (this.$route.query.id) {
-                this.title = "编辑Banner"
-                this.isAdd = false
-                let submitData = {
-                    id: this.$route.query.id
-                }
-                let url = lib.getRequestUrl('/api/mbanner/getlist', submitData)
-                this.$http.get(url, {}).then(res => {
-                    if (res) {
-                        let data = res.data.Data
-                        console.log('data', data)
-                        this.imglink_format = lib.getImglink(data.imglink,false)
-                        console.log('imglink_format',this.imglink_format)
-
-                        this.formValidate.activity_id = data.content_id
-                        this.formValidate.sort = data.sort
-
-
-                        console.log('formValidate',this.formValidate)
-                    }
-                }).catch(error => {
-                    console.log(error)
-                    this.$Message.error(error.message);
-                })
-            } else {
-                this.title = "新增Banner"
-                this.isAdd = true
-
-                var htmlId = lib.getRandomString()
-                this.detailListFormValidate = [
-                    {
-                        htmlId: htmlId,
-                        title: "",
-                        detail: ""
-                    },
-                ]
-            }
-
-            this.getActivity()
+        ruleValidate: {
+          name: [
+            {required: true, message: '请输入活动名称', trigger: 'blur'}
+          ],
+          desc: [
+            {required: true, message: '请输入活动简介', trigger: 'blur'}
+          ],
         },
-        mounted() {
-            /*图片上传*/
-            this.uploadList = this.$refs.upload.fileList
-            this.getQiniuToken()
-            this.EXTERNAL_LINK = config.Qiniu.EXTERNAL_LINK
-            this.ACTION_URL = config.Qiniu.ACTION_URL
-        },
-        computed: {
-            /*图片上传*/
-            fileName() {
-                return 'all'
-            },
-            defaultList() {
-                if(this.$route.query.id) {
-                    var pics = lib.getImglink(this.$route.query.imglink,false)
-                    let picData = []
-                    for(let item in pics) {
-                        picData.push({
-                            "name": pics[item],
-                            'url': config.Qiniu.EXTERNAL_LINK + pics[item]
-                        })
-                    }
-                    console.log('picData',picData)
+        /*图片上传*/
+        uploadList: [],
+        imgName: '',
+        viewImg: false,
+        EXTERNAL_LINK: '',
+        ACTION_URL: ''
+        /*图片上传结束*/
+      }
+    },
+    created() {
+      if (this.$route.query.id) {
+        this.title = "编辑Banner"
+        this.isAdd = false
+        let submitData = {
+          id: this.$route.query.id,
+          cid: this.$store.state.cid,
+        }
+        let url = lib.getRequestUrl('/api/mbanner/getlist', submitData)
+        this.$http.get(url, {}).then(res => {
+          if (res) {
+            let data = res.data.Data
+            console.log('data', data)
+            this.imglink_format = lib.getImglink(data.imglink, false)
+            console.log('imglink_format', this.imglink_format)
 
-                    return picData
-                } else {
-                    return []
-                }
-            },
-        },
-        methods: {
-            console() {
-                console.log(this.content);
-            },
-            getActivity() {
-                let submitData = {
-                    queryDetail: false,
-                }
-                let url = lib.getRequestUrl('/api/activity/getlist', submitData)
-                this.$http.get(url, {}).then(res => {
-                    if (res) {
-                        let data = res.data.data
-                        this.activityList = data
-                    }
-                }).catch(error => {
-                    console.log(error)
-                    this.$Message.error(error.message);
-                })
-            },
-            handleSubmit() {
-                let submitData
-                let url
-                if (this.isAdd) {
-                    console.log('this.uploadList',this.uploadList)
-                    submitData = {
-                        content_id: this.formValidate.activity_id,
-                        type: config.Mbanner.TYPE_ACTIVITY,
-                        sort: this.formValidate.sort,
-                        imglink: lib.getUploadPicStr(this.uploadList)
-                    }
-                    url = "/api/mbanner/add"
-                } else {
-                    submitData = {
-                        id: this.$route.query.id,
-                        content_id: this.formValidate.activity_id,
-                        type: config.Mbanner.TYPE_ACTIVITY,
-                        sort: this.formValidate.sort,
-                        imglink: lib.getUpdateUploadPicStr(this.uploadList)
-                    }
-                    url = "/api/mbanner/update"
-                }
+            this.formValidate.activity_id = data.content_id
+            this.formValidate.sort = data.sort
 
-                this.$http.post(url, submitData).then(res => {
-                    if (res) {
-                        this.$Message.success(this.title + '成功!')
-                        var _this = this
-                        setTimeout(function () {
-                            _this.$router.push({
-                                path: 'weWebsite',
-                                query: {}
-                            })
-                        }, 200)
-                    }
-                }).catch(error => {
-                    this.$Message.error(error.message)
-                })
-            },
 
-            /*上传图片*/
-            getQiniuToken() {
-                let url = 'api/qiniu/token/get'
-                let submitData = {}
-                this.$http.post(url, submitData).then(res => {
-                    if (res) {
-                        this.QiniuToken = res.data.token
-                    }
-                }).catch(error => {
-                    this.$Message.error(error.message)
-                })
-            },
-            handleView(name) {
-                this.imgName = name;
-                this.viewImg = true;
-            },
-            handleRemove(file) {
-                const fileList = this.$refs.upload.fileList;
-                this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
-            },
-            handleSuccess(res, file) {
-                file.url = config.Qiniu.EXTERNAL_LINK + res.key;
-                file.name = res.hash;
-                console.log('file',file)
-                console.log(this.uploadList)
-            },
-            handleFormatError(file) {
-                this.$Message.success('请上传jpg，jpeg，png，格式的图片')
-            },
-            handleMaxSize(file) {
-                this.$Message.success('请上传不大于2M的图片')
-            },
-            handleBeforeUpload(file) {
-                this.file = file
-                let files = [], fileData = [];
-                for (let item in this.file) {
-                    files.push(this.file[item])
-                }
-                let filess = files[0]
-                fileData = filess.split('.')
-                // this.$refs.upload.action = config.Qiniu.ACTION_URL
-                const check = this.uploadList.length < 1;
-                if (!check) {
-                    this.$Message.success('封面图只允许上传一张图片')
-                }
-                return check;
-            },
-            /*上传结束*/
+            console.log('formValidate', this.formValidate)
+          }
+        }).catch(error => {
+          console.log(error)
+          this.$Message.error(error.message);
+        })
+      } else {
+        this.title = "新增Banner"
+        this.isAdd = true
 
-            handleReset(name) {
-                this.$refs[name].resetFields();
-            },
-            onBlur(editor) {
-                console.log(editor);
-            },
-            onFocus(editor) {
-                console.log(editor);
-            },
+        var htmlId = lib.getRandomString()
+        this.detailListFormValidate = [
+          {
+            htmlId: htmlId,
+            title: "",
+            detail: ""
+          },
+        ]
+      }
 
-        },
-    }
+      this.getActivity()
+    },
+    mounted() {
+      /*图片上传*/
+      this.uploadList = this.$refs.upload.fileList
+      this.getQiniuToken()
+      this.EXTERNAL_LINK = config.Qiniu.EXTERNAL_LINK
+      this.ACTION_URL = config.Qiniu.ACTION_URL
+    },
+    computed: {
+      /*图片上传*/
+      fileName() {
+        return 'all'
+      },
+      defaultList() {
+        if (this.$route.query.id) {
+          var pics = lib.getImglink(this.$route.query.imglink, false)
+          let picData = []
+          for (let item in pics) {
+            picData.push({
+              "name": pics[item],
+              'url': config.Qiniu.EXTERNAL_LINK + pics[item]
+            })
+          }
+          console.log('picData', picData)
+
+          return picData
+        } else {
+          return []
+        }
+      },
+    },
+    methods: {
+      console() {
+        console.log(this.content);
+      },
+      getActivity() {
+        let submitData = {
+          cid: this.$store.state.cid,
+          queryDetail: false,
+        }
+        let url = lib.getRequestUrl('/api/activity/getlist', submitData)
+        this.$http.get(url, {}).then(res => {
+          if (res) {
+            let data = res.data.data
+            this.activityList = data
+          }
+        }).catch(error => {
+          console.log(error)
+          this.$Message.error(error.message);
+        })
+      },
+      handleSubmit() {
+        let submitData
+        let url
+        if (this.isAdd) {
+          console.log('this.uploadList', this.uploadList)
+          submitData = {
+            content_id: this.formValidate.activity_id,
+            type: config.Mbanner.TYPE_ACTIVITY,
+            sort: this.formValidate.sort,
+            imglink: lib.getUploadPicStr(this.uploadList)
+          }
+          url = "/api/mbanner/add"
+        } else {
+          submitData = {
+            id: this.$route.query.id,
+            content_id: this.formValidate.activity_id,
+            type: config.Mbanner.TYPE_ACTIVITY,
+            sort: this.formValidate.sort,
+            imglink: lib.getUpdateUploadPicStr(this.uploadList)
+          }
+          url = "/api/mbanner/update"
+        }
+
+        this.$http.post(url, submitData).then(res => {
+          if (res) {
+            this.$Message.success(this.title + '成功!')
+            var _this = this
+            setTimeout(function () {
+              _this.$router.push({
+                path: 'weWebsite',
+                query: {}
+              })
+            }, 200)
+          }
+        }).catch(error => {
+          this.$Message.error(error.message)
+        })
+      },
+
+      /*上传图片*/
+      getQiniuToken() {
+        let url = 'api/qiniu/token/get'
+        let submitData = {}
+        this.$http.post(url, submitData).then(res => {
+          if (res) {
+            this.QiniuToken = res.data.token
+          }
+        }).catch(error => {
+          this.$Message.error(error.message)
+        })
+      },
+      handleView(name) {
+        this.imgName = name;
+        this.viewImg = true;
+      },
+      handleRemove(file) {
+        const fileList = this.$refs.upload.fileList;
+        this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
+      },
+      handleSuccess(res, file) {
+        file.url = config.Qiniu.EXTERNAL_LINK + res.key;
+        file.name = res.hash;
+        console.log('file', file)
+        console.log(this.uploadList)
+      },
+      handleFormatError(file) {
+        this.$Message.success('请上传jpg，jpeg，png，格式的图片')
+      },
+      handleMaxSize(file) {
+        this.$Message.success('请上传不大于2M的图片')
+      },
+      handleBeforeUpload(file) {
+        this.file = file
+        let files = [], fileData = [];
+        for (let item in this.file) {
+          files.push(this.file[item])
+        }
+        let filess = files[0]
+        fileData = filess.split('.')
+        // this.$refs.upload.action = config.Qiniu.ACTION_URL
+        const check = this.uploadList.length < 1;
+        if (!check) {
+          this.$Message.success('封面图只允许上传一张图片')
+        }
+        return check;
+      },
+      /*上传结束*/
+
+      handleReset(name) {
+        this.$refs[name].resetFields();
+      },
+      onBlur(editor) {
+        console.log(editor);
+      },
+      onFocus(editor) {
+        console.log(editor);
+      },
+
+    },
+  }
 </script>
 <style lang="less">
 

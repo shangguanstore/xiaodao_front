@@ -40,7 +40,7 @@
   </view>
 
   <view class='myItem'>
-    <view class='list' data-url='../myPoint/myPoint' bindtap='routeTo'>
+    <view class='list' data-url='../myPoint/myPoint' bindtap='toMyPoint'>
       <view class='image'>
         <image src='../../images/ucenter/myOpe.png'></image>
       </view>
@@ -49,7 +49,7 @@
       </view>
     </view>
 
-    <view class='list' data-url='../myJoin/myJoin' bindtap='routeTo'>
+    <view class='list' data-url='../myJoin/myJoin' bindtap='toMyJoin'>
       <view class='image'>
         <image src='../../images/ucenter/myField.png'></image>
       </view>
@@ -58,7 +58,7 @@
       </view>
     </view>
 
-    <view class='list' data-url='../lotteryList/lotteryList' bindtap='routeTo'>
+    <view class='list' data-url='../lotteryList/lotteryList' bindtap='toLotteryList'>
       <view class='iconArea'>
         <text class='iconfont icon-gift'></text>
       </view>

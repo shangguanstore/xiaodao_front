@@ -476,10 +476,10 @@
         changePointModel: false,
         pointDetailOptions: {},
         pointDetailFilterFun: i=> {
-          i.map(item=>{
-            item.num_format = item.num / 1000
-            item.cur_point_num_format = item.cur_point_num / 1000
-          })
+          // i.map(item=>{
+          //   item.num_format = item.num / 1000
+          //   item.cur_point_num_format = item.cur_point_num / 1000
+          // })
           return i
         },
         pointDetailTableColumns: [
@@ -497,11 +497,11 @@
           },
           {
             title: '变动数量',
-            key: 'num_format'
+            key: 'num'
           },
           {
             title: '剩余积分',
-            key: 'cur_point_num_format'
+            key: 'cur_point_num'
           },
           {
             title: '备注',
@@ -614,7 +614,7 @@
           if (valid) {
             let submitData = {
               mid: this.$route.query.mid,
-              num: this.pointFormValidate.num * 1000,
+              num: this.pointFormValidate.num,
               comment: this.pointFormValidate.comment
             }
             let url = 'api/change/user/point'
@@ -779,7 +779,7 @@
         }
         let url = lib.getRequestUrl('/api/member/getlist', submitData)
         this.$http.get(url, {}).then(res => {
-          let member = res.data.member
+          let member = res.data.data
           member = lib.filterResult(member)
           this.memberInfo = member[0]
         }).catch(error => {

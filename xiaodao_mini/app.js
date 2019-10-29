@@ -34,14 +34,22 @@ App({
                                 },
                                 success(res) {
                                     var data = res.data
-                                    var member = data.member[0]
-                                    wx.setStorageSync('UU7', data.UU7)
-                                    wx.setStorageSync('mid', member.mid)
-                                    wx.setStorageSync('member', member)
-                                    wx.setStorageSync('uname', member.uname)
-                                    wx.setStorageSync('phone', member.phone)
-                                    wx.setStorageSync('avatar', member.avatar)
-                                    resolve(res)
+                                    if(data.data) {
+                                        var member = data.data[0]
+                                        wx.setStorageSync('mid', member.mid)
+                                        wx.setStorageSync('UU7', data.UU7)
+                                        wx.setStorageSync('member', member)
+                                        wx.setStorageSync('uname', member.uname)
+                                        wx.setStorageSync('phone', member.phone)
+                                        wx.setStorageSync('avatar', member.avatar)
+                                        resolve(res)
+                                    }else{
+                                        console.log('data',data)
+                                        console.log('data.openid',data.openid)
+
+                                        wx.setStorageSync('openid',data.openid)
+                                        resolve(false)
+                                    }
                                 },
                                 fail(err) {
                                     reject(err)
@@ -114,6 +122,7 @@ App({
             FROM_LOGIN: 2,//个人中心，点击登录
             FROM_LOTTERY_DRAW: 3,//抽奖游戏
             FROM_INDEX_EXPERIENCE: 4,//首页点击 我要体验
+            FROM_SUBMIT_SHOP_ORDER: 5,//商城提交订单页面
         },
         ShopOrderGoods: {
             PAY_TYPE_POINT: 0,

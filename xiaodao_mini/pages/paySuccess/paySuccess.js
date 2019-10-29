@@ -59,11 +59,11 @@ Page({
         Loaded: true,
         activityOrder: activityOrder
       })
-    }, function () {
-      wx.showToast({
-        title: '加载数据失败',
-        icon: 'none'
-      })
+    }, function (res) {
+        wx.showToast({
+            title: res.data.errMsg,
+            icon: 'none'
+        })
     })
   },
 

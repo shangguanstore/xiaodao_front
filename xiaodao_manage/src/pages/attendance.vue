@@ -146,7 +146,7 @@
             render: (h, params) => {
               const row = params.row;
               const color = row.KQflag === 0 ? 'primary' : row.KQflag === 1 ? 'success' : 'error';
-              const text = row.KQflag === 0 ? '未考勤' : row.KQflag === 1 ? '已考勤' : '状态错误';
+              const text = row.KQflag === 0 ? '未考勤' : row.KQflag === 1 ? '已考勤' : row.KQflag === -1 ? '已取消' : '状态错误';
 
               return h('Tag', {
                 props: {
@@ -509,12 +509,14 @@
           this.attendanceLoading = false
           let attendanceTableData = res.data.data
           attendanceTableData.map(item=>{
-            if(item.status == config.Attendance.STATUS_INIT || item.status == config.Attendance.STATUS_CANCEL) {
+            if(item.status == config.Attendance.STATUS_INIT) {
               item['KQflag'] = 0
+            }else if(item.status == config.Attendance.STATUS_CANCEL){
+              item['KQflag'] = -1
             }else{
               item['KQflag'] = 1
             }
-            item.status_show = item.status == config.Attendance.STATUS_INIT ? config.Attendance.STATUS_ATTENDANCE : item.status
+            item.status_show = item.status == config.Attendance.STATUS_INIT || item.status == config.Attendance.STATUS_CANCEL ? config.Attendance.STATUS_ATTENDANCE : item.status
             item.type_show = item.type == config.Attendance.TYPE_INIT ? config.Attendance.TYPE_ATTEND : item.type
 
             if(item.status_show == config.Attendance.STATUS_ATTENDANCE) {

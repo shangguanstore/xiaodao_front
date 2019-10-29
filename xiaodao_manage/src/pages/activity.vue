@@ -205,6 +205,7 @@
       },
       getTableData(option) {
         let submitData = {
+          cid: this.$store.state.cid,
           type: [config.Activity.TYPE_NORMAL],
           search: this.searchValue,
           pageIndex: option.pageIndex,

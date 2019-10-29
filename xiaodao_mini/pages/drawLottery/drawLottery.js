@@ -192,6 +192,7 @@ Page({
         let url = 'api/activity/getlist'
         let data = {
             id: this.data.activity_id,
+            cid: app.config.cid,
             queryDetail: true,
             type: app.config.Activity.TYPE_LOTTERY
         }
@@ -221,9 +222,8 @@ Page({
                 _this.addShareRecord()
             }
         }, function (res) {
-            console.log('res',res)
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })
@@ -252,9 +252,8 @@ Page({
                 lotteryDrawList
             })
         }, function (res) {
-            console.log('res', res)
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })
@@ -303,9 +302,9 @@ Page({
                 lotteryGoods: lotteryGoods,
                 lotteryGoodsDisplay: lotteryGoodsDisplay
             })
-        }, function () {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })

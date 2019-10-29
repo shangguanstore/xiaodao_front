@@ -39,11 +39,9 @@ Page({
     request(url, 'get', data, function (res) {
       //res就是我们请求接口返回的数据
       var pointList = res.data.data
-      var curPoint = !lib.empty(pointList[0]) ? parseInt(pointList[0].cur_point_num / 1000) : 0
+      var curPoint = !lib.empty(pointList[0]) ? parseInt(pointList[0].cur_point_num) : 0
       pointList = pointList.map(item=>{
         item.create_time_format = lib.date('Y-m-d', item.create_time)
-        item.num_format = item.num / 1000
-        item.cur_point_num_format = item.cur_point_num / 1000
         return item
       })
 
@@ -52,11 +50,11 @@ Page({
         pointList: pointList,
         Loaded: true
       })
-    }, function () {
-      wx.showToast({
-        title: '加载数据失败',
-        icon: 'none'
-      })
+    }, function (res) {
+        wx.showToast({
+            title: res.data.errMsg,
+            icon: 'none'
+        })
     })
   },
 

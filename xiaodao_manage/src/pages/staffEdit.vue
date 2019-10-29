@@ -115,7 +115,7 @@
             let url = lib.getRequestUrl('/api/member/getlist', submitData)
             this.$http.get(url, {}).then(res => {
                 if(res) {
-                   let member = res.data.member[0]
+                   let member = res.data.data[0]
                    this.formValidate.phone = member.phone
                    this.formValidate.name = member.uname
                    this.formValidate.canLogin = '是'

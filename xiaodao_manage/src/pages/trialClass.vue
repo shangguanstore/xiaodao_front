@@ -211,6 +211,7 @@
           search: this.searchValue,
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,
+          cid: this.$store.state.cid,
           queryDetail: false
         }
         let url = lib.getRequestUrl('/api/activity/getlist', submitData)

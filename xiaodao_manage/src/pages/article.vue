@@ -212,6 +212,7 @@
       },
       getTableData(option) {
         let submitData = {
+          cid: this.$store.state.cid,
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,
         }

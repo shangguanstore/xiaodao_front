@@ -233,6 +233,7 @@
       },
       getActivityList(option) {
         let submitData = {
+          cid: this.$store.state.cid,
           search: '',
           pageIndex: option.pageIndex,
           pageSize: option.pageSize,

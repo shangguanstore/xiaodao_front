@@ -478,7 +478,7 @@
             this.current = option.page
 
             this.total = res.data.total
-            let tableData = res.data.member ? lib.filterResult(res.data.member) : []
+            let tableData = res.data.data ? lib.filterResult(res.data.data) : []
             tableData.map(item=>{
               var cardArr = lib.array_column(item.card, 'company_course_name')
               item.card_format = cardArr.length > 0 ? cardArr.join('，') : ''

@@ -52,7 +52,7 @@ Page({
         }, res => {
             wx.hideLoading();
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })

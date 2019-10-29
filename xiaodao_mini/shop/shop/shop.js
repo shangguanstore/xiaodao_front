@@ -38,7 +38,7 @@ Page({
 
     getGoodsList() {
         let url = 'api/shop/goods/getlist'
-        request(url, 'post', {}, res=>{
+        request(url, 'post', {cid: app.config.cid}, res=>{
             var goodsList = res.data.data
             lib.filterResult(goodsList)
 
@@ -50,7 +50,7 @@ Page({
             })
         }, res=>{
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
             this.setData({
@@ -61,7 +61,7 @@ Page({
 
     getBannerList() {
         let url = 'api/shop/banner/getlist'
-        request(url, 'post', {}, res=>{
+        request(url, 'post', {cid: app.config.cid}, res=>{
             var bannerList = res.data.data
             lib.filterResult(bannerList)
 
@@ -70,7 +70,7 @@ Page({
             })
         }, res=>{
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
             this.setData({

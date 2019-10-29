@@ -489,7 +489,7 @@
             this.current = option.page
 
             this.total = res.data.total
-            let tableData = res.data.member ? lib.filterResult(res.data.member) : []
+            let tableData = res.data.data ? lib.filterResult(res.data.data) : []
             tableData.map(function (item) {
               item.line_comment_format = item.line_comment.length ? item.line_comment[0].content : ''
             })

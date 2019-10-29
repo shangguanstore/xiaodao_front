@@ -194,6 +194,7 @@
                 let submitData = {
                     pageIndex: option.pageIndex,
                     pageSize: option.pageSize,
+                    cid: this.$store.state.cid,
                 }
                 let url = lib.getRequestUrl('/api/mbanner/getlist', submitData)
                 this.$http.get(url, {}).then(res => {

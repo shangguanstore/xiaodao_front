@@ -32,6 +32,7 @@ Page({
     getData() {
         let url = 'api/article/getlist'
         let submitData = {
+            cid: app.config.cid,
             id: this.data.articleId
         }
         request(url, 'post', submitData, res => {
@@ -39,9 +40,9 @@ Page({
             // lib.filterResult(article)
             let detail = article[0].detail
             WxParse.wxParse('article', 'html', detail, this, 5);
-        }, res => {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })

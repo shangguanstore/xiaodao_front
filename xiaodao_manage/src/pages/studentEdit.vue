@@ -133,7 +133,7 @@
         let url = lib.getRequestUrl('/api/member/getlist', submitData)
         this.$http.get(url, {}).then(res => {
           if (res) {
-            let member = res.data.member[0]
+            let member = res.data.data[0]
             this.formValidate.phone = member.phone
             this.formValidate.mother_phone = member.mother_phone
             this.formValidate.father_phone = member.father_phone

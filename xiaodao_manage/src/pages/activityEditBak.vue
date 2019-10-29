@@ -342,6 +342,7 @@
         this.isAdd = false
         let submitData = {
           id: this.$route.query.id,
+          cid: this.$store.state.cid,
           queryDetail: true,
         }
         let url = lib.getRequestUrl('/api/activity/getlist', submitData)

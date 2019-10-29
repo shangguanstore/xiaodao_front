@@ -383,9 +383,9 @@
           role_id: item.role_id,
         }
         this.$http.post('/api/member/multilogin', submitData).then(res => {
-          let data = res.data
+          let data = res.data.data
 
-          this.$store.dispatch('Uname', data.member.uname)
+          this.$store.dispatch('Uname', data.uname)
           this.$store.dispatch('Cid', item.cid)
           this.$store.dispatch('Uid', item.uid)
           this.$store.dispatch('Mid', item.mid)

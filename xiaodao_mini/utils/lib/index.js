@@ -10,6 +10,7 @@ var isPhone = require('./isPhone.js')
 var filterResult = require('./filterResult.js')
 var getRelationType = require('./getRelationType.js')
 var getMsgTime = require('./getMsgTime.js')
+var in_array = require('./in_array.js')
 var getShopOrderStatusName = require('./getShopOrderStatusName.js')
 var numberLengthFormat = require('./numberLengthFormat.js')
 
@@ -26,6 +27,7 @@ var lib = {
 	isset: isset,
   isPhone: isPhone,
   sprintf: sprintf,
+    in_array: in_array,
   getImglink: getImglink,
   numberLengthFormat: numberLengthFormat,
   filterResult: filterResult

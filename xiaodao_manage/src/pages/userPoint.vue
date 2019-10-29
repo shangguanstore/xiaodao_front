@@ -204,7 +204,7 @@
             this.total = res.data.total
             this.tableData = lib.filterResult(res.data.data)
             this.tableData.map(item => {
-              item.num_format = parseInt(item.num / 1000)
+              item.num_format = parseInt(item.num)
             })
           }
         }).catch(error => {
@@ -224,7 +224,7 @@
           if (valid) {
             let submitData = {
               mid: this.formValidate.mid,
-              num: this.formValidate.num * 1000,
+              num: this.formValidate.num,
               comment: this.formValidate.comment
             }
             let url = 'api/change/user/point'

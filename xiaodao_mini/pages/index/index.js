@@ -31,6 +31,8 @@ Page({
         })
 
         app.userOnline.then(res => {
+            console.log('index-res',res)
+
             let uname = wx.getStorageSync('uname')
             let phone = wx.getStorageSync('phone')
             let hasUserInfo = !!phone
@@ -114,7 +116,10 @@ Page({
         // wx.showLoading()
         let url = 'api/company/getlist'
         var _this = this
-        request(url, 'get', {}, function (res) {
+        let submitData = {
+            cid: app.config.cid,
+        }
+        request(url, 'get', submitData, function (res) {
             //res就是我们请求接口返回的数据
             var company = res.data.data
             lib.filterResult(company)
@@ -124,9 +129,9 @@ Page({
                 Loaded: true
             })
             // wx.hideLoading()
-        }, function () {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })
@@ -135,6 +140,7 @@ Page({
     getBannerList() {
         let url = 'api/mbanner/getlist'
         let data = {
+            cid: app.config.cid,
             pageIndex: 1,
             pageSize: 10
         }
@@ -150,9 +156,9 @@ Page({
             _this.setData({
                 bannerList: bannerList
             })
-        }, function () {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })
@@ -160,15 +166,17 @@ Page({
 
     getArticleList() {
         let url = 'api/article/getlist'
-        let submitData = {}
+        let submitData = {
+            cid: app.config.cid
+        }
         request(url, 'post', submitData, res => {
             let articleList = res.data.data
             this.setData({
                 articleList
             })
-        }, res => {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })
@@ -179,6 +187,7 @@ Page({
         let data = {
             pageIndex: 1,
             pageSize: 100,
+            cid: app.config.cid,
             type: `${this.data.config.Activity.TYPE_COURSE},${this.data.config.Activity.TYPE_GROUPON}`,
             publish: `${this.data.config.Activity.PUBLISH_ON}`,
             queryDetail: false
@@ -206,9 +215,9 @@ Page({
             _this.setData({
                 activityList: activityList,
             })
-        }, function () {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })

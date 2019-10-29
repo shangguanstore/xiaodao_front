@@ -75,7 +75,7 @@ Page({
 
     getGoodsData(id) {
         let url = 'api/shop/goods/getlist'
-        request(url, 'post', {id}, res=>{
+        request(url, 'post', {id,cid: app.config.cid}, res=>{
             let goods = lib.filterResult(res.data.data)[0]
 
             this.setData({
@@ -86,9 +86,9 @@ Page({
                 buyNumber: (goods.inventory > 0) ? 1 : 0
             });
             WxParse.wxParse('article', 'html', goods.detail, this, 5);
-        }, res=>{
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })

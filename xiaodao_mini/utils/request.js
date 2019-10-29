@@ -15,6 +15,7 @@ var request = function (url, method, params, success, fail, message = '') {
 
     var UU7 = wx.getStorageSync('UU7')
     params.UU7 = UU7
+    params.cid = app.config.cid
 
     wx.showNavigationBarLoading()
     if (message != "") {

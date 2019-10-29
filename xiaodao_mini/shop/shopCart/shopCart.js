@@ -234,7 +234,7 @@ Page({
             var carShopBeanStores = 0;
 
             let url = 'api/shop/goods/getlist'
-            request(url, 'post', {id: carShopBean.goodsId}, res=>{
+            request(url, 'post', {id: carShopBean.goodsId, cid: app.config.cid}, res=>{
                 let goods = lib.filterResult(res.data.data)[0]
 
                 carShopBeanStores = goods.inventory;
@@ -248,7 +248,7 @@ Page({
                 })
             }, res=>{
                 wx.showToast({
-                    title: '加载数据失败',
+                    title: res.data.errMsg,
                     icon: 'none'
                 })
             })
@@ -351,7 +351,7 @@ Page({
             // 获取价格和库存
             if (!carShopBean.propertyChildIds || carShopBean.propertyChildIds == "") {
                 let url = 'api/shop/goods/getlist'
-                request(url, 'post', {id: carShopBean.goodsId}, res=>{
+                request(url, 'post', {id: carShopBean.goodsId, cid: app.config.cid}, res=>{
                     let goods = lib.filterResult(res.data.data)[0]
 
                     doneNumber++;
@@ -402,7 +402,7 @@ Page({
                     }
                 }, res=>{
                     wx.showToast({
-                        title: '加载数据失败',
+                        title: res.data.errMsg,
                         icon: 'none'
                     })
                 })

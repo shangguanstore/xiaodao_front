@@ -188,7 +188,7 @@
         }
         let url = lib.getRequestUrl('/api/member/getlist', submitData)
         this.$http.get(url, {}).then(res => {
-          this.teacherList = res.data.member
+          this.teacherList = res.data.data
         }).catch(error => {
           this.$Message.error(error.message);
         })
@@ -199,7 +199,7 @@
         }
         let url = lib.getRequestUrl('/api/member/getlist', submitData)
         this.$http.get(url, {}).then(res => {
-          this.classTeacherList = res.data.member
+          this.classTeacherList = res.data.data
         }).catch(error => {
           this.$Message.error(error.message);
         })

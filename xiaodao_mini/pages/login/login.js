@@ -159,9 +159,9 @@ Page({
             _this.setData({
                 formValidate
             })
-        }, function () {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })
@@ -224,7 +224,6 @@ Page({
             return
         }
 
-        // let url = 'api/member/update'
         let data = {
             mid: wx.getStorageSync('mid'),
             phone: phone,
@@ -240,7 +239,11 @@ Page({
         userAuth.login(res => {
             if (this.data.from == app.config.FrontLoginFrom.FROM_ACTIVITY_APPLY) {
                 common.toApplyActivity(this.data.orderType, this.data.activityData, this.data.groupid)
-            } else if (this.data.from == app.config.FrontLoginFrom.FROM_LOGIN || this.data.from == app.config.FrontLoginFrom.FROM_LOTTERY_DRAW) {
+            } else if (lib.in_array(this.data.from, [
+                    app.config.FrontLoginFrom.FROM_LOGIN,
+                    app.config.FrontLoginFrom.FROM_LOTTERY_DRAW,
+                    app.config.FrontLoginFrom.FROM_SUBMIT_SHOP_ORDER,
+                ])) {
                 wx.showToast({
                     title: '注册成功~',
                     icon: 'success'

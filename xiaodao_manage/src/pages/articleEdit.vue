@@ -181,6 +181,7 @@
         this.title = "文章编辑"
         this.isAdd = false
         let submitData = {
+          cid: this.$store.state.cid,
           id: this.$route.query.id
         }
         this.$http.post('/api/article/getlist', submitData).then(res => {

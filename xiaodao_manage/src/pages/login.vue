@@ -104,7 +104,7 @@
         this.$http.post('/api/member/login', submitData).then(res => {
           this.submitLoading = false
           if (res.data.errNo == 100000) {
-            let member = res.data.member
+            let member = res.data.data
 
             this.$store.dispatch('Uname', member.uname)
             this.$store.dispatch('Cid', member.cid)

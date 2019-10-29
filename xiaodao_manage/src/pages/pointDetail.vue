@@ -90,11 +90,11 @@
             },
             {
               title: '变动数量',
-              key: 'num_format'
+              key: 'num'
             },
             {
               title: '剩余积分',
-              key: 'cur_point_num_format'
+              key: 'cur_point_num'
             },
             {
               title: '备注',
@@ -204,11 +204,6 @@
 
             this.total = res.data.total
             this.tableData = lib.filterResult(res.data.data)
-             console.log('this.tableData',this.tableData)
-            this.tableData.map(item=>{
-              item.num_format = item.num / 1000
-              item.cur_point_num_format = item.cur_point_num / 1000
-            })
           }
         }).catch(error => {
           console.log('error', error)

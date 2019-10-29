@@ -43,6 +43,7 @@ Page({
         let url = 'api/activity/getlist'
         let data = {
             pageIndex: 1,
+            cid: app.config.cid,
             pageSize: 100,
             type: `${this.data.config.Activity.TYPE_NORMAL},${this.data.config.Activity.TYPE_LOTTERY}`,
             publish: this.data.config.Activity.PUBLISH_ON,
@@ -69,9 +70,9 @@ Page({
                 activityList: activityList,
                 Loaded: true
             })
-        }, function () {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })

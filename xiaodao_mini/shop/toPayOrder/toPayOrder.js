@@ -2,6 +2,7 @@
 const app = getApp()
 const config = app.config
 const lib = require('../../utils/lib/index.js')
+const common = require('../../utils/common.js')
 const request = require('../../utils/request.js')
 var mallUtil = require('../../mall-utils/util.js')
 
@@ -113,41 +114,46 @@ Page({
     },
 
     orderAdd() {
-        let url = 'api/shop/order/add'
-        let goodsList = this.data.goodsList
+        let phone = wx.getStorageSync('phone')
+        if(phone) {
+            let url = 'api/shop/order/add'
+            let goodsList = this.data.goodsList
 
-        let goodsArr = []
-        goodsList.map(item => {
-            goodsArr.push({
-                name: item.name,
-                id: item.goodsId,
-                num: item.number,
-                pay_type: this.data.paymentIndex
+            let goodsArr = []
+            goodsList.map(item => {
+                goodsArr.push({
+                    name: item.name,
+                    id: item.goodsId,
+                    num: item.number,
+                    pay_type: this.data.paymentIndex
+                })
             })
-        })
 
-        let submitData = {
-            goodsArr
-        }
-        request(url, 'post', submitData, res => {
-            wx.hideLoading();
-
-            if ("buyNow" != this.data.orderType) {
-                // 清空购物车数据
-                wx.removeStorageSync('shopCarInfo');
+            let submitData = {
+                goodsArr
             }
+            request(url, 'post', submitData, res => {
+                wx.hideLoading();
 
-            // 下单成功，跳转到订单管理界面
-            wx.redirectTo({
-                url: `/shop/shopOrderDetail/shopOrderDetail?id=${res.data.id}`
-            });
-        }, res => {
-            wx.hideLoading();
-            wx.showToast({
-                title: '加载数据失败',
-                icon: 'none'
+                if ("buyNow" != this.data.orderType) {
+                    // 清空购物车数据
+                    wx.removeStorageSync('shopCarInfo');
+                }
+
+                // 下单成功，跳转到订单管理界面
+                wx.redirectTo({
+                    url: `/shop/shopOrderDetail/shopOrderDetail?id=${res.data.id}`
+                });
+            }, res => {
+                wx.hideLoading();
+                wx.showToast({
+                    title: res.data.errMsg,
+                    icon: 'none'
+                })
             })
-        })
+        }else{
+            common.shopSubmitOrder()
+        }
     },
 
     createOrder: function (e) {

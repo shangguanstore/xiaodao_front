@@ -17,29 +17,37 @@ class UserAuth {
         }
     }
 
-    xstLogin(loginSuccess) {
+    login(loginSuccess) {
         var _this = this
         let hasSubmitInfo = !lib.empty(this.userSubmitInfo) ? true : false
-        let url = 'api/member/update'
+        let url
         let data = this.userSubmitInfo || {}
-        data.mid = wx.getStorageSync('mid')
-        data.apigc_uid = wx.getStorageSync('apigc_uid')
         data.name = data.name ? data.name : this.userInfo.nickName
+        //data.apigc_uid = wx.getStorageSync('apigc_uid')
         data.sex = this.userInfo.gender
         data.avatar = this.userInfo.avatarUrl
-        if (hasSubmitInfo) {
-            if (this.userSubmitInfo.phone) data.enforce_change_phone = true
+        data.cid = app.config.cid
+
+        if(wx.getStorageSync('mid')) {
+            url = 'api/member/update'
+            data.mid = wx.getStorageSync('mid')
+            if (hasSubmitInfo) {
+                if (this.userSubmitInfo.phone) data.enforce_change_phone = true
+            }
+        }else{
+            url = 'api/member/add'
+            data.openid = wx.getStorageSync('openid')
         }
 
         request(url, 'post', data, function (res) {
             //res就是我们请求接口返回的数据
-            console.log('update', res)
-            var member = res.data.member
+            var member = res.data.data
             var UU7 = res.data.UU7
             wx.setStorageSync('member', member)
             wx.setStorageSync('phone', member.phone)
             wx.setStorageSync('uname', member.uname)
             wx.setStorageSync('avatar', member.avatar)
+            wx.setStorageSync('mid', member.mid)
             wx.setStorageSync('UU7', UU7)
 
             loginSuccess(res)
@@ -51,6 +59,7 @@ class UserAuth {
         })
     }
 
+    /*
     login(loginSuccess) {
         var _this = this
         let token = wx.getStorageSync('token');
@@ -127,6 +136,7 @@ class UserAuth {
             }
         })
     }
+    */
 }
 
 

@@ -218,7 +218,7 @@
             this.current = option.pageIndex
 
             this.total = res.data.total
-            this.tableData = lib.filterResult(res.data.member)
+            this.tableData = lib.filterResult(res.data.data)
           }
         }).catch(error => {
           console.log('error', error)

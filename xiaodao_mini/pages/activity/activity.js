@@ -44,12 +44,12 @@ Page({
     onLoad: function (options) {
         console.log('a-o', options)
 
-        app.userOnline.then(res=>{
+        app.userOnline.then(res => {
             //初始化参数
             // options.scene = `id%3D37%26from_mid%3D17425`
-            if(!options.scene) {
+            if (!options.scene) {
                 initOption.call(this, options)
-            }else{
+            } else {
                 // wx.showToast({
                 //     title: `[${options.scene}]`,
                 //     duration: 5000,
@@ -60,7 +60,7 @@ Page({
                 var queryStringArr = decodeURIComponent(options.scene).split('&')
                 // var queryStringArr = options.scene.split('&')
 
-                for(var i in queryStringArr) {
+                for (var i in queryStringArr) {
                     queryStringObj[queryStringArr[i].split('=')[0]] = queryStringArr[i].split('=')[1]
                 }
                 initOption.call(this, queryStringObj)
@@ -203,9 +203,9 @@ Page({
 
     },
     onShareSelectClose() {
-      this.setData({
-          showShareSelectBox: false
-      })
+        this.setData({
+            showShareSelectBox: false
+        })
     },
 
     joinActivity(nickname, join_phone) {
@@ -260,6 +260,7 @@ Page({
         let url = 'api/activity/getlist'
         let data = {
             id: this.data.activityId,
+            cid: app.config.cid,
             queryDetail: true,
         }
         request(url, 'get', data, function (res) {
@@ -292,9 +293,9 @@ Page({
 
             _this.getActivityApplyMemberList()
             _this.getShareContent()
-        }, function () {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })
@@ -303,7 +304,7 @@ Page({
     getShareContent() {
         let activity = this.data.activity
         let shareContent = {}
-        if(activity.type == app.config.Activity.TYPE_GROUPON) {
+        if (activity.type == app.config.Activity.TYPE_GROUPON) {
             shareContent = {
                 type: activity.type,
                 title: activity.name,
@@ -311,19 +312,19 @@ Page({
                 pstart: activity.group_start_time_format,
                 pend: activity.group_end_time_format
             }
-        }else if(activity.type == app.config.Activity.TYPE_COURSE) {//课程
+        } else if (activity.type == app.config.Activity.TYPE_COURSE) {//课程
             shareContent = {
                 type: activity.type,
                 title: activity.name,
                 banner: activity.imglink_format,
             }
-        }else if(activity.type == app.config.Activity.TYPE_NORMAL) {//活动
+        } else if (activity.type == app.config.Activity.TYPE_NORMAL) {//活动
             shareContent = {
                 type: activity.type,
                 title: activity.name,
                 banner: activity.imglink_format,
-                start: lib.date('Y-m-d H:i',activity.start_time),
-                end: lib.date('Y-m-d H:i',activity.end_time)
+                start: lib.date('Y-m-d H:i', activity.start_time),
+                end: lib.date('Y-m-d H:i', activity.end_time)
             }
         }
 
@@ -349,9 +350,9 @@ Page({
             _this.setData({
                 groupList: groupList
             })
-        }, function () {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })
@@ -371,8 +372,9 @@ Page({
         let url = 'api/activity/apply/member/getlist'
         let data = {
             activity_id: this.data.activityId,
+            cid: app.config.cid,
             pageIndex: 1,
-            pageSize: 7
+            pageSize: 10
         }
         var _this = this
         request(url, 'get', data, function (res) {
@@ -385,9 +387,9 @@ Page({
                 activityApplyMemberList: activityApplyMemberList,
                 applyTotal: applyTotal
             })
-        }, function () {
+        }, function (res) {
             wx.showToast({
-                title: '加载数据失败',
+                title: res.data.errMsg,
                 icon: 'none'
             })
         })

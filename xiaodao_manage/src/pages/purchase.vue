@@ -441,7 +441,7 @@
         }
         let url = lib.getRequestUrl('/api/member/getlist', submitData)
         this.$http.get(url, {}).then(res => {
-          let memberData = res.data.member ? lib.filterResult(res.data.member) : []
+          let memberData = res.data.data ? lib.filterResult(res.data.data) : []
 
           this.memberList = memberData
           this.memberOptions = memberData.map(item => {
@@ -474,7 +474,7 @@
           }
           let url = lib.getRequestUrl('/api/member/getlist', submitData)
           this.$http.get(url, {}).then(res => {
-            let memberData = res.data.member ? lib.filterResult(res.data.member) : []
+            let memberData = res.data.data ? lib.filterResult(res.data.data) : []
             this.memberOptions = memberData.map(item => {
               return {
                 value: item.mid,

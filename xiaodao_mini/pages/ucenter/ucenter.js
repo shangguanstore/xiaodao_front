@@ -107,6 +107,48 @@ Page({
         }
     },
 
+    toMyPoint() {
+        if (this.data.hasUserInfo) {
+            wx.navigateTo({
+                url: '../myPoint/myPoint'
+            })
+        } else {
+            this.toLogin()
+            // wx.showToast({
+            //   title: '还没登录/注册呢',
+            //   icon: 'none'
+            // })
+        }
+    },
+
+    toMyJoin() {
+        if (this.data.hasUserInfo) {
+            wx.navigateTo({
+                url: '../myJoin/myJoin'
+            })
+        } else {
+            this.toLogin()
+            // wx.showToast({
+            //   title: '还没登录/注册呢',
+            //   icon: 'none'
+            // })
+        }
+    },
+
+    toLotteryList() {
+        if (this.data.hasUserInfo) {
+            wx.navigateTo({
+                url: '../lotteryList/lotteryList'
+            })
+        } else {
+            this.toLogin()
+            // wx.showToast({
+            //   title: '还没登录/注册呢',
+            //   icon: 'none'
+            // })
+        }
+    },
+
     /**
      * 生命周期函数--监听页面显示
      */

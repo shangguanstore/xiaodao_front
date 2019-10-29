@@ -200,10 +200,7 @@
             this.current = option.current
 
             this.total = res.data.total
-            this.tableData = lib.filterResult(res.data.member)
-
-            console.log('this.tableData', this.tableData)
-
+            this.tableData = lib.filterResult(res.data.data)
           }
         }).catch(error => {
           this.loading = false
