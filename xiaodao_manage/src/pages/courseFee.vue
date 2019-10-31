@@ -28,10 +28,10 @@
             </Col>
 
             <Col span="6">
-            <span>课程状态：</span>
-            <Select v-model="model1" style="width:calc(100% - 120px);">
-              <Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-            </Select>
+            <!--<span>课程状态：</span>-->
+            <!--<Select v-model="model1" style="width:calc(100% - 120px);">-->
+              <!--<Option v-for="item in teacherList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+            <!--</Select>-->
             </Col>
 
           </Row>
@@ -281,11 +281,11 @@
             },
             {
               title: '单价(元/课时)',
-              key: 'unit_price_format'
+              key: 'unit_price'
             },
             {
-              title: '在读学员数',
-              key: '在读学员数'
+              title: '报读学员数',
+              key: 'memberNum'
             },
           // {
           //   title: '启用状态',
@@ -549,10 +549,9 @@
       // 编辑页面
       update(params) {
         this.$router.push({
-          path: 'studentEdit',
+          path: 'courseEdit',
           query: {
-            cid: params.row.cid,
-            mid: params.row.mid
+            ccid: params.row.ccid,
           }
         })
       },

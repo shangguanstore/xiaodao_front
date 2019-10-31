@@ -79,7 +79,7 @@
         </Row>
 
         <FormItem>
-          <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
+          <Button type="primary" @click="handleSubmit('formValidate')" :loading="submitLoading">提交</Button>
           <Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
         </FormItem>
       </Form>
@@ -100,6 +100,7 @@
         isAdd: true,
         schoolList: [],
         addSchoolName: '',
+        submitLoading: false,
         formValidate: {
           name: '',
           phone: '',
@@ -221,6 +222,7 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
+            this.submitLoading = true
             let submitData
             let url
             console.log('isAdd', this.isAdd)
@@ -254,6 +256,7 @@
             this.$http.post(url, submitData).then(res => {
               if (res) {
                 this.$Message.success(this.title + '成功!')
+                this.submitLoading = false
 
                 setTimeout(()=>{
                   if(this.$route.query.from == 'client') {
@@ -268,17 +271,9 @@
                     })
                   }
                 }, 200)
-
-
-                var _this = this
-                setTimeout(function () {
-                  _this.$router.push({
-                    path: 'student',
-                    query: {}
-                  })
-                }, 200)
               }
             }).catch(error => {
+              this.submitLoading = false
               this.$Message.error(error.message)
             })
           } else {

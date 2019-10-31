@@ -27,6 +27,7 @@ class UserAuth {
         data.sex = this.userInfo.gender
         data.avatar = this.userInfo.avatarUrl
         data.cid = app.config.cid
+        data.channel = app.config.Member.CHANNEL_MINI_PROGRAM
 
         if(wx.getStorageSync('mid')) {
             url = 'api/member/update'

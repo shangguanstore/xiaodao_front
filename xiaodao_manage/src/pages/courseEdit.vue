@@ -105,7 +105,6 @@
       <Button size="large" style="margin-left: 8px" @click="handleReset">重置</Button>
     </div>
 
-
   </div>
 </template>
 
@@ -174,6 +173,26 @@
     created() {
       this.isAdd = this.$route.query.isAdd
       this.config = config
+
+      if (this.$route.query.ccid) {
+        this.title = "编辑课程"
+        this.isAdd = false
+        let submitData = {
+          ccid: this.$route.query.ccid,
+        }
+        let url = lib.getRequestUrl('/api/company/course/getlist', submitData)
+        this.$http.get(url, {}).then(res => {
+          if (res) {
+            let course = res.data.data[0]
+            this.formValidate = course
+          }
+        }).catch(error => {
+          this.$Message.error(error.message);
+        })
+      } else {
+        this.title = "新增课程"
+        this.isAdd = true
+      }
     },
     mounted(){
 
@@ -214,9 +233,9 @@
               if(valid1) {
                 let submitData = {
                   name: this.formValidate.name,
-                  price: this.formValidate.price * 100,
+                  price: this.formValidate.price,
                   course_num: this.formValidate.course_num,
-                  unit_price: this.formValidate.unit_price * 100,
+                  unit_price: this.formValidate.unit_price,
                   type: this.formValidate.type,
                   course_color: this.formValidate.course_color,
                   content: this.formValidate.content

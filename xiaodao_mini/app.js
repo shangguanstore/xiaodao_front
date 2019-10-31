@@ -110,7 +110,10 @@ App({
         Member: {
             STATUS_OK: 0,
             STATUS_DELETE: -1,
-            STATUS_INACTIVE: 1
+            STATUS_INACTIVE: 1,
+
+            CHANNEL_DEFAULT: 0,
+            CHANNEL_MINI_PROGRAM: 1,
         },
         LotteryGoods: {
             TYPE_PHYSICAL: 0,
