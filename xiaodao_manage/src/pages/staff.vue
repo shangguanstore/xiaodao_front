@@ -249,7 +249,6 @@
         this.$router.push({
           path: 'staffEdit',
           query: {
-            cid: params.row.cid,
             mid: params.row.mid
           }
         })

@@ -204,7 +204,7 @@
                     </p>
                     <p class="bottom-ope">
                       <a href="#" title="修改密码" @click="editPassWord = true">修改密码</a>
-                      <a href="#">个人信息维护</a>
+                      <a href="#" @click="staffInfo">个人信息维护</a>
                     </p>
                   </div>
                 </div>
@@ -456,7 +456,15 @@
             this.$Message.error('请输入完整信息!');
           }
         })
-      }
+      },
+      staffInfo() {
+        this.$router.push({
+          path: 'staffEdit',
+          query: {
+            mid: this.$store.state.mid
+          }
+        })
+      },
     },
   }
 </script>
