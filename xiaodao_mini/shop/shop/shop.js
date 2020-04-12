@@ -19,7 +19,8 @@ Page({
         goodsList: [],
         bannerList: [],
         noGoods: false,
-        loadingMoreHidden: false,
+        loadingMoreHidden: true,
+        Loaded: false,
     },
 
     /**
@@ -46,15 +47,13 @@ Page({
             this.setData({
                 goodsList: goodsList,
                 loadingMoreHidden: true,
+                Loaded: true,
                 noGoods
             })
         }, res=>{
             wx.showToast({
                 title: res.data.errMsg,
                 icon: 'none'
-            })
-            this.setData({
-                loadingMoreHidden: true,
             })
         })
     },
@@ -72,9 +71,6 @@ Page({
             wx.showToast({
                 title: res.data.errMsg,
                 icon: 'none'
-            })
-            this.setData({
-                loadingMoreHidden: true,
             })
         })
     },

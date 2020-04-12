@@ -213,65 +213,67 @@ Component({
         },
 
         startGame: function () {
-            this.setData({
-                isRunning: true
-            })
-            let _this = this
-
-            let index = 0
-            let interval = setInterval(function (item) {
-                if (index > 7) {
-                    index = 0;
-                }
-                _this.setData({
-                    indexSelect: index,
+            let phone = wx.getStorageSync('phone')
+            if(phone) {
+                this.setData({
+                    isRunning: true
                 })
-                index++
-            }, 500)
+                let _this = this
 
-            // clearInterval(interval)
-
-
-            let url = 'api/activity/lottery/draw'
-            let data = {
-                activity_id: this.data.activityId
-            }
-            request(url, 'post', data, function (res) {
-                //res就是我们请求接口返回的数据
-                let lottery = res.data.data
-
-                clearInterval(interval)
-
-                let which = 0
-                for (var i = 0, len = _this.data.awardList.length; i < len; i++) {
-                    if (_this.data.awardList[i].lottery_goods_id == lottery.lottery_goods_id) {
-                        which = i
-                        console.log('1111')
-                        break
+                let index = 0
+                let interval = setInterval(function (item) {
+                    if (index > 7) {
+                        index = 0;
                     }
-                }
-                console.log('which', which)
-
-                _this.setData({
-                    remain: _this.data.remain - 1
-                })
-                _this.stopLuck(which, index, _this.data.intime, 2);
-            }, function (res) {
-                console.log('res', res)
-                clearInterval(interval)
-                _this.setData({
-                    indexSelect: 0,
-                })
-
-                if(res.data.errNo == 145003) {
-                    _this.triggerEvent('runOut')
-                }else{
-                    wx.showToast({
-                        title: res.data.errMsg,
-                        icon: 'none'
+                    _this.setData({
+                        indexSelect: index,
                     })
+                    index++
+                }, 500)
+
+                let url = 'api/activity/lottery/draw'
+                let data = {
+                    activity_id: this.data.activityId
                 }
-            })
+                request(url, 'post', data, function (res) {
+                    //res就是我们请求接口返回的数据
+                    let lottery = res.data.data
+
+                    clearInterval(interval)
+
+                    let which = 0
+                    for (var i = 0, len = _this.data.awardList.length; i < len; i++) {
+                        if (_this.data.awardList[i].lottery_goods_id == lottery.lottery_goods_id) {
+                            which = i
+                            console.log('1111')
+                            break
+                        }
+                    }
+                    console.log('which', which)
+
+                    _this.setData({
+                        remain: _this.data.remain - 1
+                    })
+                    _this.stopLuck(which, index, _this.data.intime, 2);
+                }, function (res) {
+                    console.log('res', res)
+                    clearInterval(interval)
+                    _this.setData({
+                        indexSelect: 0,
+                    })
+
+                    if(res.data.errNo == 145003) {
+                        _this.triggerEvent('runOut')
+                    }else{
+                        wx.showToast({
+                            title: res.data.errMsg,
+                            icon: 'none'
+                        })
+                    }
+                })
+            }else{
+                common.offlineDrawLottery()
+            }
         },
 
         /**

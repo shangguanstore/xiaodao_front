@@ -10,6 +10,7 @@ Page({
      */
     data: {
         articleId: 0,
+        Loaded: false
     },
 
     /**
@@ -38,6 +39,9 @@ Page({
         request(url, 'post', submitData, res => {
             var article = res.data.data
             // lib.filterResult(article)
+            this.setData({
+                Loaded: true
+            })
             let detail = article[0].detail
             WxParse.wxParse('article', 'html', detail, this, 5);
         }, function (res) {

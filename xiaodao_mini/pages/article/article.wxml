@@ -1,6 +1,7 @@
 <!--pages/article/article.wxml-->
 <import src="../../wxParse/wxParse.wxml" />
 <view class='container'>
+  <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff"/>
   <view class='rich-text'>
     <template is="wxParse" data="{{wxParseData:article.nodes}}" />
   </view>

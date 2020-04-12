@@ -50,20 +50,23 @@ Page({
             })
         }
 
-        var timer = setInterval(()=>{
-            var UU7 = wx.getStorageSync('UU7')
-            var uname = wx.getStorageSync('uname')
-            if (UU7) {
-                clearInterval(timer)
-                this.getActivity()
-                this.getLotteryDrawList()
-                if(!uname) {
-                    this.setData({
-                        showAuthBox: true
-                    })
-                }
-            }
-        }, 500)
+        this.getActivity()
+        this.getLotteryDrawList()
+
+        // var timer = setInterval(()=>{
+        //     var UU7 = wx.getStorageSync('UU7')
+        //     var uname = wx.getStorageSync('uname')
+        //     if (UU7) {
+        //         clearInterval(timer)
+        //         this.getActivity()
+        //         this.getLotteryDrawList()
+        //         if(!uname) {
+        //             this.setData({
+        //                 showAuthBox: true
+        //             })
+        //         }
+        //     }
+        // }, 500)
     },
 
     /**
@@ -144,11 +147,15 @@ Page({
         } else if (lottery.type == this.data.config.LotteryGoods.TYPE_COUPON) {//优惠券
             if (!/(一|二|两|三|四|五|六|七|八|九|十|[0-9]+)/.test(lottery.name)) {
                 unit = '一张'
+            }else{
+                unit = ''
             }
             showGetLotteryDes = `获得${lottery.name}${unit}，赶快联系机构到店消费吧~`
         } else if (lottery.type == this.data.config.LotteryGoods.TYPE_EXPERIENCE) {
             if (!/(一|二|两|三|四|五|六|七|八|九|十|[0-9]+)/.test(lottery.name)) {
                 unit = '一节'
+            }else{
+                unit = ''
             }
             showGetLotteryDes = `获得${lottery.name}${unit}，赶快联系机构到店体验吧~`
         }

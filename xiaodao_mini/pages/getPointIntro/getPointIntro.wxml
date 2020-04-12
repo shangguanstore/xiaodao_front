@@ -1,58 +1,61 @@
 <!--pages/getPointIntro/getPointIntro.wxml-->
 <view class="container">
-  <view class="top">
-    <view class="title">我的积分</view>
-    <view class="des">{{curPoint}}</view>
-  </view>
-
-  <view class="intro">
-    <view class="item floatWrap">
-        <view class="imgArea">
-          <text class="iconfont icon-login_register" style="font-size: 50rpx;color: #ea7848;"></text>
-        </view>
-        <view class="content">
-            <view class="wrap">
-              <view class="title">注册送50积分</view>
-              <view class="des">完成手机号绑定注册送50积分</view>
-            </view>
-        </view>
+    <view class="top">
+        <view class="title">我的积分</view>
+        <view class="des">{{curPoint}}</view>
     </view>
 
-    <view class="item floatWrap">
-        <view class="imgArea">
-          <text class="iconfont icon-social" style="font-size: 50rpx;color: #d531c8;"></text>
-        </view>
-        <view class="content">
-            <view class="wrap">
-              <view class="title">邀请送20积分</view>
-              <view class="des">邀请好友注册送20积分</view>
+    <view class="intro">
+
+        <view wx:if="{{pointRule.KEY_POINT_REGISTER.status == config.Common.STATUS_OK}}" class="item floatWrap">
+            <view class="imgArea">
+                <text class="iconfont icon-login_register" style="font-size: 50rpx;color: #ea7848;"></text>
+            </view>
+            <view class="content">
+                <view class="wrap">
+                    <view class="title">注册送{{pointRule.KEY_POINT_REGISTER.value}}积分</view>
+                    <view class="des">完成手机号绑定注册送{{pointRule.KEY_POINT_REGISTER.value}}积分</view>
+                </view>
             </view>
         </view>
-    </view>
 
-    <view class="item floatWrap">
-        <view class="imgArea">
-          <text class="iconfont icon-shujijiaocai" style="font-size: 50rpx;color: #d3217b;"></text>
-        </view>
-        <view class="content">
-            <view class="wrap">
-              <view class="title">推荐课程消费得20积分</view>
-              <view class="des">推荐好友消费得20积分</view>
+        <view wx:if="{{pointRule.KEY_POINT_SHARE.status == config.Common.STATUS_OK}}" class="item floatWrap">
+            <view class="imgArea">
+                <text class="iconfont icon-social" style="font-size: 50rpx;color: #d531c8;"></text>
+            </view>
+            <view class="content">
+                <view class="wrap">
+                    <view class="title">邀请送{{pointRule.KEY_POINT_SHARE.value}}积分</view>
+                    <view class="des">邀请好友注册送{{pointRule.KEY_POINT_SHARE.value}}积分</view>
+                </view>
             </view>
         </view>
-    </view>
 
-    <view class="item floatWrap">
-        <view class="imgArea">
-          <text class="iconfont icon-gou" style="font-size: 50rpx;color: #17abe3;"></text>
-        </view>
-        <view class="content">
-            <view class="wrap">
-              <view class="title">连续签到得5积分</view>
-              <view class="des">连续签到5天得5积分</view>
+        <view wx:if="{{pointRule.KEY_POINT_SHARE_APPLY.status == config.Common.STATUS_OK}}" class="item floatWrap">
+            <view class="imgArea">
+                <text class="iconfont icon-shujijiaocai" style="font-size: 50rpx;color: #d3217b;"></text>
+            </view>
+            <view class="content">
+                <view class="wrap">
+                    <view class="title">转介绍得{{pointRule.KEY_POINT_SHARE_APPLY.value}}积分</view>
+                    <view class="des">每转介绍一人获得{{pointRule.KEY_POINT_SHARE_APPLY.value}}积分</view>
+                </view>
             </view>
         </view>
+
+        <view wx:if="{{false}}" class="item floatWrap">
+            <view class="imgArea">
+                <text class="iconfont icon-gou" style="font-size: 50rpx;color: #17abe3;"></text>
+            </view>
+            <view class="content">
+                <view class="wrap">
+                    <view class="title">连续签到得5积分</view>
+                    <view class="des">连续签到5天得5积分</view>
+                </view>
+            </view>
+        </view>
+
     </view>
 
-  </view>
+    <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff"/>
 </view>

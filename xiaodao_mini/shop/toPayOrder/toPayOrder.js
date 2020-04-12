@@ -152,7 +152,7 @@ Page({
                 })
             })
         }else{
-            common.shopSubmitOrder()
+            common.offlineSubmitShopOrder()
         }
     },
 

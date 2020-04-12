@@ -75,6 +75,9 @@ App({
         baseServerUrl: 'https://api.xiaost.net/',
         // baseServerUrl: 'http://hxe.7hu.cn/',
 
+        Common: {
+            STATUS_OK: 0,
+        },
         Qiniu: {
             ACTION_URL: 'http://up.qiniu.com',
             EXTERNAL_LINK: 'http://qiniu.xiaost.net/',
@@ -139,8 +142,9 @@ App({
             ORDER_STATUS_CANCEL: 13,
             ORDER_STATUS_REFUND: 14,
         },
-
-
+        XstCompanySetting: {
+            KEY_POINT_REGISTER: ''
+        },
     },
     //配置结束
 

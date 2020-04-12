@@ -21,11 +21,20 @@ function toApplyActivity(type, activityData, groupid) {
     }
 }
 
-function shopSubmitOrder() {
+function offlineSubmitShopOrder() {
     let member = wx.getStorageSync('member')
     if (!member.phone) {
         wx.navigateTo({
             url: `../../pages/login/login?from=${app.config.FrontLoginFrom.FROM_SUBMIT_SHOP_ORDER}`
+        })
+    }
+}
+
+function offlineDrawLottery() {
+    let member = wx.getStorageSync('member')
+    if (!member.phone) {
+        wx.navigateTo({
+            url: `../../pages/login/login?from=${app.config.FrontLoginFrom.FROM_LOTTERY_DRAW}`
         })
     }
 }
@@ -98,9 +107,10 @@ function updateUserInfo() {
 
 module.exports = {
     toApplyActivity: toApplyActivity,
-    shopSubmitOrder: shopSubmitOrder,
     setPageInterval: setPageInterval,
     clearPageInterval: clearPageInterval,
     checkWxSession,
-    updateUserInfo
+    updateUserInfo,
+    offlineSubmitShopOrder,
+    offlineDrawLottery
 }

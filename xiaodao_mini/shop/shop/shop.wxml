@@ -63,10 +63,6 @@
         </scroll-view>
     </view>
 
-    <view class="no-goods" wx:if="{{noGoods}}">
-        商城空空如也~
-    </view>
-
     <view class="goods-container" style="margin-top: {{bannerList.length > 0 ? '0rpx' : '100rpx'}}">
         <view class="goods-box" wx:for-items="{{goodsList}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
             <view class="img-box">
@@ -85,5 +81,12 @@
     </view>
     <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
 
+
+
+    <view class="no-goods" wx:if="{{noGoods}}">
+        商城空空如也~
+    </view>
+
+    <van-loading wx:if="{{!Loaded}}" type="spinner" custom-class="loading loadingShadow" color="#fff"/>
 </view>
 
